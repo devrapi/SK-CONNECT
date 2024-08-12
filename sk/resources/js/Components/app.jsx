@@ -1,8 +1,11 @@
 import React from 'react'
-
+import { BrowserRouter } from 'react-router-dom'
+import RoutesComponents from './Routes/RoutesComponents'
 const app = () => {
   return (
-    <div>hello world</div>
+    <BrowserRouter>
+        <RoutesComponents/>
+    </BrowserRouter>
   )
 }
 
