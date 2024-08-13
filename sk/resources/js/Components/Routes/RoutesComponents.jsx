@@ -5,6 +5,10 @@ import Register from '../UsersComponents/AuthUsers/register';
 import Login from '../UsersComponents/AuthUsers/login';
 import Index from '../UsersComponents/AuthUsers/index';
 import NotFound from './NotFound';
+import AdminRegister from '../AdminComponents/AuthAdmin/register'
+import AdminLogin from '../AdminComponents/AuthAdmin/login'
+import Dashboard from '../AdminComponents/AdminDashboard/AdminIndex'
+
 const RoutesComponents = () => {
   return (
 
@@ -16,9 +20,11 @@ const RoutesComponents = () => {
         </Route>
 
         <Route path='/index' element={<Index/>}/>
-
         <Route path="*" element={<NotFound />}/>
 
+        <Route path='/admin/register' element={<AdminRegister/>}/>
+        <Route path='/admin/login' element={<AdminLogin/>}/>
+        <Route path='/admin/dashboard' element={<Dashboard/>}/>
 
    </Routes>
   )

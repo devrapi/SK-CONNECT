@@ -7,6 +7,7 @@ export default function AppProvider({children}){
 
     const[token , setToken] = useState(localStorage.getItem('token'));
     const[user , setUser] = useState(null);
+    const[admin , setAdmin] = useState(null);
 
     async function getUser(){
         const res = await ApiService.get("/user", {
@@ -16,9 +17,25 @@ export default function AppProvider({children}){
         },
     });
 
+
     const data = await res.data;
 
         setUser(data)
+    }
+
+
+    async function getAdmin(){
+        const res = await ApiService.get("/user", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+        },
+    });
+
+
+    const data = await res.data;
+
+        setAdmin(data)
     }
 
     useEffect(() => {
@@ -27,11 +44,16 @@ export default function AppProvider({children}){
         }
     }, [token])
 
+    useEffect(() => {
+        if(token){
+            getAdmin();
+        }
+    }, [token])
 
 
     return (
 
-        <AppContext.Provider value={{token , setToken , user  , setUser}}>
+        <AppContext.Provider value={{token , setToken , user  , setUser ,setAdmin ,admin}}>
             {children}
         </AppContext.Provider>
     )

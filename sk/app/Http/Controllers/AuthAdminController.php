@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AuthUserController extends Controller
+
+class AuthAdminController extends Controller
 {
     public function register(Request $request){
 
@@ -16,11 +17,11 @@ class AuthUserController extends Controller
             'password' => 'required|confirmed'
         ]);
 
-        $User = User::create($fields);
-        $token = $User->createToken($request->name);
+        $Admin = Admin::create($fields);
+        $token = $Admin->createToken($request->name);
 
         return  [
-            'User' => $User,
+            'Admin' => $Admin,
             'token' => $token->plainTextToken
         ];
 
@@ -28,22 +29,22 @@ class AuthUserController extends Controller
     public function login(Request $request)
 {
             $request->validate([
-                'email' => 'required|email|exists:users',
+                'email' => 'required|email|exists:admins',
                 'password' => 'required'
             ]);
 
-            $User = User::where('email', $request->email)->first();
+            $Admin = Admin::where('email', $request->email)->first();
 
-            if (!$User || !Hash::check($request->password, $User->password)) {
+            if (!$Admin || !Hash::check($request->password, $Admin->password)) {
                 return response()->json([
                     'message' => 'Invalid credentials'
                 ], 401); // Return 401 Unauthorized status
             }
 
-            $token = $User->createToken($User->name);
+            $token = $Admin->createToken($Admin->name);
 
             return response()->json([
-                'User' => $User,
+                'Admin' => $Admin,
                 'token' => $token->plainTextToken
             ], 200); // Return 200 OK status
 }
@@ -57,5 +58,4 @@ class AuthUserController extends Controller
         ];
 
     }
-
 }
