@@ -7,8 +7,9 @@ const ApiService = axios.create({
         "Content-Type": "application/json",
             Accept: "application/json"
 
-    }
-})
+    },
+    withCredentials: true, // Important for session-based auth
+});
 
 ApiService.interceptors.request.use((config) => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')

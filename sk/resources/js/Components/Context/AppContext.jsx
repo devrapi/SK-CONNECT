@@ -8,7 +8,7 @@ export default function AppProvider({children}){
     const[token , setToken] = useState(localStorage.getItem('token'));
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
-
+    const [role , setRole] = useState(localStorage.getItem('role'));
     async function getUser(){
         const res = await ApiService.get("/user", {
             headers: {
@@ -21,7 +21,9 @@ export default function AppProvider({children}){
     const data = await res.data;
 
         setUser(data)
+
     }
+
 
 
     async function getAdmin(){
@@ -35,7 +37,8 @@ export default function AppProvider({children}){
 
     const data = await res.data;
 
-        setAdmin(data)
+        setAdmin(data);
+
     }
 
     useEffect(() => {
@@ -53,7 +56,7 @@ export default function AppProvider({children}){
 
     return (
 
-        <AppContext.Provider value={{token , setToken , user  , setUser ,setAdmin ,admin}}>
+        <AppContext.Provider value={{token , setToken , user  , setUser ,setAdmin ,admin , role , setRole}}>
             {children}
         </AppContext.Provider>
     )

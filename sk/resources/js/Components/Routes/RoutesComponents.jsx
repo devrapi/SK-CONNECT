@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 import AdminRegister from '../AdminComponents/AuthAdmin/register'
 import AdminLogin from '../AdminComponents/AuthAdmin/login'
 import Dashboard from '../AdminComponents/AdminDashboard/AdminIndex'
+import ProtectedRoutes from './ProtectedRoutes';
 
 const RoutesComponents = () => {
   return (
@@ -19,12 +20,19 @@ const RoutesComponents = () => {
             <Route path='/login' element={<Login/>}/>
         </Route>
 
-        <Route path='/index' element={<Index/>}/>
         <Route path="*" element={<NotFound />}/>
 
         <Route path='/admin/register' element={<AdminRegister/>}/>
         <Route path='/admin/login' element={<AdminLogin/>}/>
-        <Route path='/admin/dashboard' element={<Dashboard/>}/>
+
+
+        <Route element={<ProtectedRoutes requiredRole="admin" />}>
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+      </Route>
+
+      <Route element={<ProtectedRoutes requiredRole="user" />}>
+        <Route path="/index" element={<Index />} />
+      </Route>
 
    </Routes>
   )

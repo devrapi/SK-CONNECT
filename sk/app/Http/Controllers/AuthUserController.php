@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,23 @@ class AuthUserController extends Controller
             'password' => 'required|confirmed'
         ]);
 
-        $User = User::create($fields);
+        $profiling = Profile::where('full_name', $request->input('name'))->first();
+
+        if (!$profiling) {
+            return response()->json(['message' => 'Name not found in profiling database. Please register for profiling first.'], 400);
+        }
+
+        if (User::where('profile_id', $profiling->id)->exists()) {
+            return response()->json(['message' => 'Profile is already associated with another user.'], 400);
+        }
+
+
+        $User = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']),
+            'profile_id' => $profiling->id
+        ]);
         $token = $User->createToken($request->name);
 
         return  [
@@ -44,7 +61,8 @@ class AuthUserController extends Controller
 
             return response()->json([
                 'User' => $User,
-                'token' => $token->plainTextToken
+                'token' => $token->plainTextToken,
+
             ], 200); // Return 200 OK status
 }
 

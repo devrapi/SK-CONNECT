@@ -6,7 +6,7 @@ import { AppContext } from '../../Context/AppContext';
 
 const login = () => {
 
-    const {token, setToken} = useContext(AppContext);
+    const {token, setToken , setRole ,role} = useContext(AppContext);
     const[form , setForm] = useState({
       email: '',
       password: ''
@@ -23,7 +23,9 @@ const login = () => {
             if (response.status === 200) { // Check if the response status is 200 (OK)
                 const token = response.data.token;
                 localStorage.setItem("token", token);
+                const roles = localStorage.setItem('role', response.data.role);//store role
                 setToken(token);
+                setRole(roles);
                 navigate('/index');
             }
 
