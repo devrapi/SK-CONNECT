@@ -1,12 +1,12 @@
 
 import React, { useState ,useContext} from 'react'
 import ApiService from '../../Services/ApiService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../Context/AppContext';
 
 const login = () => {
 
-    const {token, setToken , setRole ,role} = useContext(AppContext);
+    const { setToken , setRole } = useContext(AppContext);
     const[form , setForm] = useState({
       email: '',
       password: ''
@@ -18,14 +18,15 @@ const login = () => {
     const HandleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await ApiService.post('/login', form);
+            const response = await ApiService.post('/login', form);;
 
             if (response.status === 200) { // Check if the response status is 200 (OK)
                 const token = response.data.token;
+                const role = response.data.role;
                 localStorage.setItem("token", token);
-                const roles = localStorage.setItem('role', response.data.role);//store role
+                localStorage.setItem("role", role);
+                setRole(role);
                 setToken(token);
-                setRole(roles);
                 navigate('/index');
             }
 
@@ -47,9 +48,10 @@ const login = () => {
     }
 
 
+
   return (
     <>
-        <div className="flex items-center justify-center h-[80vh]  ">
+        <div className="flex items-center justify-center h-[100vh]  ">
   <div className="relative flex flex-col p-6 text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border ">
     <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
       Sign In
@@ -94,13 +96,14 @@ const login = () => {
         Sign In
       </button>
       <p className="block mt-4 font-sans text-base antialiased font-normal leading-relaxed text-center text-gray-700">
-        Already have an account?
-        <a
+        Don't have an account?
+        <Link
+        to="/register"
           className="font-semibold text-green-500 transition-colors hover:text-blue-700"
-          href="#"
+
         >
           Sign Up
-        </a>
+        </Link>
       </p>
     </form>
 

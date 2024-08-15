@@ -62,8 +62,10 @@ class AuthUserController extends Controller
             return response()->json([
                 'User' => $User,
                 'token' => $token->plainTextToken,
+                'role' => $User->role,
 
-            ], 200); // Return 200 OK status
+
+            ], 200);
 }
 
     public function logout(Request $request){

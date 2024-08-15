@@ -28,6 +28,11 @@ const ProtectedRoutes = ({requiredRole}) => {
   }
 
 
+ //Check if the user's role matches the required role for this route
+ if (isAuthenticated && requiredRole && role !== requiredRole) {
+    return <Navigate to="/unauthorized" />;
+  }
+
   return (
     <>
       {isAuthenticated ? <Outlet />  :  <Navigate to="/login" />}

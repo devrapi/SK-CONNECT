@@ -1,6 +1,6 @@
 import React, { useState ,useContext} from 'react'
 import ApiService from '../../Services/ApiService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import { AppContext } from '../../Context/AppContext';
 const register = () => {
 
@@ -14,44 +14,60 @@ const register = () => {
     const [errors, setErrors] = useState({});
     const[validate , setValidate] = useState("");
     const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleCheckboxChange = (event) => {
+        setIsChecked(event.target.checked);
+        setErrorMessage('');
+    };
 
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await ApiService.post('/register', form);
 
-            const token = response.data.token;
-              localStorage.setItem("token" ,token);
-              setToken(token);
-              navigate('/index');
+        if(isChecked){
+            try {
+                const response = await ApiService.post('/register', form);
 
-        } catch (error) {
-            console.log('Error during registration:', error.response?.data || error.message);
+                const token = response.data.token;
+                  localStorage.setItem("token" ,token);
+                  setToken(token);
+                  navigate('/index');
 
-            if (error.response?.status === 422) {
-                setForm({ name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''});
-                setErrors(error.response.data.errors);
+            } catch (error) {
+                console.log('Error during registration:', error.response?.data || error.message);
 
-            }else if(error.response?.status === 400){
+                if (error.response?.status === 422) {
+                    setForm({ name: '',
+                        email: '',
+                        password: '',
+                        password_confirmation: ''});
+                    setErrors(error.response.data.errors);
 
-                    setValidate(error.response.data.message);
+                }else if(error.response?.status === 400){
+                    setForm({ name: '',
+                        email: '',
+                        password: '',
+                        password_confirmation: ''});
+                        setValidate(error.response.data.message);
+                }
+
+                else {
+                    setErrors({ global: 'An unexpected error occurred during registration.' });
+                }
+
+
+            }
+        }else {
+            setErrorMessage('You must agree to the terms and conditions before registering.');
             }
 
-            else {
-                setErrors({ global: 'An unexpected error occurred during registration.' });
-            }
-
-
-        }
     }
 
   return (
     <>
-<div className="flex items-center justify-center h-[80vh]">
+<div className="flex items-center justify-center h-[100vh]">
 <div className="relative flex flex-col p-6 text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border ">
     <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
       Sign Up
@@ -115,16 +131,19 @@ const register = () => {
           <input
             type="checkbox"
             className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
-            id="checkbox"
+            id="checkbox" checked={isChecked}
+            onChange={handleCheckboxChange}
           />
-          {/* <span className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+
+
+          <span className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-3.5 w-3.5"
               viewBox="0 0 20 20"
               fill="currentColor"
               strokeWidth="currentColor"
-              stroke-width="1"
+
             >
               <path
                 fillRule="evenodd"
@@ -132,7 +151,7 @@ const register = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-          </span> */}
+          </span>
         </label>
         <label
           className="mt-px font-light text-gray-700 cursor-pointer select-none"
@@ -148,7 +167,9 @@ const register = () => {
             </a>
           </p>
         </label>
+
       </div>
+      {errorMessage && <div className='mt-2 text-xs text-center text-red-600'>{errorMessage}</div>}
       <button
         className="mt-6 block w-full select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button"
@@ -157,14 +178,17 @@ const register = () => {
       >
         Register
       </button>
+
+
       <p className="block mt-4 font-sans text-base antialiased font-normal leading-relaxed text-center text-gray-700">
         Already have an account?
-        <a
+        <Link
+        to="/login"
           className="font-semibold text-green-500 transition-colors hover:text-blue-700"
-          href="#"
+
         >
           Sign In
-        </a>
+        </Link>
       </p>
     </form>
 

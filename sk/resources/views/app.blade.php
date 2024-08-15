@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SK CONNECT</title>
+    <title>Sk Connect</title>
 
 </head>
 <body>

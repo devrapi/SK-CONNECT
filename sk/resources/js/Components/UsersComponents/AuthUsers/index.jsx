@@ -7,7 +7,7 @@ const index = () => {
     <>
     {
         user ?(<><div>
-            hello {user.name}
+            hello {user.role}
         </div>
 
         <div>

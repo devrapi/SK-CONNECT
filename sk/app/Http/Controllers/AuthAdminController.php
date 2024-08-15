@@ -45,7 +45,8 @@ class AuthAdminController extends Controller
 
             return response()->json([
                 'Admin' => $Admin,
-                'token' => $token->plainTextToken
+                'token' => $token->plainTextToken,
+                'role' =>$Admin->role
             ], 200); // Return 200 OK status
 }
 
