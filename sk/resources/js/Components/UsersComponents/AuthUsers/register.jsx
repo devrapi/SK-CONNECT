@@ -67,7 +67,7 @@ const register = () => {
 
   return (
     <>
-<div className="flex items-center justify-center h-[100vh]">
+<div className="flex items-center justify-center min-h-screen">
 <div className="relative flex flex-col p-6 text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border ">
     <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
       Sign Up

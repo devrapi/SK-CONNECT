@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link, Outlet , NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import Homepage from './Homepage';
+import Officials from './Officials';
+import Footer from './Footer';
 const Main = () => {
 
         // State to manage the menu visibility
@@ -14,7 +17,7 @@ const Main = () => {
   return (
    <>
 
-<nav className="fixed top-0 z-20 w-full bg-white border-b border-gray-200 start-0">
+<nav className="fixed top-0 z-20 w-full bg-white border-gray-200 start-0">
   <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/img/sklogo.png" alt="logo" className="w-auto mx-auto my-2 rounded-full shadow-md h-14" />
@@ -42,7 +45,7 @@ const Main = () => {
       </NavLink>
     </div>
     <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="navbar-sticky">
-      <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+      <ul className="flex flex-col p-4 mt-4 font-sans font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         <li>
           <NavLink
             to="/"
@@ -104,6 +107,9 @@ const Main = () => {
         <Outlet/>
     </div>
 
+<Homepage/>
+<Officials/>
+<Footer/>
    </>
   )
 }

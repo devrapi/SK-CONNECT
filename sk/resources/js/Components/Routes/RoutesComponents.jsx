@@ -9,6 +9,7 @@ import AdminRegister from '../AdminComponents/AuthAdmin/register'
 import AdminLogin from '../AdminComponents/AuthAdmin/login'
 import Dashboard from '../AdminComponents/AdminDashboard/AdminIndex'
 import ProtectedRoutes from './ProtectedRoutes';
+import NotAuthorized from './NotAuthorized';
 
 const RoutesComponents = () => {
   return (
@@ -21,6 +22,8 @@ const RoutesComponents = () => {
         </Route>
 
         <Route path="*" element={<NotFound />}/>
+        <Route path="/unauthorized" element={<NotAuthorized />}/>
+
 
         <Route path='/admin/register' element={<AdminRegister/>}/>
         <Route path='/admin/login' element={<AdminLogin/>}/>
