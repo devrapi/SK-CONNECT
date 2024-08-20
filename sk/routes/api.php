@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\EventController;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,7 @@ Route::post('/logout' , [AuthUserController::class , 'logout'])->middleware('aut
 Route::post('/admin/register' , [AuthAdminController::class , 'register']);
 Route::post('/admin/login' , [AuthAdminController::class , 'login']);
 Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middleware('auth:sanctum');
+
+
+//POST API
+Route::apiResource('events', EventController::class);

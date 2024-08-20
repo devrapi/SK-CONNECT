@@ -35,7 +35,7 @@ const Sidebar = () => {
 
   return (
     <>
-        <Card className="h-[calc(100vh] w-full max-w-[20rem] p-6 bg-slate-200 rounded-xl">
+        <Card className="h-[calc(100vh] w-full max-w-[20rem] p-6   rounded-xl">
 
             <div className="p-4 mb-2">
         <Typography variant="h5" color="blue-gray">

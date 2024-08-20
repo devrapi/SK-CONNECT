@@ -35,6 +35,7 @@ const RoutesComponents = () => {
 
 
       <Route path='/admin/dashboard' element={<Dashboard/>}>
+            <Route path='/admin/dashboard' element={<Analytics/>}/>
             <Route path='/admin/dashboard/analytics' element={<Analytics/>}/>
             <Route path='/admin/dashboard/user-tables' element={<Users/>}/>
             <Route path='/admin/dashboard/calendars' element={<Calendars/>}/>
