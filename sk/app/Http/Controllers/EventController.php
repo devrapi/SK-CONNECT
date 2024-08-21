@@ -26,21 +26,21 @@ class EventController extends Controller
             'description' => 'required|string',
             'date' => 'required|date',
             'points' => 'required|integer',
-            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // if ($request->hasFile('image')) {
-        //     $imagePath = $request->file('image')->store('event_images', 'public');
-        // } else {
-        //     $imagePath = null;
-        // }
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('event_images', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Event::create([
             'title' => $request->title,
             'description' => $request->description,
             'date' => $request->date,
             'points' => $request->points,
-            // 'image_path' => $imagePath,
+            'image_path' => $imagePath,
         ]);
 
         return response()->json(['message' => 'Event created successfully']);

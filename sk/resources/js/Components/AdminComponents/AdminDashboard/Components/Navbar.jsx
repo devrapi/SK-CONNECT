@@ -42,7 +42,7 @@ const NavBar = () => {
           />
           <Button
             size="sm"
-            color="black"
+            color="green"
             className="!absolute right-1 top-1 rounded"
           >
             Search

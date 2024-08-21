@@ -117,19 +117,27 @@ const Sidebar = () => {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
-               Event Management
+                <Link to="/admin/dashboard/event">
+                Event Management
+                </Link>
+
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
+                <Link to="/admin/dashboard/gamification">
                 Gamification Management
+                </Link>
+
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
-               User Profiling Management
+                <Link to="/admin/dashboard/profilling">
+                User Profiling Management
+                </Link>
               </ListItem>
             </List>
           </AccordionBody>

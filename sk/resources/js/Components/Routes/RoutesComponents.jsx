@@ -13,6 +13,9 @@ import NotAuthorized from './NotAuthorized';
 import Analytics from '../AdminComponents/AdminDashboard/Pages/Analytics';
 import Users from '../AdminComponents/AdminDashboard/Pages/User_tables';
 import Calendars from '../AdminComponents/AdminDashboard/Pages/Calendars';
+import Profiling from '../AdminComponents/AdminDashboard/Pages/Profiling';
+import Event from '../AdminComponents/AdminDashboard/Pages/Event';
+import Gamification from '../AdminComponents/AdminDashboard/Pages/Gamification';
 const RoutesComponents = () => {
   return (
 
@@ -39,6 +42,9 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/analytics' element={<Analytics/>}/>
             <Route path='/admin/dashboard/user-tables' element={<Users/>}/>
             <Route path='/admin/dashboard/calendars' element={<Calendars/>}/>
+            <Route path='/admin/dashboard/profilling' element={<Profiling/>}/>
+            <Route path='/admin/dashboard/event' element={<Event/>}/>
+            <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
         </Route>
 
 
