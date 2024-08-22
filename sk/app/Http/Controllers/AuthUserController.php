@@ -36,10 +36,11 @@ class AuthUserController extends Controller
         ]);
         $token = $User->createToken($request->name);
 
-        return  [
+        return response()->json([
             'User' => $User,
-            'token' => $token->plainTextToken
-        ];
+            'token' => $token->plainTextToken,
+            'role' => $User->role,
+        ], 200);
 
     }
     public function login(Request $request)

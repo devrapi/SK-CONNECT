@@ -33,12 +33,8 @@ const RoutesComponents = () => {
         <Route path='/admin/login' element={<AdminLogin/>}/>
 
         <Route element={<ProtectedRoutes requiredRole="admin" />}>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-      </Route>
-
-
-      <Route path='/admin/dashboard' element={<Dashboard/>}>
-            <Route path='/admin/dashboard' element={<Analytics/>}/>
+        <Route path="/admin/dashboard" element={<Dashboard />} >
+        <Route path='/admin/dashboard' element={<Analytics/>}/>
             <Route path='/admin/dashboard/analytics' element={<Analytics/>}/>
             <Route path='/admin/dashboard/user-tables' element={<Users/>}/>
             <Route path='/admin/dashboard/calendars' element={<Calendars/>}/>
@@ -46,6 +42,12 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/event' element={<Event/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
         </Route>
+      </Route>
+
+
+      {/* <Route path='/admin/dashboard' element={<Dashboard/>}>
+
+        </Route> */}
 
 
       <Route element={<ProtectedRoutes requiredRole="user" />}>

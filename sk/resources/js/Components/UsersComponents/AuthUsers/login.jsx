@@ -3,10 +3,11 @@ import React, { useState ,useContext} from 'react'
 import ApiService from '../../Services/ApiService';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../Context/AppContext';
+import { AlertDismissible } from '../../Alert/AlertDismissible';
 
 const login = () => {
 
-    const { setToken , setRole } = useContext(AppContext);
+    const { setToken , setRole, success } = useContext(AppContext);
     const[form , setForm] = useState({
       email: '',
       password: ''
@@ -49,10 +50,15 @@ const login = () => {
 
 
 
+
   return (
     <>
         <div className="flex items-center justify-center min-h-screen ">
+
   <div className="relative flex flex-col p-6 text-gray-700 bg-white shadow-xl rounded-xl bg-clip-border ">
+
+    {success ? (<><AlertDismissible/></>) : (null)}
+
     <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
       Sign In
     </h4>

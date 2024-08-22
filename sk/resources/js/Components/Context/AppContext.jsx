@@ -8,6 +8,7 @@ export default function AppProvider({children}){
     const[token , setToken] = useState(localStorage.getItem('token'));
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
+    const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
 
     async function getUser(){
@@ -51,7 +52,7 @@ export default function AppProvider({children}){
 
     return (
 
-        <AppContext.Provider value={{token , setToken , user  , setUser ,setAdmin ,admin , role , setRole}}>
+        <AppContext.Provider value={{token , setToken , user  , setUser ,setAdmin ,admin , role , setRole , success , setSuccess}}>
             {children}
         </AppContext.Provider>
     )

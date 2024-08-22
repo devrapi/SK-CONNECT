@@ -64,7 +64,7 @@ class EventController extends Controller
             'description' => 'required|string',
             'date' => 'required|date',
             'points' => 'required|integer',
-            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $event->update($fields);

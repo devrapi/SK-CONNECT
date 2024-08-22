@@ -86,70 +86,82 @@ const Event = () => {
 
 
   return (
-    <Card className="max-w-lg mx-auto mt-10 shadow-lg">
-      <CardBody>
-        <Typography variant="h4" color="blue-gray" className="mb-6">
-          Create Event
-        </Typography>
-        <form>
+    <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
+    <CardBody>
+      <Typography variant="h4" color="blue-gray" className="mb-6">
+        Create Event
+      </Typography>
+      <form>
+        <div className="grid grid-cols-2 gap-6">
           {/* Title Field */}
-          <div className="mb-4">
+          <div className="flex flex-col mb-4">
+            <div className='mb-4'>
             <Input
               type="text"
               label="Event Title"
               size="lg"
-              className="w-full shadow-inner" value={form.title} onChange={(event) => {setForm({...form , title: event.target.value})}}
+              className="w-full shadow-inner"
+              value={form.title}
+              onChange={(event) => {
+                setForm({ ...form, title: event.target.value });
+              }}
             />
-            {errors.title && <span  className='text-xs text-red-600'>{errors.title}</span>}
-          </div>
+            {errors.title && <span className="text-xs text-red-600">{errors.title}</span>}
+            </div>
 
-          {/* Description Field */}
-          <div className="mb-4">
+            <div className="mt-5 mb-4">
             <Textarea
               label="Event Description"
               size="lg"
-              className="w-full shadow-inner" value={form.description} onChange={(event) => {setForm({...form , description: event.target.value})}}
+              className="w-full shadow-inner"
+              value={form.description}
+              onChange={(event) => {
+                setForm({ ...form, description: event.target.value });
+              }}
             />
-            {errors.description && <span  className='text-xs text-red-600'>{errors.description}</span>}
+            {errors.description && <span className="text-xs text-red-600">{errors.description}</span>}
           </div>
 
-          {/* Date Field */}
-
-          <div className="mb-4">
-            <Calendar
-            onChange={setSelectedDate}
-            value={selectedDate}
-            className="w-full p-4 shadow-inner"
-            />
-            {selectedDate && (
-              <Typography className="mt-2 font-bold">
-                Selected Date: {format(selectedDate, "PPP")}
-              </Typography>
-            )}
-            {errors.date && <span  className='text-xs text-red-600'>{errors.date}</span>}
-          </div>
-
-
-          {/* Points Field */}
           <div className="mt-2 mb-4">
             <Input
               type="number"
               label="Points"
               size="lg"
-            className="w-full shadow-inner"  value={form.points} onChange={(event) => {setForm({...form , points: event.target.value})}}
+              className="w-full shadow-inner"
+              value={form.points}
+              onChange={(event) => {
+                setForm({ ...form, points: event.target.value });
+              }}
             />
-             {errors.points && <span  className='text-xs text-red-600'>{errors.points}</span>}
+            {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
+          </div>
           </div>
 
+          {/* Date Field */}
+          <div className="mb-4">
+            <Calendar
+              onChange={setSelectedDate}
+              value={selectedDate}
+              className="w-full p-4 shadow-inner"
+            />
+            {selectedDate && (
+              <Typography className="mt-2 font-mono">
+                Selected Date: {format(selectedDate, "PPP")}
+              </Typography>
+            )}
+            {errors.date && <span className="text-xs text-red-600">{errors.date}</span>}
+          </div>
+
+
           {/* Image Upload Field */}
-          <div className="mt-2 mb-4">
+          <div className="col-span-2 mt-2 mb-4">
             <Input
               type="file"
               label="Upload Image"
               accept="image/*"
               onChange={handleImageChange}
               size="lg"
-            className="w-full mt-2 mb-4 shadow-inner"
+              className="w-full mt-2 mb-4 shadow-inner"
             />
             {image && (
               <div className="mt-4">
@@ -158,14 +170,19 @@ const Event = () => {
               </div>
             )}
           </div>
+        </div>
 
-          {/* Submit Button */}
-          <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
-            Create Event
-          </Button>
-        </form>
-      </CardBody>
-    </Card>
+        {/* Submit Button */}
+        <div className='mt-10'>
+        <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
+          Create Event
+        </Button>
+        </div>
+
+      </form>
+    </CardBody>
+  </Card>
+
   )
 }
 

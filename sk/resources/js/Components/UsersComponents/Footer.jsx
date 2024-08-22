@@ -1,28 +1,33 @@
 import React from 'react'
-
+import { Typography } from "@material-tailwind/react";
+const links = ["Company", "About Us", "Team", "Products", "Blog", "Pricing"];
+const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
-    <footer className="p-4 bg-white sm:p-6">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex flex-col items-center md:flex-row md:justify-between">
-          <div className="text-center md:text-left">
-            <h2 className="text-2xl font-extrabold text-gray-900">Company Name</h2>
-            <p className="mt-2 text-sm text-gray-500">
-              Building a better world through technology and innovation.
-            </p>
-          </div>
-          <div className="mt-4 md:mt-0">
-            <ul className="flex space-x-4 text-gray-600">
-              <li><a href="#" className="hover:text-blue-700">About Us</a></li>
-              <li><a href="#" className="hover:text-blue-700">Services</a></li>
-              <li><a href="#" className="hover:text-blue-700">Contact</a></li>
-              <li><a href="#" className="hover:text-blue-700">Privacy Policy</a></li>
+    <footer className="px-8 bg-green-100 py-28">
+      <div className="container flex flex-col items-center mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-8 pb-8">
+          {links.map((link, index) => (
+            <ul key={index}>
+              <li>
+                <Typography
+                  as="a"
+                  href="#"
+                  color="white"
+                  className="font-medium !text-gray-500 transition-colors hover:!text-gray-900"
+                >
+                  {link}
+                </Typography>
+              </li>
             </ul>
-          </div>
+          ))}
         </div>
-        <div className="mt-6 text-sm text-center text-gray-500">
-          © 2024 Company Name. All rights reserved.
-        </div>
+        <Typography
+          color="blue-gray"
+          className="mt-6 !text-sm !font-normal text-gray-500"
+        >
+          Copyright &copy; {currentYear} Material Tailwind
+        </Typography>
       </div>
     </footer>
   )

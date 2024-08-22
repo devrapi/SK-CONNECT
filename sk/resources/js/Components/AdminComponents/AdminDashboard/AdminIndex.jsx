@@ -11,17 +11,17 @@ const AdminIndex = () => {
     <>
         {admin ? (
             <>
-                <div className="flex h-screen bg-slate-100">
-                    <Sidebar className="sticky top-0 h-screen" />
+               <div className="flex h-screen bg-slate-100">
+                     <Sidebar className="sticky top-0 h-screen" />
                     <div className="flex flex-col flex-1">
                         <Navbar />
                         <main className="flex-1 p-6 overflow-y-auto">
                             <Outlet />
-                            <Footer/>
                         </main>
-                    </div>
 
+                    </div>
                 </div>
+
 
                 </>
             ) : null}

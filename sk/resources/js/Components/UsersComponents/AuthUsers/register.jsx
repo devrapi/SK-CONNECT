@@ -4,7 +4,7 @@ import { useNavigate , Link } from 'react-router-dom';
 import { AppContext } from '../../Context/AppContext';
 const register = () => {
 
-    const {token, setToken} = useContext(AppContext);
+    const { setToken , setSuccess } = useContext(AppContext);
     const[form , setForm] = useState({
       name: '',
       email: '',
@@ -29,11 +29,15 @@ const register = () => {
         if(isChecked){
             try {
                 const response = await ApiService.post('/register', form);
+                if(response.status === 200) {
+                    const token = response.data.token;
+                    const role = response.data.role;
+                      localStorage.setItem("token" ,token);;
+                      setToken(token);
+                      navigate('/login');
+                      setSuccess(true);
+                }
 
-                const token = response.data.token;
-                  localStorage.setItem("token" ,token);
-                  setToken(token);
-                  navigate('/index');
 
             } catch (error) {
                 console.log('Error during registration:', error.response?.data || error.message);

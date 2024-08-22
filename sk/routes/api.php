@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfilesController;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,6 @@ Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middlewa
 
 //POST API
 Route::apiResource('events', EventController::class);
+
+//PROFILES API
+Route::apiResource('profiles', ProfilesController::class);
