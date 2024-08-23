@@ -57,22 +57,29 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request , Event $event)
-    {
-        $fields = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
-            'points' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+   public function update(Request $request, Event $event)
+{
+    $fields = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date' => 'required|date',
+        'points' => 'required|integer',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $event->update($fields);
-
-        return $event;
-
-
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('event_images', 'public');
+        $fields['image'] = $imagePath;
+    } else {
+        // If no image is uploaded, remove 'image' from $fields
+        unset($fields['image']);
     }
+
+    $event->update($fields);
+
+    return $event;
+}
 
     /**
      * Remove the specified resource from storage.

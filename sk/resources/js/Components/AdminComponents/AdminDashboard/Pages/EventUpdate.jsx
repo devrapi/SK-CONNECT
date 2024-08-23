@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Input, Textarea, Button, Card, CardBody, Typography } from "@material-tailwind/react";
 import { format } from "date-fns";
 import Calendar from "react-calendar"
 import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
-
-
-
-const Event = () => {
-
+import { useParams } from 'react-router-dom';
+const EventUpdate = () => {
+    const {id} = useParams();
     const [selectedDate, setSelectedDate] = useState(null);
     const [image, setImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
@@ -19,6 +17,30 @@ const Event = () => {
         description: '',
         points: ''
       });
+
+
+      const getEvents = async () => {
+        try {
+          const response = await ApiService.get(`events/${id}`);
+          const eventData = response.data;
+
+          setForm({
+            title: eventData.title,
+            description: eventData.description,
+            points: eventData.points
+          });
+
+          // If the event has a date and image, set them as well
+          setSelectedDate(new Date(eventData.date));
+          setImage(eventData.image_path); // Assuming you're dealing with an image path
+        } catch (error) {
+          setErrors({ ...errors, fetchError: 'Failed to fetch event data.' });
+        }
+      };
+
+      useEffect(() => {
+        getEvents();
+      }, [id]);
 
     // Handle the image change and create a preview URL
     const handleImageChange = (e) => {
@@ -50,9 +72,10 @@ const Event = () => {
             }
 
             // Make the API request with FormData
-            const response = await ApiService.post('events', formData, {
+            const response = await ApiService.put(`events/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+
                 },
             });
 
@@ -88,7 +111,7 @@ const Event = () => {
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
       <Typography variant="h4" color="blue-gray" className="mb-6">
-        Create Event
+        Update Event
       </Typography>
       <form>
         <div className="grid grid-cols-2 gap-6">
@@ -165,7 +188,7 @@ const Event = () => {
             {image && (
               <div className="mt-4">
                 <Typography className="mb-2">Preview:</Typography>
-                <img src={image} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
+                <img src={`/storage/${image}`} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
               </div>
             )}
           </div>
@@ -174,15 +197,14 @@ const Event = () => {
         {/* Submit Button */}
         <div className='mt-10'>
         <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
-          Create Event
+          Update Event
         </Button>
         </div>
 
       </form>
     </CardBody>
   </Card>
-
   )
 }
 
-export default Event
+export default EventUpdate
