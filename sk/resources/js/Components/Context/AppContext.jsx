@@ -9,6 +9,7 @@ export default function AppProvider({children}){
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
     const[event , setEvent] = useState({});
+    const[profiles , setProfiles] = useState({})
     const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
 
@@ -25,6 +26,17 @@ export default function AppProvider({children}){
         setUser(data)
     }
 
+    //get user profiles
+
+    async function getProfiles(){
+        const res = await ApiService.get("/profiles");
+
+        const data = await res.data;
+
+        setProfiles(data);
+    }
+
+    // get events
     async function getEvents(){
         const res = await ApiService.get("/events");
 
@@ -53,6 +65,10 @@ export default function AppProvider({children}){
     },[]);
 
     useEffect(() => {
+        getProfiles();
+    },[]);
+
+    useEffect(() => {
         if(token){
             getUser();
         }
@@ -72,7 +88,7 @@ export default function AppProvider({children}){
         setAdmin ,admin ,
         role , setRole ,
         success , setSuccess,
-        event ,
+        event ,profiles
 
          }}>
             {children}

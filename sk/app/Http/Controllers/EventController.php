@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class EventController extends Controller
@@ -57,8 +58,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   public function update(Request $request, Event $event)
+    public function update(Request $request, Event $event)
 {
+
     $fields = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
@@ -67,18 +69,14 @@ class EventController extends Controller
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    // Handle image upload
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('event_images', 'public');
-        $fields['image'] = $imagePath;
-    } else {
-        // If no image is uploaded, remove 'image' from $fields
-        unset($fields['image']);
+        $fields['image_path'] = $imagePath;
     }
 
     $event->update($fields);
 
-    return $event;
+    return response()->json($event, 200);
 }
 
     /**

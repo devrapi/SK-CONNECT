@@ -35,7 +35,7 @@ const Calendars = () => {
 
   return (
     <div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 {event.map(ev => (
                     <Card key={ev.id} className="pt-12 mt-6 w-96">
                         <CardHeader color="blue-gray" className="relative h-56">

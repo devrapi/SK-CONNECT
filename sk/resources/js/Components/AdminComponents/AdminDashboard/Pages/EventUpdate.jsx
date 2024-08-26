@@ -18,7 +18,6 @@ const EventUpdate = () => {
         points: ''
       });
 
-
       const getEvents = async () => {
         try {
           const response = await ApiService.get(`events/${id}`);
@@ -55,57 +54,35 @@ const EventUpdate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Create a FormData object to send both text and file data
             const formData = new FormData();
+            if (form.title) formData.append('title', form.title);
+            if (form.description) formData.append('description', form.description);
+            if (form.points) formData.append('points', form.points);
+            if (selectedDate) formData.append('date', selectedDate.toISOString().split('T')[0]);
+            if (imageFile) formData.append('image', imageFile);
 
-            // Append form fields
-            formData.append('title', form.title);
-            formData.append('description', form.description);
-            formData.append('points', form.points);
-
-            // Append the selected date
-            formData.append('date', selectedDate ? selectedDate.toISOString().split('T')[0] : ''); // Format the date
-
-            // Append the image if one is selected
-            if (imageFile) {
-                formData.append('image', imageFile); // Append the actual file
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
             }
 
-            // Make the API request with FormData
-            const response = await ApiService.put(`events/${id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-
-                },
+            const response = await ApiService.patch(`events/${id}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            setForm({
-                title: '',
-                description: '',
-                points: ''
-              });
-
-              setImage(null);
-              setImageFile(null);
-              setSelectedDate(null);
-
+            // Clear form after successful update
+            setForm({ title: '', description: '', points: '' });
+            setImage(null);
+            setImageFile(null);
+            setSelectedDate(null);
         } catch (error) {
-            console.log('Error during event creation:', error.response?.data || error.message);
-
+            console.log('Error during event update:', error.response?.data || error.message);
             if (error.response?.status === 422) {
-                setForm({
-                    title: '',
-                    description: '',
-                    points: ''
-                  });
                 setErrors(error.response.data.errors);
-
             } else {
-                setErrors({ global: 'An unexpected error occurred during registration.' });
+                setErrors({ global: 'An unexpected error occurred during updating.' });
             }
         }
     };
-
 
   return (
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
