@@ -5,11 +5,12 @@ import Calendar from "react-calendar"
 import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Event = () => {
-
+    const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(null);
     const [image, setImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
@@ -55,6 +56,8 @@ const Event = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            navigate('/admin/dashboard/calendars');
+            window.location.reload();
 
             setForm({
                 title: '',

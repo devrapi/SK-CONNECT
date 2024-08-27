@@ -59,7 +59,7 @@ class ProfilesController extends Controller
     public function update(Request $request, Profile $profile)
     {
         $validatedData = $request->validate([
-            'full_name'    => 'required|string|max:255',
+            'full_name'    => 'nullable|string|max:255',
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'required|string|max:255',
             'gender'       => 'required|in:male,female,other',
@@ -70,9 +70,13 @@ class ProfilesController extends Controller
             'phone_number' => 'required|string|max:15',
         ]);
 
+
+        $validatedData['full_name'] = $request->input('first_name') . ' ' . $request->input('last_name');
+
+
         $profile->update($validatedData);
 
-        return $profile;
+        return ['message' => 'update success' , $profile];
     }
 
     /**

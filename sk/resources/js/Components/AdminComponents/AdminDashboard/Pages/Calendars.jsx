@@ -13,13 +13,16 @@ import {
     DialogFooter,
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
+import DeleteEvents from './deleteEvents';
 const Calendars = () => {
 
     const{event} = useContext(AppContext);
 
     const [selectedEvent, setSelectedEvent] = useState(null);
 
+    const [open, setOpen] = React.useState(false);
 
+    const handleOpen = () => setOpen(!open);
 
 
     const openModal = (ev) => {
@@ -101,9 +104,10 @@ const Calendars = () => {
                 </Link>
 
                     </Button>
-                    <Button color="red" onClick={closeModal}>
-                        Delete
-                    </Button>
+                    <Button onClick={handleOpen} variant="gradient">
+                <DeleteEvents handleOpen={handleOpen} open={open} event_id={selectedEvent.id} />
+                delete
+      </Button>
                 </DialogFooter>
             </Dialog>
             )}

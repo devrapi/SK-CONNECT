@@ -23,7 +23,7 @@ Route::post('/admin/login' , [AuthAdminController::class , 'login']);
 Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middleware('auth:sanctum');
 
 
-//POST API
+//events API
 Route::apiResource('events', EventController::class);
 
 //PROFILES API

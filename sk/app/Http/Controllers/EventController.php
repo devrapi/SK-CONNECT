@@ -58,10 +58,11 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
-{
+    public function update( $id , Request $request){
 
-    $fields = $request->validate([
+        $event = Event::findOrFail($id);
+
+        $fields = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'date' => 'required|date',
@@ -77,8 +78,8 @@ class EventController extends Controller
     $event->update($fields);
 
     return response()->json($event, 200);
-}
 
+    }
     /**
      * Remove the specified resource from storage.
      */

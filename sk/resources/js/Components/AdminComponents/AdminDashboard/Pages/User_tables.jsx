@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 const User_tables = () => {
     const { profiles } = useContext(AppContext);
 
+    console.log(profiles);
     // Pagination state
     const [active, setActive] = useState(1);
     const itemsPerPage = 10;
@@ -24,12 +26,12 @@ const User_tables = () => {
         active * itemsPerPage
     );
 
-    const TABLE_HEAD = ["Name", "Gender", "Birthdate", "Age", "Education", "Address", " "];
+    const TABLE_HEAD = ["Name", "Gender", "Phone Number", "Age", "Education", "Address", "Action" , "Action "];
     const TABLE_ROWS = currentProfiles.map(profile => ({
         id: `${profile.id}`,
         name: `${profile.full_name}`,
         gender: `${profile.gender}`,
-        birthdate: `${profile.birthdate}`,
+        phone_number: `${profile.phone_number}`,
         age: `${profile.age}`,
         education: `${profile.education}`,
         address: `${profile.address}`
@@ -57,13 +59,14 @@ const User_tables = () => {
     });
 
     return (
-        <Card className="h-full w-full flex flex-col">
+        <>
+        <Card className="flex flex-col w-full h-full">
             <div className="flex-1 overflow-scroll">
-                <table className="w-full min-w-max table-auto text-left">
+                <table className="w-full text-left table-auto min-w-max">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
-                                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                <th key={head} className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
@@ -76,7 +79,7 @@ const User_tables = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(({ id, name, gender, birthdate, age, education, address }, index) => {
+                        {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
                             const isLast = index === TABLE_ROWS.length - 1;
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
@@ -94,7 +97,7 @@ const User_tables = () => {
                                     </td>
                                     <td className={classes}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {birthdate}
+                                            {phone_number}
                                         </Typography>
                                     </td>
                                     <td className={classes}>
@@ -112,9 +115,18 @@ const User_tables = () => {
                                             {address}
                                         </Typography>
                                     </td>
+
                                     <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography as="a" href="#" variant="small" color="green" className="font-medium">
+                                        <Typography variant="small" color="green" className="font-medium" >
+                                            <Link to={`/admin/dashboard/profilling/update/${id}`}>
                                             Edit
+                                            </Link>
+
+                                        </Typography>
+                                    </td>
+                                    <td className={`${classes} bg-blue-gray-50/50`}>
+                                        <Typography variant="small" color="red" className="font-medium" >
+                                            delete
                                         </Typography>
                                     </td>
                                 </tr>
@@ -123,6 +135,9 @@ const User_tables = () => {
                     </tbody>
                 </table>
             </div>
+           <div>
+
+            </div>
             <div className="flex items-center justify-between p-4">
                 <Button
                     variant="text"
@@ -130,7 +145,7 @@ const User_tables = () => {
                     onClick={prev}
                     disabled={active === 1}
                 >
-                    <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+                    <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
                 </Button>
                 <div className="flex items-center gap-2">
                     {Array.from({ length: totalPages }, (_, index) => (
@@ -146,10 +161,11 @@ const User_tables = () => {
                     disabled={active === totalPages}
                 >
                     Next
-                    <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+                    <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
                 </Button>
             </div>
         </Card>
+        </>
     );
 }
 

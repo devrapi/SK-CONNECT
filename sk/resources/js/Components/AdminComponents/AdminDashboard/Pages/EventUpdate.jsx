@@ -64,16 +64,12 @@ const EventUpdate = () => {
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
-
-            const response = await ApiService.patch(`events/${id}`, formData, {
+            const response = await ApiService.put(`events/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            // Clear form after successful update
-            setForm({ title: '', description: '', points: '' });
-            setImage(null);
-            setImageFile(null);
-            setSelectedDate(null);
+            console.log('Update successful:', response.data);
+
         } catch (error) {
             console.log('Error during event update:', error.response?.data || error.message);
             if (error.response?.status === 422) {
@@ -83,6 +79,7 @@ const EventUpdate = () => {
             }
         }
     };
+
 
   return (
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
