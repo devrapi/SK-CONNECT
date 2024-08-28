@@ -1,34 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useState , useEffect} from 'react'
+import ApiService from '../../../Services/ApiService';
 import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
-import { AppContext } from '../../../Context/AppContext';
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { PencilIcon, ArchiveBoxIcon } from '@heroicons/react/24/outline';
-import ArchivedProfiles from './ArchivedProfiles';
-const User_tables = () => {
-    const { profiles } = useContext(AppContext);
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import Restore from './Restore';
+const Archive = () => {
 
+    const[archive , setArchive] = useState([]);
 
-    // Pagination state
-    const [active, setActive] = useState(1);
-    const itemsPerPage = 10;
+    async function getArchive(){
+        const res = await ApiService.get("/profiles/archived/fetch");
 
-    // Check if profiles is loaded
-    if (!profiles) {
-        return <div>Loading...</div>;
+        const data = await res.data;
+
+        setArchive(data);
     }
 
-    // Compute total pages
-    const totalPages = Math.ceil(profiles.length / itemsPerPage);
+    useEffect(() => {
+        getArchive();
 
-    // Slice profiles data for current page
-    const currentProfiles = profiles.slice(
-        (active - 1) * itemsPerPage,
-        active * itemsPerPage
-    );
+    },[]);
 
-    const TABLE_HEAD = ["Name", "Gender", "Phone Number", "Age", "Education", "Address", "Action" , "Action "];
-    const TABLE_ROWS = currentProfiles.map(profile => ({
+
+    const TABLE_HEAD = ["Name", "Gender", "Phone Number", "Age", "Education", "Address", "Action" ];
+    const TABLE_ROWS = archive.map(profile => ({
         id: `${profile.id}`,
         name: `${profile.full_name}`,
         gender: `${profile.gender}`,
@@ -38,35 +32,9 @@ const User_tables = () => {
         address: `${profile.address}`
     }));
 
-    // Change page handler
-    const handlePageChange = (page) => {
-        setActive(page);
-    };
 
-    const next = () => {
-        if (active === totalPages) return;
-        setActive(active + 1);
-    };
-
-    const prev = () => {
-        if (active === 1) return;
-        setActive(active - 1);
-    };
-
-    const getItemProps = (index) => ({
-        variant: active === index ? "filled" : "text",
-        color: "gray",
-        onClick: () => handlePageChange(index),
-    });
-
-    return (
-        <>
-        <div className='flex justify-end mb-5'>
-
-        <Button color="blue"><Link to="/admin/dashboard/profilling">Add Profile</Link></Button>
-        </div>
-
-        <Card className="flex flex-col w-full h-full rounded-lg">
+  return (
+    <Card className="flex flex-col w-full h-full rounded-lg">
             <div className="flex-1 ">
                 <table className="w-full text-left table-auto min-w-max">
                     <thead>
@@ -123,19 +91,9 @@ const User_tables = () => {
                                     </td>
 
                                     <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="green" className="font-medium" >
-                                            <Link to={`/admin/dashboard/profilling/update/${id}`}>
-                                            <PencilIcon className="w-6 h-6 text-green-500" />
-
-                                            </Link>
-
-                                        </Typography>
+                                      <Restore id={id}/>
                                     </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="red" className="font-medium" >
-                                          <ArchivedProfiles id={id}/>
-                                        </Typography>
-                                    </td>
+
                                 </tr>
                             );
                         })}
@@ -145,35 +103,9 @@ const User_tables = () => {
            <div>
 
             </div>
-            <div className="flex items-center justify-between p-4">
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={prev}
-                    disabled={active === 1}
-                >
-                    <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
-                </Button>
-                <div className="flex items-center gap-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <IconButton key={index + 1} {...getItemProps(index + 1)}>
-                            {index + 1}
-                        </IconButton>
-                    ))}
-                </div>
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={next}
-                    disabled={active === totalPages}
-                >
-                    Next
-                    <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
-                </Button>
-            </div>
+
         </Card>
-        </>
-    );
+  )
 }
 
-export default User_tables;
+export default Archive

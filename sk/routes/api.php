@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\EventController;
@@ -26,5 +27,9 @@ Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middlewa
 //events API
 Route::apiResource('events', EventController::class);
 
+
 //PROFILES API
 Route::apiResource('profiles', ProfilesController::class);
+
+Route::patch('profiles/restore/{id}', [ArchivedController::class, 'restore']);
+Route::get('profiles/archived/fetch', [ArchivedController::class, 'fetchArchived']);

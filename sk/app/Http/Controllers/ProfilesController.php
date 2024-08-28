@@ -88,4 +88,7 @@ class ProfilesController extends Controller
 
         return ['message' => 'profile is  deleted'];
     }
+
+
+
 }

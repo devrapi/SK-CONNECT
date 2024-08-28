@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     protected $fillable = [
     'full_name',
@@ -19,6 +20,7 @@ class Profile extends Model
     'education',
     'address',
     'phone_number',
+    'deleted_at'
 
 
 ];

@@ -19,10 +19,12 @@ import { DayPicker } from "react-day-picker";
 // @heroicons/react
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import ApiService from "../../../Services/ApiService";
+import { useNavigate } from "react-router-dom";
 
 
 const Profiling = () => {
 
+    const navigate = useNavigate();
     const [birthdate, setDate] = useState();
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
@@ -49,17 +51,9 @@ const Profiling = () => {
 
             try {
                 const response = await ApiService.post('profiles' , form)
-                setForm({
-                    first_name: '',
-                    last_name: '',
-                    gender: '' ,
-                    birthdate,
-                    age: '',
-                    education: '',
-                    address: '' ,
-                    phone_number: '',
-                })
-                setDate('');
+                navigate('/admin/dashboard/user-tables');
+                window.location.reload();
+
             } catch (error) {
                 console.log('Error during event creation:', error.response?.data || error.message);
 
@@ -107,7 +101,7 @@ const Profiling = () => {
             <Input
   size="lg"
   placeholder="Emma"
-  value={form.fname}
+  value={form.first_name}
   onChange={(event) => {setForm({...form , first_name: event.target.value})}}
   labelProps={{
     className: "hidden",
@@ -127,7 +121,7 @@ const Profiling = () => {
             <Input
               size="lg"
               placeholder="Roberts"
-              value={form.lname}
+              value={form.last_name}
               onChange={(event) => {setForm({...form , last_name: event.target.value})}}
               labelProps={{
                 className: "hidden",

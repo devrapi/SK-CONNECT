@@ -18,6 +18,7 @@ import Event from '../AdminComponents/AdminDashboard/Pages/Event';
 import Gamification from '../AdminComponents/AdminDashboard/Pages/Gamification';
 import EventUpdate from '../AdminComponents/AdminDashboard/Pages/EventUpdate';
 import UsersUpdate from '../AdminComponents/AdminDashboard/Pages/UsersUpdate';
+import Archive from '../AdminComponents/AdminDashboard/Pages/Archive';
 const RoutesComponents = () => {
   return (
 
@@ -41,6 +42,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/user-tables' element={<Users/>}/>
             <Route path='/admin/dashboard/calendars' element={<Calendars/>}/>
             <Route path='/admin/dashboard/profilling' element={<Profiling/>}/>
+            <Route path='/admin/dashboard/archived' element={<Archive/>}/>
             <Route path='/admin/dashboard/profilling/update/:id' element={<UsersUpdate/>}/>
             <Route path='/admin/dashboard/event' element={<Event/>}/>
             <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>

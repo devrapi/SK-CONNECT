@@ -58,9 +58,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $id , Request $request){
+    public function update( Event $event , Request $request){
 
-        $event = Event::findOrFail($id);
+
 
         $fields = $request->validate([
         'title' => 'required|string|max:255',

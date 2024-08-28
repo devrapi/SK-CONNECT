@@ -78,7 +78,7 @@ const Sidebar = () => {
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/user-tables">
-                User Tables
+                Youth Profiles
                 </Link>
               </ListItem>
               <ListItem>
@@ -86,7 +86,7 @@ const Sidebar = () => {
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/calendars">
-                Calendars
+                Events
                 </Link>
               </ListItem>
             </List>
@@ -131,14 +131,14 @@ const Sidebar = () => {
                 </Link>
 
               </ListItem>
-              <ListItem>
+              {/* <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/profilling">
                 User Profiling Management
                 </Link>
-              </ListItem>
+              </ListItem> */}
             </List>
           </AccordionBody>
         </Accordion>
@@ -156,7 +156,9 @@ const Sidebar = () => {
           <ListItemPrefix>
             <UserCircleIcon className="w-5 h-5" />
           </ListItemPrefix>
-          Profile
+          <Link to="/admin/dashboard/archived">
+          Archived
+          </Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
