@@ -104,17 +104,10 @@ export function KpiCard({
 const Cards = () => {
   return (
 
-    <div className="container py-5">
+    <div className="container pb-5">
       <div className="flex justify-between md:items-center">
         <div>
-          <Typography className="font-bold">Overall Performance</Typography>
-          <Typography
-            variant="small"
-            className="w-4/5 font-normal text-gray-600 md:w-full"
-          >
-            Upward arrow indicating an increase in revenue compared to the
-            previous period.
-          </Typography>
+
         </div>
 
       </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 
 class EventController extends Controller
@@ -60,24 +61,23 @@ class EventController extends Controller
      */
     public function update( Event $event , Request $request){
 
-
-
         $fields = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'date' => 'required|date',
-        'points' => 'required|integer',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'points' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('event_images', 'public');
-        $fields['image_path'] = $imagePath;
-    }
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $imagePath = $request->file('image')->store('event_images', 'public');
+            $fields['image_path'] = $imagePath;
+        }
 
-    $event->update($fields);
+        $event->update($fields);
 
-    return response()->json($event, 200);
+    return ['message' => 'update success' , $event];
 
     }
     /**

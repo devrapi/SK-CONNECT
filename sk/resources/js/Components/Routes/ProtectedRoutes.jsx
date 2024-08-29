@@ -28,7 +28,7 @@ const ProtectedRoutes = ({requiredRole}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1200); // 1.5 seconds delay
+    }, 1000); // 1.5 seconds delay
 
     return () => clearTimeout(timer); // Cleanup the timer on unmount
   }, []);

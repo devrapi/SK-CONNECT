@@ -19,11 +19,11 @@ const NavBar = () => {
         variant="h6"
         className="cursor-pointer py-1.5 text-black"
       >
-        Admin Dashboard
+       SK CONNECT DASHBOARD
       </Typography>
 
       {/* Right: Icons and Search */}
-      <div className="flex items-center space-x-4">
+      {/* <div className="flex items-center space-x-4">
         <IconButton variant="text" color="black">
           <Cog6ToothIcon className="w-4 h-4" />
         </IconButton>
@@ -48,7 +48,7 @@ const NavBar = () => {
             Search
           </Button>
         </div>
-      </div>
+      </div> */}
     </div>
   </nav>
   );

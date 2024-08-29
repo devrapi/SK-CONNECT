@@ -31,5 +31,6 @@ Route::apiResource('events', EventController::class);
 //PROFILES API
 Route::apiResource('profiles', ProfilesController::class);
 
+//ARCHIVED AND RESTORE API
 Route::patch('profiles/restore/{id}', [ArchivedController::class, 'restore']);
 Route::get('profiles/archived/fetch', [ArchivedController::class, 'fetchArchived']);

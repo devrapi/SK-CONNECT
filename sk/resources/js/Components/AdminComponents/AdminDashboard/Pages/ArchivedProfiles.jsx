@@ -24,7 +24,7 @@ const ArchivedProfiles = ({ id }) => {
 
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Confirm Archive</DialogHeader>
-        <DialogBody divider>
+        <DialogBody >
           Are you sure you want to archive this profile?
         </DialogBody>
         <DialogFooter>

@@ -54,6 +54,7 @@ const Event = () => {
             const response = await ApiService.post('events', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+
                 },
             });
             navigate('/admin/dashboard/calendars');

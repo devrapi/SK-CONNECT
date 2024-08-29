@@ -48,22 +48,23 @@ const Calendars = () => {
                                 className="object-cover w-full h-full"
                             />
                         </CardHeader>
-                        <CardBody className="h-32">
+                        <CardBody className="">
                             <Typography variant="h5" color="blue-gray" className="mb-2">
                                 {ev.title}
                             </Typography>
                             <Typography className="truncate">
-                                {`${ev.description.slice(0, 40)}...`}
+
+                                {ev.description}
                             </Typography>
                             <Typography className="mt-2 mb-2">
-                                Date: {ev.date}
+                              <span className='font-semibold'> Event Date:</span>  {ev.date}
                             </Typography>
                             <Typography>
-                                Points: {ev.points}
+                               <span className='font-semibold'>Points:</span>  {ev.points}
                             </Typography>
                         </CardBody>
-                        <CardFooter className="pt-0">
-                            <Button onClick={() => openModal(ev)}>
+                        <CardFooter className="pt-0 ">
+                            <Button onClick={() => openModal(ev)} color='green'>
                                 Read More
                             </Button>
                         </CardFooter>
@@ -75,11 +76,11 @@ const Calendars = () => {
                 <Dialog open={Boolean(selectedEvent)} handler={closeModal}>
                 <DialogHeader className="flex items-center justify-between">
                     <Typography variant="h5">{selectedEvent.title}</Typography>
-                    <Button color="gray" variant="text" onClick={closeModal}>
-                        Close
+                    <Button color="gray" variant="text" onClick={closeModal} className="text-xl">
+                   X
                     </Button>
                 </DialogHeader>
-                <DialogBody divider>
+                <DialogBody >
                     <img
                         src={`/storage/${selectedEvent.image_path}`}
                         alt={selectedEvent.title}
@@ -104,7 +105,7 @@ const Calendars = () => {
                 </Link>
 
                     </Button>
-                    <Button onClick={handleOpen} variant="gradient">
+                    <Button onClick={handleOpen}  color='red'>
                 <DeleteEvents handleOpen={handleOpen} open={open} event_id={selectedEvent.id} />
                 delete
       </Button>

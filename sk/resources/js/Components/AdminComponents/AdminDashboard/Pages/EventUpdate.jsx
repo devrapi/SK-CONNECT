@@ -6,7 +6,11 @@ import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
 const EventUpdate = () => {
+    const navigate = useNavigate();
     const {id} = useParams();
     const [selectedDate, setSelectedDate] = useState(null);
     const [image, setImage] = useState(null);
@@ -41,32 +45,52 @@ const EventUpdate = () => {
         getEvents();
       }, [id]);
 
+
     // Handle the image change and create a preview URL
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setImage(URL.createObjectURL(file)); // Create a preview URL
-            setImageFile(file); // Store the actual file for submission
+            setImageFile(file);
+
         }
     };
+
+
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            if (form.title) formData.append('title', form.title);
-            if (form.description) formData.append('description', form.description);
-            if (form.points) formData.append('points', form.points);
-            if (selectedDate) formData.append('date', selectedDate.toISOString().split('T')[0]);
-            if (imageFile) formData.append('image', imageFile);
+
+            // Append form fields
+            formData.append('title', form.title);
+            formData.append('description', form.description);
+            formData.append('points', form.points);
+
+            // Append the selected date
+            formData.append('date', selectedDate ? selectedDate.toISOString().split('T')[0] : ''); // Format the date
+
+            // Append the image if one is selected
+
+        // Append the image if one is selected
+        if (imageFile) {
+            formData.append('image', imageFile);
+            console.log('Appended image file:', imageFile);
+        } else {
+            console.log('No image file to append.');
+        }
 
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
-            const response = await ApiService.put(`events/${id}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+
+            const response = await ApiService.put(`events/${id}`, formData)
+
+            navigate('/admin/dashboard/calendars');
+            window.location.reload();
+
 
             console.log('Update successful:', response.data);
 
@@ -159,12 +183,16 @@ const EventUpdate = () => {
               size="lg"
               className="w-full mt-2 mb-4 shadow-inner"
             />
-            {image && (
-              <div className="mt-4">
+                    {image && (
+            <div className="mt-4">
                 <Typography className="mb-2">Preview:</Typography>
-                <img src={`/storage/${image}`} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
-              </div>
-            )}
+                <img
+                src={image.startsWith('blob') ? image : `/storage/${image}`}
+                alt="Event Preview"
+                className="w-full h-auto rounded-md shadow-inner"
+                />
+            </div>
+                )}
           </div>
         </div>
 
