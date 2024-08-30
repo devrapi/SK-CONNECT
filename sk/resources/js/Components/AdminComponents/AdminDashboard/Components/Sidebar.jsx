@@ -166,12 +166,7 @@ const Sidebar = () => {
           </ListItemPrefix>
           Settings
         </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="w-5 h-5" />
-          </ListItemPrefix>
-         <Logout/>
-        </ListItem>
+
       </List>
 
 

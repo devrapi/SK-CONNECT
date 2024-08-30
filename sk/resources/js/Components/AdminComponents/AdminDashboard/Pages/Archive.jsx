@@ -34,77 +34,77 @@ const Archive = () => {
 
 
   return (
-    <Card className="flex flex-col w-full h-full rounded-lg">
-            <div className="flex-1 ">
-                <table className="w-full text-left table-auto min-w-max">
-                    <thead>
-                        <tr>
-                            {TABLE_HEAD.map((head) => (
-                                <th key={head} className="p-4 bg-gray-100 border-b border-blue-gray-100">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal leading-none opacity-70"
-                                    >
-                                        {head}
+
+
+    <div className="space-y-5">
+    <Typography variant="h4" color="red-600" className="font-semibold">
+        YOUTH ARCHIVED
+    </Typography>
+
+    <Card className="w-full h-full rounded-lg shadow-lg">
+        <div className="overflow-x-auto">
+            <table className="w-full text-left table-auto">
+                <thead>
+                    <tr>
+                        {TABLE_HEAD.map((head) => (
+                            <th key={head} className="p-4 text-red-600 bg-red-100 border-b border-red-200">
+                                <Typography variant="small" color="red-600" className="font-semibold">
+                                    {head}
+                                </Typography>
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
+                        const isLast = index === TABLE_ROWS.length - 1;
+                        const classes = isLast ? "p-4" : "p-4 border-b border-red-100";
+
+                        return (
+                            <tr key={id} className="">
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {name}
                                     </Typography>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1;
-                            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-
-                            return (
-                                <tr key={id}>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {name}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {gender}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {phone_number}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {age}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {education}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {address}
-                                        </Typography>
-                                    </td>
-
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                      <Restore id={id}/>
-                                    </td>
-
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
-           <div>
-
-            </div>
-
+                                </td>
+                                <td className={`${classes} `}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {gender}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {phone_number}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {age}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {education}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {address}
+                                    </Typography>
+                                </td>
+                                <td className={`${classes}`}>
+                                    <Restore id={id} />
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
         </Card>
+            </div>
+
+
   )
 }
 

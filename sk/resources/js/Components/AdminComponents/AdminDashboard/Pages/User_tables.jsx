@@ -61,117 +61,116 @@ const User_tables = () => {
 
     return (
         <>
-        <div className='flex justify-end mb-5'>
+       <div className="space-y-5">
+    <Typography variant="h4" color="blue-gray" className="font-semibold">
+        YOUTH PROFILES
+    </Typography>
 
-        <Button color="blue"><Link to="/admin/dashboard/profilling">Add Profile</Link></Button>
+    <div className='flex justify-end'>
+        <Button color="blue">
+            <Link to="/admin/dashboard/profilling">Add Profile</Link>
+        </Button>
+    </div>
+
+    <Card className="w-full h-full rounded-lg shadow-lg">
+        <div className="overflow-x-auto">
+            <table className="w-full text-left table-auto">
+                <thead>
+                    <tr>
+                        {TABLE_HEAD.map((head) => (
+                            <th key={head} className="p-4 bg-blue-100 border-b text-blue-gray-900 border-blue-gray-200">
+                                <Typography variant="small" color="blue-gray" className="font-semibold">
+                                    {head}
+                                </Typography>
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
+                        const isLast = index === TABLE_ROWS.length - 1;
+                        const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-100";
+
+                        return (
+                            <tr key={id} className="hover:bg-blue-gray-50">
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {name}
+                                    </Typography>
+                                </td>
+                                <td className={`${classes} bg-blue-gray-50/50`}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {gender}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {phone_number}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {age}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {education}
+                                    </Typography>
+                                </td>
+                                <td className={classes}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        {address}
+                                    </Typography>
+                                </td>
+                                <td className={`${classes} bg-blue-gray-50/50`}>
+                                    <Typography variant="small" color="green" className="font-medium">
+                                        <Link to={`/admin/dashboard/profilling/update/${id}`}>
+                                            <PencilIcon className="w-6 h-6 text-green-500" />
+                                        </Link>
+                                    </Typography>
+                                </td>
+                                <td className={`${classes} bg-blue-gray-50/50`}>
+                                    <Typography variant="small" color="red" className="font-medium">
+                                        <ArchivedProfiles id={id} />
+                                    </Typography>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
         </div>
 
-        <Card className="flex flex-col w-full h-full rounded-lg">
-            <div className="flex-1 ">
-                <table className="w-full text-left table-auto min-w-max">
-                    <thead>
-                        <tr>
-                            {TABLE_HEAD.map((head) => (
-                                <th key={head} className="p-4 bg-gray-100 border-b border-blue-gray-100">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal leading-none opacity-70"
-                                    >
-                                        {head}
-                                    </Typography>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1;
-                            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-
-                            return (
-                                <tr key={id}>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {name}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {gender}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {phone_number}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {age}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {education}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {address}
-                                        </Typography>
-                                    </td>
-
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="green" className="font-medium" >
-                                            <Link to={`/admin/dashboard/profilling/update/${id}`}>
-                                            <PencilIcon className="w-6 h-6 text-green-500" />
-
-                                            </Link>
-
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="red" className="font-medium" >
-                                          <ArchivedProfiles id={id}/>
-                                        </Typography>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+        <div className="flex items-center justify-between p-4">
+            <Button
+                variant="text"
+                className="flex items-center gap-2 rounded-full"
+                onClick={prev}
+                disabled={active === 1}
+            >
+                <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
+            </Button>
+            <div className="flex items-center gap-2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <IconButton key={index + 1} {...getItemProps(index + 1)}>
+                        {index + 1}
+                    </IconButton>
+                ))}
             </div>
-           <div>
+            <Button
+                variant="text"
+                className="flex items-center gap-2 rounded-full"
+                onClick={next}
+                disabled={active === totalPages}
+            >
+                Next
+                <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
+            </Button>
+        </div>
+    </Card>
+</div>
 
-            </div>
-            <div className="flex items-center justify-between p-4">
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={prev}
-                    disabled={active === 1}
-                >
-                    <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" /> Previous
-                </Button>
-                <div className="flex items-center gap-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <IconButton key={index + 1} {...getItemProps(index + 1)}>
-                            {index + 1}
-                        </IconButton>
-                    ))}
-                </div>
-                <Button
-                    variant="text"
-                    className="flex items-center gap-2 rounded-full"
-                    onClick={next}
-                    disabled={active === totalPages}
-                >
-                    Next
-                    <ArrowRightIcon strokeWidth={2} className="w-4 h-4" />
-                </Button>
-            </div>
-        </Card>
         </>
     );
 }

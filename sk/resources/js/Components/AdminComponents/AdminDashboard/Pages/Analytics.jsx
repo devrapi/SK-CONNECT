@@ -4,6 +4,7 @@ import LineChart from '../Components/Charts/LineChart'
 import PieChart from '../Components/Charts/PieChart'
 import Tables from '../Components/Charts/Tables'
 import Cards from '../Components/Charts/Cards'
+import { Typography } from '@material-tailwind/react'
 
 const Analytics = () => {
   return (
@@ -11,7 +12,9 @@ const Analytics = () => {
 
 <div className="min-h-screen p-6">
   <div className="mb-6">
-    <h1 className="text-2xl font-semibold text-gray-700">Analytics Dashboard</h1>
+  <Typography variant="h4" color="blue-gray" className="font-semibold">
+        ANALYTICS DASHBOARD
+    </Typography>
   </div>
   {/* Cards Section */}
     <Cards />

@@ -86,7 +86,7 @@ const Profiling = () => {
         variant="small"
         className="mt-1 font-normal text-gray-600"
       >
-        Add the profile information below.
+        Add the youth profile information below.
       </Typography>
       <div className="flex flex-col mt-8">
         <div className="flex flex-col items-end gap-4 p-4 mb-6 md:flex-row">
@@ -99,14 +99,11 @@ const Profiling = () => {
               First Name {errors.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
             </Typography>
             <Input
-  size="lg"
-  placeholder="Emma"
-  value={form.first_name}
-  onChange={(event) => {setForm({...form , first_name: event.target.value})}}
-  labelProps={{
-    className: "hidden",
-  }}
- className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+             variant="static"
+             placeholder="Juan"
+             value={form.first_name}
+             onChange={(event) => {setForm({...form , first_name: event.target.value})}}
+             className="border-y-gray-500 "
 />
           </div>
           <div className="w-full">
@@ -119,14 +116,11 @@ const Profiling = () => {
               Last Name {errors.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
             </Typography>
             <Input
-              size="lg"
+              variant="static"
               placeholder="Roberts"
               value={form.last_name}
               onChange={(event) => {setForm({...form , last_name: event.target.value})}}
-              labelProps={{
-                className: "hidden",
-              }}
-           className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+                className="border-y-gray-500 "
             />
 
           </div>
@@ -165,14 +159,14 @@ const Profiling = () => {
             <Popover placement="bottom">
   <PopoverHandler>
     <Input
-      size="lg"
+     variant="static"
       onChange={() => null} // No need to change this
       placeholder="Select a Date"
       value={birthdate ? format(birthdate, 'yyyy-MM-dd') : ""}
       labelProps={{
         className: "hidden",
       }}
-      className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+       className="border-y-gray-500"
     />
   </PopoverHandler>
   <PopoverContent>
@@ -198,12 +192,12 @@ const Profiling = () => {
             <Input
             value={form.age}
             onChange={(event) => {setForm({...form , age: event.target.value})}}
-              size="lg"
+              variant="static"
               placeholder="15 to 30 years old only"
               labelProps={{
                 className: "hidden",
               }}
-             className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+             className="border-y-gray-500"
             />
           </div>
           <div className="w-full">
@@ -245,12 +239,10 @@ const Profiling = () => {
             <Input
             value={form.address}
             onChange={(event) => {setForm({...form , address: event.target.value})}}
-              size="lg"
+              variant="static"
               placeholder="Florida, USA"
-              labelProps={{
-                className: "hidden",
-              }}
-              className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+
+              className="border-y-gray-500"
             />
           </div>
           <div className="w-full">
@@ -264,12 +256,10 @@ const Profiling = () => {
             <Input
             value={form.phone_number}
             onChange={(event) => {setForm({...form , phone_number: event.target.value})}}
-              size="lg"
+              variant="static"
               placeholder="+123 0123 456 789"
-              labelProps={{
-                className: "hidden",
-              }}
-             className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+
+             className="border-y-gray-500"
             />
           </div>
         </div>
