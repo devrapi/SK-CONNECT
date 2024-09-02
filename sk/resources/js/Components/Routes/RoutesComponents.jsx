@@ -25,8 +25,7 @@ const RoutesComponents = () => {
    <Routes>
 
         <Route path='/' element={<Main/>}>
-            <Route path='/register' element={<Register/>}/>
-            <Route path='/login' element={<Login/>}/>
+
         </Route>
 
         <Route path="*" element={<NotFound />}/>

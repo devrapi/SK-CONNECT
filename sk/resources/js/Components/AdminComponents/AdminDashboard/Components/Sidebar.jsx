@@ -38,9 +38,9 @@ const Sidebar = () => {
         <Card className="h-[calc(100vh] w-full max-w-[20rem] p-6   rounded-xl">
 
         <div className="flex items-center p-4 mb-2">
-        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-16 mr-2'/>
-        <img src="/img/uno.png" alt="Logo" className='w-auto h-16'/>
-        <img src="/img/sk.png" alt="Logo" className='w-auto h-16'/>
+        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-12 mr-2'/>
+        <img src="/img/uno.png" alt="Logo" className='w-auto h-12'/>
+        <img src="/img/sk.png" alt="Logo" className='w-auto h-12'/>
       </div>
       <List>
         <Accordion

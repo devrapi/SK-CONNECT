@@ -5,6 +5,8 @@ import Footer from './Footer.jsx';
 import Officials from './Officials.jsx';
 import Features from './Features.jsx';
 import FAQs from './FAQs.jsx';
+import NewLogin from './AuthUsers/NewLogin.jsx';
+import NewRegister from './AuthUsers/NewRegister.jsx';
 import {
     Navbar,
     Collapse,
@@ -42,6 +44,7 @@ const Main = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen((cur) => !cur);
 
+
     React.useEffect(() => {
       window.addEventListener(
         "resize",
@@ -56,9 +59,8 @@ const Main = () => {
 
 <Navbar shadow={false} fullWidth className="border-0">
         <div className="container flex items-center justify-between mx-auto">
-          <Typography color="black" className="text-lg font-bold">
-          <img src="/img/sklogo.png" alt="Logo" className='w-auto h-16'/>
-          </Typography>
+        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-16'/>
+
           <ul className="items-center hidden gap-6 ml-10 text-black lg:flex">
             <NavItem>
               <RectangleStackIcon className="w-5 h-5" />
@@ -80,8 +82,8 @@ const Main = () => {
             </NavItem>
           </ul>
           <div className="items-center hidden gap-4 lg:flex">
-          <Button variant="text"> <Link to="/login">Log in</Link></Button>
-          <Button color="green"><Link to="/register">Register</Link></Button>
+         <NewLogin />
+        <NewRegister/>
           </div>
           <IconButton
             variant="text"
@@ -119,8 +121,9 @@ const Main = () => {
             <div className="flex items-center gap-4 mt-6 mb-4">
 
 
-              <Button variant="text"> <Link to="/login">Log in</Link></Button>
-              <Button color="green"><Link to="/register">Register</Link></Button>
+
+            <NewLogin />
+            <NewRegister/>
 
             </div>
           </div>

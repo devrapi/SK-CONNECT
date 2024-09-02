@@ -64,7 +64,7 @@ const Features = () => {
             people we love.
           </Typography>
           <img
-            src="/image/laptop 1.svg"
+            src="/img/hero2.png"
             alt="laptop"
             className="w-full lg:h-[380px] md:h-[300px] h-[220px] lg:translate-y-16 translate-y-10 object-cover object-center"
           />
