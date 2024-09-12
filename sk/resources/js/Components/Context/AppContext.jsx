@@ -9,9 +9,29 @@ export default function AppProvider({children}){
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
     const[event , setEvent] = useState({});
+    const[rewards , setRewards] = useState({});
+    const[ticket , setTicket] = useState([]);
+    const[history , setHistory] = useState([]);
     const[profiles , setProfiles] = useState({})
     const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
+
+
+     //get ticket data
+     async function getTicket(){
+        const res = await ApiService.get("/rewards/claim/all",);
+        const data = await res.data;
+
+        setTicket(data)
+    }
+
+       //get ticket data
+       async function getHistory(){
+        const res = await ApiService.get("/rewards/claim/history",);
+        const data = await res.data;
+
+        setHistory(data)
+    }
 
     //get user data
     async function getUser(){
@@ -45,6 +65,15 @@ export default function AppProvider({children}){
         setEvent(data);
     }
 
+     // get rewards
+     async function getRewards(){
+        const res = await ApiService.get("/rewards");
+
+        const data = await res.data;
+
+        setRewards(data);
+    }
+
 
 //get admin data
     async function getAdmin(){
@@ -61,7 +90,19 @@ export default function AppProvider({children}){
 
 
     useEffect(() => {
+        getHistory();
+    },[]);
+
+    useEffect(() => {
         getEvents();
+    },[]);
+
+    useEffect(() => {
+        getTicket();
+    },[]);
+
+    useEffect(() => {
+        getRewards();
     },[]);
 
     useEffect(() => {
@@ -88,7 +129,7 @@ export default function AppProvider({children}){
         setAdmin ,admin ,
         role , setRole ,
         success , setSuccess,
-        event ,profiles
+        event ,profiles , rewards ,ticket,history
 
          }}>
             {children}

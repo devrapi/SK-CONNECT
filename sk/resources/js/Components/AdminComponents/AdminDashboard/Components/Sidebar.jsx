@@ -3,15 +3,12 @@ import { useState } from "react";
 import Logout from '../../AuthAdmin/logout'
 import {
     Card,
-    Typography,
     List,
     ListItem,
     ListItemPrefix,
     ListItemSuffix,
     Chip,
-    Accordion,
-    AccordionHeader,
-    AccordionBody,
+
   } from "@material-tailwind/react";
   import {
     PresentationChartBarIcon,
@@ -19,7 +16,10 @@ import {
     UserCircleIcon,
     Cog6ToothIcon,
     InboxIcon,
-    PowerIcon,
+   CalendarIcon,
+   GiftIcon,
+   ArchiveBoxIcon,
+   ClipboardDocumentCheckIcon
   } from "@heroicons/react/24/solid";
   import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
@@ -43,39 +43,17 @@ const Sidebar = () => {
         <img src="/img/sk.png" alt="Logo" className='w-auto h-12'/>
       </div>
       <List>
-        <Accordion
-          open={open === 1}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 1}>
-            <AccordionHeader onClick={() => handleOpen(1)} className="p-3 border-b-0">
-              <ListItemPrefix>
-                <PresentationChartBarIcon className="w-5 h-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Dashboard
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
+                <PresentationChartBarIcon className="w-6 h-6" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/analytics">
                 Analytics
                 </Link>
-
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
+                  <UserCircleIcon className="w-6 h-6" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/user-tables">
                 Youth Profiles
@@ -83,54 +61,31 @@ const Sidebar = () => {
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
+                  <CalendarIcon  className="w-6 h-6" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/calendars">
                 Events
                 </Link>
               </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader onClick={() => handleOpen(2)} className="p-3 border-b-0">
-              <ListItemPrefix>
-                <ShoppingBagIcon className="w-5 h-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-               Management
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0">
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
+                  <GiftIcon  className="w-6 h-6" />
                 </ListItemPrefix>
-                <Link to="/admin/dashboard/event">
-                Event Management
+                <Link to="/admin/dashboard/avail-rewards">
+                Rewards
                 </Link>
-
               </ListItem>
+
               <ListItem>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
+                <ClipboardDocumentCheckIcon className="w-6 h-6" />
                 </ListItemPrefix>
                 <Link to="/admin/dashboard/gamification">
-                Gamification Management
+                Task Management
                 </Link>
 
               </ListItem>
+
               {/* <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
@@ -139,30 +94,31 @@ const Sidebar = () => {
                 User Profiling Management
                 </Link>
               </ListItem> */}
-            </List>
-          </AccordionBody>
-        </Accordion>
+
+
         <hr className="my-2 border-blue-gray-50" />
         <ListItem>
           <ListItemPrefix>
-            <InboxIcon className="w-5 h-5" />
+            <InboxIcon className="w-6 h-6" />
           </ListItemPrefix>
+          <Link to="/admin/dashboard/inbox">
           Inbox
+          </Link>
           <ListItemSuffix>
             <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <UserCircleIcon className="w-5 h-5" />
+            <ArchiveBoxIcon className="w-6 h-6" />
           </ListItemPrefix>
           <Link to="/admin/dashboard/archived">
-          Archived
+          Archived Youth
           </Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <Cog6ToothIcon className="w-5 h-5" />
+            <Cog6ToothIcon className="w-6 h-6" />
           </ListItemPrefix>
           Settings
         </ListItem>

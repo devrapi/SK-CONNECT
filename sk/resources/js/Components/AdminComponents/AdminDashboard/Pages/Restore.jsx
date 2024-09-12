@@ -38,10 +38,10 @@ const handleRestore = async() => {
   Are you sure you want to archive this profile?
 </DialogBody>
 <DialogFooter>
-  <Button  onClick={handleOpen} className="mr-2">
+  <Button  onClick={handleOpen} className="mr-2" variant='text'>
     Cancel
   </Button>
-  <Button  color="red"  onClick={handleRestore}>
+  <Button  color="blue"  onClick={handleRestore}>
     Confirm
   </Button>
 </DialogFooter>

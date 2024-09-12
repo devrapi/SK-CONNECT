@@ -28,7 +28,7 @@ const deleteEvents = ({event_id ,handleOpen , open}) => {
   Are you sure you want to delete this event?
 </DialogBody>
 <DialogFooter>
-  <Button  onClick={handleOpen} className="mr-2">
+  <Button  onClick={handleOpen} className="mr-2" color='blue'>
     Cancel
   </Button>
   <Button  color="red"  onClick={handleDelete}>

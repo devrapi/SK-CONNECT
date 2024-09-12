@@ -11,21 +11,24 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import {
-  CubeTransparentIcon,
+
   UserCircleIcon,
-  CodeBracketSquareIcon,
+  ClipboardDocumentCheckIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
-  Bars2Icon,
+  HomeIcon ,
+  CalendarIcon,
+  ClipboardIcon,
+  ChartBarIcon,
+  GiftIcon
 } from "@heroicons/react/24/solid";
+
 
 // Profile menu component
 const profileMenuItems = [
   { label: "My Profile", icon: UserCircleIcon },
-  { label: "Edit Profile", icon: Cog6ToothIcon },
+  { label: "Edit Profile", icon: Cog6ToothIcon  },
   { label: "Sign Out", icon: PowerIcon },
 ];
 
@@ -92,18 +95,41 @@ function ProfileMenu() {
 
 // Nav list component
 const navListItems = [
-  { label: "Home", icon: UserCircleIcon },
-  { label: "Events", icon: CubeTransparentIcon },
-  { label: "Task", icon: CodeBracketSquareIcon },
-  { label: "Leaderboards", icon: CubeTransparentIcon },
-  { label: "Rewards", icon: CodeBracketSquareIcon },
+  { label: "Home", icon: HomeIcon , color: "text-green-500" , path : "index" },
+  { label: "Events", icon: CalendarIcon , color: "text-blue-500" , path: "index/events" },
+  { label: "Task", icon: ClipboardDocumentCheckIcon , color: "text-red-500" },
+  { label: "Leaderboards", icon: ChartBarIcon , color: "text-yellow-400" },
+  { label: "Rewards", icon: GiftIcon ,color: "text-purple-500" , path: "index/rewards" },
 ];
+
+
 
 function NavList() {
     return (
-      <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+      <ul className="flex lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+        {navListItems.map(({ label, icon ,color, path }, key) => (
+          <Typography
+            key={label}
+            as="a"
+            href={path}
+            variant="small"
+            color="gray"
+            className="font-medium text-blue-gray-500"
+          >
+            <MenuItem className="flex items-center gap-2 lg:rounded-full">
+              {React.createElement(icon, { className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125` })}{" "}
+              <span className="text-gray-900"> {label}</span>
+            </MenuItem>
+          </Typography>
+        ))}
+      </ul>
+    );
+  }
 
-        {navListItems.map(({ label, icon }, key) => (
+  function MobileNav() {
+    return (
+      <ul className="flex flex-row justify-between gap-2">
+        {navListItems.map(({ label, icon, color }, key) => (
           <Typography
             key={label}
             as="a"
@@ -113,9 +139,9 @@ function NavList() {
             className="font-medium text-blue-gray-500"
           >
             <MenuItem className="flex items-center gap-2 lg:rounded-full">
-              {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-              <span className="text-gray-900"> {label}</span>
+              {React.createElement(icon, { className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125` })}{" "}
             </MenuItem>
+
           </Typography>
         ))}
       </ul>
@@ -124,29 +150,21 @@ function NavList() {
 
 // Navbar component
 const navbar = () => {
-  const [isNavOpen, setIsNavOpen] = React.useState(false);
 
-  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
-  React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false)
-    );
-  }, []);
 
   return (
     <>
       {/* Top Navbar with NavList on large screens */}
-      <div className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6  shadow-lg">
-        <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+      <div className="max-w-screen-xl p-2 mx-auto shadow-lg lg:rounded-full lg:pl-6">
+        <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
           <Typography
             as="a"
             href="#"
-            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-            color="black"
+            className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
+            color="green"
           >
-            Material Tailwind
+            Sk Connect
           </Typography>
           <div className="hidden lg:block">
             <NavList />
@@ -156,8 +174,8 @@ const navbar = () => {
       </div>
 
       {/* Sticky bottom navbar, hidden on large screens */}
-      <div className="fixed bottom-0 left-0 right-0 w-full  shadow-lg lg:hidden py-2 bg-green-400">
-        <NavList />
+      <div className="fixed bottom-0 left-0 right-0 w-full py-2 lg:hidden bg-sky-100">
+        <MobileNav />
       </div>
     </>
   );

@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
-import Logout from '../AuthAdmin/logout'
 import { AppContext } from '../../Context/AppContext'
 import Sidebar from './Components/Sidebar'
 import Navbar from './Components/Navbar'
 import { Outlet } from 'react-router-dom'
-import Footer from './Components/Footer'
 const AdminIndex = () => {
     const{admin} = useContext(AppContext);
   return (

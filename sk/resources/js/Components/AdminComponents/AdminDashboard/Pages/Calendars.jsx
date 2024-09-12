@@ -14,6 +14,7 @@ import {
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
 import DeleteEvents from './deleteEvents';
+import { CalendarIcon , PlusIcon } from '@heroicons/react/24/solid';
 const Calendars = () => {
 
     const{event} = useContext(AppContext);
@@ -37,7 +38,25 @@ const Calendars = () => {
 
 
   return (
+
+
     <div>
+           <div className="space-y-5">
+    <Typography variant="h4" color="blue-gray" className="font-semibold">
+        UPCOMING EVENTS
+    </Typography>
+
+    <div className='flex justify-end'>
+    <Link to="/admin/dashboard/event">
+            <div className='flex items-center'>
+                <CalendarIcon className='w-12 h-12 text-green-500'/>
+                <PlusIcon className='w-6 h-6 text-green-500'/>
+            </div>
+
+
+        </Link>
+    </div>
+    </div>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 {event.map(ev => (
                     <Card key={ev.id} className="pt-12 mt-6 w-96">
@@ -53,7 +72,6 @@ const Calendars = () => {
                                 {ev.title}
                             </Typography>
                             <Typography className="truncate">
-
                                 {ev.description}
                             </Typography>
                             <Typography className="mt-2 mb-2">
@@ -84,7 +102,7 @@ const Calendars = () => {
                     <img
                         src={`/storage/${selectedEvent.image_path}`}
                         alt={selectedEvent.title}
-                        className="object-cover w-full h-full mb-4"
+                        className="w-full mb-4 h-80 object-fit"
                     />
                     <Typography variant="h6" color="blue-gray" className="mb-2">
                         {selectedEvent.title}

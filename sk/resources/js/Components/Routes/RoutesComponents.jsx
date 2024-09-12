@@ -19,6 +19,13 @@ import Gamification from '../AdminComponents/AdminDashboard/Pages/Gamification';
 import EventUpdate from '../AdminComponents/AdminDashboard/Pages/EventUpdate';
 import UsersUpdate from '../AdminComponents/AdminDashboard/Pages/UsersUpdate';
 import Archive from '../AdminComponents/AdminDashboard/Pages/Archive';
+import Rewards from '../AdminComponents/AdminDashboard/Pages/Rewards';
+import Eventusers from '../UsersComponents/AuthUsers/pages/Eventusers';
+import RewardsFetch from '../AdminComponents/AdminDashboard/Pages/RewardsFetch';
+import RewardUpdate from '../AdminComponents/AdminDashboard/Pages/RewardUpdate';
+import RewardUser from '../UsersComponents/AuthUsers/pages/RewardUser';
+import TicketInbox from '../AdminComponents/AdminDashboard/Pages/TicketInbox';
+import History from '../AdminComponents/AdminDashboard/Pages/History';
 const RoutesComponents = () => {
   return (
 
@@ -40,12 +47,17 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/analytics' element={<Analytics/>}/>
             <Route path='/admin/dashboard/user-tables' element={<Users/>}/>
             <Route path='/admin/dashboard/calendars' element={<Calendars/>}/>
+            <Route path='/admin/dashboard/avail-rewards' element={<RewardsFetch/>}/>
+            <Route path='/admin/dashboard/avail-rewards/:id' element={<RewardUpdate/>}/>
             <Route path='/admin/dashboard/profilling' element={<Profiling/>}/>
             <Route path='/admin/dashboard/archived' element={<Archive/>}/>
             <Route path='/admin/dashboard/profilling/update/:id' element={<UsersUpdate/>}/>
             <Route path='/admin/dashboard/event' element={<Event/>}/>
             <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
+            <Route path='/admin/dashboard/rewards' element={<Rewards/>}/>
+            <Route path='/admin/dashboard/inbox' element={<TicketInbox/>}/>
+            <Route path='/admin/dashboard/history' element={<History/>}/>
         </Route>
       </Route>
 
@@ -55,10 +67,12 @@ const RoutesComponents = () => {
         </Route> */}
 
 
-      <Route element={<ProtectedRoutes requiredRole="user" />}>
-        <Route path="/index" element={<Index />} />
+        <Route element={<ProtectedRoutes requiredRole="user" />}>
+        <Route path="/index" element={<Index />} >
+        <Route path="/index/events" element={<Eventusers/>} />
+        <Route path="/index/rewards" element={<RewardUser/>} />
       </Route>
-
+      </Route>
    </Routes>
   )
 }

@@ -16,7 +16,7 @@ import {
 
 // day picker
 import { format } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import Calendar from "react-calendar";
 import { useParams } from 'react-router-dom';
 import ApiService from "../../../Services/ApiService";
 
@@ -100,6 +100,12 @@ const UsersUpdate = () => {
           }
 
   return (
+<>
+    <div className="mb-6">
+  <Typography variant="h4" color="blue-gray" className="font-semibold">
+        UPDATE YOUTH PROFILE
+    </Typography>
+  </div>
     <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
     <Typography variant="h5" color="blue-gray">
       Update information
@@ -186,7 +192,7 @@ className="border-y-gray-500"
     variant="static"
     onChange={() => null} // No need to change this
     placeholder="Select a Date"
-    value={birthdate ? format(birthdate, 'yyyy-MM-dd') : ""}
+    value={form.birthdate}
     labelProps={{
       className: "hidden",
     }}
@@ -194,14 +200,13 @@ className="border-y-gray-500"
   />
 </PopoverHandler>
 <PopoverContent>
-  <DayPicker
-    mode="single"
-    selected={birthdate}
-    onSelect={handleDateChange} // Use the handleDateChange function
-    showOutsideDays
-    className="border-0"
-    // ... your other classNames and components
-  />
+<Calendar
+      selected={birthdate}
+      onChange={handleDateChange} // Use the handleDateChange function
+      showOutsideDays
+      className="border-0"
+      // ... your other classNames and components
+    />
 </PopoverContent>
 </Popover>
         </div>
@@ -290,6 +295,7 @@ className="border-y-gray-500"
       <Button className="bg-green-500" onClick={HandleSubmt}>Update</Button>
     </div>
   </section>
+  </>
   )
 }
 

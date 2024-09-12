@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../Context/AppContext'
 import Logout from './logout'
 import Navbar from './pages/navbar'
+import { Outlet } from 'react-router-dom'
 
 const index = () => {
     const{user} = useContext(AppContext);
@@ -12,12 +13,13 @@ const index = () => {
 
         <div>
             <Navbar/>
-        </div>
-
         <div>
-            <Logout/>
+        <main className='lg:mt-10 lg:mx-52 '>
+                    <Outlet/>
+          </main>
         </div>
-
+        <Logout/>
+        </div>
         </>)
 
         :

@@ -1,53 +1,47 @@
 import React, { useEffect } from 'react'
 import { Input, Textarea, Button, Card, CardBody, Typography } from "@material-tailwind/react";
-import { format } from "date-fns";
-import Calendar from "react-calendar"
-import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 
-const EventUpdate = () => {
+const RewardUpdate = () => {
     const navigate = useNavigate();
     const {id} = useParams();
-    const [selectedDate, setSelectedDate] = useState(null);
     const [image, setImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
-        title: '',
+        name: '',
         description: '',
         points: ''
       });
 
-      const getEvents = async () => {
+
+      const gerRewards = async () => {
         try {
-          const response = await ApiService.get(`events/${id}`);
-          const eventData = response.data;
+          const response = await ApiService.get(`rewards/${id}`);
+          const data = response.data;
 
           setForm({
-            title: eventData.title,
-            description: eventData.description,
-            points: eventData.points
+            name: data.name,
+            description: data.description,
+            points: data.points
           });
 
-          // If the event has a date and image, set them as well
-          setSelectedDate(new Date(eventData.date));
-          setImage(eventData.image_path); // Assuming you're dealing with an image path
+          setImage(data.image_path); // Assuming you're dealing with an image path
         } catch (error) {
           setErrors({ ...errors, fetchError: 'Failed to fetch event data.' });
         }
       };
 
       useEffect(() => {
-        getEvents();
+        gerRewards();
       }, [id]);
 
-
-    // Handle the image change and create a preview URL
+      // Handle the image change and create a preview URL
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -57,23 +51,15 @@ const EventUpdate = () => {
         }
     };
 
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const formData = new FormData();
 
             // Append form fields
-            formData.append('title', form.title);
+            formData.append('name', form.name);
             formData.append('description', form.description);
             formData.append('points', form.points);
-
-            // Append the selected date
-            formData.append('date', selectedDate ? selectedDate.toISOString().split('T')[0] : ''); // Format the date
-
-            // Append the image if one is selected
 
         // Append the image if one is selected
         if (imageFile) {
@@ -87,9 +73,9 @@ const EventUpdate = () => {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await ApiService.put(`events/${id}`, formData)
+            const response = await ApiService.put(`rewards/${id}`, formData)
 
-            navigate('/admin/dashboard/calendars');
+            navigate('/admin/dashboard/avail-rewards');
             window.location.reload();
 
 
@@ -105,15 +91,14 @@ const EventUpdate = () => {
         }
     };
 
-
   return (
     <>
-      <Typography variant="h4" color="blue-gray" className="font-semibold">
+        <Typography variant="h4" color="blue-gray" className="font-semibold">
         Rewards Update
     </Typography>
 
     <div className='flex justify-end'>
-    <Link to="/admin/dashboard/calendars">
+    <Link to="/admin/dashboard/avail-rewards">
             <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
         </Link>
     </div>
@@ -121,26 +106,25 @@ const EventUpdate = () => {
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
       <Typography variant="h4" color="blue-gray" className="mb-6">
-        Update Event
+        Update Rewards
       </Typography>
 
-
       <form>
-        <div className="grid grid-cols-2 gap-6">
-          {/* Title Field */}
+        <div className="grid grid-cols-1 ">
+
           <div className="flex flex-col mb-4">
             <div className='mb-4'>
             <Input
               type="text"
-              label="Event Title"
+              label="Event name"
               size="lg"
               className="w-full shadow-inner"
-              value={form.title}
+              value={form.name}
               onChange={(event) => {
-                setForm({ ...form, title: event.target.value });
+                setForm({ ...form, name: event.target.value });
               }}
             />
-            {errors.title && <span className="text-xs text-red-600">{errors.title}</span>}
+            {errors.name && <span className="text-xs text-red-600">{errors.name}</span>}
             </div>
 
             <div className="mt-5 mb-4">
@@ -171,21 +155,6 @@ const EventUpdate = () => {
           </div>
           </div>
 
-          {/* Date Field */}
-          <div className="mb-4">
-            <Calendar
-              onChange={setSelectedDate}
-              value={selectedDate}
-              className="w-full p-4 shadow-inner"
-            />
-            {selectedDate && (
-              <Typography className="mt-2 font-mono">
-                Selected Date: {format(selectedDate, "PPP")}
-              </Typography>
-            )}
-            {errors.date && <span className="text-xs text-red-600">{errors.date}</span>}
-          </div>
-
 
           {/* Image Upload Field */}
           <div className="col-span-2 mt-2 mb-4">
@@ -197,7 +166,7 @@ const EventUpdate = () => {
               size="lg"
               className="w-full mt-2 mb-4 shadow-inner"
             />
-                    {image && (
+          {image && (
             <div className="mt-4">
                 <Typography className="mb-2">Preview:</Typography>
                 <img
@@ -213,15 +182,15 @@ const EventUpdate = () => {
         {/* Submit Button */}
         <div className='mt-10'>
         <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
-          Update Event
+          Update Rewards
         </Button>
         </div>
 
       </form>
     </CardBody>
   </Card>
-  </>
+    </>
   )
 }
 
-export default EventUpdate
+export default RewardUpdate

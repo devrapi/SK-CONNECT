@@ -22,13 +22,13 @@ const ArchivedProfiles = ({ id }) => {
     <>
       <ArchiveBoxIcon className="w-6 h-6 text-red-500 cursor-pointer" onClick={handleOpen} />
 
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} >
         <DialogHeader>Confirm Archive</DialogHeader>
         <DialogBody >
           Are you sure you want to archive this profile?
         </DialogBody>
         <DialogFooter>
-          <Button  onClick={handleOpen} className="mr-2">
+          <Button  onClick={handleOpen} className="mr-2" color='blue'>
             Cancel
           </Button>
           <Button  color="red" onClick={handleArchived}>

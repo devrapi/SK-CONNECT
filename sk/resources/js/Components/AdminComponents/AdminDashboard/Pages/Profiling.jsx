@@ -14,13 +14,13 @@ import {
 
 // day picker
 import { format } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import Calendar from "react-calendar"
 
 // @heroicons/react
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 import ApiService from "../../../Services/ApiService";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 const Profiling = () => {
 
@@ -78,6 +78,19 @@ const Profiling = () => {
           }
 
   return (
+<>
+
+    <div className="mb-6">
+  <Typography variant="h4" color="blue-gray" className="font-semibold">
+        ADD YOUTH PROFILE
+    </Typography>
+
+    <div className='flex justify-end'>
+    <Link to="/admin/dashboard/user-tables">
+            <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
+        </Link>
+    </div>
+  </div>
     <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
       <Typography variant="h5" color="blue-gray">
         Basic Information
@@ -170,10 +183,9 @@ const Profiling = () => {
     />
   </PopoverHandler>
   <PopoverContent>
-    <DayPicker
-      mode="single"
+    <Calendar
       selected={birthdate}
-      onSelect={handleDateChange} // Use the handleDateChange function
+      onChange={handleDateChange} // Use the handleDateChange function
       showOutsideDays
       className="border-0"
       // ... your other classNames and components
@@ -266,6 +278,7 @@ const Profiling = () => {
         <Button className="bg-green-500" onClick={HandleSubmt}>Submit</Button>
       </div>
     </section>
+    </>
   )
 }
 

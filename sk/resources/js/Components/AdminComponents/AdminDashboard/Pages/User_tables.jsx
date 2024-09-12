@@ -3,7 +3,7 @@ import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { PencilIcon, ArchiveBoxIcon } from '@heroicons/react/24/outline';
+import {  PlusIcon , UserIcon ,DocumentTextIcon , UserPlusIcon } from '@heroicons/react/24/solid';
 import ArchivedProfiles from './ArchivedProfiles';
 const User_tables = () => {
     const { profiles } = useContext(AppContext);
@@ -67,9 +67,11 @@ const User_tables = () => {
     </Typography>
 
     <div className='flex justify-end'>
-        <Button color="blue">
-            <Link to="/admin/dashboard/profilling">Add Profile</Link>
-        </Button>
+    <Link to="/admin/dashboard/profilling">
+        <div className='flex items-center'>
+        <UserPlusIcon className='w-12 h-12 text-blue-500 '/>
+        </div>
+        </Link>
     </div>
 
     <Card className="w-full h-full rounded-lg shadow-lg">
@@ -126,7 +128,7 @@ const User_tables = () => {
                                 <td className={`${classes} bg-blue-gray-50/50`}>
                                     <Typography variant="small" color="green" className="font-medium">
                                         <Link to={`/admin/dashboard/profilling/update/${id}`}>
-                                            <PencilIcon className="w-6 h-6 text-green-500" />
+                                            <DocumentTextIcon className="w-6 h-6 text-green-500" />
                                         </Link>
                                     </Typography>
                                 </td>
