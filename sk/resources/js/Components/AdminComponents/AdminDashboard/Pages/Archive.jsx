@@ -1,7 +1,6 @@
 import React, { useState , useEffect} from 'react'
 import ApiService from '../../../Services/ApiService';
 import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
-import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import Restore from './Restore';
 import { Link } from 'react-router-dom';
 const Archive = () => {
@@ -41,11 +40,7 @@ const Archive = () => {
     <Typography variant="h4" color="red-600" className="font-semibold">
         YOUTH ARCHIVED
     </Typography>
-    <div className='flex justify-end'>
-    <Link to="/admin/dashboard/user-tables">
-            <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
-        </Link>
-    </div>
+
     <Card className="w-full h-full rounded-lg shadow-lg">
         <div className="overflow-x-auto">
             <table className="w-full text-left table-auto">

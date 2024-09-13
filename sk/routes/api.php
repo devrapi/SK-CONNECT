@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArchivedController;
+use App\Http\Controllers\AssignTask;
 use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\ClaimController;
@@ -51,3 +52,7 @@ Route::get('/rewards/claim/history' , [ClaimController::class , 'history']);
 
 //Verify Ticket
 Route::put('/rewards/claim/verify/{ticket}' , [ClaimController::class , 'verify']);
+
+
+//Task API
+Route::apiResource('task', AssignTask::class);

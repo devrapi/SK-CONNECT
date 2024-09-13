@@ -33,7 +33,7 @@ class RewardController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return response()->json(['message' => 'Event created successfully']);
+        return response()->json(['message' => 'Reward created successfully']);
     }
 
     public function show(Reward $reward)

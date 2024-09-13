@@ -49,7 +49,7 @@ const Calendars = () => {
     <div className='flex justify-end'>
     <Link to="/admin/dashboard/event">
             <div className='flex items-center'>
-                <CalendarIcon className='w-12 h-12 text-green-500'/>
+                <CalendarIcon className='w-12 h-10 text-green-500'/>
                 <PlusIcon className='w-6 h-6 text-green-500'/>
             </div>
 

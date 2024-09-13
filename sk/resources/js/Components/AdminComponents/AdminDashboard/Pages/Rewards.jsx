@@ -4,6 +4,8 @@ import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 const Rewards = () => {
 
@@ -47,7 +49,6 @@ const Rewards = () => {
             const response = await ApiService.post('rewards', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-
                 },
             });
             navigate('/admin/dashboard/avail-rewards');
@@ -85,7 +86,11 @@ const Rewards = () => {
 <Typography variant="h4" color="blue-gray" className="font-semibold">
         Rewards Management
     </Typography>
-
+    <div className='flex justify-end'>
+    <Link to="/admin/dashboard/avail-rewards">
+            <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
+        </Link>
+    </div>
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
       <Typography variant="h4" color="blue-gray" className="mb-6">

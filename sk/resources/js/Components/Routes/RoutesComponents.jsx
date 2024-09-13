@@ -26,6 +26,7 @@ import RewardUpdate from '../AdminComponents/AdminDashboard/Pages/RewardUpdate';
 import RewardUser from '../UsersComponents/AuthUsers/pages/RewardUser';
 import TicketInbox from '../AdminComponents/AdminDashboard/Pages/TicketInbox';
 import History from '../AdminComponents/AdminDashboard/Pages/History';
+import Task from '../AdminComponents/AdminDashboard/Pages/Task';
 const RoutesComponents = () => {
   return (
 
@@ -55,6 +56,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/event' element={<Event/>}/>
             <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
+            <Route path='/admin/dashboard/task' element={<Task/>}/>
             <Route path='/admin/dashboard/rewards' element={<Rewards/>}/>
             <Route path='/admin/dashboard/inbox' element={<TicketInbox/>}/>
             <Route path='/admin/dashboard/history' element={<History/>}/>

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../../Context/AppContext'
-import VerifyTicket from './VerifyTicket';
 import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
 import {    ArrowLeftCircleIcon  } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';

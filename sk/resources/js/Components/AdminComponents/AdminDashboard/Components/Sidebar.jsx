@@ -80,7 +80,7 @@ const Sidebar = () => {
                 <ListItemPrefix>
                 <ClipboardDocumentCheckIcon className="w-6 h-6" />
                 </ListItemPrefix>
-                <Link to="/admin/dashboard/gamification">
+                <Link to="/admin/dashboard/task">
                 Task Management
                 </Link>
 
