@@ -122,7 +122,7 @@ const NewLogin = () => {
         <Button variant="gradient" onClick={HandleSubmit} fullWidth color="green">
           Sign In
         </Button>
-        <Typography variant="small" className="mt-4 flex justify-center">
+        <Typography variant="small" className="flex justify-center mt-4">
           Don&apos;t have an account?
           <Typography
             as="a"

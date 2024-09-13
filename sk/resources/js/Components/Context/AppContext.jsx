@@ -9,6 +9,7 @@ export default function AppProvider({children}){
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
     const[event , setEvent] = useState({});
+    const[dailyLogin , setDailyLogin] = useState([])
     const[rewards , setRewards] = useState({});
     const[task , setTask] = useState({});
     const[ticket , setTicket] = useState([]);
@@ -23,6 +24,14 @@ export default function AppProvider({children}){
         const data = await res.data;
 
         setTask(data)
+    }
+
+       //get Daily Login
+       async function getDailyLogin(){
+        const res = await ApiService.get("dailyLogin",);
+        const data = await res.data;
+
+        setDailyLogin(data)
     }
 
      //get ticket data
@@ -102,6 +111,10 @@ export default function AppProvider({children}){
     },[]);
 
     useEffect(() => {
+        getDailyLogin();
+    },[]);
+
+    useEffect(() => {
         getHistory();
     },[]);
 
@@ -141,7 +154,7 @@ export default function AppProvider({children}){
         setAdmin ,admin ,
         role , setRole ,
         success , setSuccess,
-        event ,profiles , rewards ,ticket,history ,task
+        event ,profiles , rewards ,ticket,history ,task, dailyLogin
 
          }}>
             {children}

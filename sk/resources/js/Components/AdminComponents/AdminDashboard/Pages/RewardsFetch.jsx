@@ -33,13 +33,13 @@ const RewardsFetch = () => {
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 {rewards.map(ev => (
                     <Card key={ev.id} className="pt-12 mt-6 w-96">
-                        <CardHeader color="blue-gray" className="relative h-56">
+                        <div color="blue-gray" className="relative h-56">
                             <img
                                 src={`/storage/${ev.image_path}`}
                                 alt={ev.name}
-                                className="object-cover w-full h-full"
+                                className="p-8 rounded-t-lg"
                             />
-                        </CardHeader>
+                        </div>
                         <CardBody className="">
                             <Typography variant="h5" color="blue-gray" className="mb-2">
                                 {ev.name}
@@ -63,6 +63,7 @@ const RewardsFetch = () => {
 
 
         </div>
+
 
     </>
   )

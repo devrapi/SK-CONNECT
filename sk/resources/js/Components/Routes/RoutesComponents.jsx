@@ -1,8 +1,6 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom';
 import Main from '../UsersComponents/Main';
-import Register from '../UsersComponents/AuthUsers/register';
-import Login from '../UsersComponents/AuthUsers/login';
 import Index from '../UsersComponents/AuthUsers/index';
 import NotFound from './NotFound';
 import AdminRegister from '../AdminComponents/AuthAdmin/register'
@@ -27,6 +25,9 @@ import RewardUser from '../UsersComponents/AuthUsers/pages/RewardUser';
 import TicketInbox from '../AdminComponents/AdminDashboard/Pages/TicketInbox';
 import History from '../AdminComponents/AdminDashboard/Pages/History';
 import Task from '../AdminComponents/AdminDashboard/Pages/Task';
+import TaskUser from '../UsersComponents/AuthUsers/pages/TaskUser';
+import LeaderBoards from '../UsersComponents/AuthUsers/pages/LeaderBoards';
+import Home from '../UsersComponents/AuthUsers/pages/Home';
 const RoutesComponents = () => {
   return (
 
@@ -71,8 +72,11 @@ const RoutesComponents = () => {
 
         <Route element={<ProtectedRoutes requiredRole="user" />}>
         <Route path="/index" element={<Index />} >
+        <Route path="/index" element={<Home/>} ></Route>
         <Route path="/index/events" element={<Eventusers/>} />
         <Route path="/index/rewards" element={<RewardUser/>} />
+        <Route path="/index/tasks" element={<TaskUser/>} />
+        <Route path="/index/leaderboards" element={<LeaderBoards/>} />
       </Route>
       </Route>
    </Routes>

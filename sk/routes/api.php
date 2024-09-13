@@ -8,6 +8,7 @@ use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RewardController;
+use App\Http\Controllers\UserTaskController;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,8 @@ Route::get('/rewards/claim/history' , [ClaimController::class , 'history']);
 //Verify Ticket
 Route::put('/rewards/claim/verify/{ticket}' , [ClaimController::class , 'verify']);
 
-
 //Task API
 Route::apiResource('task', AssignTask::class);
+
+//Daily Login
+Route::get('dailyLogin' , [UserTaskController::class , 'show']);

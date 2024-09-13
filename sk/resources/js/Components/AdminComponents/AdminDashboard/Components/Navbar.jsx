@@ -22,7 +22,7 @@ const NavBar = () => {
       <div className="flex items-center justify-between">
         {/* Logo/Title */}
         <Typography variant="h6" className="text-gray-900">
-         SANGGUNIANG KABATAANG NG UNO
+         SANGGUNIANG KABATAAN NG UNO
         </Typography>
 
         {/* Right-side icons */}
@@ -43,7 +43,6 @@ const NavBar = () => {
               <MenuItem className="flex items-center gap-2">
                 <Logout/>
               </MenuItem>
-
             </MenuList>
           </Menu>
         </div>
