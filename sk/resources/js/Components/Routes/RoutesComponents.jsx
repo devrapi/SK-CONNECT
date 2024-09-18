@@ -28,6 +28,9 @@ import Task from '../AdminComponents/AdminDashboard/Pages/Task';
 import TaskUser from '../UsersComponents/AuthUsers/pages/TaskUser';
 import LeaderBoards from '../UsersComponents/AuthUsers/pages/LeaderBoards';
 import Home from '../UsersComponents/AuthUsers/pages/Home';
+import MyProfile from '../UsersComponents/AuthUsers/Profile/MyProfile';
+import Referral from '../UsersComponents/AuthUsers/Profile/Referral';
+import EditProfile from '../UsersComponents/AuthUsers/Profile/EditProfile';
 const RoutesComponents = () => {
   return (
 
@@ -76,6 +79,9 @@ const RoutesComponents = () => {
         <Route path="/index/events" element={<Eventusers/>} />
         <Route path="/index/rewards" element={<RewardUser/>} />
         <Route path="/index/tasks" element={<TaskUser/>} />
+        <Route path="/index/profile" element={<MyProfile/>} />
+        <Route path="/index/editProfile" element={<EditProfile/>} />
+        <Route path="/index/referral" element={<Referral/>} />
         <Route path="/index/leaderboards" element={<LeaderBoards/>} />
       </Route>
       </Route>

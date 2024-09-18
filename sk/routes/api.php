@@ -59,3 +59,6 @@ Route::apiResource('task', AssignTask::class);
 
 //Daily Login
 Route::get('dailyLogin' , [UserTaskController::class , 'show']);
+
+//Referral Bonus
+Route::post('/referral/{user_id}' , [UserTaskController::class , 'ClaimReferral']);

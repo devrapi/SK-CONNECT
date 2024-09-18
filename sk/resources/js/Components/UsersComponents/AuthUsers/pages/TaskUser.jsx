@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../../Context/AppContext';
 import { Typography } from "@material-tailwind/react";
+import ReferralBonus from '../Profile/ReferralBonus';
 
 const TaskUser = () => {
     const { task } = useContext(AppContext);
-
+    const {user} = useContext(AppContext);
     const TABLE_HEAD = ["Task Name", "Description", "Points"];
     const TABLE_ROWS = task.map(task => ({
         id: `${task.id}`,
@@ -18,6 +19,9 @@ const TaskUser = () => {
         <Typography variant="h4" className="mb-2 font-semibold text-center">
             AVAILABLE TASKS
         </Typography>
+            <div>
+            <ReferralBonus user_id={user.id}/>
+            </div>
         <div className="h-auto overflow-x-auto shadow-md">
             <table className="min-w-full divide-y divide-gray-200 shadow-sm table-auto">
                 <thead className="bg-blue-100">

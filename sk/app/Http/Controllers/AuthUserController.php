@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\DailyLogin;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 
 class AuthUserController extends Controller
@@ -28,13 +30,17 @@ class AuthUserController extends Controller
             return response()->json(['message' => 'Profile is already associated with another user.'], 400);
         }
 
+        $referalCode = strtoupper(Str::random(6));
+
 
         $User = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
-            'profile_id' => $profiling->id
+            'profile_id' => $profiling->id,
+            'referal_code' => $referalCode
         ]);
+
         $token = $User->createToken($request->name);
 
         return response()->json([
@@ -53,6 +59,7 @@ class AuthUserController extends Controller
 
     $User = User::where('email', $request->email)->first();
 
+
     if (!$User || !Hash::check($request->password, $User->password)) {
         return response()->json([
             'message' => 'Invalid credentials'
@@ -64,7 +71,6 @@ class AuthUserController extends Controller
 
     // Get today's date and midnight for the next day
     $today = now()->format('Y-m-d');
-    $midnight = now()->copy()->endOfDay();
 
     // Check if there's a daily login record for the user
     $dailyLogin = DailyLogin::where('user_id', $User->id)->first();
@@ -78,8 +84,9 @@ class AuthUserController extends Controller
         ]);
 
         // Reward points for the first login
-        $User->points += 10;
+        $User->points += 50;
         $User->save();
+
     } else {
         // If the user already has a login record, check if it's a new day
         if ($dailyLogin->login_date !== $today) {
@@ -91,7 +98,16 @@ class AuthUserController extends Controller
 
             // Reward points for logging in on the new day
             $User->points += 10;
+            $dailyLogin->streak += 1;
             $User->save();
+            $dailyLogin->save();
+        }
+
+        if($dailyLogin->streak >= 7){
+            $User->points += 50;
+            $dailyLogin->streak = 0;
+            $User->save();
+            $dailyLogin->save();
         }
     }
 

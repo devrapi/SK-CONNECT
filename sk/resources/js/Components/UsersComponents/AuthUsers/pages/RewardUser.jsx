@@ -16,10 +16,7 @@ const RewardUser =  () => {
     const{rewards} = useContext(AppContext);
     const{user} = useContext(AppContext);
 
-    const handleClaim =  async () => {
-        const  response = await ApiService.post(`rewards/claim/${15}/${3}`)
-        console.log(response.data.message);
-    }
+
 
   return (
     <>

@@ -16,8 +16,8 @@ class ClaimController extends Controller
         $reward = Reward::findOrFail($rewardId);
         $user = User::findOrFail($userId);
 
-        Log::info("user points :" . $user->points);
-        Log::info("reward points :" . $reward->points);
+        // Log::info("user points :" . $user->points);
+        // Log::info("reward points :" . $reward->points);
 
         if((int) $user->points >= (int) $reward->points){
 
@@ -61,13 +61,12 @@ class ClaimController extends Controller
 
     public function verify(Ticket $ticket){
 
-        Log::info('before update status: ' . $ticket->status);
+
 
         $ticket->update([
             'status' => 'converted'
         ]);
 
-        Log::info('after update status: ' . $ticket->status);
 
 
         return response()->json(['message' => 'ticket verified' , 'ticket' => $ticket ], 200);
