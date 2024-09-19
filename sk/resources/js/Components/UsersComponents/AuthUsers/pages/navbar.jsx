@@ -43,14 +43,7 @@ export function ProfileMenu() {
     </Link>
   </MenuItem>
 
-  <MenuItem className="flex items-center gap-2">
-    <Link to="/index/editProfile" className="flex items-center gap-2">
-      <Cog6ToothIcon className="w-5 h-5 text-gray-500" />
-      <Typography variant="small" className="font-medium">
-        Edit Profile
-      </Typography>
-    </Link>
-  </MenuItem>
+
 
   <MenuItem className="flex items-center gap-2">
     <Link to="/index/inbox" className="flex items-center gap-2">

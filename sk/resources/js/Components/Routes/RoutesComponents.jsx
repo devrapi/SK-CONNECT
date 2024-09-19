@@ -80,7 +80,7 @@ const RoutesComponents = () => {
         <Route path="/index/rewards" element={<RewardUser/>} />
         <Route path="/index/tasks" element={<TaskUser/>} />
         <Route path="/index/profile" element={<MyProfile/>} />
-        <Route path="/index/editProfile" element={<EditProfile/>} />
+        <Route path="/index/editProfile/:id" element={<EditProfile/>} />
         <Route path="/index/referral" element={<Referral/>} />
         <Route path="/index/leaderboards" element={<LeaderBoards/>} />
       </Route>
