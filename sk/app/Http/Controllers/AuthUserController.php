@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthUserController extends Controller
 {
@@ -132,5 +133,38 @@ class AuthUserController extends Controller
         ];
 
     }
+
+    public function update(Request $request)
+{
+    Log::info('Incoming request data: ', $request->all());
+
+    // Validate only the image field
+    $field = $request->validate([
+        'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('user_avatar', 'public');
+
+        Log::info("Image stored at path: " . $imagePath);
+
+        User::create([
+            'image_path' => $imagePath
+        ]);
+
+        return response()->json([
+            'message' => 'success',
+        ]);
+    }else{
+        return response()->json([
+            'message' => 'error',
+        ]);
+    }
+
+
+}
+
+
+
 
 }

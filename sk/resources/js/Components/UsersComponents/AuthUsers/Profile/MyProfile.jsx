@@ -1,32 +1,92 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Card,
   CardHeader,
   CardBody,
   Typography,
   Button,
-  Avatar, // Import Avatar from Material Tailwind
+  Avatar,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../../Context/AppContext';
+// import { CameraIcon } from "@heroicons/react/solid"; // Import an icon for the edit action
+import { CameraIcon, ArrowUpIcon } from '@heroicons/react/24/solid';
+import ApiService from '../../../Services/ApiService';
 
 const MyProfile = () => {
-  const { user } = useContext(AppContext);
+
+  const{user} = useContext(AppContext);
+
+  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+
+ const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(URL.createObjectURL(file)); // Create a preview URL
+            setImageFile(file); // Store the actual file for submission
+        }
+    };
+
+    const handleSubmit = async () => {
+
+        try {
+            const formData = new FormData();
+
+            if (imageFile) {
+                formData.append('image', imageFile);
+                console.log([...formData]);
+            }
+            else{
+                console.log('No image file to upload');
+            }
+
+            const response = await ApiService.put(`update/user/${user.id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error during update creation:', error.response?.data || error.message);
+        }
+    };
 
   return (
     <div className="flex justify-center mt-10">
       <Card className="w-full max-w-md mt-20 shadow-lg">
-        <CardHeader color="blue-gray" className="py-4 text-center">
+        <CardHeader color="blue-gray" className="py-4 text-center relative">
           {/* Adding Avatar */}
-          <div className="flex justify-center mb-4">
+          <div className="relative flex justify-center mb-4">
             <Avatar
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" // Fallback image if no profile picture
+              src={image}
               alt="User avatar"
-              size="xl"
-              className="border-4 border-white"
+              size="xxl"
+              className="p-0.5"
+              variant="circular"
+              withBorder={true}
+              color="blue"
             />
-          </div>
 
+            {/* Edit Icon for Avatar */}
+            <label htmlFor="avatar-upload" className="absolute bottom-0 right-0 bg-gray-800 rounded-full p-1 cursor-pointer hover:bg-gray-600">
+              <CameraIcon className="h-5 w-5 text-white" />
+              <input
+                type="file"
+                id="avatar-upload"
+                className="hidden"
+                accept="image/*"
+                onChange={handleAvatarChange}
+              />
+            </label>
+
+
+          </div>
+          {imageFile && (
+            <Button color="blue" onClick={handleSubmit} size='sm' >
+              Save Avatar
+            </Button>
+          )}
           <Typography variant="h5" color="gray">
             {user.name}
           </Typography>
@@ -41,11 +101,11 @@ const MyProfile = () => {
             </Typography>
           </div>
 
-          <div className="mt-4 space-x-3">
+          <div className="mt-4 space-x-3 flex justify-center">
             <Link to={`/index/editProfile/${user.profile_id}`}>
-            <Button color="blue" size="sm">
-              Edit Profile
-            </Button>
+              <Button color="blue" size="sm">
+                Edit Profile
+              </Button>
             </Link>
           </div>
         </CardBody>

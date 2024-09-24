@@ -20,6 +20,7 @@ Route::get('/user', function (Request $request) {
 //USER API
 Route::post('/register' , [AuthUserController::class , 'register']);
 Route::post('/login' , [AuthUserController::class , 'login']);
+Route::post('update/user/{user}' , [AuthUserController::class , 'update']);
 Route::post('/logout' , [AuthUserController::class , 'logout'])->middleware('auth:sanctum');
 
 //ADMIN API

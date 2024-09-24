@@ -58,8 +58,6 @@ const EventUpdate = () => {
     };
 
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -87,7 +85,9 @@ const EventUpdate = () => {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await ApiService.put(`events/${id}`, formData)
+            const response = await ApiService.put(`events/${id}`, formData
+
+            )
 
             navigate('/admin/dashboard/calendars');
             window.location.reload();
