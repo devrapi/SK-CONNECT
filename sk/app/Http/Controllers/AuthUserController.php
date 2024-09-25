@@ -134,36 +134,33 @@ class AuthUserController extends Controller
 
     }
 
-    public function update(Request $request)
+    public function update(Request $request, User $user)
 {
-    Log::info('Incoming request data: ', $request->all());
-
-    // Validate only the image field
-    $field = $request->validate([
-        'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    // Validate only the image
+    $fields = $request->validate([
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
+    // Check if an image file is being uploaded
     if ($request->hasFile('image')) {
+        // If the user has an existing image, delete the old image
+        if (!is_null($user->image_path) && Storage::disk('public')->exists($user->image_path)) {
+            Storage::disk('public')->delete($user->image_path);
+        }
+
+        // Store the new image in 'user_avatar' folder and update the image path
         $imagePath = $request->file('image')->store('user_avatar', 'public');
-
-        Log::info("Image stored at path: " . $imagePath);
-
-        User::create([
-            'image_path' => $imagePath
-        ]);
-
-        return response()->json([
-            'message' => 'success',
-        ]);
-    }else{
-        return response()->json([
-            'message' => 'error',
-        ]);
+        $user->image_path = $imagePath; // Save new image path to the user model
     }
 
+    // Save the updated user (even if only the image path changes)
+    $user->save();
 
+    return response()->json([
+        'message' => 'Avatar updated successfully',
+        'user' => $user
+    ]);
 }
-
 
 
 

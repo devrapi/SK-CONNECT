@@ -73,7 +73,12 @@ const RewardUpdate = () => {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await ApiService.put(`rewards/${id}`, formData)
+            const response = await ApiService.post(`rewards/update/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+
+                },
+            })
 
             navigate('/admin/dashboard/avail-rewards');
             window.location.reload();

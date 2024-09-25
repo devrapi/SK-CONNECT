@@ -59,27 +59,44 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( Event $event , Request $request){
+    public function update(Request $request, Event $event)
+{
+    // Validate the fields, including optional image upload
+    $fields = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date' => 'required|date',
+        'points' => 'required|integer',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+    ]);
 
-        $fields = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
-            'points' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+    // Update the event fields
+    $event->title = $fields['title'];
+    $event->description = $fields['description'];
+    $event->date = $fields['date'];
+    $event->points = $fields['points'];
 
-        if ($request->hasFile('image')) {
-            // Store the new image
-            $imagePath = $request->file('image')->store('event_images', 'public');
-            $fields['image_path'] = $imagePath;
+    // Check if an image file is being uploaded
+    if ($request->hasFile('image')) {
+        // If the event has an existing image, delete the old image
+        if (!is_null($event->image_path) && Storage::disk('public')->exists($event->image_path)) {
+            Storage::disk('public')->delete($event->image_path);
         }
 
-        $event->update($fields);
-
-    return ['message' => 'update success' , $event];
-
+        // Store the new image in 'event_images' folder and update the image path
+        $imagePath = $request->file('image')->store('event_images', 'public');
+        $event->image_path = $imagePath; // Save the new image path to the event model
     }
+
+    // Save the updated event
+    $event->save();
+
+    return response()->json([
+        'message' => 'Update successful',
+        'event' => $event  // Return the updated event object
+    ], 200);
+}
+
     /**
      * Remove the specified resource from storage.
      */

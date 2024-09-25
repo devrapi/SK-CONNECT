@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Typography,
   Menu,
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import {
   UserCircleIcon,
   ClipboardDocumentCheckIcon,
-  Cog6ToothIcon,
+    GiftTopIcon,
     BellAlertIcon,
   HomeIcon ,
   CalendarIcon,
@@ -21,22 +21,27 @@ import {
 
 } from "@heroicons/react/24/solid";
 import Logout from '../logout';
+import { AppContext } from '../../../Context/AppContext';
 
 export function ProfileMenu() {
+
+    const{user}= useContext(AppContext);
+
   return (
     <Menu>
-      <MenuHandler>
+    <MenuHandler>
+  <Avatar
+    variant="circular"
+    size="md"
+    withBorder={true}
+    color="blue"
+    className="p-0.5 cursor-pointer"
+    alt="User Profile"
+    // Use default image if user.image_path is undefined or empty
+    src={user.image_path ? `/storage/${user.image_path}` : '/img/default_user.jpg'}
+  />
+</MenuHandler>
 
-        <Avatar
-          variant="circular"
-          size="md"
-          withBorder={true}
-          color="blue-gray"
-          className=" p-0.5 cursor-pointer"
-          alt="User Profile"
-          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-        />
-      </MenuHandler>
       <MenuList>
   <MenuItem className="flex items-center gap-2">
     <Link to="/index/profile" className="flex items-center gap-2">
@@ -54,6 +59,15 @@ export function ProfileMenu() {
       <BellAlertIcon className="w-5 h-5 text-gray-500" />
       <Typography variant="small" className="font-medium">
         Inbox
+      </Typography>
+    </Link>
+  </MenuItem>
+
+  <MenuItem className="flex items-center gap-2">
+    <Link to="/index/rewards-ticket" className="flex items-center gap-2">
+      <GiftTopIcon className="w-5 h-5 text-gray-500" />
+      <Typography variant="small" className="font-medium">
+        Rewards Ticket
       </Typography>
     </Link>
   </MenuItem>

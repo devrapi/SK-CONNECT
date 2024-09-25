@@ -20,7 +20,6 @@ class UserTaskController extends Controller
         ]);
 
 
-
         // Find the user by their ID
         $user = User::find($user_id);
 
@@ -40,6 +39,14 @@ class UserTaskController extends Controller
             return response()->json([
                 'errors' => [
                     'general' => 'Invalid referral code.',
+                ],
+            ], 400);
+        }
+
+        if ($referrer->id === $user->id) {
+            return response()->json([
+                'errors' => [
+                    'general' => 'You cannot refer yourself.',
                 ],
             ], 400);
         }

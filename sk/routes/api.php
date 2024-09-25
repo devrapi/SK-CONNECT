@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\LeaderBoards;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\UserTaskController;
@@ -31,7 +32,7 @@ Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middlewa
 
 //events API
 Route::apiResource('events', EventController::class);
-
+Route::post('events/update/{event}', [EventController::class, 'update']);
 
 //PROFILES API
 Route::apiResource('profiles', ProfilesController::class);
@@ -42,6 +43,7 @@ Route::get('profiles/archived/fetch', [ArchivedController::class, 'fetchArchived
 
 //Rewards API
 Route::apiResource('rewards', RewardController::class);
+Route::post('rewards/update/{reward}', [RewardController::class, 'update']);
 
 //Create a Ticker
 Route::post('/rewards/claim/{user}/{id}' , [ClaimController::class , 'claimReward']);
@@ -63,3 +65,6 @@ Route::get('dailyLogin' , [UserTaskController::class , 'show']);
 
 //Referral Bonus
 Route::post('/referral/{user_id}' , [UserTaskController::class , 'ClaimReferral']);
+
+//LeaderBoards
+Route::get('leaderboards' , [LeaderBoards::class , 'LeaderBoards']);

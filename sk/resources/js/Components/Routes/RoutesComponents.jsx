@@ -31,6 +31,7 @@ import Home from '../UsersComponents/AuthUsers/pages/Home';
 import MyProfile from '../UsersComponents/AuthUsers/Profile/MyProfile';
 import Referral from '../UsersComponents/AuthUsers/Profile/Referral';
 import EditProfile from '../UsersComponents/AuthUsers/Profile/EditProfile';
+import RewardsTicket from '../UsersComponents/AuthUsers/Profile/RewardsTicket';
 const RoutesComponents = () => {
   return (
 
@@ -83,6 +84,7 @@ const RoutesComponents = () => {
         <Route path="/index/editProfile/:id" element={<EditProfile/>} />
         <Route path="/index/referral" element={<Referral/>} />
         <Route path="/index/leaderboards" element={<LeaderBoards/>} />
+        <Route path="/index/rewards-ticket" element={<RewardsTicket/>} />
       </Route>
       </Route>
    </Routes>

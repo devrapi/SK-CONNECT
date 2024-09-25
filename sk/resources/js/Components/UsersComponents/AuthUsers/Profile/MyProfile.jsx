@@ -9,48 +9,48 @@ import {
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../../Context/AppContext';
-// import { CameraIcon } from "@heroicons/react/solid"; // Import an icon for the edit action
-import { CameraIcon, ArrowUpIcon } from '@heroicons/react/24/solid';
+import { CameraIcon } from '@heroicons/react/24/solid';
 import ApiService from '../../../Services/ApiService';
 
 const MyProfile = () => {
 
-  const{user} = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
-  const [image, setImage] = useState(null);
+  // Fallback default image if user doesn't have an avatar
+  const defaultImage = "/img/default_user.jpg"; // Ensure this path exists in your public folder
+  const [image, setImage] = useState(user.image_path ? `/storage/${user.image_path}` : defaultImage);
   const [imageFile, setImageFile] = useState(null);
+  const [success, setSuccess] = useState(false);
 
- const handleAvatarChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setImage(URL.createObjectURL(file)); // Create a preview URL
-            setImageFile(file); // Store the actual file for submission
-        }
-    };
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file)); // Create a preview URL
+      setImageFile(file); // Store the actual file for submission
+    }
+  };
 
-    const handleSubmit = async () => {
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
 
-        try {
-            const formData = new FormData();
+      if (imageFile) {
+        formData.append('image', imageFile);
+      } else {
+        console.log('No image file to upload');
+      }
 
-            if (imageFile) {
-                formData.append('image', imageFile);
-                console.log([...formData]);
-            }
-            else{
-                console.log('No image file to upload');
-            }
-
-            const response = await ApiService.put(`update/user/${user.id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error during update creation:', error.response?.data || error.message);
-        }
-    };
+      const response = await ApiService.post(`update/user/${user.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setSuccess(true);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error during update creation:', error.response?.data || error.message);
+    }
+  };
 
   return (
     <div className="flex justify-center mt-10">
@@ -69,7 +69,7 @@ const MyProfile = () => {
             />
 
             {/* Edit Icon for Avatar */}
-            <label htmlFor="avatar-upload" className="absolute bottom-0 right-0 bg-gray-800 rounded-full p-1 cursor-pointer hover:bg-gray-600">
+            <label htmlFor="avatar-upload" className="absolute bottom-0 right-2 bg-gray-800 rounded-full p-1 cursor-pointer hover:bg-gray-600">
               <CameraIcon className="h-5 w-5 text-white" />
               <input
                 type="file"
@@ -79,11 +79,10 @@ const MyProfile = () => {
                 onChange={handleAvatarChange}
               />
             </label>
-
-
           </div>
+
           {imageFile && (
-            <Button color="blue" onClick={handleSubmit} size='sm' >
+            <Button color="blue" onClick={handleSubmit} size="sm">
               Save Avatar
             </Button>
           )}

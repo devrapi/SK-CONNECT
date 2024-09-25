@@ -85,9 +85,11 @@ const EventUpdate = () => {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await ApiService.put(`events/${id}`, formData
-
-            )
+            const response = await ApiService.post(`events/update/${id}`, formData ,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
 
             navigate('/admin/dashboard/calendars');
             window.location.reload();
