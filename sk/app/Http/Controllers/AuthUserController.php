@@ -85,6 +85,7 @@ class AuthUserController extends Controller
         ]);
 
         // Reward points for the first login
+        $points = 50;
         $User->points += 50;
         $User->save();
 
@@ -98,6 +99,7 @@ class AuthUserController extends Controller
             ]);
 
             // Reward points for logging in on the new day
+            $points = 10;
             $User->points += 10;
             $dailyLogin->streak += 1;
             $User->save();
@@ -105,7 +107,7 @@ class AuthUserController extends Controller
         }
 
         if($dailyLogin->streak >= 7){
-            $User->points += 50;
+            $User->points += 70;
             $dailyLogin->streak = 0;
             $User->save();
             $dailyLogin->save();
@@ -141,6 +143,9 @@ class AuthUserController extends Controller
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
+    // Check if the user is uploading a new image and if they previously didn't have an avatar
+    $awardingPoints = is_null($user->image_path) && $request->hasFile('image');
+
     // Check if an image file is being uploaded
     if ($request->hasFile('image')) {
         // If the user has an existing image, delete the old image
@@ -151,16 +156,25 @@ class AuthUserController extends Controller
         // Store the new image in 'user_avatar' folder and update the image path
         $imagePath = $request->file('image')->store('user_avatar', 'public');
         $user->image_path = $imagePath; // Save new image path to the user model
+
+        // Award points if this is the user's first avatar upload
+        if ($awardingPoints) {
+
+            $user->points += 100; // Award points (e.g., 100 points)
+        }
     }
 
     // Save the updated user (even if only the image path changes)
+    $points = 100;
     $user->save();
 
     return response()->json([
         'message' => 'Avatar updated successfully',
-        'user' => $user
+        'user' => $user,
+        'points' => $points
     ]);
 }
+
 
 
 

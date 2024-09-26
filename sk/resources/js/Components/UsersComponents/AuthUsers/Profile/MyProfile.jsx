@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext ,useEffect} from 'react';
 import {
   Card,
   CardHeader,
@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../../Context/AppContext';
 import { CameraIcon } from '@heroicons/react/24/solid';
 import ApiService from '../../../Services/ApiService';
+import PointsAlert from '../pages/PointsAlert';
 
 const MyProfile = () => {
 
@@ -20,7 +21,11 @@ const MyProfile = () => {
   const defaultImage = "/img/default_user.jpg"; // Ensure this path exists in your public folder
   const [image, setImage] = useState(user.image_path ? `/storage/${user.image_path}` : defaultImage);
   const [imageFile, setImageFile] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [points, setPoints] = useState(null)
+
+
+
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -45,17 +50,25 @@ const MyProfile = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setSuccess(true);
-      window.location.reload();
+
+      setPoints(response.data.points);
+      setShowAlert(true);
+
+    // Reload the page
+    window.location.reload();
+
     } catch (error) {
       console.error('Error during update creation:', error.response?.data || error.message);
     }
   };
 
   return (
+
     <div className="flex justify-center mt-10">
+
       <Card className="w-full max-w-md mt-20 shadow-lg">
-        <CardHeader color="blue-gray" className="py-4 text-center relative">
+      {showAlert && <PointsAlert points={points} />}
+        <CardHeader color="blue-gray" className="relative py-4 text-center">
           {/* Adding Avatar */}
           <div className="relative flex justify-center mb-4">
             <Avatar
@@ -69,8 +82,8 @@ const MyProfile = () => {
             />
 
             {/* Edit Icon for Avatar */}
-            <label htmlFor="avatar-upload" className="absolute bottom-0 right-2 bg-gray-800 rounded-full p-1 cursor-pointer hover:bg-gray-600">
-              <CameraIcon className="h-5 w-5 text-white" />
+            <label htmlFor="avatar-upload" className="absolute bottom-0 p-1 bg-gray-800 rounded-full cursor-pointer right-2 hover:bg-gray-600">
+              <CameraIcon className="w-5 h-5 text-white" />
               <input
                 type="file"
                 id="avatar-upload"
@@ -100,7 +113,7 @@ const MyProfile = () => {
             </Typography>
           </div>
 
-          <div className="mt-4 space-x-3 flex justify-center">
+          <div className="flex justify-center mt-4 space-x-3">
             <Link to={`/index/editProfile/${user.profile_id}`}>
               <Button color="blue" size="sm">
                 Edit Profile
@@ -109,6 +122,7 @@ const MyProfile = () => {
           </div>
         </CardBody>
       </Card>
+
     </div>
   );
 };

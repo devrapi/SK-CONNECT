@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import ApiService from '../../../Services/ApiService';
-import SuccessMessage from '../pages/SuccessMessage';
+import PointsAlert from '../pages/PointsAlert';
 
 const ReferralBonus = ({ user_id }) => {
     const [open, setOpen] = useState(false);
@@ -19,7 +19,10 @@ const ReferralBonus = ({ user_id }) => {
     });
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
-    // const [showSuccess, setShowSuccess] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [points, setPoints] = useState(0);
+
+
 
     const handleOpen = () => setOpen((cur) => !cur);
 
@@ -28,7 +31,8 @@ const ReferralBonus = ({ user_id }) => {
             const response = await ApiService.post(`/referral/${user_id}`, input);
 
             setMessage(response.data.message || 'Referral bonus claimed successfully.')
-            // setShowSuccess(true);
+            setShowAlert(true);
+            setPoints(response.data.points);
             setErrors({});
         } catch (error) {
             console.log('Error during referral bonus claim:', error.response?.data || error.message);
@@ -41,6 +45,9 @@ const ReferralBonus = ({ user_id }) => {
         }
     };
 
+
+
+
     return (
         <>
             <Button onClick={handleOpen}>Referral Bonus</Button>
@@ -51,6 +58,11 @@ const ReferralBonus = ({ user_id }) => {
                     onClose={() => setShowSuccess(false)}
                 />
             )} */}
+
+
+                {showAlert && <PointsAlert points={points} />}
+
+
                 <DialogHeader className="justify-between">
                     <div>
                         <Typography variant="h5" color="blue-gray">

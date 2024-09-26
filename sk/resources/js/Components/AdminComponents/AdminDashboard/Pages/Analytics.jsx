@@ -11,7 +11,7 @@ const Analytics = () => {
     <>
 
 <div className="min-h-screen p-6">
-  <div className="mb-6">
+  <div>
   <Typography variant="h4" color="blue-gray" className="font-semibold">
         ANALYTICS DASHBOARD
     </Typography>
@@ -33,7 +33,7 @@ const Analytics = () => {
       <PieChart />
     </div>
     <div className="col-span-3 p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-2 text-lg font-semibold text-gray-600">Data Table</h2>
+      <h2 className="mb-2 text-lg font-semibold text-gray-600">User Rankings</h2>
       <Tables />
     </div>
   </div>

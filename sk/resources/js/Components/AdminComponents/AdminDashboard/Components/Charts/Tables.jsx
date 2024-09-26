@@ -1,99 +1,52 @@
-import React from 'react'
-import { Card, Typography } from "@material-tailwind/react";
-
-const TABLE_HEAD = ["Name", "Role", "Email", "Location"];
-
-const TABLE_ROWS = [
-    {
-      name: "Mary Smith",
-      role: "Project Manager",
-      email: "mary.smith@example.com",
-      location: "New York, USA",
-    },
-    {
-      name: "Bob Johnson",
-      role: "Lead Developer",
-      email: "bob.johnson@example.com",
-      location: "London, UK",
-    },
-    {
-      name: "Carol White",
-      role: "UX Designer",
-      email: "carol.white@example.com",
-      location: "Berlin, Germany",
-    },
-    {
-      name: "David Brown",
-      role: "QA Engineer",
-      email: "david.brown@example.com",
-      location: "Sydney, Australia",
-    },
-  ];
+import React, { useContext } from 'react'
+import { AppContext } from '../../../../Context/AppContext';
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    Typography,
+    Avatar,
+  } from "@material-tailwind/react";
 const Tables = () => {
-  return (
-    <Card className="w-full h-full px-6 overflow-scroll">
-    <table className="w-full text-left table-auto min-w-max">
-      <thead>
-        <tr>
-          {TABLE_HEAD.map((head) => (
-            <th key={head} className="pt-10 pb-4 border-b border-gray-300">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-bold leading-none"
-              >
-                {head}
-              </Typography>
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {TABLE_ROWS.map(({ name, role, email, location }, index) => {
-          const isLast = index === TABLE_ROWS.length - 1;
-          const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
-          return (
-            <tr key={name} className="hover:bg-gray-50">
-              <td className={classes}>
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-bold"
-                >
-                  {name}
-                </Typography>
-              </td>
-              <td className={classes}>
-                <Typography
-                  variant="small"
-                  className="font-normal text-gray-600"
-                >
-                  {role}
-                </Typography>
-              </td>
-              <td className={classes}>
-                <Typography
-                  variant="small"
-                  className="font-normal text-gray-600"
-                >
-                  {email}
-                </Typography>
-              </td>
-              <td className={classes}>
-                <Typography
-                  variant="small"
-                  className="font-normal text-gray-600"
-                >
-                  {location}
-                </Typography>
-              </td>
+const{leaderBoards}=useContext(AppContext);
+
+  return (
+    <div className="container p-4 mx-auto">
+    <Card className="shadow-lg">
+
+      <CardBody>
+        <table className="min-w-full text-left table-auto">
+          <thead>
+            <tr className="border-b">
+              <th className="px-4 py-2">Rank</th>
+              <th className="px-4 py-2">User</th>
+              <th className="px-4 py-2">Points</th>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </Card>
+          </thead>
+          <tbody>
+            {leaderBoards.map((item, index) => (
+              <tr key={item.id} className="hover:bg-blue-50">
+                <td className="px-4 py-2">{index + 1}</td>
+                <td className="flex items-center px-4 py-2 space-x-4">
+                  <Avatar
+                    src={item.image_path ? `/storage/${item.image_path}` : '/img/default_user.jpg'}
+                    alt={item.name}
+                    size="sm"
+                    className="rounded-full"
+                  />
+                  <Typography variant="small" className="font-medium">
+                    {item.name}
+                  </Typography>
+                </td>
+                <td className="px-4 py-2">{item.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </CardBody>
+    </Card>
+  </div>
   )
 }
 

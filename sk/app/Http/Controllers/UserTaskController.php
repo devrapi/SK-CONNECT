@@ -19,6 +19,7 @@ class UserTaskController extends Controller
             'referal_code' => 'required|max:225',
         ]);
 
+        $points = 25;
 
         // Find the user by their ID
         $user = User::find($user_id);
@@ -55,16 +56,19 @@ class UserTaskController extends Controller
         // If a valid referrer is found
         if ($referrer) {
             // Reward the referrer with 100 points
+
             $referrer->points += 100;
             $referrer->save();
 
             // Mark the user as having claimed the referral and reward them
             $user->ref_status = "claimed";
+            $points = 25;
             $user->points += 25;
             $user->save();
 
             return response()->json([
                 'message' => 'Referral reward claimed successfully.',
+                'points' => $points
             ], 200);
         }
 

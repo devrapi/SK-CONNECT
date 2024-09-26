@@ -86,7 +86,7 @@ const User_tables = () => {
                         icon={<MagnifyingGlassIcon/>}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-1/3  "
+                        className="w-1/3 bg-white "
                     />
                     <Link to="/admin/dashboard/profilling">
                         <div className='flex items-center'>

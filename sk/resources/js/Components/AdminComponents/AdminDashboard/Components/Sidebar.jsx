@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from "react";
 import Logout from '../../AuthAdmin/logout'
 import {
@@ -23,8 +23,11 @@ import {
   } from "@heroicons/react/24/solid";
   import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../../Context/AppContext';
 
 const Sidebar = () => {
+
+    const{ticket} = useContext(AppContext);
 
     const [open, setOpen] = React.useState(0);
 
@@ -105,7 +108,7 @@ const Sidebar = () => {
           Inbox
           </Link>
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            <Chip value={ticket?.length}  size="sm" variant="ghost" color="red" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
         <ListItem>

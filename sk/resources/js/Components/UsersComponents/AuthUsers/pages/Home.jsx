@@ -1,17 +1,32 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { AppContext } from '../../../Context/AppContext';
-
+import PointsAlert from "./PointsAlert";
+import { useState } from "react";
 
 const Home = () => {
+  const [points, setPoints] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
 
-    const{dailyLogin} = useContext(AppContext);
+  const earnPoints = (newPoints) => {
+    setPoints((prev) => prev + newPoints);
+    setShowAlert(true);
 
-    return (
-        <div className="p-4">
+    // Hide the alert after 3 seconds
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+  };
 
-            <div>Home</div>
-        </div>
-    );
-}
+  return (
+    <div>
+      <button
+        onClick={() => earnPoints(50)}
+        className="p-2 text-white bg-blue-500 rounded"
+      >
+        Earn 50 points
+      </button>
+
+      {showAlert && <PointsAlert points={points} />}
+    </div>
+  );
+};
 
 export default Home;
