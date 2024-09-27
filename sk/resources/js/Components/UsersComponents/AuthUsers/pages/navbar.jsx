@@ -96,9 +96,9 @@ export function ProfileMenu() {
 const navListItems = [
     { label: "Home", icon: HomeIcon, color: "text-green-500", path: "/index" },
     { label: "Events", icon: CalendarIcon, color: "text-blue-500", path: "/index/events" },
-    { label: "Task", icon: ClipboardDocumentCheckIcon, color: "text-red-500", path: "/index/tasks" },
+    { label: "Task", icon: ClipboardDocumentCheckIcon, color: "text-purple-500", path: "/index/tasks" },
 
-    { label: "Rewards", icon: GiftIcon, color: "text-purple-500", path: "/index/rewards" },
+    { label: "Rewards", icon: GiftIcon, color: "text-red-500", path: "/index/rewards" },
     { label: "Leaderboards", icon: ChartBarIcon, color: "text-yellow-400", path: "/index/leaderboards" },
   ];
 
