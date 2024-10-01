@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import Calendar from "react-calendar";
 import { useParams } from 'react-router-dom';
 import ApiService from "../../../Services/ApiService";
-
+import Swal from 'sweetalert2';
 const UsersUpdate = () => {
 
     const navigate = useNavigate();
@@ -79,12 +79,18 @@ const UsersUpdate = () => {
             try {
                 const response = await ApiService.put(`profiles/${id}` , form)
 
-                if(response){
+                if (response) {
+                    // Show success alert
+                    await Swal.fire({
+                      title: 'Profile updated successfully!!',
+                      text: 'Success!',
+                      icon: 'success',
+                      confirmButtonText: 'Okay',
+                    });
 
-                    navigate('/admin/dashboard/user-tables');
+                    // Reload the page after the alert is closed
                     window.location.reload();
-                }
-
+                  }
             } catch (error) {
                 console.log('Error during profiles update:', error.response?.data || error.message);
 

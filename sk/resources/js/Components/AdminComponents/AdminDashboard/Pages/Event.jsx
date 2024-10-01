@@ -8,7 +8,7 @@ import ApiService from '../../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
-
+import Swal from 'sweetalert2';
 
 const Event = () => {
     const navigate = useNavigate();
@@ -58,8 +58,19 @@ const Event = () => {
 
                 },
             });
-            navigate('/admin/dashboard/calendars');
-            window.location.reload();
+           if (response) {
+                // Show success alert
+                await Swal.fire({
+                  title: 'Event Added successfully!',
+                  text: 'Success!',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
+
 
             setForm({
                 title: '',

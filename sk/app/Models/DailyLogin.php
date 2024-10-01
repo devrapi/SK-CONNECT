@@ -12,7 +12,9 @@ class DailyLogin extends Model
     protected $fillable = [
         'user_id',
         'login_date',
-        'status'
+        'status',
+        'streak'
+
     ];
 
     // A daily login belongs to a user

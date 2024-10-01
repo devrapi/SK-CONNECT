@@ -12,10 +12,15 @@ import { AppContext } from '../../../Context/AppContext';
 import { CameraIcon } from '@heroicons/react/24/solid';
 import ApiService from '../../../Services/ApiService';
 import PointsAlert from '../pages/PointsAlert';
-
+import WeeklyStreaks from './WeeklyStreaks';
 const MyProfile = () => {
 
+
+
   const { user } = useContext(AppContext);
+
+
+
 
   // Fallback default image if user doesn't have an avatar
   const defaultImage = "/img/default_user.jpg"; // Ensure this path exists in your public folder
@@ -23,7 +28,19 @@ const MyProfile = () => {
   const [imageFile, setImageFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [points, setPoints] = useState(null)
+  const [dailyLogin, setDailyLogin] = useState(null);
 
+
+
+  async function getDailyLogin(){
+    const res = await ApiService.get(`dailyLogin/${user.daily_login_id}`);
+    const data = await res.data;
+
+    setDailyLogin(data.streak)
+}
+    useEffect(() => {
+        getDailyLogin();
+    },[]);
 
 
 
@@ -119,7 +136,11 @@ const MyProfile = () => {
                 Edit Profile
               </Button>
             </Link>
+
           </div>
+          <div className="mt-6">
+            <WeeklyStreaks userStreak={dailyLogin} user_id={user.id} />
+        </div>
         </CardBody>
       </Card>
 

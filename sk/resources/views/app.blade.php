@@ -8,6 +8,8 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sk Connect</title>
 
+    <link rel="icon" type="image/png" href="/img/sk.png">
+
 </head>
 <body>
     <div id="root"></div>

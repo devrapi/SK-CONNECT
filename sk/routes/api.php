@@ -61,8 +61,9 @@ Route::put('/rewards/claim/verify/{ticket}' , [ClaimController::class , 'verify'
 Route::apiResource('task', AssignTask::class);
 
 //Daily Login
-Route::get('dailyLogin' , [UserTaskController::class , 'show']);
-
+Route::get('dailyLogin/{id}' , [UserTaskController::class , 'show']);
+Route::get('dailyLogin/' , [UserTaskController::class , 'index']);
+Route::post('claimStreak/{user_id}' , [UserTaskController::class , 'ClaimStreak']);
 //Referral Bonus
 Route::post('/referral/{user_id}' , [UserTaskController::class , 'ClaimReferral']);
 

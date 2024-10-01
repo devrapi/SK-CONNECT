@@ -6,7 +6,7 @@ import ApiService from '../../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 const Rewards = () => {
 
     const navigate = useNavigate();
@@ -51,8 +51,18 @@ const Rewards = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            navigate('/admin/dashboard/avail-rewards');
-            window.location.reload();
+            if (response) {
+                // Show success alert
+                await Swal.fire({
+                  title: 'Rewards Added successfully!!',
+                  text: 'Success!',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
 
             setForm({
                 name: '',

@@ -123,10 +123,12 @@ const Calendars = () => {
                 </Link>
 
                     </Button>
-                    <Button onClick={handleOpen}  color='red'>
-                <DeleteEvents handleOpen={handleOpen} open={open} event_id={selectedEvent.id} />
-                delete
-      </Button>
+                    <div onClick={closeModal}>
+                    <DeleteEvents event_id={selectedEvent.id} />
+                    </div>
+
+
+
                 </DialogFooter>
             </Dialog>
             )}

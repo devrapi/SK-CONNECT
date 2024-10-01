@@ -8,10 +8,24 @@ use Illuminate\Http\Request;
 
 class UserTaskController extends Controller
 {
-    public function show()
+    public function show($id)
+    {
+        // Find the daily login by its ID
+        $dailyLogin = DailyLogin::find($id);
+
+        // Check if daily login exists
+        if ($dailyLogin) {
+            return response()->json($dailyLogin);
+        } else {
+            return response()->json(['message' => 'Daily login not found'], 404);
+        }
+    }
+
+    public function index()
     {
         return DailyLogin::all();
     }
+
     public function ClaimReferral(Request $request, $user_id)
     {
         // Validate the input
@@ -78,6 +92,33 @@ class UserTaskController extends Controller
                 'general' => 'Invalid referral code.',
             ],
         ], 400);
+    }
+    public function ClaimStreak($user_id){
+
+        $user = User::find($user_id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $dailyLogin = DailyLogin::where('user_id', $user->id)->first();
+
+        if (!$dailyLogin || $dailyLogin->streak < 6) {
+            return response()->json(['message' => 'Not enough streaks to claim reward'], 400);
+        }
+
+        // Reward logic: Add points to user (e.g., 100 points)
+        $user->points += 100; // You can adjust the points as per your logic
+
+        // Reset streak to 0
+        $dailyLogin->streak = 0;
+
+        // Save changes
+        $user->save();
+        $dailyLogin->save();
+
+        return response()->json(['message' => 'Reward claimed successfully', 'points' => $user->points]);
+
     }
 
 

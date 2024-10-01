@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 const EventUpdate = () => {
     const navigate = useNavigate();
     const {id} = useParams();
@@ -91,8 +91,19 @@ const EventUpdate = () => {
                 },
             })
 
-            navigate('/admin/dashboard/calendars');
-            window.location.reload();
+
+            if (response) {
+                // Show success alert
+                await Swal.fire({
+                  title: 'Event updated successfully!',
+                  text: 'Success!',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
 
 
             console.log('Update successful:', response.data);

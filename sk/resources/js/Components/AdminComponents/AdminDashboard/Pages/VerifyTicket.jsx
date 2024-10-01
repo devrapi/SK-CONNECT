@@ -1,42 +1,49 @@
-import React from 'react'
+import React from 'react';
 import { useState } from 'react';
 import ApiService from '../../../Services/ApiService';
-import { CheckCircleIcon  } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Typography } from '@material-tailwind/react';
-import { Dialog, DialogHeader, DialogBody, DialogFooter, Button } from '@material-tailwind/react';
-const VerifyTicket = ({id}) => {
-    const [open, setOpen] = useState(false);
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-    const handleOpen = () => setOpen(!open);
+const MySwal = withReactContent(Swal);
 
-    const handleVerify = async () => {
-        const response = await ApiService.put(`rewards/claim/verify/${id}`);
-        setOpen(false)
-        window.location.reload();
+const VerifyTicket = ({ id }) => {
+  const handleVerify = async () => {
+    try {
+      const response = await ApiService.put(`rewards/claim/verify/${id}`);
+      console.log(response.data.message); // Log success message if needed
+      window.location.reload(); // Reload the page or update the UI as needed
+    } catch (error) {
+      console.log('Error during ticket verification:', error.response?.data || error.message);
     }
+  };
+
+  const confirmVerify = async () => {
+    const result = await MySwal.fire({
+      title: 'Are you sure?',
+      text: 'This ticket will be verified!',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, verify it!',
+      cancelButtonText: 'Cancel',
+    });
+
+    if (result.isConfirmed) {
+      await handleVerify(); // Proceed with verification if confirmed
+    }
+  };
+
   return (
     <div>
-         <Typography variant="small" color="blue" className="font-medium cursor-pointer" onClick={handleOpen}  >
-    <CheckCircleIcon className="w-6 h-6" />
-    verify
-    </Typography>
+      <Typography variant="small" color="blue" className="font-medium cursor-pointer" onClick={confirmVerify}>
+        <CheckCircleIcon className="w-6 h-6" />
+        verify
+      </Typography>
+    </div>
+  );
+};
 
-    <Dialog open={open} handler={handleOpen} >
-        <DialogHeader>Confirm Archive</DialogHeader>
-        <DialogBody >
-          Are you sure you want to Verify this Ticket?
-        </DialogBody>
-        <DialogFooter>
-          <Button  onClick={handleOpen} className="mr-2" color='blue'>
-            Cancel
-          </Button>
-          <Button  color="red" onClick={handleVerify}>
-            Confirm
-          </Button>
-        </DialogFooter>
-      </Dialog>
-        </div>
-  )
-}
-
-export default VerifyTicket
+export default VerifyTicket;

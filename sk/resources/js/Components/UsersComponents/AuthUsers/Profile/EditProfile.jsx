@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// @material-tailwind/react
+import Swal from 'sweetalert2';
+
 import {
   Input,
   Typography,
@@ -78,12 +79,18 @@ const EditProfile = () => {
 
             try {
                 const response = await ApiService.put(`profiles/${id}` , form)
+                if (response) {
+                    // Show success alert
+                    await Swal.fire({
+                      title: 'Profile updated successfully!!',
+                      text: 'Success!',
+                      icon: 'success',
+                      confirmButtonText: 'Okay',
+                    });
 
-                if(response){
-
-                    // navigate('/admin/dashboard/user-tables');
+                    // Reload the page after the alert is closed
                     window.location.reload();
-                }
+                  }
 
             } catch (error) {
                 console.log('Error during profiles update:', error.response?.data || error.message);

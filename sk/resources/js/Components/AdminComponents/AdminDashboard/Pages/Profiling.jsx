@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-// @material-tailwind/react
+import Swal from 'sweetalert2';
 import {
   Input,
   Typography,
@@ -51,8 +51,19 @@ const Profiling = () => {
 
             try {
                 const response = await ApiService.post('profiles' , form)
-                navigate('/admin/dashboard/user-tables');
-                window.location.reload();
+                if (response) {
+                    // Show success alert
+                    await Swal.fire({
+                      title: 'Success!',
+                      text: 'Profile Added successfully!',
+                      icon: 'success',
+                      confirmButtonText: 'Okay',
+                    });
+
+                    // Reload the page after the alert is closed
+                    window.location.reload();
+                  }
+
 
             } catch (error) {
                 console.log('Error during event creation:', error.response?.data || error.message);

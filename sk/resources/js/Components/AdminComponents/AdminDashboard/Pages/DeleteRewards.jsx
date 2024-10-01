@@ -1,44 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
 import ApiService from '../../../Services/ApiService';
-import { Dialog, DialogHeader, DialogBody, DialogFooter, Button } from '@material-tailwind/react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const DeleteRewards = ({id}) => {
+const MySwal = withReactContent(Swal);
 
-    const [open, setOpen] = useState(false);
+const DeleteRewards = ({ id }) => {
+  const handleDelete = async () => {
+    try {
+      await ApiService.delete(`rewards/${id}`);
+      window.location.reload(); // Reload the page or update the UI as needed
+    } catch (error) {
+      console.log('Error during reward deletion:', error.response?.data || error.message);
+    }
+  };
 
-    const handleOpen = () => setOpen(!open);
+  const confirmDelete = async () => {
+    const result = await MySwal.fire({
+      title: 'Are you sure?',
+      text: 'This reward will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    });
 
-    const handleArchived = async () => {
-      try {
-        await ApiService.delete(`rewards/${id}`);
-        setOpen(false);
-        window.location.reload();
-      } catch (error) {
-        console.log('Error during profile archive:', error.response?.data || error.message);
-      }
-    };
+    if (result.isConfirmed) {
+      await handleDelete(); // Proceed with deletion if confirmed
+    }
+  };
 
   return (
     <>
-    <ArchiveBoxIcon className="w-8 h-8 text-red-500 cursor-pointer" onClick={handleOpen} />
+      <ArchiveBoxIcon className="w-8 h-8 text-red-500 cursor-pointer" onClick={confirmDelete} />
+    </>
+  );
+};
 
-    <Dialog open={open} handler={handleOpen} >
-      <DialogHeader>Confirm Archive</DialogHeader>
-      <DialogBody >
-        Are you sure you want to archive this profile?
-      </DialogBody>
-      <DialogFooter>
-        <Button  onClick={handleOpen} className="mr-2" color='blue'>
-          Cancel
-        </Button>
-        <Button  color="red" onClick={handleArchived}>
-          Confirm
-        </Button>
-      </DialogFooter>
-    </Dialog>
-  </>
-  )
-}
-
-export default DeleteRewards
+export default DeleteRewards;

@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../../Services/ApiService';
-
+import Swal from 'sweetalert2';
 const Gamification = () => {
 
     const navigate = useNavigate();
@@ -28,8 +28,18 @@ const Gamification = () => {
 
             // Make the API request with FormData
             const response = await ApiService.post('task', formData);
-            navigate('/admin/dashboard/task');
-            window.location.reload();
+            if (response) {
+                // Show success alert
+                await Swal.fire({
+                  title: 'Profile updated successfully!!',
+                  text: 'Success!',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
 
             setForm({
                 name: '',
@@ -58,7 +68,7 @@ const Gamification = () => {
     <>
 
         <Card className="w-full shadow-lg">
-        <Typography variant="h4" className="font-semibold  text-center mb-5 mt-5">
+        <Typography variant="h4" className="mt-5 mb-5 font-semibold text-center">
             Add Task
           </Typography>
         <CardBody>

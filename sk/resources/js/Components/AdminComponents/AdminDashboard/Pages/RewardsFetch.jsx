@@ -55,6 +55,7 @@ const RewardsFetch = () => {
                             <Link to={`/admin/dashboard/avail-rewards/${ev.id}`}>
                             <PencilIcon className="w-8 h-8 text-green-500 cursor-pointer"/>
                             </Link>
+
                             <DeleteRewards id={ev.id}/>
                         </CardFooter>
                     </Card>

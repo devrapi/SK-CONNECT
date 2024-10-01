@@ -18,6 +18,7 @@ import {
   ChartBarIcon,
   GiftIcon,
     MegaphoneIcon,
+    StarIcon
 
 } from "@heroicons/react/24/solid";
 import Logout from '../logout';
@@ -104,7 +105,7 @@ const navListItems = [
 
   function NavList() {
     return (
-      <ul className="flex lg:mb-0 lg:mt-0 lg:flex-row lg:items-center gap-12">
+      <ul className="flex gap-12 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
         {navListItems.map(({ label, icon, color, path }, key) => (
           <Typography
             key={label}
@@ -117,7 +118,7 @@ const navListItems = [
               {React.createElement(icon, {
                 className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125`,
               })}
-              <span className="text-gray-900 text-xs">{label}</span>
+              <span className="text-xs text-gray-900">{label}</span>
             </Link>
           </Typography>
         ))}
@@ -141,7 +142,7 @@ const navListItems = [
                 {React.createElement(icon, {
                   className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125`,
                 })}
-                {/* <span className="text-gray-500 text-xs">{label}</span> */}
+                {/* <span className="text-xs text-gray-500">{label}</span> */}
               </MenuItem>
             </Link>
           </Typography>
@@ -151,25 +152,31 @@ const navListItems = [
   }
 
   const Navbar = () => {
+    const{user}= useContext(AppContext);
     return (
       <>
         {/* Top Navbar with NavList on large screens */}
         <div className="max-w-screen-xl p-2 mx-auto shadow-md lg:rounded-full lg:pl-6">
-          <div className="relative flex items-center justify-between mx-auto text-blue-gray-900  ">
-            <Typography
-              as="a"
-              href="#"
-              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
-              color="green"
-            >
-              Sk Connect
-            </Typography>
-            <div className="hidden lg:block">
-              <NavList />
-            </div>
-            <ProfileMenu />
-          </div>
-        </div>
+  <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
+    <Typography
+      as="a"
+      href="#"
+      className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
+      color="green"
+    >
+      <div className="flex items-center">
+        <StarIcon className="w-6 h-6 mr-2 text-yellow-400" /> {/* Icon */}
+        {user.points}
+      </div>
+    </Typography>
+
+    <div className="hidden lg:block">
+      <NavList />
+    </div>
+    <ProfileMenu />
+  </div>
+</div>
+
 
         {/* Sticky bottom navbar, hidden on large screens */}
         <div className="fixed bottom-0 left-0 right-0 w-full py-2 lg:hidden bg-sky-100">
