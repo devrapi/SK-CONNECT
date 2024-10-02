@@ -11,3 +11,5 @@ use Illuminate\Support\Facades\Schedule;
 
 
 Schedule::command('reset:daily-login')->daily('23:59')->timezone('Asia/Manila');
+// Schedule the command to run daily
+Schedule::command('app:delete-old-notifications')->daily();

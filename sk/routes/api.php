@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LeaderBoards;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\UserTaskController;
@@ -69,3 +70,7 @@ Route::post('/referral/{user_id}' , [UserTaskController::class , 'ClaimReferral'
 
 //LeaderBoards
 Route::get('leaderboards' , [LeaderBoards::class , 'LeaderBoards']);
+
+//Notification
+Route::get('notification/{user_id}' , [NotificationController::class , 'Notification']);
+Route::post('/notification/{user_id}/mark-all-read', [NotificationController::class, 'markAllAsRead']);

@@ -23,6 +23,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Logout from '../logout';
 import { AppContext } from '../../../Context/AppContext';
+import Inbox from '../Profile/Inbox';
 
 export function ProfileMenu() {
 
@@ -49,17 +50,6 @@ export function ProfileMenu() {
       <UserCircleIcon className="w-5 h-5 text-gray-500" />
       <Typography variant="small" className="font-medium">
         My Profile
-      </Typography>
-    </Link>
-  </MenuItem>
-
-
-
-  <MenuItem className="flex items-center gap-2">
-    <Link to="/index/inbox" className="flex items-center gap-2">
-      <BellAlertIcon className="w-5 h-5 text-gray-500" />
-      <Typography variant="small" className="font-medium">
-        Inbox
       </Typography>
     </Link>
   </MenuItem>
@@ -97,8 +87,7 @@ export function ProfileMenu() {
 const navListItems = [
     { label: "Home", icon: HomeIcon, color: "text-green-500", path: "/index" },
     { label: "Events", icon: CalendarIcon, color: "text-blue-500", path: "/index/events" },
-    { label: "Task", icon: ClipboardDocumentCheckIcon, color: "text-purple-500", path: "/index/tasks" },
-
+    { label: "Earn", icon: ClipboardDocumentCheckIcon, color: "text-purple-500", path: "/index/tasks" },
     { label: "Rewards", icon: GiftIcon, color: "text-red-500", path: "/index/rewards" },
     { label: "Leaderboards", icon: ChartBarIcon, color: "text-yellow-400", path: "/index/leaderboards" },
   ];
@@ -173,7 +162,11 @@ const navListItems = [
     <div className="hidden lg:block">
       <NavList />
     </div>
+    <div className="flex items-center">
+    <Inbox/>
     <ProfileMenu />
+    </div>
+
   </div>
 </div>
 
