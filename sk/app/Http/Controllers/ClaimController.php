@@ -54,7 +54,7 @@ class ClaimController extends Controller
             return response()->json(['message' => 'Ticket claimed', 'ticket' => $ticket], 200);
         }
 
-        return response()->json(['message' => 'Not enough points'], 400);
+        return response()->json(['error' => 'Not enough points'], 400);
     }
 
 

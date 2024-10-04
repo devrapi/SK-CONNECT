@@ -23,11 +23,11 @@ const Homepage = () => {
               className="mx-auto my-6 w-full leading-snug  !text-2xl lg:max-w-3xl lg:!text-5xl "
             >
               Get ready to experience a new level of{" "}
-              <span className="leading-snug text-green-500 ">
+              <span className="leading-snug text-green-700 ">
                 performance
               </span>{" "}
               and{" "}
-              <span className="leading-snug text-green-500">
+              <span className="leading-snug text-green-700">
                 functionality
               </span>
               .
@@ -43,8 +43,8 @@ const Homepage = () => {
               <div className="flex flex-col w-full gap-4 mb-2 md:flex-row">
 
                 <Button
-                  color="green"
-                  className="w-full px-4 md:w-[12rem]"
+
+                  className="w-full px-4 md:w-[12rem] bg-green-700"
                 >
                     <Link to="/register">
 

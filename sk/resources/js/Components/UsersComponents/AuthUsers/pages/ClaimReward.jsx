@@ -27,7 +27,7 @@ const ClaimReward = ({ rewardId, userId }) => {
       console.error('Error claiming reward:', error);
       await MySwal.fire({
         title: 'Error!',
-        text: 'Failed to claim the reward. Please try again later.',
+        text: 'Not enough points',
         icon: 'error',
         confirmButtonText: 'Okay',
       });

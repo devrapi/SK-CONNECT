@@ -1,33 +1,31 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../../Context/AppContext'
-import Navbar from './pages/navbar'
-import { Outlet } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { AppContext } from '../../Context/AppContext';
+import Navbar from './pages/navbar';
+import { Outlet } from 'react-router-dom';
 
-const index = () => {
-    const{user} = useContext(AppContext);
-  return (
-    <>
-    {
-        user ?(<>
+const Index = () => {
+    const { user } = useContext(AppContext);
 
-        <div>
-            <Navbar/>
-        <div>
-        <main className='lg:mt-10 lg:mx-52 '>
-                    <Outlet/>
-          </main>
-        </div>
-        </div>
-        </>)
+    return (
+        <>
+            {user ? (
+                <>
+                    {/* Fixed Navbar Section */}
+                    <div className="fixed top-0 left-0 right-0 z-10">
+                        <Navbar />
+                    </div>
 
-        :
+                    {/* Main Content Section */}
+                    <div className="flex flex-col h-screen overflow-hidden">
+                        {/* This ensures the content is scrollable while navbar stays fixed */}
+                        <main className="flex-grow p-4 mt-20 overflow-auto lg:p-10 lg:mt-28">
+                            <Outlet />
+                        </main>
+                    </div>
+                </>
+            ) : null}
+        </>
+    );
+};
 
-        (null)
-    }
-
-
-    </>
-  )
-}
-
-export default index
+export default Index;
