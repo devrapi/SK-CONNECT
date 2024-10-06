@@ -14,7 +14,7 @@ const Features = () => {
         color="blue-gray"
         className="mb-4 !text-2xl font-bold lg:!text-4xl"
       >
-        Turn your idea into a startup
+        How it Works
       </Typography>
       <Typography
         variant="lead"

@@ -114,6 +114,12 @@ const NewRegister = () => {
                             </Typography>
                         )}
 
+                     {validate && (
+                            <Typography variant="small" color="red" className="mt-1">
+                                {validate}
+                            </Typography>
+                        )}
+
                         {/* Email Input */}
                         <Typography className="-mb-2" variant="h6">
                             Your Email
