@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import ApiService from '../../../Services/ApiService';
-import PointsAlert from '../pages/PointsAlert';
+import Swal from 'sweetalert2';
 
 const ReferralBonus = ({ user_id }) => {
     const [open, setOpen] = useState(false);
@@ -19,8 +19,6 @@ const ReferralBonus = ({ user_id }) => {
     });
     const [errors, setErrors] = useState({});
     const [message, setMessage] = useState('');
-    const [showAlert, setShowAlert] = useState(false);
-    const [points, setPoints] = useState(0);
 
 
 
@@ -30,9 +28,23 @@ const ReferralBonus = ({ user_id }) => {
         try {
             const response = await ApiService.post(`/referral/${user_id}`, input);
 
+            if (response) {
+
+                setOpen(false);
+                // Show success alert
+                await Swal.fire({
+                  title: 'You Earned 25 points',
+                  text: 'for referral bonus',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
+
             setMessage(response.data.message || 'Referral bonus claimed successfully.')
-            setShowAlert(true);
-            setPoints(response.data.points);
+
             setErrors({});
         } catch (error) {
             console.log('Error during referral bonus claim:', error.response?.data || error.message);
@@ -52,15 +64,6 @@ const ReferralBonus = ({ user_id }) => {
         <>
             <Button onClick={handleOpen}>Referral Bonus</Button>
             <Dialog size="xs" open={open} handler={handleOpen}>
-            {/* {showSuccess && (
-                <SuccessMessage
-                    message={message}
-                    onClose={() => setShowSuccess(false)}
-                />
-            )} */}
-
-
-                {showAlert && <PointsAlert points={points} />}
 
 
                 <DialogHeader className="justify-between">

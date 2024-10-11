@@ -21,15 +21,15 @@ const Analytics = () => {
   {/* Charts and Table Section */}
   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-2 text-lg font-semibold text-gray-600">Bar Chart</h2>
+
       <BarChart />
     </div>
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-2 text-lg font-semibold text-gray-600">Line Chart</h2>
+
       <LineChart />
     </div>
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-2 text-lg font-semibold text-gray-600">Pie Chart</h2>
+
       <PieChart />
     </div>
     <div className="col-span-3 p-4 bg-white rounded-lg shadow-md">

@@ -103,7 +103,7 @@ const Cards = () => {
   ];
 
   return (
-    <div className="container pb-5">
+    <div className="container pb-5 ">
       <div className="flex justify-between md:items-center">
         <div></div>
       </div>

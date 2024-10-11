@@ -32,6 +32,7 @@ import MyProfile from '../UsersComponents/AuthUsers/Profile/MyProfile';
 import Referral from '../UsersComponents/AuthUsers/Profile/Referral';
 import EditProfile from '../UsersComponents/AuthUsers/Profile/EditProfile';
 import RewardsTicket from '../UsersComponents/AuthUsers/Profile/RewardsTicket';
+import TaskUpdate from '../AdminComponents/AdminDashboard/Pages/TaskUpdate';
 
 const RoutesComponents = () => {
   return (
@@ -63,6 +64,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
             <Route path='/admin/dashboard/task' element={<Task/>}/>
+            <Route path='/admin/dashboard/task/update/:id' element={<TaskUpdate/>}/>
             <Route path='/admin/dashboard/rewards' element={<Rewards/>}/>
             <Route path='/admin/dashboard/inbox' element={<TicketInbox/>}/>
             <Route path='/admin/dashboard/history' element={<History/>}/>

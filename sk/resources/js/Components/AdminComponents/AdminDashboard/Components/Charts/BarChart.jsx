@@ -99,7 +99,7 @@ import {
 
 const BarChart = () => {
   return (
-    <Card>
+    <Card >
     <CardHeader
       floated={false}
       shadow={false}

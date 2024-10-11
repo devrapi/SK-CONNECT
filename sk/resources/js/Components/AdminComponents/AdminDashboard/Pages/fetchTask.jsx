@@ -6,7 +6,11 @@ import {
     CardFooter,
     Typography,
     Button,
+
   } from "@material-tailwind/react";
+  import { PencilIcon } from '@heroicons/react/24/solid';
+  import { Link } from 'react-router-dom';
+import DeleteTask from './DeleteTask';
 const fetchTask = () => {
 
     const{task} = useContext(AppContext);
@@ -26,6 +30,13 @@ const fetchTask = () => {
           {item.points}
         </Typography>
       </CardBody>
+      <CardFooter className='flex justify-evenly'>
+      <Link to={`/admin/dashboard/task/update/${item.id}`}>
+        <PencilIcon className="w-8 h-8 text-green-500 cursor-pointer"/>
+       </Link>
+
+       <DeleteTask id={item.id}/>
+      </CardFooter>
     </Card>
   ))}
 </div>

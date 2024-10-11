@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../../Context/AppContext';
 import { CameraIcon } from '@heroicons/react/24/solid';
 import ApiService from '../../../Services/ApiService';
-import PointsAlert from '../pages/PointsAlert';
 import WeeklyStreaks from './WeeklyStreaks';
+import Swal from 'sweetalert2';
 const MyProfile = () => {
 
 
@@ -26,8 +26,6 @@ const MyProfile = () => {
   const defaultImage = "/img/default_user.jpg"; // Ensure this path exists in your public folder
   const [image, setImage] = useState(user.image_path ? `/storage/${user.image_path}` : defaultImage);
   const [imageFile, setImageFile] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
-  const [points, setPoints] = useState(null)
   const [dailyLogin, setDailyLogin] = useState(null);
 
 
@@ -68,11 +66,18 @@ const MyProfile = () => {
         },
       });
 
-      setPoints(response.data.points);
-      setShowAlert(true);
+      if (response) {
+        // Show success alert
+        await Swal.fire({
+          title: 'You Earned 100 points',
+          text: 'Avatar Updated Successfully!',
+          icon: 'success',
+          confirmButtonText: 'Okay',
+        });
 
-    // Reload the page
-    window.location.reload();
+        // Reload the page after the alert is closed
+        window.location.reload();
+      }
 
     } catch (error) {
       console.error('Error during update creation:', error.response?.data || error.message);
@@ -84,7 +89,7 @@ const MyProfile = () => {
     <div className="flex justify-center mt-10">
 
       <Card className="w-full max-w-md mt-20 shadow-lg">
-      {showAlert && <PointsAlert points={points} />}
+
         <CardHeader color="blue-gray" className="relative py-4 text-center">
           {/* Adding Avatar */}
           <div className="relative flex justify-center mb-4">

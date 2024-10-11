@@ -14,7 +14,7 @@ import {
     Input,
     Checkbox,
 } from "@material-tailwind/react";
-
+import Swal from 'sweetalert2';
 const NewRegister = () => {
 
     const { setToken } = useContext(AppContext);
@@ -48,8 +48,17 @@ const NewRegister = () => {
                     const token = response.data.token;
                     localStorage.setItem("token", token);
                     setToken(token);
-                    window.location.reload();
+
                     setOpenRegister(false);
+
+                    await Swal.fire({
+                        title: 'Register Succesful',
+                        text: 'please login!',
+                        icon: 'success',
+                        confirmButtonText: 'Okay',
+                      });
+
+                      window.location.reload();
                 }
             } catch (error) {
                 console.log('Error during registration:', error.response?.data || error.message);

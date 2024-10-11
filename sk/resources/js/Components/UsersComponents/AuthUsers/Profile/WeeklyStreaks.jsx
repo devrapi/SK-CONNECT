@@ -2,6 +2,7 @@ import React from 'react';
 import { Stepper, Step, Button, Typography } from "@material-tailwind/react";
 import { FireIcon, StarIcon } from "@heroicons/react/24/solid"; // Import icons for rewards
 import ApiService from '../../../Services/ApiService';
+import Swal from 'sweetalert2';
 
 const WeeklyStreaks = ({ userStreak, user_id }) => {
     const [activeStep, setActiveStep] = React.useState(userStreak); // Initialize with user's streak
@@ -15,9 +16,20 @@ const WeeklyStreaks = ({ userStreak, user_id }) => {
     const claimReward = async () => {
         try {
             const response = await ApiService.post(`claimStreak/${user_id}`);
-            // Handle successful response
-            alert(response.data.message); // Show success message
-            // You may want to update local state or perform other actions here
+
+            if (response) {
+                // Show success alert
+                await Swal.fire({
+                  title: 'Streak  Claimed!!',
+                  text: 'You Earned 100 Points!',
+                  icon: 'success',
+                  confirmButtonText: 'Okay',
+                });
+
+                // Reload the page after the alert is closed
+                window.location.reload();
+              }
+
         } catch (error) {
             // Handle error
             console.error('Error claiming reward:', error);

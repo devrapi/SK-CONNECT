@@ -55,7 +55,7 @@ const Inbox = () => {
                     )}
                 </div>
             </MenuHandler>
-            <MenuList className="flex flex-col gap-2 overflow-y-auto max-h-64">
+            <MenuList className="flex flex-col max-w-sm gap-2 overflow-y-auto max-h-64">
                 {notifications.length === 0 ? (
                     <Typography variant="small" color="gray" className="text-xs text-center md:text-sm">
                         No new notifications

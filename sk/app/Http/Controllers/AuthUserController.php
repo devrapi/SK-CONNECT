@@ -36,11 +36,13 @@ class AuthUserController extends Controller
 
 
         $User = User::create([
+
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
             'profile_id' => $profiling->id,
             'referal_code' => $referalCode
+
         ]);
 
         $token = $User->createToken($request->name);
@@ -52,6 +54,9 @@ class AuthUserController extends Controller
         ], 200);
 
     }
+
+
+
     public function login(Request $request)
 {
     $request->validate([
@@ -88,10 +93,15 @@ class AuthUserController extends Controller
             'status' => 'completed',
         ]);
 
+
+
         // Reward points for the first login
         $points = 50;
+        // $User->daily_login_id = $dailyLogin->id;
         $User->points += $points;
         $User->save();
+
+
 
         // Notification message for first-time login
         $notificationMessage = "You earned 50 points for your first login!";
