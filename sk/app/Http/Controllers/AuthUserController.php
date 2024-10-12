@@ -56,103 +56,95 @@ class AuthUserController extends Controller
     }
 
 
-
     public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email|exists:users',
-        'password' => 'required'
-    ]);
-
-    $User = User::where('email', $request->email)->first();
-
-    if (!$User || !Hash::check($request->password, $User->password)) {
-        return response()->json([
-            'message' => 'Invalid credentials'
-        ], 401); // Return 401 Unauthorized status
-    }
-
-    // Generate an API token
-    $token = $User->createToken($User->name);
-
-    // Get today's date and midnight for the next day
-    $today = now()->format('Y-m-d');
-
-    // Initialize points variable
-    $points = 0;
-    $notificationMessage = '';
-
-    // Check if there's a daily login record for the user
-    $dailyLogin = DailyLogin::where('user_id', $User->id)->first();
-
-    if (!$dailyLogin) {
-        // First time login: create the daily login record
-        DailyLogin::create([
-            'user_id' => $User->id,
-            'login_date' => $today,
-            'status' => 'completed',
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required'
         ]);
 
+        $User = User::where('email', $request->email)->first();
 
+        if (!$User || !Hash::check($request->password, $User->password)) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401); // Return 401 Unauthorized status
+        }
 
-        // Reward points for the first login
-        $points = 50;
-        // $User->daily_login_id = $dailyLogin->id;
-        $User->points += $points;
-        $User->save();
+        // Generate an API token
+        $token = $User->createToken($User->name);
 
+        // Get today's date and midnight for the next day
+        $today = now()->format('Y-m-d');
 
+        // Initialize points variable
+        $points = 0;
+        $notificationMessage = '';
 
-        // Notification message for first-time login
-        $notificationMessage = "You earned 50 points for your first login!";
+        // Check if there's a daily login record for the user
+        $dailyLogin = DailyLogin::where('user_id', $User->id)->first();
 
-    } else {
-        // If the user already has a login record, check if it's a new day
-        if ($dailyLogin->login_date !== $today) {
-            // Update the login_date and reset status
-            $dailyLogin->update([
+        if (!$dailyLogin) {
+            // First time login: create the daily login record
+            $dailyLogin = DailyLogin::create([
+                'user_id' => $User->id,
                 'login_date' => $today,
                 'status' => 'completed',
             ]);
 
-            // Reward points for logging in on the new day
-            $points = 10;
-            $User->points += $points;
-            $dailyLogin->streak += 1;
-            $User->save();
-            $dailyLogin->save();
+            // Assign the created daily login id to the user
+            $User->daily_login_id = $dailyLogin->id;
 
-            // Notification message for daily login
-            $notificationMessage = "You earned 10 points for logging in today!";
+            // Reward points for the first login
+            $points = 50;
+            $User->points += $points;
+            $User->save();
+
+            // Notification message for first-time login
+            $notificationMessage = "You earned 50 points for your first login!";
+
+        } else {
+            // If the user already has a login record, check if it's a new day
+            if ($dailyLogin->login_date !== $today) {
+                // Update the login_date and reset status
+                $dailyLogin->update([
+                    'login_date' => $today,
+                    'status' => 'completed',
+                ]);
+
+                // Reward points for logging in on the new day
+                $points = 10;
+                $User->points += $points;
+                $dailyLogin->streak += 1;
+                $dailyLogin->save();
+
+                // Assign the updated daily login id to the user
+                $User->daily_login_id = $dailyLogin->id;
+
+                $User->save();
+
+                // Notification message for daily login
+                $notificationMessage = "You earned 10 points for logging in today!";
+            }
         }
 
-        // if($dailyLogin->streak >= 7){
-        //     $User->points += 70;
-        //     $dailyLogin->streak = 0;
-        //     $User->save();
-        //     $dailyLogin->save();
+        // Create the notification if points were earned
+        if ($points > 0) {
+            Notification::create([
+                'user_id' => $User->id,
+                'message' => $notificationMessage,
+                'read_at' => null, // Unread notification
+            ]);
+        }
 
-        //     // Notification message for 7-day streak
-        //     $notificationMessage = "You earned 70 bonus points for a 7-day streak!";
-        // }
+        // Return a successful response with the user, token, role, and points earned
+        return response()->json([
+            'User' => $User,
+            'token' => $token->plainTextToken,
+            'role' => $User->role,
+        ], 200);
     }
 
-    // Create the notification if points were earned
-    if ($points > 0) {
-        Notification::create([
-            'user_id' => $User->id,
-            'message' => $notificationMessage,
-            'read_at' => null, // Unread notification
-        ]);
-    }
-
-    // Return a successful response with the user, token, role, and points earned
-    return response()->json([
-        'User' => $User,
-        'token' => $token->plainTextToken,
-        'role' => $User->role,
-    ], 200);
-}
 
 
 

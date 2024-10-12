@@ -154,7 +154,7 @@ const navListItems = [
       color="green"
     >
       <div className="flex items-center">
-        <StarIcon className="w-6 h-6 mr-2 text-yellow-400" /> {/* Icon */}
+        <StarIcon className="w-8 h-8 mr-2 text-yellow-400" /> {/* Icon */}
         {user.points}
       </div>
     </Typography>
