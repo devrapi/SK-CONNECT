@@ -99,6 +99,9 @@ const NewRegister = () => {
                 <Card className="mx-auto w-full max-w-[28rem]">
                     {/* Make the content scrollable if needed */}
                     <CardBody className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto">
+                   <div className="flex justify-center">
+                         <img src="/img/sklogo.png" alt="Logo" className="w-auto h-24" />
+                     </div>
                         <Typography variant="h4" color="blue-gray">
                             Sign Up
                         </Typography>

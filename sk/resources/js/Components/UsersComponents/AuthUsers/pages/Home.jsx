@@ -1,36 +1,32 @@
 import React from 'react';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-
+const MySwal = withReactContent(Swal);
 
 const Home = () => {
-
-    const image = 'img/icons8-star-48.png'; // Adjust the path if necessary
-
-const showAlert = async () => {
-    await Swal.fire({
-        title: 'You Earned 25 points',
-        text: 'for referral bonus',
-        imageUrl: 'img/icons8-star-48.png', // Update this path to your star SVG icon
-        imageWidth: 100, // Optional: set the width of the icon
-        imageHeight: 100, // Optional: set the height of the icon
-        confirmButtonText: 'Okay',
-      });
-
+  const showAlert = async () => {
+    await MySwal.fire({
+      title: 'You Earned 25 points',
+      text: 'for referral bonus',
+      html: `<div style="font-size: 70px; color: gold;">&#9733;</div>`, // Unicode star character
+      confirmButtonText: 'Okay',
+    });
   };
-    const handleClick = () => {
-        // Simulate a successful response
-        const response = true;
-        if (response) {
-            showAlert();
-        }
-    };
 
-    return (
-        <div>
-            <button onClick={handleClick}>Claim Streak</button>
-        </div>
-    );
+  const handleClick = () => {
+    // Simulate a successful response
+    const response = true;
+    if (response) {
+      showAlert();
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>Claim Streak</button>
+    </div>
+  );
 };
 
 export default Home;

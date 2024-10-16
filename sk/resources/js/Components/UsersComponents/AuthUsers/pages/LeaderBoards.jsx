@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext  } from 'react';
 import { AppContext } from '../../../Context/AppContext';
 import {
   Card,
@@ -8,15 +8,34 @@ import {
   Avatar,
   Button
 } from "@material-tailwind/react";
+import ApiService from '../../../Services/ApiService';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const LeaderBoards = () => {
   const { leaderBoards, user } = useContext(AppContext); // Assuming currentUser is available in the context
 
+
   const isUserOnLeaderboard = leaderBoards.some(item => item.name === user.name);
 
-  const handleClaimReward = () => {
-    // Implement the reward claiming logic here
-    alert('Reward claimed!');
+  const MySwal = withReactContent(Swal);
+
+  const handleClaimReward = async () => {
+    try {
+      const response = await ApiService.post(`leaderboards/${user.id}`);
+      if (response) {
+        // Show SweetAlert2 with the response message and a star icon
+        await MySwal.fire({
+          title: response.data.message, // Set the title to the response message
+          html: `<div style="font-size: 50px; color: gold;">&#9733;</div>`, // Star icon using Unicode
+          confirmButtonText: 'Okay',
+        });
+
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Error claiming reward:', error);
+    }
   };
 
   return (
@@ -57,12 +76,15 @@ const LeaderBoards = () => {
             </tbody>
           </table>
           {isUserOnLeaderboard && (
-            <div className="mt-4 text-center">
-              <Button color="green" onClick={handleClaimReward}>
-                Claim Reward
-              </Button>
-            </div>
-          )}
+        <div className="mt-4 text-center">
+          <Button
+            color="green"
+            onClick={handleClaimReward}
+          >
+            Claim Points
+          </Button>
+        </div>
+      )}
         </CardBody>
       </Card>
     </div>

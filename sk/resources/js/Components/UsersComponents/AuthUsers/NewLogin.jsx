@@ -71,6 +71,9 @@ const NewLogin = () => {
   >
     <Card className="mx-auto w-full max-w-[24rem]">
       <CardBody className="flex flex-col gap-4">
+      <div className="flex justify-center">
+        <img src="/img/sklogo.png" alt="Logo" className="w-auto h-24" />
+      </div>
         <Typography variant="h4" color="blue-gray">
           Sign In
         </Typography>
