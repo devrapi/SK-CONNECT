@@ -28,7 +28,7 @@ import {
     return (
       <li>
         <Typography
-          as="a"
+
           href="#"
           variant="paragraph"
           color="blue-gray"

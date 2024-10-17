@@ -20,17 +20,18 @@ const Analytics = () => {
     <Cards />
   {/* Charts and Table Section */}
   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="col-span-1">
+
+    <PieChart />
+    </div>
     <div className="p-4 bg-white rounded-lg shadow-md">
+
 
       <BarChart />
     </div>
     <div className="p-4 bg-white rounded-lg shadow-md">
 
-      <LineChart />
-    </div>
-    <div className="p-4 bg-white rounded-lg shadow-md">
-
-      <PieChart />
+    <LineChart/>
     </div>
     <div className="col-span-3 p-4 bg-white rounded-lg shadow-md">
       <h2 className="mb-2 text-lg font-semibold text-gray-600">User Rankings</h2>

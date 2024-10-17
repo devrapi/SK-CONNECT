@@ -37,7 +37,7 @@ const Archive = () => {
 
 
     <div className="space-y-5">
-    <Typography variant="h4" color="red-600" className="font-semibold">
+    <Typography variant="h4" color="red" className="font-semibold">
         YOUTH ARCHIVED
     </Typography>
 
@@ -48,7 +48,7 @@ const Archive = () => {
                     <tr>
                         {TABLE_HEAD.map((head) => (
                             <th key={head} className="p-4 text-red-600 bg-red-100 border-b border-red-200">
-                                <Typography variant="small" color="red-600" className="font-semibold">
+                                <Typography variant="small" color="red" className="font-semibold">
                                     {head}
                                 </Typography>
                             </th>

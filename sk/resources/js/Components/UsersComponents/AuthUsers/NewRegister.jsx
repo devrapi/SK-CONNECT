@@ -13,10 +13,14 @@ import {
     Typography,
     Input,
     Checkbox,
+    IconButton,
 } from "@material-tailwind/react";
 import Swal from 'sweetalert2';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
 const NewRegister = () => {
 
+    const [showPassword, setShowPassword] = useState(false);
     const { setToken } = useContext(AppContext);
     const [form, setForm] = useState({
         name: '',
@@ -37,6 +41,10 @@ const NewRegister = () => {
         setIsChecked(event.target.checked);
         setErrorMessage('');
     };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+      };
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
@@ -149,21 +157,46 @@ const NewRegister = () => {
                             </Typography>
                         )}
 
-                        {/* Password Input */}
+                                        {/* Password Input */}
                         <Typography className="-mb-2" variant="h6">
                             Your Password
                         </Typography>
-                        <Input
+
+                            <Input
                             label="Password"
                             size="lg"
                             color="green"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             value={form.password}
                             onChange={(event) => setForm({ ...form, password: event.target.value })}
-                        />
+                            icon={
+                                showPassword ? (
+                                  <EyeSlashIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility} />
+                                ) : (
+                                  <EyeIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility} />
+                                )
+                              }
+                            />
+
+
+                        <Typography variant="small" color="gray" className="flex items-center gap-1 mt-2 font-normal">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-4 h-4 -mt-px"
+                            >
+                            <path
+                                fillRule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                clipRule="evenodd"
+                            />
+                            </svg>
+                            Use at least 8 characters, one uppercase and lowercase.
+                        </Typography>
                         {errors.password && (
                             <Typography variant="small" color="red" className="mt-1">
-                                {errors.password}
+                            {errors.password}
                             </Typography>
                         )}
 
@@ -181,10 +214,9 @@ const NewRegister = () => {
                         />
                         {errors.password_confirmation && (
                             <Typography variant="small" color="red" className="mt-1">
-                                {errors.password_confirmation}
+                            {errors.password_confirmation}
                             </Typography>
                         )}
-
                         {/* Terms and Conditions Checkbox */}
                         <div className="-ml-2.5 -mt-3">
                             <Checkbox

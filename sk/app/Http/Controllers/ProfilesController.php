@@ -27,11 +27,20 @@ class ProfilesController extends Controller
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'required|string|max:255',
             'gender'       => 'required|in:male,female,other',
-            'birthdate'    => 'required|date|date_format:Y-m-d|before_or_equal:today',
+            'birthdate'    => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'before:'.now()->format('Y-m-d'), // Ensure birthdate is before today
+            ],
             'age'          => 'required|integer|min:0',
             'education'    => 'required|string|max:255',
             'address'      => 'required|string|max:255',
-            'phone_number' => 'required|string|max:15',
+            'phone_number' => [
+                'required',
+                'string',
+                'regex:/^09[0-9]{9}$/', // Phone number must start with 09 and be 11 digits long
+            ],
         ]);
 
 

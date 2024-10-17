@@ -18,14 +18,13 @@ import Calendar from "react-calendar"
 
 // @heroicons/react
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
-import ApiService from "../../../Services/ApiService";
-import { useNavigate } from "react-router-dom";
+import ApiService from "../../../Services/ApiService";;
 import { Link } from "react-router-dom";
 
 const Profiling = () => {
 
-    const navigate = useNavigate();
-    const [birthdate, setDate] = useState();
+
+    const [birthdate, setDate] = useState('');
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
         first_name: '',
@@ -120,7 +119,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              First Name {errors.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
+              First Name
             </Typography>
             <Input
              variant="static"
@@ -129,6 +128,7 @@ const Profiling = () => {
              onChange={(event) => {setForm({...form , first_name: event.target.value})}}
              className="border-y-gray-500 "
 />
+            {errors.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
           </div>
           <div className="w-full">
 
@@ -137,7 +137,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Last Name {errors.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
+              Last Name
             </Typography>
             <Input
               variant="static"
@@ -146,7 +146,7 @@ const Profiling = () => {
               onChange={(event) => {setForm({...form , last_name: event.target.value})}}
                 className="border-y-gray-500 "
             />
-
+                {errors.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
           </div>
         </div>
         <div className="flex flex-col gap-4 p-4 mb-6 md:flex-row">
@@ -156,7 +156,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              I&apos;m  {errors.gender && <span className="text-xs text-red-600">{errors.gender}</span>}
+              I&apos;m
             </Typography>
             <Select
             value={form.gender}
@@ -171,6 +171,7 @@ const Profiling = () => {
               <Option value="female">Female</Option>
               <Option value="other">other</Option>
             </Select>
+            {errors.gender && <span className="text-xs text-red-600">{errors.gender}</span>}
           </div>
           <div className="w-full">
             <Typography
@@ -178,7 +179,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Birth Date  {errors.birthdate && <span className="text-xs text-red-600">{errors.birthdate}</span>}
+              Birth Date
             </Typography>
             <Popover placement="bottom">
   <PopoverHandler>
@@ -203,6 +204,7 @@ const Profiling = () => {
     />
   </PopoverContent>
 </Popover>
+{errors.birthdate && <span className="text-xs text-red-600">{errors.birthdate}</span>}
           </div>
           <div className="w-full">
             <Typography
@@ -210,7 +212,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Age {errors.age && <span className="text-xs text-red-600">{errors.age}</span>}
+              Age
             </Typography>
             <Input
             value={form.age}
@@ -222,6 +224,7 @@ const Profiling = () => {
               }}
              className="border-y-gray-500"
             />
+            {errors.age && <span className="text-xs text-red-600">{errors.age}</span>}
           </div>
           <div className="w-full">
             <Typography
@@ -229,7 +232,7 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Education {errors.education && <span className="text-xs text-red-600">{errors.education}</span>}
+              Education
             </Typography>
             <Select
             value={form.education}
@@ -247,6 +250,7 @@ const Profiling = () => {
               <Option value="Not School Youth">Not School Youth</Option>
 
             </Select>
+            {errors.education && <span className="text-xs text-red-600">{errors.education}</span>}
           </div>
         </div>
 
@@ -257,16 +261,17 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Address {errors.address && <span className="text-xs text-red-600">{errors.address}</span>}
+              Address
             </Typography>
             <Input
             value={form.address}
             onChange={(event) => {setForm({...form , address: event.target.value})}}
               variant="static"
-              placeholder="Florida, USA"
+              placeholder="BLK & STRT"
 
               className="border-y-gray-500"
             />
+            {errors.address && <span className="text-xs text-red-600">{errors.address}</span>}
           </div>
           <div className="w-full">
             <Typography
@@ -274,16 +279,17 @@ const Profiling = () => {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Phone Number {errors.phone_number && <span className="text-xs text-red-600">{errors.phone_number}</span>}
+              Phone Number
             </Typography>
             <Input
             value={form.phone_number}
             onChange={(event) => {setForm({...form , phone_number: event.target.value})}}
               variant="static"
-              placeholder="+123 0123 456 789"
+              placeholder="09123456789"
 
              className="border-y-gray-500"
             />
+            {errors.phone_number && <span className="text-xs text-red-600">{errors.phone_number}</span>}
           </div>
         </div>
         <Button className="bg-green-500" onClick={HandleSubmt}>Submit</Button>

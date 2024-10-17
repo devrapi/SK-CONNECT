@@ -7,7 +7,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ChevronUpIcon, CalendarIcon, GiftIcon, UserIcon, TicketIcon } from "@heroicons/react/24/solid";
 import { AppContext } from '../../../../Context/AppContext';
 
 export function KpiCard({
@@ -16,30 +16,27 @@ export function KpiCard({
   count,
   color,
   icon,
+  trendIcon,
 }) {
   return (
     <Card className="shadow-sm border border-gray-200 !rounded-lg">
       <CardBody className="p-4">
         <div className="flex items-center justify-between">
-          <Typography
-            className="!font-medium !text-xs text-gray-600"
-          >
-            {title}
-          </Typography>
-          <div className="flex items-center gap-1">
-            {icon}
-            <Typography
-              color={color}
-              className="font-medium !text-xs"
-            >
-              {percentage}
+          <div className="flex flex-col">
+            <div className="mb-2">{icon}</div>
+            <Typography className="!font-medium !text-xs text-gray-400 mt-2">
+              {title}
             </Typography>
           </div>
+          {/* Display the trend icon on the right */}
+          <div className="flex items-center">
+            <Typography color={color} className="font-medium !text-xs mr-1">
+              {percentage}
+            </Typography>
+            {trendIcon}
+          </div>
         </div>
-        <Typography
-          color="blue-gray"
-          className="mt-1 text-2xl font-bold"
-        >
+        <Typography color="blue-gray" className="text-2xl font-bold">
           {count}
         </Typography>
       </CardBody>
@@ -53,57 +50,41 @@ const Cards = () => {
   // Dynamically update the KPI data using the context values
   const data = [
     {
-      title: "Events",
+      title: "Total Events",
       percentage: "5%",
       count: event?.length || 0,
       color: "green",
-      icon: (
-        <ChevronUpIcon
-          strokeWidth={4}
-          className="w-3 h-3 text-green-500"
-        />
-      ),
+      icon: <CalendarIcon className="w-8 h-8 text-black" />,
+      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
     {
-      title: "Profiles",
+      title: "Total Youth Profiles",
       percentage: "8%",
       count: profiles?.length || 0,
       color: "green",
-      icon: (
-        <ChevronUpIcon
-          strokeWidth={4}
-          className="w-3 h-3 text-green-500"
-        />
-      ),
+      icon: <UserIcon className="w-8 h-8 text-black" />,
+      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
     {
-      title: "Ticket",
+      title: "Total Ticket",
       percentage: "12%",
       count: ticket?.length || 0,
       color: "red",
-      icon: (
-        <ChevronDownIcon
-          strokeWidth={4}
-          className="w-3 h-3 text-red-500"
-        />
-      ),
+      icon: <TicketIcon className="w-8 h-8 text-black"/>,
+      trendIcon: <ChevronDownIcon className="w-4 h-4 text-red-500" />,
     },
     {
-      title: "Rewards",
+      title: "Total Rewards",
       percentage: "6%",
       count: rewards?.length || 0,
       color: "green",
-      icon: (
-        <ChevronUpIcon
-          strokeWidth={4}
-          className="w-3 h-3 text-green-500"
-        />
-      ),
+      icon: <GiftIcon className="w-8 h-8 text-black" />,
+      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
   ];
 
   return (
-    <div className="container pb-5 ">
+    <div className="container pb-5">
       <div className="flex justify-between md:items-center">
         <div></div>
       </div>

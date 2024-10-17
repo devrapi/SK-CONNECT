@@ -1,59 +1,77 @@
 import React, { useContext } from 'react';
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
-  } from "@material-tailwind/react";
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
+} from "@material-tailwind/react";
 import Chart from "react-apexcharts";
-import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
-import { AppContext } from '../../../../Context/AppContext'; // Assuming you have AppContext
+import { AppContext } from '../../../../Context/AppContext';
 
 const PieChart = () => {
   const { profiles } = useContext(AppContext);
 
-  // Categorize profiles by education levels, including "Not School Youth"
   const educationCounts = profiles?.reduce((acc, profile) => {
     const level = profile.education;
     if (level === "Elementary") acc.elementary += 1;
     else if (level === "HighSchool") acc.highSchool += 1;
     else if (level === "Senior Highschool") acc.seniorHighSchool += 1;
     else if (level === "College") acc.college += 1;
-    else if (level === "Not School Youth") acc.notSchoolYouth += 1; // Not School Youth
+    else if (level === "Not School Youth") acc.notSchoolYouth += 1;
     return acc;
   }, {
     elementary: 0,
     highSchool: 0,
     seniorHighSchool: 0,
     college: 0,
-    notSchoolYouth: 0, // Initial count for "Not School Youth"
+    notSchoolYouth: 0,
   });
 
-  // Dynamically setting data based on education levels
   const chartConfig = {
     type: "pie",
-    width: 420,
-    height: 420,
     series: [
-      educationCounts?.elementary || 0,        // Elementary
-      educationCounts?.highSchool || 0,        // High School
-      educationCounts?.seniorHighSchool || 0,  // Senior High School
-      educationCounts?.college || 0,           // College
-      educationCounts?.notSchoolYouth || 0,    // Not School Youth
+      educationCounts?.elementary || 0,
+      educationCounts?.highSchool || 0,
+      educationCounts?.seniorHighSchool || 0,
+      educationCounts?.college || 0,
+      educationCounts?.notSchoolYouth || 0,
     ],
     options: {
       chart: {
         toolbar: {
           show: false,
         },
+        width: '100%',
+        height: '100%',
       },
-      labels: ["Elementary", "High School", "Senior High School", "College", "Not School Youth"],  // Education labels
+      responsive: [
+        {
+          breakpoint: 768,
+          options: {
+            chart: {
+              width: 300,
+              height: 300,
+            },
+          },
+        },
+        {
+          breakpoint: 1024,
+          options: {
+            chart: {
+              width: 400,
+              height: 400,
+            },
+          },
+        },
+      ],
+      labels: ["Elementary", "High School", "Senior High School", "College", "Not School Youth"],
       dataLabels: {
         enabled: false,
       },
-      colors: ["#1e88e5", "#ff8f00", "#00897b", "#d81b60", "#ff5252"], // Custom colors for each education level
+      colors: ["#1e88e5", "#ff8f00", "#00897b", "#d81b60", "#ff5252"],
       legend: {
-        show: true,  // Optionally show the legend
+        show: true,
+        position: 'bottom',
       },
     },
   };
@@ -66,9 +84,6 @@ const PieChart = () => {
         color="transparent"
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       >
-        <div className="p-5 text-white bg-gray-900 rounded-lg w-max">
-          <Square3Stack3DIcon className="w-6 h-6" />
-        </div>
         <div>
           <Typography variant="h6" color="blue-gray">
             Education Levels Pie Chart
@@ -82,8 +97,10 @@ const PieChart = () => {
           </Typography>
         </div>
       </CardHeader>
-      <CardBody className="grid px-2 mt-4 place-items-center">
-        <Chart {...chartConfig} />
+      <CardBody className="grid w-full px-2 mt-4 place-items-center">
+        <div className="w-full max-w-sm md:max-w-md lg:max-w-lg">
+          <Chart {...chartConfig} />
+        </div>
       </CardBody>
     </Card>
   );

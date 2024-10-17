@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 
 class AuthUserController extends Controller
 {
@@ -19,9 +20,13 @@ class AuthUserController extends Controller
         $fields = $request->validate([
             'name' => 'required|max:225',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8) // Minimum length of 8 characters
+                    ->mixedCase() // Must include both uppercase and lowercase characters
+            ]
         ]);
-
         $profiling = Profile::where('full_name', $request->input('name'))->first();
 
         if (!$profiling) {
