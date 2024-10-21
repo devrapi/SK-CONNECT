@@ -16,7 +16,9 @@ const RewardUpdate = () => {
     const[form , setForm] = useState({
         name: '',
         description: '',
-        points: ''
+        points: '',
+        stocks: ''
+
       });
 
 
@@ -28,7 +30,8 @@ const RewardUpdate = () => {
           setForm({
             name: data.name,
             description: data.description,
-            points: data.points
+            points: data.points,
+            stocks:data.stocks
           });
 
           setImage(data.image_path); // Assuming you're dealing with an image path
@@ -60,6 +63,7 @@ const RewardUpdate = () => {
             formData.append('name', form.name);
             formData.append('description', form.description);
             formData.append('points', form.points);
+            formData.append('stocks', form.stocks);
 
         // Append the image if one is selected
         if (imageFile) {
@@ -167,6 +171,19 @@ const RewardUpdate = () => {
               }}
             />
             {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
+          </div>
+          <div className="mt-2 mb-4">
+            <Input
+              type="number"
+              label="Stocks"
+              size="lg"
+              className="w-full shadow-inner"
+              value={form.stocks}
+              onChange={(event) => {
+                setForm({ ...form, stocks: event.target.value });
+              }}
+            />
+            {errors.stocks && <span className="text-xs text-red-600">{errors.stocks}</span>}
           </div>
           </div>
 

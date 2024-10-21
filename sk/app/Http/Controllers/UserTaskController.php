@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Referral;
 use App\Models\DailyLogin;
 use Illuminate\Http\Request;
 use App\Models\Notification;
@@ -33,6 +34,7 @@ class UserTaskController extends Controller
             'referal_code' => 'required|max:225',
         ]);
 
+        // Define points for the user claiming the referral
         $points = 25;
 
         // Find the user by their ID
@@ -66,7 +68,6 @@ class UserTaskController extends Controller
             ], 400);
         }
 
-
         // If a valid referrer is found
         if ($referrer) {
             // Reward the referrer with 100 points
@@ -81,10 +82,17 @@ class UserTaskController extends Controller
             ]);
 
             // Mark the user as having claimed the referral and reward them
-            $user->ref_status = "claimed";
-            $points = 25;
-            $user->points += 25;
+            $user->ref_status = "claimed"; // Set the claim status
+            $user->points += $points;       // Add points to the user
+            $user->referred_by = $referrer->id; // Save the referrer ID
             $user->save();
+
+            // Create the referral record
+            Referral::create([
+                'referrer_id' => $referrer->id,
+                'referred_id' => $user->id,
+
+            ]);
 
             // Create notification for the user who claimed the referral reward
             Notification::create([
@@ -98,7 +106,6 @@ class UserTaskController extends Controller
                 'points' => $points,
             ], 200);
         }
-
 
         // If no valid referrer is found, return an error
         return response()->json([

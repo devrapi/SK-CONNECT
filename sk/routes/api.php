@@ -75,3 +75,6 @@ Route::post('leaderboards/{user_id}' , [LeaderBoards::class , 'RewardsLB']);
 //Notification
 Route::get('notification/{user_id}' , [NotificationController::class , 'Notification']);
 Route::post('/notification/{user_id}/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+
+//Get all Referred users
+Route::get('referredUsers/{user_id}' , [ClaimController::class , 'getReferredUsers']);

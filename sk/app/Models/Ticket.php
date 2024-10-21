@@ -14,6 +14,7 @@ class Ticket extends Model
         'reward_id',
         'ticket_number',
         'status',
+        'claimed_date'
     ];
 
     public function user(){

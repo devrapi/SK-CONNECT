@@ -62,7 +62,7 @@ const ReferralBonus = ({ user_id }) => {
 
     return (
         <>
-            <Button onClick={handleOpen}>Referral Bonus</Button>
+            <Button onClick={handleOpen} color='teal'>Referral Bonus</Button>
             <Dialog size="xs" open={open} handler={handleOpen}>
 
 

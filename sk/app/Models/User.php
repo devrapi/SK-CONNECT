@@ -24,7 +24,8 @@ class User extends Authenticatable
         'profile_id',
         'points',
         'referal_code',
-        'image_path'
+        'image_path',
+        'referred_by'
     ];
 
     /**
@@ -59,4 +60,16 @@ class User extends Authenticatable
     {
     return $this->hasMany(DailyLogin::class);
     }
+
+     // Relationship: Get the users referred by this user
+     public function referredUsers()
+     {
+         return $this->hasMany(User::class, 'referred_by');
+     }
+
+     // Relationship: Get the user who referred this user
+     public function referrer()
+     {
+         return $this->belongsTo(User::class, 'referred_by');
+     }
 }

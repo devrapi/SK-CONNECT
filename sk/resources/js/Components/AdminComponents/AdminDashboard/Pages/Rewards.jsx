@@ -16,7 +16,8 @@ const Rewards = () => {
     const[form , setForm] = useState({
         name: '',
         description: '',
-        points: ''
+        points: '',
+        stocks: ''
       });
 
     // Handle the image change and create a preview URL
@@ -39,7 +40,7 @@ const Rewards = () => {
             formData.append('name', form.name);
             formData.append('description', form.description);
             formData.append('points', form.points);
-
+            formData.append('stocks', form.stocks);
             // Append the image if one is selected
             if (imageFile) {
                 formData.append('image', imageFile); // Append the actual file
@@ -67,7 +68,8 @@ const Rewards = () => {
             setForm({
                 name: '',
                 description: '',
-                points: ''
+                points: '',
+                 stocks: ''
               });
 
               setImage(null);
@@ -80,7 +82,8 @@ const Rewards = () => {
                 setForm({
                     name: '',
                     description: '',
-                    points: ''
+                    points: '',
+                    stocks: ''
                   });
                 setErrors(error.response.data.errors);
 
@@ -149,6 +152,19 @@ const Rewards = () => {
               }}
             />
             {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
+          </div>
+          <div className="mt-2 mb-4">
+            <Input
+              type="number"
+              label="Stocks"
+              size="lg"
+              className="w-full shadow-inner"
+              value={form.stocks}
+              onChange={(event) => {
+                setForm({ ...form, stocks: event.target.value });
+              }}
+            />
+            {errors.stocks && <span className="text-xs text-red-600">{errors.stocks}</span>}
           </div>
           </div>
 

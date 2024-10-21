@@ -18,6 +18,7 @@ class RewardController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'points' => 'required|integer',
+            'stocks' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -31,6 +32,7 @@ class RewardController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'points' => $request->points,
+            'stocks' => $request->stocks,
             'image_path' => $imagePath,
         ]);
 
@@ -49,6 +51,7 @@ class RewardController extends Controller
         'name' => 'required|string|max:255',
         'description' => 'nullable|string|max:1000',  // Adjust max length as needed
         'points' => 'required|integer',
+        'stocks' => 'required|integer',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
@@ -56,7 +59,7 @@ class RewardController extends Controller
     $reward->name = $fields['name'];
     $reward->description = $fields['description'] ?? $reward->description; // If description is nullable, retain the old value if it's not provided
     $reward->points = $fields['points'];
-
+    $reward->stocks = $fields['stocks'];
     // Check if an image file is being uploaded
     if ($request->hasFile('image')) {
         // If the user has an existing image, delete the old image

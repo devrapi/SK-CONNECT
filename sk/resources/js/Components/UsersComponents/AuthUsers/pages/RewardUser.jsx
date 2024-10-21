@@ -45,9 +45,12 @@ const RewardUser =  () => {
                                 <Typography>
                                    <span className='font-semibold'>Points:</span>  {ev.points}
                                 </Typography>
+                                <Typography>
+                                   <span className='font-semibold'>Available Stocks:</span>  {ev.stocks}
+                                </Typography>
                             </CardBody>
                             <CardFooter className="flex justify-between pt-0 ">
-                                <ClaimReward rewardId={ev.id} userId={user.id}/>
+                                <ClaimReward rewardId={ev.id} userId={user.id} rewardPoints={ev.points} userPoints={user.points}/>
                             </CardFooter>
                         </Card>
                     ))}

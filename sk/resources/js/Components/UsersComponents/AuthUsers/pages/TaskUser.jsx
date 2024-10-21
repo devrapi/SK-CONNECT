@@ -19,7 +19,7 @@ const TaskUser = () => {
         <Typography variant="h4" className="mb-2 font-semibold text-center">
             AVAILABLE TASKS
         </Typography>
-            <div>
+            <div className='flex justify-end'>
             <ReferralBonus user_id={user.id}/>
             </div>
         <div className="h-auto overflow-x-auto shadow-md">

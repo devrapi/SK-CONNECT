@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Reward;
+use App\Models\Referral;
 use App\Models\Ticket;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class ClaimController extends Controller
         // Check if user has enough points to claim the reward
         if ((int) $user->points >= (int) $reward->points) {
             try {
-                $ticketNumber = 'TICKET-' . $user->id . '-' . time();
+                $ticketNumber = 'TICKET-' . $user->id . '-' . rand(100000, 999999);
+
 
                 // Create the ticket
                 $ticket = Ticket::create([
@@ -31,6 +33,8 @@ class ClaimController extends Controller
 
                 // Deduct points from the user
                 $user->points -= $reward->points;
+                $reward->stocks -= 1;
+                $reward->save();
                 $user->save();
 
                 // Create notification for the user
@@ -60,30 +64,42 @@ class ClaimController extends Controller
 
      public function show(){
         $ticket = Ticket::with(['user' , 'reward' ])
-        ->where('status' , 'for verification') // filter only claimed ticket will show
+        ->where('status' , 'Pending') // filter only pending ticket will show
         ->get();
 
         return $ticket;
     }
+
     public function history(){
         $ticket = Ticket::with(['user' , 'reward' ])
-        ->where('status' , 'converted') // filter only claimed ticket will show
+        ->where('status' , 'Claimed') // filter only claimed ticket will show
         ->get();
 
         return $ticket;
     }
 
-    public function verify(Ticket $ticket){
-
-
-
+    public function verify(Ticket $ticket)
+    {
+        // Update both the status and claimed_date in a single operation
         $ticket->update([
-            'status' => 'converted'
+            'status' => 'Claimed',
+            'claimed_date' => now()  // Set the claimed_date to the current time
         ]);
 
+        return response()->json(['message' => 'ticket verified', 'ticket' => $ticket], 200);
+    }
+    public function getReferredUsers($userId)
+    {
+        // Fetch the user or fail with a 404 error
+        $user = User::findOrFail($userId);
 
+        // Get all referred users through the referrals table
+        $referredUsers = Referral::where('referrer_id', $user->id)
+            ->with('referredUser') // Load the referred user details
+            ->get()
+           ;
 
-        return response()->json(['message' => 'ticket verified' , 'ticket' => $ticket ], 200);
+        return response()->json($referredUsers); // Return the referred users as a JSON response
     }
 
 }
