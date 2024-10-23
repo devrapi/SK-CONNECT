@@ -53,7 +53,7 @@ class AssignTask extends Controller
 
         $task->update($fields);
 
-    return ['message' => 'update success' , $task];
+        return ['message' => 'update success' , $task];
 
     }
 

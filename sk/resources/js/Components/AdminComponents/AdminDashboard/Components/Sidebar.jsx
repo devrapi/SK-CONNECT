@@ -10,7 +10,6 @@ import {
 } from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
-  ShoppingBagIcon,
   UserCircleIcon,
   Cog6ToothIcon,
   InboxIcon,
@@ -18,6 +17,7 @@ import {
   GiftIcon,
   ArchiveBoxIcon,
   ClipboardDocumentCheckIcon,
+  MegaphoneIcon
 } from '@heroicons/react/24/solid';
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
@@ -71,9 +71,21 @@ const Sidebar = () => {
             // }`}
           >
             <ListItemPrefix>
+              <MegaphoneIcon className="w-6 h-6" />
+            </ListItemPrefix>
+            <Link to="/admin/dashboard/announcement">Announcement</Link>
+          </ListItem>
+
+          <ListItem
+            // onClick={() => handleActiveItem('events')}
+            // className={`${
+            //   activeItem === 'events' ? 'bg-green-800 text-white' : ''
+            // }`}
+          >
+            <ListItemPrefix>
               <CalendarIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/calendars">Events</Link>
+            <Link to="/admin/dashboard/calendars">Calendar</Link>
           </ListItem>
 
           <ListItem

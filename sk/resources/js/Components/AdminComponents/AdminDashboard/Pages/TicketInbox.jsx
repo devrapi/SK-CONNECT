@@ -95,8 +95,8 @@ const TicketInbox = () => {
                                             <td className={classes}>
                                                 {status === 'Claimed' ? (
                                                     <div className='flex'>
-                                                        <CheckCircleIcon className="w-6 h-6 text-blue-600 mr-1" />
-                                                        <Typography variant="small" color="blue" className="font-semibold">
+                                                        <CheckCircleIcon className="w-6 h-6 mr-1 text-red-600" />
+                                                        <Typography variant="small" color="red" className="font-semibold">
                                                             Verified
                                                         </Typography>
                                                     </div>

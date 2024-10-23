@@ -10,7 +10,7 @@ import {
     Avatar,
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
-import { HeartIcon ,GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid'; // Assuming you're using Heroicons
+import { HeartIcon, GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid'; // Assuming you're using Heroicons
 
 const Eventusers = () => {
     const { event } = useContext(AppContext);
@@ -21,44 +21,40 @@ const Eventusers = () => {
     };
 
     return (
-        <div className="container pb-6 mx-auto">
-            <div className="mb-6">
+        <div className="space-y-6 ">
+            {/* <div className="mb-6">
                 <Typography variant="h4" color="blue-gray" className="font-semibold text-center uppercase">
                     Upcoming Events
                 </Typography>
-            </div>
-            <div className="grid grid-rows-1 gap-8 md:grid-rows-2 lg:grid-rows-3">
+            </div> */}
+            <div className="max-w-lg mx-auto">
                 {event.map((ev) => {
                     const isExpanded = expandedEventId === ev.id;
                     return (
-                        <Card key={ev.id} className="p-4 rounded-lg shadow-lg">
-                     <div className='p-2 md:p-4 lg:p-6'>
-                            <div className="flex items-center mb-4">
-                                <Avatar
-                                    src="/img/uno.png" // Add your avatar path here
-                                    alt="Sangguniang Kabataan ng Uno"
-                                    size="sm"
-                                    className="mr-3"
-                                />
-                            <div className='flex flex-col'>
-                            <Typography variant="h6" color="blue-gray">
-                                    KABATAAN NG UNO
-                                </Typography>
+                        <Card key={ev.id} className="p-4 mb-2 rounded-lg shadow-lg">
+                            <div className='p-2 md:p-4 lg:p-6'>
+                                <div className="flex items-center mb-4">
+                                    <Avatar
+                                        src="/img/uno.png" // Add your avatar path here
+                                        alt="Sangguniang Kabataan ng Uno"
+                                        size="sm"
+                                        className="mr-3"
+                                    />
+                                    <div className='flex flex-col'>
+                                        <Typography variant="h6" color="blue-gray">
+                                            KABATAAN NG UNO
+                                        </Typography>
 
-                                <Typography variant="small" className="text-xs text-gray-500">
-                                    <div className='flex'>
-                                    {moment(ev.created_at).fromNow()}
-                                    <GlobeAsiaAustraliaIcon className='w-4 h-4 ml-1'/>
+                                        <Typography variant="small" className="text-xs text-gray-500">
+                                            <div className='flex'>
+                                                {moment(ev.created_at).fromNow()}
+                                                <GlobeAsiaAustraliaIcon className='w-4 h-4 ml-1' />
+                                            </div>
+                                        </Typography>
                                     </div>
+                                </div>
 
-                                </Typography>
-                            </div>
-
-                            </div>
-
-
-
-                                 <Typography variant="h5" color="blue-gray" className="mb-2">
+                                <Typography variant="h5" color="blue-gray" className="mb-2">
                                     {ev.title}
                                 </Typography>
                                 <Typography color="gray" className="mb-4">
@@ -76,17 +72,15 @@ const Eventusers = () => {
                                 <Typography className="font-medium">
                                     Points: {ev.points}
                                 </Typography>
+                            </div>
 
-                                </div>
-                            {/* Event Details */}
+                            {/* Event Image */}
                             <CardBody className='p-2 md:p-4 lg:p-6'>
-
-                            <img
+                                <img
                                     src={`/storage/${ev.image_path}`}
                                     alt={ev.title}
-                                    className="object-cover w-full h-full rounded-t-lg"
+                                    className="object-cover w-full h-64 rounded-t-lg md:h-72 lg:h-80" // Adjusted height for responsive views
                                 />
-
                             </CardBody>
 
                             {/* Card Footer */}

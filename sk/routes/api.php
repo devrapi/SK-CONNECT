@@ -11,6 +11,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\UserTaskController;
+use App\Http\Controllers\AnnouncementController;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -78,3 +79,18 @@ Route::post('/notification/{user_id}/mark-all-read', [NotificationController::cl
 
 //Get all Referred users
 Route::get('referredUsers/{user_id}' , [ClaimController::class , 'getReferredUsers']);
+
+//Announcement
+Route::get('announcement' ,[AnnouncementController::class , 'index'] );
+Route::post('announcement' ,[AnnouncementController::class , 'store'] );
+Route::delete('announcement/{announcement}' ,[AnnouncementController::class , 'destroy'] );
+Route::put('announcement/{announcement}' ,[AnnouncementController::class , 'update'] );
+
+//Comment
+Route::post('announcement/comment/{announcement}/{userId}' ,[AnnouncementController::class , 'comment'] );
+Route::get('announcement/comment/{announcementId}' ,[AnnouncementController::class , 'getComments'] );
+
+//Likes
+Route::post('announcement/like/{announcement}/{user_id}' , [AnnouncementController::class , 'like'] );
+Route::get('announcement/like/{announcementId}' ,[AnnouncementController::class , 'getLike'] );
+Route::delete('announcement/like/{announcement}/{user_id}' , [AnnouncementController::class , 'unlike'] );

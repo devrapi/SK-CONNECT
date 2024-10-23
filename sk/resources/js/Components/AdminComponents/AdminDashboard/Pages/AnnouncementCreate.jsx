@@ -1,15 +1,14 @@
 import React from 'react'
 import { Input, Textarea, Button, Card, CardBody, Typography } from "@material-tailwind/react";
 import { useState } from "react";
-import ApiService from '../../../Services/ApiService';
 import Swal from 'sweetalert2';
-const Gamification = () => {
+import ApiService from '../../../Services/ApiService';
+const AnnouncementCreate = () => {
 
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
-        name: '',
-        description: '',
-        points: ''
+        title: '',
+        content: '',
       });
 
       const handleSubmit = async (e) => {
@@ -19,16 +18,16 @@ const Gamification = () => {
             const formData = new FormData();
 
             // Append form fields
-            formData.append('task_name', form.name);
-            formData.append('description', form.description);
-            formData.append('points', form.points);
+            formData.append('title', form.title);
+            formData.append('content', form.content);
+
 
             // Make the API request with FormData
-            const response = await ApiService.post('task', formData);
+            const response = await ApiService.post('announcement', formData);
             if (response) {
                 // Show success alert
                 await Swal.fire({
-                  title: 'Profile updated successfully!!',
+                  title: 'Announcement Created!',
                   text: 'Success!',
                   icon: 'success',
                   confirmButtonText: 'Okay',
@@ -39,9 +38,8 @@ const Gamification = () => {
               }
 
             setForm({
-                name: '',
-                description: '',
-                points: ''
+                title: '',
+                content: '',
               });
 
 
@@ -50,9 +48,9 @@ const Gamification = () => {
 
             if (error.response?.status === 422) {
                 setForm({
-                    name: '',
-                    description: '',
-                    points: ''
+                    title: '',
+                    content: '',
+
                   });
                 setErrors(error.response.data.errors);
 
@@ -66,7 +64,7 @@ const Gamification = () => {
 
         <Card className="w-full shadow-lg">
         <Typography variant="h4" className="mt-5 mb-5 font-semibold text-center">
-            Add Task
+            Add Announcement
           </Typography>
         <CardBody>
           <form>
@@ -76,42 +74,28 @@ const Gamification = () => {
                 <div className='mb-4'>
                 <Input
                   type="text"
-                  label="Task Name"
+                  label="Title"
                   size="lg"
                   className="w-full shadow-inner"
-                  value={form.name}
+                  value={form.title}
                   onChange={(event) => {
-                    setForm({ ...form, name: event.target.value });
+                    setForm({ ...form, title: event.target.value });
                   }}
                 />
-                {errors.name && <span className="text-xs text-red-600">{errors.name}</span>}
+                {errors.title && <span className="text-xs text-red-600">{errors.title}</span>}
                 </div>
 
                 <div className="mt-5">
                 <Textarea
-                  label="Task Description"
+                  label="Content"
                   size="lg"
                   className="w-full shadow-inner"
-                  value={form.description}
+                  value={form.content}
                   onChange={(event) => {
-                    setForm({ ...form, description: event.target.value });
+                    setForm({ ...form, content: event.target.value });
                   }}
                 />
-                {errors.description && <span className="text-xs text-red-600">{errors.description}</span>}
-              </div>
-
-              <div className="mt-2 mb-4">
-                <Input
-                  type="number"
-                  label="Points"
-                  size="lg"
-                  className="w-full shadow-inner"
-                  value={form.points}
-                  onChange={(event) => {
-                    setForm({ ...form, points: event.target.value });
-                  }}
-                />
-                {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
+                {errors.content && <span className="text-xs text-red-600">{errors.content}</span>}
               </div>
               </div>
             </div>
@@ -119,7 +103,7 @@ const Gamification = () => {
             {/* Submit Button */}
             <div className='mt-10'>
             <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
-              Create Task
+              Create Announcment
             </Button>
             </div>
 
@@ -130,4 +114,4 @@ const Gamification = () => {
   )
 }
 
-export default Gamification
+export default AnnouncementCreate

@@ -7,7 +7,7 @@ import {
     DialogHeader,
     DialogBody,
     DialogFooter,
-    Card ,
+    Card,
     CardHeader,
     CardFooter,
     CardBody
@@ -18,11 +18,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-// Import FullCalendar CSS files
-// import '@fullcalendar/core/main.css';  // Core styles
-// import '@fullcalendar/daygrid/main.css'; // dayGrid styles
-// import '@fullcalendar/timegrid/main.css'; // timeGrid styles
-
 import DeleteEvents from './deleteEvents';
 import { CalendarIcon, PlusIcon } from '@heroicons/react/24/solid';
 
@@ -30,7 +25,7 @@ const Calendars = () => {
     const { event } = useContext(AppContext);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [open, setOpen] = useState(false);
-    const [isCalendarView, setIsCalendarView] = useState(false); // State to toggle between views
+    const [isCalendarView, setIsCalendarView] = useState(true); // Set calendar view as default
 
     const handleOpen = () => setOpen(!open);
 
@@ -94,7 +89,7 @@ const Calendars = () => {
                         headerToolbar={{
                             left: 'prev,next today',
                             center: 'title',
-                            right: 'dayGridMonth,'
+                            right: 'dayGridMonth',
                         }}
                         height="auto"
                         eventDisplay="block"
@@ -177,6 +172,6 @@ const Calendars = () => {
             )}
         </div>
     );
-}
+};
 
 export default Calendars;

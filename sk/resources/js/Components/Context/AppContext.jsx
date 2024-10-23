@@ -15,9 +15,38 @@ export default function AppProvider({children}){
     const[leaderBoards , setLeaderBoards] = useState({});
     const[ticket , setTicket] = useState([]);
     const[history , setHistory] = useState([]);
-    const[profiles , setProfiles] = useState({})
+    const[profiles , setProfiles] = useState({});
+    const[announcement , setAnnouncement] = useState({});
+    const[comment , setComment] = useState({});
+    // const[like , setLike] = useState({});
     const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
+
+
+
+     //get comment data
+     async function getComment(){
+        const res = await ApiService.get("announcement/comment",);
+        const data = await res.data;
+
+        setComment(data)
+    }
+
+    //  //get like data
+    //  async function getAnnouncement(){
+    //     const res = await ApiService.get("announcement",);
+    //     const data = await res.data;
+
+    //     setAnnouncement(data)
+    // }
+
+    //get Announcement data
+    async function getAnnouncement(){
+        const res = await ApiService.get("announcement",);
+        const data = await res.data;
+
+        setAnnouncement(data)
+    }
 
       //get task data
       async function getTask(){
@@ -119,6 +148,14 @@ export default function AppProvider({children}){
     },[]);
 
     useEffect(() => {
+        getComment();
+    },[]);
+
+    useEffect(() => {
+        getAnnouncement();
+    },[]);
+
+    useEffect(() => {
         getLeaderBoards();
     },[]);
 
@@ -169,7 +206,8 @@ export default function AppProvider({children}){
         event ,profiles ,
         rewards , ticket,
         history ,task,
-        dailyLogin , leaderBoards
+        dailyLogin , leaderBoards,
+        announcement, comment
 
          }}>
             {children}
