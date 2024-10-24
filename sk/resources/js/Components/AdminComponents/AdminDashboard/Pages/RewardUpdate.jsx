@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 import Swal from 'sweetalert2';
 const RewardUpdate = () => {
-    const navigate = useNavigate();
+
     const {id} = useParams();
     const [image, setImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);

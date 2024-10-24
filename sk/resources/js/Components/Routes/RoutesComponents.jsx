@@ -35,6 +35,7 @@ import RewardsTicket from '../UsersComponents/AuthUsers/Profile/RewardsTicket';
 import TaskUpdate from '../AdminComponents/AdminDashboard/Pages/TaskUpdate';
 import Announcement from '../AdminComponents/AdminDashboard/Pages/Announcement';
 import AnnouncementCreate from '../AdminComponents/AdminDashboard/Pages/AnnouncementCreate';
+import AnnouncementUpdate from '../AdminComponents/AdminDashboard/Pages/AnnouncementUpdate';
 
 const RoutesComponents = () => {
   return (
@@ -70,7 +71,9 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/rewards' element={<Rewards/>}/>
             <Route path='/admin/dashboard/inbox' element={<TicketInbox/>}/>
             <Route path='/admin/dashboard/history' element={<History/>}/>
-            <Route path='/admin/dashboard/announcement' element={<AnnouncementCreate/>}/>
+            <Route path='/admin/dashboard/announcement' element={<Announcement/>}/>
+            <Route path='/admin/dashboard/announcement-create' element={<AnnouncementCreate/>}/>
+            <Route path='/admin/dashboard/announcement/update/:id' element={<AnnouncementUpdate/>}/>
         </Route>
       </Route>
 

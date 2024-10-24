@@ -82,6 +82,7 @@ Route::get('referredUsers/{user_id}' , [ClaimController::class , 'getReferredUse
 
 //Announcement
 Route::get('announcement' ,[AnnouncementController::class , 'index'] );
+Route::get('announcement/{announcement}' ,[AnnouncementController::class , 'show'] );
 Route::post('announcement' ,[AnnouncementController::class , 'store'] );
 Route::delete('announcement/{announcement}' ,[AnnouncementController::class , 'destroy'] );
 Route::put('announcement/{announcement}' ,[AnnouncementController::class , 'update'] );

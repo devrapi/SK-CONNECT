@@ -12,7 +12,7 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        return Announcement::all();
+        return Announcement::orderBy('created_at', 'desc')->get();
     }
 
     public function show(Announcement $Announcement)
@@ -58,47 +58,47 @@ class AnnouncementController extends Controller
         return ['message' => 'update success' , $announcement];
 
     }
-    public function comment(Request $request, Announcement $announcement, $userId)
-{
-    $request->validate([
-        'comment' => 'required|string',
-    ]);
-
-    $user = User::findOrFail($userId);
-
-    $comment = $announcement->comments()->create([
-        'comment' => $request->comment,
-        'user_id' => $user->id,
-    ]);
-
-    return response()->json($comment);
-}
-
-public function getComments($announcementId)
-{
-    $comments = Comment::where('announcement_id', $announcementId)->with('user')->get();
-    return response()->json($comments);
-}
-
-public function like(Announcement $announcement,$userId)
+        public function comment(Request $request, Announcement $announcement, $userId)
     {
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
+
         $user = User::findOrFail($userId);
 
-        $announcement->likes()->create(['user_id' => $user->id]);
-        return response()->json(['message' => 'Liked' , $announcement]);
+        $comment = $announcement->comments()->create([
+            'comment' => $request->comment,
+            'user_id' => $user->id,
+        ]);
+
+        return response()->json($comment);
     }
 
-public function unlike(Announcement $announcement, $userId)
+    public function getComments($announcementId)
     {
-        $user = User::findOrFail($userId);
-
-        $announcement->likes()->where('user_id', $user->id)->delete();
-        return response()->json(['message' => 'Unliked']);
+        $comments = Comment::where('announcement_id', $announcementId)->with('user')->get();
+        return response()->json($comments);
     }
-public function getLike($announcementId)
-    {
 
-        $like = Like::where('announcement_id', $announcementId)->with('user')->get();
-        return response()->json($like);
-    }
+    public function like(Announcement $announcement,$userId)
+        {
+            $user = User::findOrFail($userId);
+
+            $announcement->likes()->create(['user_id' => $user->id]);
+            return response()->json(['message' => 'Liked' , $announcement]);
+        }
+
+    public function unlike(Announcement $announcement, $userId)
+        {
+            $user = User::findOrFail($userId);
+
+            $announcement->likes()->where('user_id', $user->id)->delete();
+            return response()->json(['message' => 'Unliked']);
+        }
+    public function getLike($announcementId)
+        {
+
+            $like = Like::where('announcement_id', $announcementId)->with('user')->get();
+            return response()->json($like);
+        }
 }

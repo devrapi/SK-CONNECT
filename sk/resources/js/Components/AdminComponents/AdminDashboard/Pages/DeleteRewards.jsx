@@ -7,6 +7,8 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const DeleteRewards = ({ id }) => {
+
+
   const handleDelete = async () => {
     try {
       await ApiService.delete(`rewards/${id}`);
