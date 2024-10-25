@@ -15,7 +15,7 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        return Profile::all();
+        return Profile::orderBy('created_at', 'desc')->get();
     }
 
     /**

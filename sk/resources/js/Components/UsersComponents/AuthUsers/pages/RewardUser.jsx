@@ -21,43 +21,61 @@ const RewardUser =  () => {
   return (
     <>
 
-    <div className="space-y-5">
-        <Typography variant="h4" color="blue-gray" className="font-semibold">
-           REWARDS
+<div className="container pb-6 mx-auto space-y-6">
+    <div className="text-center">
+        <Typography variant="h4" color="blue-gray" className="font-semibold uppercase">
+            Rewards
         </Typography>
-                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                    {rewards.map(ev => (
-                        <Card key={ev.id} className="pt-12 mt-6 w-96">
-                            <div color="blue-gray" className="relative h-56">
-                                <img
-                                    src={`/storage/${ev.image_path}`}
-                                    alt={ev.name}
-                                    className="p-8 rounded-t-lg"
-                                />
-                            </div>
-                            <CardBody className="">
-                                <Typography variant="h5" color="blue-gray" className="mb-2">
-                                    {ev.name}
-                                </Typography>
-                                <Typography className="truncate">
-                                    {ev.description}
-                                </Typography>
-                                <Typography>
-                                   <span className='font-semibold'>Points:</span>  {ev.points}
-                                </Typography>
-                                <Typography>
-                                   <span className='font-semibold'>Available Stocks:</span>  {ev.stocks}
-                                </Typography>
-                            </CardBody>
-                            <CardFooter className="flex justify-between pt-0 ">
-                                <ClaimReward rewardId={ev.id} userId={user.id} rewardPoints={ev.points} userPoints={user.points}/>
-                            </CardFooter>
-                        </Card>
-                    ))}
+    </div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {rewards.map((reward) => (
+            <Card key={reward.id} className="max-w-md p-4 mx-auto rounded-lg shadow-lg">
+                {/* Reward Name */}
+                <div className="mb-4 text-center">
+                    <Typography variant="h6" color="blue-gray" className="text-lg font-semibold">
+                        {reward.name}
+                    </Typography>
                 </div>
 
+                {/* Reward Image */}
+                <img
+                    src={`/storage/${reward.image_path}`}
+                    alt={reward.name}
+                    className="object-cover w-full rounded-md h-60" // Taller image height for product display
+                />
 
-            </div>
+                {/* Reward Details */}
+                <CardBody className="px-4 py-2 text-left">
+                    <Typography color="gray" className="mb-3 text-sm truncate">
+                        {reward.description}
+                    </Typography>
+
+                    {/* Points and Stock Information */}
+                    <div className="flex flex-col space-y-1 text-sm">
+                        <Typography className="font-medium">
+                            <span className="font-semibold">Points:</span> {reward.points}
+                        </Typography>
+                        <Typography className="font-medium">
+                            <span className="font-semibold">Available Stocks:</span> {reward.stocks}
+                        </Typography>
+                    </div>
+                </CardBody>
+
+                {/* Card Footer for Claim Button */}
+                <CardFooter className="flex justify-end p-3 border-t">
+                    <ClaimReward
+                        rewardId={reward.id}
+                        userId={user.id}
+                        rewardPoints={reward.points}
+                        userPoints={user.points}
+                    />
+                </CardFooter>
+            </Card>
+        ))}
+    </div>
+</div>
+
+
 
         </>
   )

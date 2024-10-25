@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
-use App\Models\Comment;
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Announcement;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
@@ -25,17 +26,26 @@ class AnnouncementController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
-
         ]);
 
-        Announcement::create([
+        // Create the announcement
+        $announcement = Announcement::create([
             'title' => $request->title,
             'content' => $request->content,
-
-
         ]);
 
-        return response()->json(['message' => ' Announcement created successfully']);
+        // Send notification to all users
+        $users = User::all(); // Retrieve all users
+
+        foreach ($users as $user) {
+            Notification::create([
+                'user_id' => $user->id,
+                'message' => "New announcement: {$announcement->title}",
+                'read_at' => null, // Unread notification
+            ]);
+        }
+
+        return response()->json(['message' => 'Announcement created and notifications sent successfully']);
     }
 
     public function destroy(Announcement $announcement)

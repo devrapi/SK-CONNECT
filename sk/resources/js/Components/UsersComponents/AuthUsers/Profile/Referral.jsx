@@ -59,26 +59,26 @@ function Referral() {
       {/* Display the referral history */}
       {show ? (
         <div className="mt-6">
-          <Typography variant="h5" className="font-bold mb-4">
+          <Typography variant="h5" className="mb-4 font-bold">
             Successfully Referred Users
           </Typography>
 
           {/* Check if referred users exist */}
           {referredUsers.length > 0 ? (
             <div className="space-y-4">
-                <Card  className="shadow-lg p-4">
+                <Card  className="p-4 shadow-lg">
                   <CardBody>
-                  <table className="min-w-full text-left table-auto border-separate border-spacing-y-2">
+                  <table className="min-w-full text-left border-separate table-auto border-spacing-y-2">
                     <thead>
                         <tr className="border-b">
                         <th className="px-6 py-3 bg-blue-gray-50 text-blue-gray-700">No.</th>
-                        <th className="px-6 py-3 bg-blue-gray-50 text-blue-gray-700">User</th>
+                        <th className="px-6 py-3 bg-blue-gray-50 text-blue-gray-700">Referred User</th>
                         <th className="px-6 py-3 bg-blue-gray-50 text-blue-gray-700">Points</th>
                         </tr>
                     </thead>
                     <tbody>
                         {referredUsers.map((item, index) => (
-                        <tr key={item.id} className="hover:bg-blue-50 transition-all duration-200 shadow-sm rounded-lg">
+                        <tr key={item.id} className="transition-all duration-200 rounded-lg shadow-sm hover:bg-blue-50">
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="flex items-center px-6 py-4 space-x-4">
                             <Avatar
@@ -110,7 +110,7 @@ function Referral() {
         </div>
       ) : (
         // Referral instructions card
-        <Card className="max-w-lg mx-auto p-6 shadow-lg mt-10">
+        <Card className="max-w-lg p-6 mx-auto mt-10 shadow-lg">
           <CardBody className="text-center">
             {/* Title */}
             <Typography variant="h5" className="mb-4 font-bold text-blue-gray-800">
@@ -123,8 +123,8 @@ function Referral() {
             </Typography>
 
             {/* Referral Code and Copy Button */}
-            <div className="flex justify-center items-center mb-2">
-              <Typography variant="h4" className="font-bold mr-3 text-blue-gray-900">
+            <div className="flex items-center justify-center mb-2">
+              <Typography variant="h4" className="mr-3 font-bold text-blue-gray-900">
                 {referralCode}
               </Typography>
               <Button
@@ -134,14 +134,14 @@ function Referral() {
                 onClick={copyToClipboard}
                 className="flex items-center gap-2"
               >
-                <ClipboardIcon className="h-5 w-5" />
+                <ClipboardIcon className="w-5 h-5" />
                 Copy Code
               </Button>
             </div>
             <span className="text-xs text-green-500">{message}</span>
 
             {/* Call to Action */}
-            <Typography className="text-sm text-blue-gray-500 mt-2">
+            <Typography className="mt-2 text-sm text-blue-gray-500">
               Invite your friends now and start earning rewards!
             </Typography>
           </CardBody>

@@ -32,84 +32,61 @@ const RewardsTicket = () => {
     }
 
     return (
-        <div className="flex flex-col space-y-4 justify-center items-center">
-            {/* Filter Buttons */}
-            <div className="flex space-x-4 mb-6">
-    <Button
-        onClick={() => setFilter('all')}
-        color={filter === 'all' ? 'green' : 'green'} // Green when active, gray when not
-        variant={filter === 'all' ? 'filled' : 'outlined'}
-    >
-        All
-    </Button>
-    <Button
-        onClick={() => setFilter('Pending')}
-        color={filter === 'Pending' ? 'blue' : 'blue'} // Blue when active, gray when not
-        variant={filter === 'Pending' ? 'filled' : 'outlined'}
-    >
-        Pending
-    </Button>
-    <Button
-        onClick={() => setFilter('Claimed')}
-        color={filter === 'Claimed' ? 'orange' : 'orange'} // Orange when active, gray when not
-        variant={filter === 'Claimed' ? 'filled' : 'outlined'}
-    >
-        Claimed
-    </Button>
-</div>
-
-
-            {/* Display tickets based on the selected filter */}
-            {filteredTickets.length > 0 ? (
-                filteredTickets.map((ticketItem) => (
-                    <Card key={ticketItem.id} className="w-full max-w-[48rem] flex-row">
-                        <CardHeader
-                            shadow={false}
-                            floated={false}
-                            className="m-0 w-2/5 shrink-0 rounded-r-none"
-                        >
-                            <img
-                                src={`/storage/${ticketItem.reward.image_path}`}
-                                className="h-full w-full object-cover"
-                                alt={`Image for ${ticketItem.reward.name}`} // Added alt text for accessibility
-                            />
-                        </CardHeader>
-                        <CardBody>
-                            <Typography variant="h6" color="gray" className="mb-4 uppercase">
-                                {ticketItem.reward.name}
-                            </Typography>
-                            <Typography variant="h4" color="blue-gray" className="mb-2">
-                                {ticketItem.ticket_number}
-                            </Typography>
-                            <Typography color="gray" className="mb-8 font-normal">
-                                {ticketItem.status}
-                            </Typography>
-                            <Typography color="gray" className="mb-8 font-normal">
-                                {ticketItem.status === 'Claimed' ? (
-                                    <>Claimed at: {new Date(ticketItem.claimed_date).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',
-                                    })}</>
-                                ) : (
-                                    <>Pending at: {new Date(ticketItem.created_at).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',
-                                    })}</>
-                                )}
-                            </Typography>
-
-
-                        </CardBody>
-                    </Card>
-                ))
-            ) : (
-                <Typography color="gray" className="mb-4">
-                    No tickets available for this user.
-                </Typography>
-            )}
+        <div className="flex flex-col items-center space-y-6">
+        {/* Filter Buttons */}
+        <div className="flex mb-4 space-x-4">
+            {["all", "Pending", "Claimed"].map((status) => (
+                <Button
+                    key={status}
+                    onClick={() => setFilter(status)}
+                    color={filter === status ? (status === 'Pending' ? 'blue' : status === 'Claimed' ? 'orange' : 'green') : 'gray'}
+                    variant={filter === status ? 'filled' : 'outlined'}
+                    className="px-4 py-2 text-sm rounded-full"
+                >
+                    {status.charAt(0).toUpperCase() + status.slice(1)}
+                </Button>
+            ))}
         </div>
+
+        {/* Display tickets based on the selected filter */}
+        {filteredTickets.length > 0 ? (
+            filteredTickets.map((ticketItem) => (
+                <Card key={ticketItem.id} className="flex flex-row w-full max-w-lg p-4 rounded-lg shadow-md">
+                    {/* Ticket Image */}
+                    <CardHeader shadow={false} floated={false} className="w-1/3 overflow-hidden rounded-l-lg">
+                        <img
+                            src={`/storage/${ticketItem.reward.image_path}`}
+                            alt={`Image for ${ticketItem.reward.name}`}
+                            className="object-cover w-full h-28"
+                        />
+                    </CardHeader>
+
+                    {/* Ticket Details */}
+                    <CardBody className="flex flex-col justify-between w-2/3 p-4">
+                        <Typography variant="h6" color="blue-gray" className="mb-1 font-bold uppercase">
+                            {ticketItem.reward.name}
+                        </Typography>
+                        <Typography variant="h5" color="blue-gray" className="mb-1">
+                            Ticket #{ticketItem.ticket_number}
+                        </Typography>
+                        <Typography color="gray" className="mb-2 text-sm font-medium">
+                            Status: <span className={`font-semibold ${ticketItem.status === 'Claimed' ? 'text-orange-500' : 'text-blue-500'}`}>{ticketItem.status}</span>
+                        </Typography>
+                        <Typography color="gray" className="text-xs">
+                            {ticketItem.status === 'Claimed'
+                                ? `Claimed at: ${new Date(ticketItem.claimed_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`
+                                : `Pending since: ${new Date(ticketItem.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`}
+                        </Typography>
+                    </CardBody>
+                </Card>
+            ))
+        ) : (
+            <Typography color="gray" className="text-sm text-center">
+                No tickets available for this user.
+            </Typography>
+        )}
+    </div>
+
     );
 };
 
