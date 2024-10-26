@@ -24,7 +24,7 @@ class ArchivedController extends Controller
     public function fetchArchived()
     {
     // Retrieve all profiles that have been soft deleted
-    $archivedProfiles = Profile::orderBy('created_at', 'desc')->get();
+    $archivedProfiles = Profile::onlyTrashed()->get();
 
     // Check if the result set is empty
     if ($archivedProfiles->isEmpty()) {

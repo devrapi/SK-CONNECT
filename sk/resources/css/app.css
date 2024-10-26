@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Poppins"; /* Choose a name */
+    src: url("/fonts/Poppins.ttf") format("ttf"),
+        url("/fonts/Poppins.ttf") format("ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Define font weights if you have multiple styles */
+@font-face {
+    font-family: "Poppins";
+    src: url("/fonts/Poppins.ttf") format("ttf"),
+        url("/fonts/Poppins.ttf") format("ttf");
+    font-weight: bold;
+    font-style: normal;
+}

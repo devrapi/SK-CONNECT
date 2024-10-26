@@ -57,27 +57,27 @@ const Main = () => {
   return (
    <>
 
-<Navbar shadow={false} fullWidth className="border-0">
+<div shadow={false} fullWidth className="py-2 border-0">
         <div className="container flex items-center justify-between mx-auto">
-        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-16'/>
+        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-14'/>
 
-          <ul className="items-center hidden gap-6 ml-10 text-black lg:flex">
+          <ul className="items-center hidden gap-6 text-black lg:flex">
             <NavItem>
-              <RectangleStackIcon className="w-5 h-5" />
+              {/* <RectangleStackIcon className="w-5 h-5" /> */}
               <Link to="/">
               Home
               </Link>
             </NavItem>
             <NavItem>
-              <UserCircleIcon className="w-5 h-5" />
+              {/* <UserCircleIcon className="w-5 h-5" /> */}
               Teams
             </NavItem>
             <NavItem>
-              <Squares2X2Icon className="w-5 h-5" />
+              {/* <Squares2X2Icon className="w-5 h-5" /> */}
               Feautures
             </NavItem>
             <NavItem>
-              <CommandLineIcon className="w-5 h-5" />
+              {/* <CommandLineIcon className="w-5 h-5" /> */}
               FAQs
             </NavItem>
           </ul>
@@ -128,7 +128,7 @@ const Main = () => {
             </div>
           </div>
         </Collapse>
-      </Navbar>
+      </div>
 
     <div>
         <Outlet/>

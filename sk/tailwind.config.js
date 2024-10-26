@@ -9,6 +9,9 @@ export default {
     ],
   theme: {
     extend: {
+        fontFamily: {
+            custom: ['Poppins', 'sans-serif'], // Use the name you defined in @font-face
+          },
 
     },
   },
