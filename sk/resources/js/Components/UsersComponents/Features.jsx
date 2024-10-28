@@ -56,24 +56,22 @@ const Features = () => {
         </Card>
       </div>
 
-      {/* Additional Cards Section */}
       <div className="container grid grid-cols-1 mx-auto lg:gap-x-8 gap-y-8 lg:grid-cols-3">
-        {/* Card 3 */}
         <Card className="col-span-2 overflow-hidden bg-gray-100/50" shadow={false}>
-  <CardBody className="text-center">
-    <Typography variant="h4" color="blue-gray" className="mb-2 font-medium">
-      Redeem Rewards
-    </Typography>
-    <Typography className="text-center max-w-sm mx-auto text-base font-normal leading-7 !text-gray-500">
-      Exchange your points for real rewards, from vouchers to exclusive event access and more.
-    </Typography>
-    <img
-      src="/img/newREwards.png"
-      alt="Redeem Rewards"
-      className="w-full xl:h-[370px] lg:h-[360px] object-contain object-center" // Changed to object-contain
-    />
-  </CardBody>
-</Card>
+            <CardBody className="text-center">
+                <Typography variant="h4" color="blue-gray" className="mb-2 font-medium">
+                Redeem Rewards
+                </Typography>
+                <Typography className="text-center max-w-sm mx-auto text-base font-normal leading-7 !text-gray-500">
+                Exchange your points for real rewards, from vouchers to exclusive event access and more.
+                </Typography>
+                <img
+                src="/img/rewardsNew.png"
+                alt="Redeem Rewards"
+                className="w-full xl:h-[370px] lg:h-[360px] lg:translate-y-8 translate-y-7 object-cover object-center" // Changed to object-contain
+                />
+            </CardBody>
+                    </Card>
 
 
         {/* Card 4 */}

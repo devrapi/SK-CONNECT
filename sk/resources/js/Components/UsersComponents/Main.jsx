@@ -7,6 +7,7 @@ import Features from './Features.jsx';
 import FAQs from './FAQs.jsx';
 import NewLogin from './AuthUsers/NewLogin.jsx';
 import NewRegister from './AuthUsers/NewRegister.jsx';
+import Map from './Map.jsx';
 import {
     Navbar,
     Collapse,
@@ -22,6 +23,7 @@ import {
     Squares2X2Icon,
   } from "@heroicons/react/24/solid";
   import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Benefits from './Benefits.jsx';
 
 
   function NavItem({ children }) {
@@ -134,11 +136,21 @@ const Main = () => {
         <Outlet/>
     </div>
 
- <Homepage/>
- <Features/>
-<Officials/>
-<FAQs/>
-<Footer/>
+        <Homepage/>
+
+        <Features/>
+
+
+
+        <Officials/>
+
+        <Benefits/>
+
+        <FAQs/>
+
+        <Map/>
+
+        <Footer/>
 
 
    </>

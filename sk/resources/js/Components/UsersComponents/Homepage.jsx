@@ -8,7 +8,7 @@ import {
 const Homepage = () => {
   return (
     <>
-      <header className="bg-gray-100 px-9">
+      <header className="bg-gray-100 p-9">
   <div className="container px-4 mx-auto">
     <div className="grid items-center grid-cols-1 gap-8 md:grid-cols-2">
       {/* Left Side: Title Text */}
