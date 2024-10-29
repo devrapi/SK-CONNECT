@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../../Context/AppContext';
-import { Typography } from "@material-tailwind/react";
+import { Typography, Card, CardBody } from "@material-tailwind/react";
+import { CheckCircleIcon, UserGroupIcon, CalendarIcon } from '@heroicons/react/24/solid';
 import ReferralBonus from '../Profile/ReferralBonus';
 
 const TaskUser = () => {
     const { task } = useContext(AppContext);
-    const {user} = useContext(AppContext);
+    const { user } = useContext(AppContext);
     const TABLE_HEAD = ["Task Name", "Description", "Points"];
     const TABLE_ROWS = task.map(task => ({
         id: `${task.id}`,
@@ -15,58 +16,86 @@ const TaskUser = () => {
     }));
 
     return (
-        <div className="p-3 space-y-5">
-        <Typography variant="h4" className="mb-2 font-semibold text-center">
-            AVAILABLE TASKS
-        </Typography>
-            <div className='flex justify-end'>
-            <ReferralBonus user_id={user.id}/>
+        <div className="space-y-6 ">
+
+            {/* Instruction Section */}
+            <Typography variant="h4" className="mb-4 font-semibold text-center">
+                How to Earn Points
+            </Typography>
+            <div className="flex justify-end mb-2">
+                <ReferralBonus user_id={user.id} />
             </div>
-        <div className="h-auto overflow-x-auto shadow-md">
-            <table className="min-w-full divide-y divide-gray-200 shadow-sm table-auto">
-                <thead className="bg-blue-100">
-                    <tr>
-                        {TABLE_HEAD.map((head) => (
-                            <th
-                                key={head}
-                                className="px-4 py-3 text-xs font-medium tracking-wider text-left text-blue-500 uppercase sm:px-6 sm:py-4"
-                            >
-                                <Typography variant="small" className="font-semibold">
-                                    {head}
-                                </Typography>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {TABLE_ROWS.map(({ id, task_name, description, points }, index) => {
-                        const isLast = index === TABLE_ROWS.length - 1;
-                        const classes = isLast ? "px-4 py-4" : "px-4 py-4 border-b border-blue-200";
-                        return (
-                            <tr key={id}>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {task_name}
+            <div className="grid gap-4 sm:grid-cols-3">
+                {/* Instruction Cards with Icons */}
+                <Card className="flex items-center shadow-md">
+                    <CheckCircleIcon className="w-10 h-10 mr-4 text-purple-400" />
+                    <CardBody>
+                        <Typography variant="h5" className="font-semibold ">
+                            Complete Daily Tasks
+                        </Typography>
+                        <Typography variant="small" className="mt-2 text-gray-600">
+                            Earn points by completing tasks assigned daily.
+                        </Typography>
+                    </CardBody>
+                </Card>
+                <Card className="flex items-center shadow-md">
+                    <UserGroupIcon className="w-10 h-10 mr-4 text-purple-400" />
+                    <CardBody>
+                        <Typography variant="h5" className="font-semibold ">
+                            Refer Friends
+                        </Typography>
+                        <Typography variant="small" className="mt-2 text-gray-600">
+                            Invite friends to join and earn bonus points when they register.
+                        </Typography>
+                    </CardBody>
+                </Card>
+                <Card className="flex items-center shadow-md">
+                    <CalendarIcon className="w-10 h-10 mr-4 text-purple-400"  />
+                    <CardBody>
+                        <Typography variant="h5" className="font-semibold ">
+                            Participate in Events
+                        </Typography>
+                        <Typography variant="small" className="mt-2 text-gray-600">
+                            Attend events and activities to earn additional rewards.
+                        </Typography>
+                    </CardBody>
+                </Card>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg shadow-md">
+                <table className="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow-sm">
+                    <thead className="bg-purple-200">
+                        <tr>
+                            {TABLE_HEAD.map((head) => (
+                                <th
+                                    key={head}
+                                    className="px-5 py-3 text-xs font-medium tracking-wider text-left text-purple-600 uppercase"
+                                >
+                                    <Typography variant="small" className="font-semibold">
+                                        {head}
                                     </Typography>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {TABLE_ROWS.map(({ id, task_name, description, points }) => (
+                            <tr key={id} className="transition duration-150 ease-in-out hover:bg-blue-50">
+                                <td className="px-5 py-4 text-sm font-normal text-blue-gray-700">
+                                    {task_name}
                                 </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {description}
-                                    </Typography>
+                                <td className="px-5 py-4 text-sm font-normal text-blue-gray-700">
+                                    {description}
                                 </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {points}
-                                    </Typography>
+                                <td className="px-5 py-4 text-sm font-semibold text-purple-500">
+                                    {points}
                                 </td>
                             </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-
     );
 };
 

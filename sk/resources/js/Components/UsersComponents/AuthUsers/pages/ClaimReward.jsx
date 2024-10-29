@@ -57,7 +57,7 @@ const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints }) => {
         <Button
             onClick={handleClaim}
             color="purple" // Use green for active Claim Rewards button
-            className="bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:scale-105 transition-transform duration-200"
+            className="px-4 py-2 font-semibold text-white transition-transform duration-200 rounded-lg shadow-md bg-gradient-to-r from-red-500 to-red-500 hover:scale-105"
             >
 
             Claim Now
@@ -65,7 +65,8 @@ const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints }) => {
     ) : (
         <Button
             disabled
-            color="gray" // Use gray to indicate the button is disabled
+            color="red"
+            variant='outline'// Use gray to indicate the button is disabled
             className="opacity-50 cursor-not-allowed" // Make it clear that the button is disabled
         >
             Not Enough Points
