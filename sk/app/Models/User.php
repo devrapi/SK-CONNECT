@@ -72,4 +72,9 @@ class User extends Authenticatable
      {
          return $this->belongsTo(User::class, 'referred_by');
      }
-}
+
+        public function leaderboard()
+    {
+        return $this->belongsTo(Leaderboard::class);
+    }
+    }

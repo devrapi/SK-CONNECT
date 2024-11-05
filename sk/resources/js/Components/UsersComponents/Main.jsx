@@ -138,13 +138,15 @@ const Main = () => {
 
         <Homepage/>
 
+        <Benefits/>
+
         <Features/>
 
 
 
         <Officials/>
 
-        <Benefits/>
+
 
         <FAQs/>
 

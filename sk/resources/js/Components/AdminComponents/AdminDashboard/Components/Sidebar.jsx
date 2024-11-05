@@ -123,7 +123,7 @@ const Sidebar = () => {
             <ListItemPrefix>
               <InboxIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/inbox">Inbox</Link>
+            <Link to="/admin/dashboard/inbox">Ticket Inbox</Link>
             <ListItemSuffix>
               <Chip
                 value={ticket?.length}

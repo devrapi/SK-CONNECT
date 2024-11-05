@@ -51,7 +51,7 @@ const RewardsFetch = () => {
                                <span className='font-semibold'>Points:</span>  {ev.points}
                             </Typography>
                         </CardBody>
-                        <CardFooter className="flex justify-between pt-0 ">
+                        <CardFooter className="flex justify-between pt-0 border-t p-4 ">
                             <Link to={`/admin/dashboard/avail-rewards/${ev.id}`}>
                             <PencilIcon className="w-8 h-8 text-green-500 cursor-pointer"/>
                             </Link>

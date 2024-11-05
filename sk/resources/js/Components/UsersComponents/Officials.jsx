@@ -88,7 +88,7 @@ import {
   ];
 const Officials = () => {
   return (
-    <section className="min-h-screen px-8 py-8 lg:py-28">
+    <section className="min-h-screen px-8 py-8 lg:py-20">
     <div className="container mx-auto">
       <div className="mb-16 text-center lg:mb-28">
         <Typography

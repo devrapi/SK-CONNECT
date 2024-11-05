@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../../Context/AppContext';
 import {
   Card,
@@ -11,11 +11,34 @@ import {
 import ApiService from '../../../Services/ApiService';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import dayjs from 'dayjs';
 
 const LeaderBoards = () => {
-  const { leaderBoards, user } = useContext(AppContext);
+ const { leaderBoards, user } = useContext(AppContext);
+  const [canClaim, setCanClaim] = useState(false);
 
-  const isUserOnLeaderboard = leaderBoards.some(item => item.name === user.name);
+  const isUserOnLeaderboard = leaderBoards.some(item => item.name === user?.name);
+  const lastClaimed = user.lb_last_claim;
+
+
+  useEffect(() => {
+    // Only check claim eligibility if the user is on the leaderboard
+    if (isUserOnLeaderboard) {
+      if (lastClaimed) {
+        // Check if the last claimed date is at least 7 days ago
+        if (dayjs().diff(dayjs(lastClaimed), 'day') >= 7) {
+          setCanClaim(true);
+        } else {
+          setCanClaim(false);
+        }
+      } else {
+        // If lastClaimed is undefined or null, allow claiming
+        setCanClaim(true);
+      }
+    } else {
+      setCanClaim(false); // User is not on leaderboard
+    }
+  }, [isUserOnLeaderboard, lastClaimed]);;
 
   const MySwal = withReactContent(Swal);
 
@@ -23,11 +46,15 @@ const LeaderBoards = () => {
     try {
       const response = await ApiService.post(`leaderboards/${user.id}`);
       if (response) {
-        await MySwal.fire({
-          title: response.data.message,
-          html: `<div style="font-size: 50px; color: gold;">&#9733;</div>`,
+        // Show success alert
+        await Swal.fire({
+          title: 'Leaderboards Points Claimed!',
+          text: 'Success!',
+          icon: 'success',
           confirmButtonText: 'Okay',
         });
+
+        // Reload the page after the alert is closed
         window.location.reload();
       }
     } catch (error) {
@@ -91,17 +118,23 @@ const LeaderBoards = () => {
               ))}
             </tbody>
           </table>
-          {/* {isUserOnLeaderboard && (
+          {isUserOnLeaderboard && (
             <div className="mt-6 text-center">
-              <Button
-                color="yellow"
-                onClick={handleClaimReward}
-                className="px-6 py-2 text-lg transition-transform transform shadow-md hover:scale-105"
-              >
-                Claim Points
-              </Button>
+                {canClaim ? (
+                <Button
+                    color="yellow"
+                    onClick={handleClaimReward}
+                    className="px-6 py-2 text-lg transition-transform transform shadow-md hover:scale-105"
+                >
+                    Claim Points
+                </Button>
+                ) : (
+                <Typography variant="body1" color="gray-700">
+                    Come back next week if you are still on the leaderboards!
+                </Typography>
+                )}
             </div>
-          )} */}
+            )}
         </CardBody>
       </Card>
     </div>

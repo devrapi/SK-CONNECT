@@ -69,8 +69,8 @@ const MyProfile = () => {
       if (response) {
         // Show success alert
         await Swal.fire({
-          title: 'You Earned 100 points',
-          text: 'Avatar Updated Successfully!',
+          title: 'Avatar Updated Successfully!',
+          text: 'success',
           icon: 'success',
           confirmButtonText: 'Okay',
         });

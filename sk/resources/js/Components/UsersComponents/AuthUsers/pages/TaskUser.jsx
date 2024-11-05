@@ -28,7 +28,7 @@ const TaskUser = () => {
             <div className="grid gap-4 sm:grid-cols-3">
                 {/* Instruction Cards with Icons */}
                 <Card className="flex items-center shadow-md">
-                    <CheckCircleIcon className="w-10 h-10 mr-4 text-purple-400" />
+                    <CheckCircleIcon className="w-10 h-10 mr-4 text-green-400" />
                     <CardBody>
                         <Typography variant="h5" className="font-semibold ">
                             Complete Daily Tasks
@@ -39,7 +39,7 @@ const TaskUser = () => {
                     </CardBody>
                 </Card>
                 <Card className="flex items-center shadow-md">
-                    <UserGroupIcon className="w-10 h-10 mr-4 text-purple-400" />
+                    <UserGroupIcon className="w-10 h-10 mr-4 text-blue-400" />
                     <CardBody>
                         <Typography variant="h5" className="font-semibold ">
                             Refer Friends
@@ -50,7 +50,7 @@ const TaskUser = () => {
                     </CardBody>
                 </Card>
                 <Card className="flex items-center shadow-md">
-                    <CalendarIcon className="w-10 h-10 mr-4 text-purple-400"  />
+                    <CalendarIcon className="w-10 h-10 mr-4 text-yellow-400"  />
                     <CardBody>
                         <Typography variant="h5" className="font-semibold ">
                             Participate in Events
