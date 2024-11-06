@@ -3,11 +3,13 @@ import { AppContext } from '../../../Context/AppContext';
 import {
     Card,
     CardBody,
-    CardFooter,
     Typography,
-    Button,
+    Menu,
+    MenuHandler,
+    MenuList,
+    MenuItem
 } from "@material-tailwind/react";
-import { PencilIcon } from '@heroicons/react/24/solid';
+import { PencilIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import DeleteTask from './DeleteTask';
 
@@ -17,7 +19,30 @@ const FetchTask = () => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {task.map((item, index) => (
-                <Card key={index} className="mt-6 w-full">
+                <Card key={index} className="mt-6 w-full relative">
+
+                    {/* Top-right menu */}
+                    <Menu>
+                        <MenuHandler>
+                            <div className="absolute top-2 right-2 p-2 cursor-pointer">
+                                <EllipsisHorizontalIcon className="w-5 h-5" />
+                            </div>
+                        </MenuHandler>
+                        <MenuList className="z-10">
+                            <MenuItem>
+                                <Link to={`/admin/dashboard/task/update/${item.id}`}>
+                                    <div className="flex items-center space-x-2">
+                                        <PencilIcon className="w-4 h-4" />
+                                        <span>Edit Task</span>
+                                    </div>
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <DeleteTask id={item.id} />
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+
                     <CardBody>
                         <Typography variant="h5" color="blue-gray" className="mb-2">
                             {item.task_name}
@@ -26,19 +51,9 @@ const FetchTask = () => {
                             {item.description}
                         </Typography>
                         <Typography>
-                            {item.points}
+                            <span className="font-semibold">Points:</span> {item.points}
                         </Typography>
                     </CardBody>
-                    <CardFooter className="flex justify-between pt-0 ">
-
-                        <Link to={`/admin/dashboard/task/update/${item.id}`}>
-                            <PencilIcon className="w-6 h-6 text-green-500 cursor-pointer" />
-                        </Link>
-
-
-                        <DeleteTask id={item.id} />
-
-                    </CardFooter>
                 </Card>
             ))}
         </div>

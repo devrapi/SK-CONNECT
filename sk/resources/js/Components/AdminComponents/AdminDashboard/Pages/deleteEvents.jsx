@@ -2,6 +2,7 @@ import React from 'react';
 import ApiService from '../../../Services/ApiService';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { TrashIcon } from '@heroicons/react/24/solid';
 import { Button } from "@material-tailwind/react";
 
 const MySwal = withReactContent(Swal);
@@ -39,9 +40,9 @@ const DeleteEvents = ({ event_id  }) => {
   };
 
   return (
-    <Button color="red" onClick={confirmDelete}>
-      Delete Event
-    </Button>
+    <div className='flex' onClick={confirmDelete}>
+    <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
+    </div>
   );
 };
 

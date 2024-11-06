@@ -33,7 +33,7 @@ const AnnouncementDelete = ({id}) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-    <TrashIcon className="w-4 h-4 mr-2" /> Delete Post
+    <TrashIcon className="w-4 h-4 mr-2" /> Delete Rewards
     </div>
   )
 }

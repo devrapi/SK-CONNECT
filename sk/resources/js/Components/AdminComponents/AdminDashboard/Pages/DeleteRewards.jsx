@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import ApiService from '../../../Services/ApiService';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -36,9 +36,9 @@ const DeleteRewards = ({ id }) => {
   };
 
   return (
-    <>
-      <ArchiveBoxIcon className="w-8 h-8 text-red-500 cursor-pointer" onClick={confirmDelete} />
-    </>
+    <div className='flex' onClick={confirmDelete}>
+    <TrashIcon className="w-4 h-4 mr-2" /> Delete Post
+    </div>
   );
 };
 

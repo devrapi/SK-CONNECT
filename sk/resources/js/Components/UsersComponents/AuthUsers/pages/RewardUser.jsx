@@ -27,22 +27,24 @@ const RewardUser =  () => {
             Rewards
         </Typography>
     </div>
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {rewards.map((reward) => (
             <Card key={reward.id} className="max-w-md p-4 mx-auto rounded-lg shadow-lg">
                 {/* Reward Name */}
                 <div className="mb-4 text-center">
-                    <Typography variant="h6" color="blue-gray" className="text-lg font-semibold">
+                    <Typography variant="h3" color="blue-gray" className="text-lg font-bold">
                         {reward.name}
                     </Typography>
                 </div>
 
                 {/* Reward Image */}
-                <img
-                    src={`/storage/${reward.image_path}`}
-                    alt={reward.name}
-                    className="object-cover w-full rounded-md h-60" // Taller image height for product display
-                />
+                <div className="w-full overflow-hidden rounded-md h-60">
+                    <img
+                        src={`/storage/${reward.image_path}`}
+                        alt={reward.name}
+                        className="object-cover w-full h-full"
+                    />
+                </div>
 
                 {/* Reward Details */}
                 <CardBody className="px-4 py-2 text-left">

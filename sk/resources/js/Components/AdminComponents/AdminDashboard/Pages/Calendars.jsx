@@ -6,11 +6,14 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
-    DialogFooter,
     Card,
     CardHeader,
-    CardFooter,
-    CardBody
+    CardBody,
+    Menu,
+    MenuHandler,
+    MenuList,
+    MenuItem,
+    CardFooter
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
 import FullCalendar from '@fullcalendar/react';
@@ -19,13 +22,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 import DeleteEvents from './deleteEvents';
-import { CalendarIcon, PlusIcon } from '@heroicons/react/24/solid';
+import { CalendarIcon, PlusIcon, EllipsisHorizontalIcon ,PencilIcon } from '@heroicons/react/24/solid';
 
 const Calendars = () => {
     const { event } = useContext(AppContext);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [open, setOpen] = useState(false);
-    const [isCalendarView, setIsCalendarView] = useState(true); // Set calendar view as default
+    const [isCalendarView, setIsCalendarView] = useState(true);
 
     const handleOpen = () => setOpen(!open);
 
@@ -37,12 +40,11 @@ const Calendars = () => {
         setSelectedEvent(null);
     };
 
-    // Convert events from your context to FullCalendar format and apply colors
     const calendarEvents = event.map(ev => ({
         id: ev.id,
         title: ev.title,
-        start: ev.date, // Make sure this is in a valid date format (e.g., YYYY-MM-DD or ISO 8601)
-        backgroundColor:'#2B7C40', // Green for points > 50, Blue otherwise
+        start: ev.date,
+        backgroundColor:'#2B7C40',
         borderColor: '#4B5563',
         textColor: '#fff',
         extendedProps: {
@@ -52,7 +54,6 @@ const Calendars = () => {
         },
     }));
 
-    // Handle event click to open the modal
     const handleEventClick = (clickInfo) => {
         const selected = event.find(ev => ev.id === clickInfo.event.id);
         openModal(selected);
@@ -79,13 +80,12 @@ const Calendars = () => {
             </div>
 
             {isCalendarView ? (
-                // FullCalendar view with custom colors and header styles
                 <div className="p-6 mt-5 bg-white rounded-lg shadow-lg">
                     <FullCalendar
                         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                         initialView="dayGridMonth"
                         events={calendarEvents}
-                        eventClick={handleEventClick} // Handle event click
+                        eventClick={handleEventClick}
                         headerToolbar={{
                             left: 'prev,next today',
                             center: 'title',
@@ -96,39 +96,62 @@ const Calendars = () => {
                     />
                 </div>
             ) : (
-                // List view
-                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                    {event.map(ev => (
-                        <Card key={ev.id} className="pt-12 mt-6 w-96">
-                            <CardHeader color="blue-gray" className="relative h-56">
-                                <img
-                                    src={`/storage/${ev.image_path}`}
-                                    alt={ev.title}
-                                    className="object-cover w-full h-full"
-                                />
-                            </CardHeader>
-                            <CardBody>
-                                <Typography variant="h5" color="blue-gray" className="mb-2">
-                                    {ev.title}
-                                </Typography>
-                                <Typography className="truncate">
-                                    {ev.description}
-                                </Typography>
-                                <Typography className="mt-2 mb-2">
-                                    <span className='font-semibold'> Event Date:</span>  {ev.date}
-                                </Typography>
-                                <Typography>
-                                    <span className='font-semibold'>Points:</span>  {ev.points}
-                                </Typography>
-                            </CardBody>
-                            <CardFooter className="pt-0">
-                                <Button onClick={() => openModal(ev)} color='green'>
-                                    Read More
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 ">
+                {event.map(ev => (
+                    <Card key={ev.id} className="relative w-full pt-12 mt-6 sm:w-96">
+                        {/* Top-right menu */}
+                        <Menu>
+                            <MenuHandler>
+                                <div className="absolute z-20 p-2 bg-white rounded-full shadow-lg cursor-pointer top-2 right-2">
+                                    <EllipsisHorizontalIcon className="w-5 h-5" />
+                                </div>
+                            </MenuHandler>
+                            <MenuList className="z-30">
+                                <MenuItem>
+                                    <Link to={`/admin/dashboard/calanders/update/${ev.id}`}>
+                                    <div className="flex items-center space-x-2">
+                                        <PencilIcon className="w-4 h-4" />
+                                        <span>Edit Event</span>
+                                    </div>
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <DeleteEvents event_id={ev.id} />
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
+
+                        <CardHeader color="blue-gray" className="relative h-56">
+                            <img
+                                src={`/storage/${ev.image_path}`}
+                                alt={ev.title}
+                                className="object-cover w-full h-full"
+                            />
+                        </CardHeader>
+                        <CardBody>
+                            <Typography variant="h5" color="blue-gray" className="mb-2">
+                                {ev.title}
+                            </Typography>
+                            <Typography className="truncate">
+                                {ev.description}
+                            </Typography>
+                            <Typography className="mt-2 mb-2">
+                                <span className="font-semibold"> Event Date:</span> {ev.date}
+                            </Typography>
+                            <Typography>
+                                <span className="font-semibold">Points:</span> {ev.points}
+                            </Typography>
+                        </CardBody>
+                        <CardFooter className="pt-0">
+                            <Button onClick={() => openModal(ev)} color="green">
+                                Read More
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+
+
             )}
 
             {selectedEvent && (
@@ -158,16 +181,6 @@ const Calendars = () => {
                             Points: {selectedEvent.points}
                         </Typography>
                     </DialogBody>
-                    <DialogFooter className="flex justify-between">
-                        <Button color="green">
-                            <Link to={`/admin/dashboard/calanders/update/${selectedEvent.id}`}>
-                                Update
-                            </Link>
-                        </Button>
-                        <div onClick={closeModal}>
-                            <DeleteEvents event_id={selectedEvent.id} />
-                        </div>
-                    </DialogFooter>
                 </Dialog>
             )}
         </div>
