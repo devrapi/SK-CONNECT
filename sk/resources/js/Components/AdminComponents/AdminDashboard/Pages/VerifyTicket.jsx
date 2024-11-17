@@ -37,9 +37,9 @@ const VerifyTicket = ({ id }) => {
   };
 
   return (
-    <div className='flex' onClick={confirmVerify}>
-      <CheckCircleIcon className="w-6 h-6 text-blue-600 mr-1" />
-      <Typography variant="small" color="blue" className="font-medium cursor-pointer" >
+    <div className='flex cursor-pointer' onClick={confirmVerify}>
+      <CheckCircleIcon className="w-6 h-6 mr-1 text-red-600" />
+      <Typography variant="small" color="red" className="font-medium cursor-pointer" >
         Verify
       </Typography>
     </div>

@@ -39,9 +39,9 @@ const TicketInbox = () => {
 
             <div className='flex justify-end space-x-2'>
                 {/* Filter Buttons */}
-                <Button color="blue" onClick={() => setFilter('All')}>All</Button>
-                <Button color="green" onClick={() => setFilter('Pending')}>Pending</Button>
-                <Button color="yellow" onClick={() => setFilter('Claimed')}>Claimed</Button>
+                {/* <Button color="green"  onClick={() => setFilter('All')}>All</Button> */}
+                <Button color="red" onClick={() => setFilter('Pending')}>Pending</Button>
+                <Button color="blue" onClick={() => setFilter('Claimed')}>Claimed</Button>
             </div>
 
             <Card className="w-full h-full rounded-lg shadow-lg">
@@ -95,8 +95,8 @@ const TicketInbox = () => {
                                             <td className={classes}>
                                                 {status === 'Claimed' ? (
                                                     <div className='flex'>
-                                                        <CheckCircleIcon className="w-6 h-6 mr-1 text-red-600" />
-                                                        <Typography variant="small" color="red" className="font-semibold">
+                                                        <CheckCircleIcon className="w-6 h-6 mr-1 text-blue-600" />
+                                                        <Typography variant="small" color="blue" className="font-semibold">
                                                             Verified
                                                         </Typography>
                                                     </div>

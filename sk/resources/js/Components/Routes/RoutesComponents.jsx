@@ -36,6 +36,7 @@ import TaskUpdate from '../AdminComponents/AdminDashboard/Pages/TaskUpdate';
 import Announcement from '../AdminComponents/AdminDashboard/Pages/Announcement';
 import AnnouncementCreate from '../AdminComponents/AdminDashboard/Pages/AnnouncementCreate';
 import AnnouncementUpdate from '../AdminComponents/AdminDashboard/Pages/AnnouncementUpdate';
+import QrCode from '../AdminComponents/AdminDashboard/Pages/QrCode';
 
 const RoutesComponents = () => {
   return (
@@ -67,6 +68,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
             <Route path='/admin/dashboard/task' element={<Task/>}/>
+            <Route path='/admin/dashboard/QrCode' element={<QrCode/>}/>
             <Route path='/admin/dashboard/task/update/:id' element={<TaskUpdate/>}/>
             <Route path='/admin/dashboard/rewards' element={<Rewards/>}/>
             <Route path='/admin/dashboard/inbox' element={<TicketInbox/>}/>

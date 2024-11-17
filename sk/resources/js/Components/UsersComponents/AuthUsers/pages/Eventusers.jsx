@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import moment from 'moment'; // Import Moment.js
 import {
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     Typography,
@@ -11,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
 import { HeartIcon, GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid'; // Assuming you're using Heroicons
+import AttendButton from './AttendButton';
 
 const Eventusers = () => {
     const { event } = useContext(AppContext);
@@ -85,9 +85,7 @@ const Eventusers = () => {
 
                             {/* Card Footer */}
                             <CardFooter className="flex items-center justify-between pt-4">
-                                <Button color="blue" size="sm" className="rounded-full">
-                                    Attend Event
-                                </Button>
+                               <AttendButton eventId = {ev.id}/>
 
                                 {/* Heart Button for likes */}
                                 <Button variant="text" color="red" size="sm">

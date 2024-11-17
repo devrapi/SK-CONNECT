@@ -22,6 +22,9 @@ const Event = () => {
         points: ''
       });
 
+      const today = new Date();
+      const minDate = new Date(today.setDate(today.getDate() + 1));
+
     // Handle the image change and create a preview URL
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -163,19 +166,20 @@ const Event = () => {
           </div>
 
           {/* Date Field */}
-          <div className="mb-4">
+                <div className="mb-4">
             <Calendar
-              onChange={setSelectedDate}
-              value={selectedDate}
-              className="w-full p-4 shadow-inner"
+                onChange={setSelectedDate}
+                value={selectedDate}
+                className="w-full p-4 shadow-inner"
+                minDate={minDate} // Restrict dates to start from tomorrow
             />
             {selectedDate && (
-              <Typography className="mt-2 font-mono">
-                Selected Date: {format(selectedDate, "PPP")}
-              </Typography>
+                <Typography className="mt-2 font-mono">
+                Selected Date: {format(selectedDate, 'PPP')}
+                </Typography>
             )}
             {errors.date && <span className="text-xs text-red-600">{errors.date}</span>}
-          </div>
+            </div>
 
 
           {/* Image Upload Field */}

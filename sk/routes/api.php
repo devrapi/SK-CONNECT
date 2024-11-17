@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\ArchivedController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\AssignTask;
-use App\Http\Controllers\AuthAdminController;
-use App\Http\Controllers\AuthUserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LeaderBoards;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\LeaderBoards;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProfilesController;
-use App\Http\Controllers\RewardController;
-use App\Http\Controllers\UserTaskController;
-use App\Http\Controllers\AnnouncementController;
 use Illuminate\Container\Attributes\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RewardController;
+use App\Http\Controllers\ArchivedController;
+use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\UserTaskController;
+use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\EventAttendanceController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -95,3 +96,8 @@ Route::get('announcement/comment/{announcementId}' ,[AnnouncementController::cla
 Route::post('announcement/like/{announcement}/{user_id}' , [AnnouncementController::class , 'like'] );
 Route::get('announcement/like/{announcementId}' ,[AnnouncementController::class , 'getLike'] );
 Route::delete('announcement/like/{announcement}/{user_id}' , [AnnouncementController::class , 'unlike'] );
+
+
+//Attend Event
+Route::post('events/{eventId}/{user_id}/attend', [EventAttendanceController::class, 'attendEvent']);
+Route::get('events/qr-code', [EventAttendanceController::class, 'generateQrCode']);

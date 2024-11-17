@@ -67,6 +67,12 @@ const Calendars = () => {
                 </Typography>
 
                 <div className='flex justify-end'>
+                <Link to="/admin/dashboard/QrCode">
+                        <div className='flex items-center ml-4'>
+                            <CalendarIcon className='w-12 h-10 text-green-500' />
+                            <PlusIcon className='w-6 h-6 text-green-500' />
+                        </div>
+                    </Link>
                     <Button color="green" onClick={() => setIsCalendarView(!isCalendarView)}>
                         {isCalendarView ? "View List" : "View Calendar"}
                     </Button>
@@ -148,6 +154,8 @@ const Calendars = () => {
                             </Button>
                         </CardFooter>
                     </Card>
+
+
                 ))}
             </div>
 

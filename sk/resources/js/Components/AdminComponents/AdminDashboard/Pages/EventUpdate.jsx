@@ -23,6 +23,9 @@ const EventUpdate = () => {
         points: ''
       });
 
+      const today = new Date();
+      const minDate = new Date(today.setDate(today.getDate() + 1));
+
       const getEvents = async () => {
         try {
           const response = await ApiService.get(`events/${id}`);
@@ -187,17 +190,18 @@ const EventUpdate = () => {
           {/* Date Field */}
           <div className="mb-4">
             <Calendar
-              onChange={setSelectedDate}
-              value={selectedDate}
-              className="w-full p-4 shadow-inner"
+                onChange={setSelectedDate}
+                value={selectedDate}
+                className="w-full p-4 shadow-inner"
+                minDate={minDate} // Restrict dates to start from tomorrow
             />
             {selectedDate && (
-              <Typography className="mt-2 font-mono">
-                Selected Date: {format(selectedDate, "PPP")}
-              </Typography>
+                <Typography className="mt-2 font-mono">
+                Selected Date: {format(selectedDate, 'PPP')}
+                </Typography>
             )}
             {errors.date && <span className="text-xs text-red-600">{errors.date}</span>}
-          </div>
+            </div>
 
 
           {/* Image Upload Field */}
