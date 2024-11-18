@@ -12,7 +12,7 @@ import {
   UserCircleIcon,
   ClipboardDocumentCheckIcon,
     GiftTopIcon,
-    BellAlertIcon,
+    QrCodeIcon,
   HomeIcon ,
   CalendarIcon,
   ChartBarIcon,
@@ -50,6 +50,15 @@ export function ProfileMenu() {
       <UserCircleIcon className="w-5 h-5 text-gray-500" />
       <Typography variant="small" className="font-medium">
         My Profile
+      </Typography>
+    </Link>
+  </MenuItem>
+
+  <MenuItem className="flex items-center gap-2">
+    <Link to="/index/QrCodeScanner" className="flex items-center gap-2">
+      <QrCodeIcon className="w-5 h-5 text-gray-500" />
+      <Typography variant="small" className="font-medium">
+        Event Scanner
       </Typography>
     </Link>
   </MenuItem>

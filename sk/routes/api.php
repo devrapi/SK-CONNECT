@@ -100,4 +100,4 @@ Route::delete('announcement/like/{announcement}/{user_id}' , [AnnouncementContro
 
 //Attend Event
 Route::post('events/{eventId}/{user_id}/attend', [EventAttendanceController::class, 'attendEvent']);
-Route::get('events/qr-code', [EventAttendanceController::class, 'generateQrCode']);
+Route::get('qr-code/{eventId}', [EventAttendanceController::class, 'generateQrCode']);

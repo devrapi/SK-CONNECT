@@ -31,8 +31,31 @@ class EventAttendanceController extends Controller
 
         return response()->json(['message' => 'Attendance registered.']);
     }
-    public function generateQrCode()
+    public function generateQrCode($eventId)
         {
 
-        }
+            // Fetch the event details
+            $event = Event::findOrFail($eventId); // Automatically throws a 404 if not found
+
+            // Prepare the data to be encoded
+            $data = [
+                'id' => $event->id,
+                'date' => $event->date, // Adjust field name if necessary
+            ];
+
+            // Convert the data to a JSON string for encoding
+            $qrData = json_encode($data);
+
+            // Generate the QR code
+            $qrCode = QrCode::size(300)->generate($qrData);
+
+            // Return the QR code as a response
+            return response($qrCode)->header('Content-Type', 'image/svg+xml');
+
+
+     }
+     public function VerifiyQrCode(Request $request)
+     {
+
+     }
 }

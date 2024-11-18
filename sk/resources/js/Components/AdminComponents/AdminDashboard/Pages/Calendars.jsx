@@ -22,7 +22,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 import DeleteEvents from './deleteEvents';
-import { CalendarIcon, PlusIcon, EllipsisHorizontalIcon ,PencilIcon } from '@heroicons/react/24/solid';
+import { CalendarIcon, PlusIcon, EllipsisHorizontalIcon ,PencilIcon, QrCodeIcon} from '@heroicons/react/24/solid';
 
 const Calendars = () => {
     const { event } = useContext(AppContext);
@@ -67,12 +67,7 @@ const Calendars = () => {
                 </Typography>
 
                 <div className='flex justify-end'>
-                <Link to="/admin/dashboard/QrCode">
-                        <div className='flex items-center ml-4'>
-                            <CalendarIcon className='w-12 h-10 text-green-500' />
-                            <PlusIcon className='w-6 h-6 text-green-500' />
-                        </div>
-                    </Link>
+
                     <Button color="green" onClick={() => setIsCalendarView(!isCalendarView)}>
                         {isCalendarView ? "View List" : "View Calendar"}
                     </Button>
@@ -149,10 +144,23 @@ const Calendars = () => {
                             </Typography>
                         </CardBody>
                         <CardFooter className="pt-0">
-                            <Button onClick={() => openModal(ev)} color="green">
-                                Read More
-                            </Button>
+                            <div className="flex items-center justify-between">
+                                {/* Read More Button */}
+                                <Button
+                                    onClick={() => openModal(ev)}
+                                    color="green"
+                                    className="text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg shadow-md transition duration-300"
+                                >
+                                    Read More
+                                </Button>
+                                <Link to={`QrCode/${ev.id}`}>
+                                        <QrCodeIcon
+                                            className="w-12 h-12 text-blue-500 cursor-pointer hover:text-blue-700 hover:scale-110 transition duration-300"
+                                        />
+                                    </Link>
+                            </div>
                         </CardFooter>
+
                     </Card>
 
 
