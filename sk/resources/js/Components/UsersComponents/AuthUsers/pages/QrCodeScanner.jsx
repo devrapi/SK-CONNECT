@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
-import { Button, Card, Typography ,CardFooter} from '@material-tailwind/react';
-import ApiService from '../../../Services/ApiService';
-import { AppContext } from '../../../Context/AppContext';
+import React, { useState, useEffect, useContext } from "react";
+import { Html5QrcodeScanner } from "html5-qrcode";
+import { Button, Card, Typography, CardFooter } from "@material-tailwind/react";
+import ApiService from "../../../Services/ApiService";
+import { AppContext } from "../../../Context/AppContext";
+import Swal from "sweetalert2";
 
 const QrCodeScanner = () => {
-
- const {user} = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [qrCode, setQrCode] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-
-
 
   useEffect(() => {
     const scanner = new Html5QrcodeScanner(
@@ -24,31 +22,36 @@ const QrCodeScanner = () => {
     scanner.render(
       (decodedText) => {
         try {
-
-            const parsedData = typeof decodedText === 'string' ? JSON.parse(decodedText) : decodedText;
-            const attendanceData = {
-                event_id: parsedData.id, // Correct key
-                points_awarded: parsedData.points, // Correct key
-                user_id: user.id
-            };
-
+          const parsedData = JSON.parse(decodedText);
+          const attendanceData = {
+            event_id: parsedData.id,
+            points_awarded: parsedData.points,
+            user_id: user.id,
+          };
           setQrCode(attendanceData);
-          console.log(attendanceData);
-          scanner.stop();
 
+          Swal.fire({
+            icon: "success",
+            title: "QR Code Scanned",
+            text: "Please click the Verify button",
+            confirmButtonColor: "#4CAF50",
+          });
         } catch (error) {
-          console.error('Invalid QR code', error);
+          Swal.fire({
+            icon: "error",
+            title: "Invalid QR Code",
+            text: "The QR code format is invalid. Please try again.",
+            confirmButtonColor: "#f44336",
+          });
         }
       },
-      (errorMessage) => {
-        console.error(errorMessage);
+      (error) => {
+        console.error("QR Code Scan Error:", error);
       }
     );
 
-    return () => {
-      scanner.clear(); // Clean up on component unmount
-    };
-  }, []);
+    return () => scanner.clear();
+  }, [user.id]);
 
   const verifyAttendance = async () => {
     setLoading(true);
@@ -56,77 +59,85 @@ const QrCodeScanner = () => {
     setError(null);
 
     try {
-      const response = await ApiService.post('/verify-qr-code', qrCode);
-
+      const response = await ApiService.post("/verify-qr-code", qrCode);
       if (response.status === 200) {
         setMessage(response.data.message);
-      } else if (response.status === 400 || response.status === 404) {
-        setError(response.data.message);
+
+        Swal.fire({
+          icon: "success",
+          title: "Attendance Verified",
+          text: response.data.message,
+          confirmButtonColor: "#4CAF50",
+        }).then(() => {
+            // Reload the page after SweetAlert closes
+            window.location.reload();
+          });
       } else {
-        setError('An unexpected error occurred. Please try again.');
+        Swal.fire({
+          icon: "error",
+          title: "Verification Failed",
+          text: response.data.message || "Please try again.",
+          confirmButtonColor: "#f44336",
+        });
       }
     } catch (err) {
-      // Check if the error contains a response (like from Axios)
-      if (err.response) {
-        // Handle known server errors
-        setError(err.response.data.message || 'A server error occurred.');
-      } else if (err.request) {
-        // Request was made but no response was received
-        setError('No response from the server. Please check your network.');
-      } else {
-        // General error (unexpected issue)
-        setError('An unexpected error occurred. Please try again.');
-      }
-      console.error('Error during verification:', err);
+      const serverError =
+        err.response?.data.message ||
+        "A server error occurred. Please try again.";
+      setError(serverError);
+
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: serverError,
+        confirmButtonColor: "#f44336",
+      });
     } finally {
       setLoading(false);
     }
   };
 
-
-
   return (
     <div className="flex items-center justify-center p-4">
-    <Card className="w-full max-w-screen-sm p-6 bg-white rounded-lg shadow-lg sm:max-w-screen-md lg:max-w-screen-lg">
-      <Typography variant="h5" color="blue-gray" className="mb-4 text-center">
-        Event QR Scanner
-      </Typography>
-
-      {/* QR Code Reader */}
-      <div
-        id="reader"
-        style={{ width: "100%", height: "600px" }}
-        className="mb-4 border-2 border-gray-300 rounded-lg"
-      ></div>
-
-      {/* Loading State */}
-      {loading && (
-        <Typography className="text-center text-blue-500">
-          Verifying attendance, please wait...
+      <Card className="w-full max-w-screen-sm p-6 bg-white rounded-lg shadow-lg">
+        <Typography variant="h5" color="blue-gray" className="mb-4 text-center">
+          Event QR Scanner
         </Typography>
-      )}
-
-      {/* Success or Error Messages */}
-      {message && (
-        <Typography className="text-center text-green-500">{message}</Typography>
-      )}
-      {error && (
-        <Typography className="text-center text-red-500">{error}</Typography>
-      )}
-
-      <CardFooter className="flex justify-center">
-        <Button
-          color="teal"
-          onClick={verifyAttendance}
-          className="w-full px-6 sm:w-auto"
-          disabled={loading}
-        >
-          Start Scanner
-        </Button>
-      </CardFooter>
-    </Card>
-  </div>
-
+        <div id="reader" className="mb-4 border-2 border-gray-300 rounded-lg"></div>
+        {loading && (
+          <Typography className="text-center text-blue-500">
+            Verifying attendance, please wait...
+          </Typography>
+        )}
+        {message && (
+          <Typography className="text-center text-green-500">{message}</Typography>
+        )}
+        {error && (
+          <Typography className="text-center text-red-500">{error}</Typography>
+        )}
+        <CardFooter className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+          <Button
+            color="teal"
+            onClick={verifyAttendance}
+            className="w-full px-6 sm:w-auto"
+            disabled={!qrCode || loading}
+          >
+            {loading ? "Verifying..." : "Verify Attendance"}
+          </Button>
+          <Button
+            color="red"
+            onClick={() => {
+              setMessage(null);
+              setError(null);
+              setQrCode(null);
+            }}
+            className="w-full px-6 sm:w-auto"
+          >
+            Clear
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 
