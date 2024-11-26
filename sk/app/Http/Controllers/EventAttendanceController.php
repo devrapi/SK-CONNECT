@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\EventAttendance;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -100,6 +101,12 @@ class EventAttendanceController extends Controller
         $attendance->status = 'verified';
         $attendance->save();
 
+        Notification::create([
+            'user_id' => $user->id,
+            'message' => "{$pointsToGrant} points have been added to your account for attending the event.",
+            'read_at' => null, // Unread notification
+        ]);
+
         // Return success response
         return response()->json([
             'message' => 'User attendance verified and points granted.',
@@ -113,5 +120,24 @@ class EventAttendanceController extends Controller
             'status' => 'error',
         ], 500);
     }
+     }
+
+     public function status($user_id){
+
+        $user = User::find($user_id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Get all pending events for the user
+        $pendingEvents = EventAttendance::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->with('event') // Ensure you load the event details
+            ->get();
+
+
+
+        return response()->json(['pending_events' => $pendingEvents], 200);
      }
 }

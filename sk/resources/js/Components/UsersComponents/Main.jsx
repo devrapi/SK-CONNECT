@@ -130,7 +130,9 @@ const Main = () => {
             </div>
           </div>
         </Collapse>
+
       </div>
+
 
     <div>
         <Outlet/>

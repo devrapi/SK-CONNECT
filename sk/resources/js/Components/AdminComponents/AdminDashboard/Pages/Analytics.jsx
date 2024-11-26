@@ -1,47 +1,45 @@
-import React from 'react'
-import BarChart from '../Components/Charts/BarChart'
-import LineChart from '../Components/Charts/LineChart'
-import PieChart from '../Components/Charts/PieChart'
-import Tables from '../Components/Charts/Tables'
-import Cards from '../Components/Charts/Cards'
-import { Typography } from '@material-tailwind/react'
+import React from "react";
+import PieChart from "../Components/Charts/PieChart";
+import Tables from "../Components/Charts/Tables";
+import Cards from "../Components/Charts/Cards";
+import { Typography } from "@material-tailwind/react";
 
 const Analytics = () => {
   return (
-    <>
+    <div className="min-h-screen px-6 py-8 bg-gray-100">
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <Typography variant="h4" color="blue-gray" className="font-semibold">
+          ANALYTICS DASHBOARD
+        </Typography>
+      </div>
 
-<div className="min-h-screen p-6">
-  <div>
-  <Typography variant="h4" color="blue-gray" className="font-semibold">
-        ANALYTICS DASHBOARD
-    </Typography>
-  </div>
-  {/* Cards Section */}
-    <Cards />
-  {/* Charts and Table Section */}
-  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-    <div className="col-span-1">
+      {/* Cards Section */}
+      <div>
+        <Cards />
+      </div>
 
-    <PieChart />
+      {/* Charts and Table Section */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {/* Pie Chart */}
+        <div className="col-span-1 lg:col-span-3 p-4 bg-white rounded-lg shadow-md">
+          <PieChart />
+        </div>
+
+        {/* Table (Spanning Full Width) */}
+        <div className="col-span-1 lg:col-span-3 p-4 bg-white rounded-lg shadow-md">
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="mb-4 font-semibold"
+          >
+            User Rankings
+          </Typography>
+          <Tables />
+        </div>
+      </div>
     </div>
-    <div className="p-4 bg-white rounded-lg shadow-md">
+  );
+};
 
-
-      <BarChart />
-    </div>
-    <div className="p-4 bg-white rounded-lg shadow-md">
-
-    <LineChart/>
-    </div>
-    <div className="col-span-3 p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-2 text-lg font-semibold text-gray-600">User Rankings</h2>
-      <Tables />
-    </div>
-  </div>
-</div>
-
-    </>
-  )
-}
-
-export default Analytics
+export default Analytics;

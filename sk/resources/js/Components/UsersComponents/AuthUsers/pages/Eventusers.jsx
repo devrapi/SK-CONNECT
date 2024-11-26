@@ -31,8 +31,8 @@ const Eventusers = () => {
                 {event.map((ev) => {
                     const isExpanded = expandedEventId === ev.id;
                     return (
-                        <Card key={ev.id} className="p-4 mb-2 rounded-lg shadow-lg">
-                            <div className='p-2 md:p-4 lg:p-6'>
+                        <Card key={ev.id} className="p-1 mb-2 rounded-lg shadow-lg">
+                            <div className='p-2 md:p-2 lg:p-3'>
                                 <div className="flex items-center mb-4">
                                     <Avatar
                                         src="/img/uno.png" // Add your avatar path here

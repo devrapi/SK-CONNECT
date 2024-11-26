@@ -3,51 +3,63 @@ import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 
 export function Map() {
   return (
-    <section className="px-8 py-8 lg:py-16">
+    <section className="px-4 sm:px-6 lg:px-8 py-10 lg:py-16 bg-gray-50">
       <div className="container mx-auto text-center">
+        {/* Header Section */}
         <Typography
           variant="h5"
           color="blue-gray"
-          className="mb-4 !text-base lg:!text-2xl"
+          className="mb-2 text-lg lg:text-2xl font-semibold"
         >
           We're Here for You
         </Typography>
         <Typography
           variant="h1"
           color="blue-gray"
-          className="mb-4 !text-3xl lg:!text-5xl"
+          className="mb-4 text-2xl lg:text-4xl font-bold"
         >
           Need Assistance?
         </Typography>
-        <Typography className="mb-10 font-normal !text-lg lg:mb-20 mx-auto max-w-3xl !text-gray-500">
-          If you have questions about our services, need help with your account, or want to provide feedback, our team is ready to assist you!
+        <Typography className="mb-10 lg:mb-16 mx-auto max-w-3xl text-gray-500">
+          Have questions about our services, need help with your account, or
+          want to provide feedback? Our team is here to assist you!
         </Typography>
-        <div className="grid items-center grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2 ">
+
+        {/* Content Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-12 items-center">
+          {/* Image Section */}
           <img
-            src="/img/maps.png" // Change this to an appropriate image for SK Connect support
-            alt="support illustration"
-            className="w-full h-full lg:max-h-[510px]"
+            src="/img/maps.png" // Replace with a relevant image for SK Connect support
+            alt="Support illustration"
+            className="w-full h-auto lg:max-h-[500px] rounded-lg shadow-md"
           />
-          <form action="#" className="flex flex-col justify-end gap-4 lg:max-w-sm">
+
+          {/* Form Section */}
+          <form
+            action="#"
+            className="flex flex-col gap-6 lg:max-w-lg bg-white p-6 rounded-lg shadow-lg"
+          >
             <Typography
               variant="small"
-              className="text-left !font-semibold !text-gray-600"
+              className="text-left text-gray-600 font-semibold"
             >
               Choose Your Inquiry Type
             </Typography>
             <div className="flex gap-4">
-              <Button variant="outlined" className="max-w-fit">
+              <Button variant="outlined" className="w-full">
                 General Inquiry
               </Button>
-              <Button variant="outlined" className="max-w-fit">
+              <Button variant="outlined" className="w-full">
                 Account Support
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+
+            {/* First & Last Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Typography
                   variant="small"
-                  className="mb-2 text-left font-medium !text-gray-900"
+                  className="mb-1 text-left font-medium text-gray-900"
                 >
                   First Name
                 </Typography>
@@ -56,19 +68,13 @@ export function Map() {
                   size="lg"
                   placeholder="First Name"
                   name="first-name"
-                  className="focus:border-t-gray-900"
-                  containerProps={{
-                    className: "!min-w-full",
-                  }}
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  containerProps={{ className: "w-full" }}
                 />
               </div>
               <div>
                 <Typography
                   variant="small"
-                  className="mb-2 text-left font-medium !text-gray-900"
+                  className="mb-1 text-left font-medium text-gray-900"
                 >
                   Last Name
                 </Typography>
@@ -77,20 +83,16 @@ export function Map() {
                   size="lg"
                   placeholder="Last Name"
                   name="last-name"
-                  className="focus:border-t-gray-900"
-                  containerProps={{
-                    className: "!min-w-full",
-                  }}
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  containerProps={{ className: "w-full" }}
                 />
               </div>
             </div>
+
+            {/* Email */}
             <div>
               <Typography
                 variant="small"
-                className="mb-2 text-left font-medium !text-gray-900"
+                className="mb-1 text-left font-medium text-gray-900"
               >
                 Your Email
               </Typography>
@@ -99,37 +101,29 @@ export function Map() {
                 size="lg"
                 placeholder="name@email.com"
                 name="email"
-                className="focus:border-t-gray-900"
-                containerProps={{
-                  className: "!min-w-full",
-                }}
-                labelProps={{
-                  className: "hidden",
-                }}
+                containerProps={{ className: "w-full" }}
               />
             </div>
+
+            {/* Message */}
             <div>
               <Typography
                 variant="small"
-                className="mb-2 text-left font-medium !text-gray-900"
+                className="mb-1 text-left font-medium text-gray-900"
               >
                 Your Message
               </Typography>
               <Textarea
                 rows={6}
                 color="gray"
-                placeholder="Message"
+                placeholder="Write your message here..."
                 name="message"
-                className="focus:border-t-gray-900"
-                containerProps={{
-                  className: "!min-w-full",
-                }}
-                labelProps={{
-                  className: "hidden",
-                }}
+                containerProps={{ className: "w-full" }}
               />
             </div>
-            <Button className="w-full" color="gray">
+
+            {/* Submit Button */}
+            <Button className="w-full" color="blue">
               Send Message
             </Button>
           </form>

@@ -127,7 +127,7 @@ class UserTaskController extends Controller
 
     $dailyLogin = DailyLogin::where('user_id', $user->id)->first();
 
-    if (!$dailyLogin || $dailyLogin->streak < 6) {
+    if (!$dailyLogin || $dailyLogin->streak <= 6) {
         return response()->json(['message' => 'Not enough streaks to claim reward'], 400);
     }
 

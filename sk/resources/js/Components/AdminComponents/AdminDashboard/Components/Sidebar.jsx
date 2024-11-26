@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react';
-import Logout from '../../AuthAdmin/logout';
+import React, { useContext, useState } from "react";
 import {
   Card,
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
   Chip,
-} from '@material-tailwind/react';
+  Button,
+} from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
   UserCircleIcon,
@@ -17,150 +16,132 @@ import {
   GiftIcon,
   ArchiveBoxIcon,
   ClipboardDocumentCheckIcon,
-  MegaphoneIcon
-} from '@heroicons/react/24/solid';
-import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { AppContext } from '../../../Context/AppContext';
+  MegaphoneIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import { AppContext } from "../../../Context/AppContext";
 
 const Sidebar = () => {
   const { ticket } = useContext(AppContext);
+  const [isCollapsed, setIsCollapsed] = useState(false); // Controls sidebar visibility
 
-//   // State to track the active ListItem
-//   const [activeItem, setActiveItem] = useState('');
-
-//   const handleActiveItem = (item) => {
-//     setActiveItem(item);
-//   };
+  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   return (
-    <>
-      <Card className="h-[calc(100vh)] w-full max-w-[20rem] p-6 rounded-xl">
-        <div className="flex items-center p-4 mb-2">
-          <img src="/img/sklogo.png" alt="Logo" className="w-auto h-12 mr-2" />
-        </div>
-        <List>
-          <ListItem
-            // onClick={() => handleActiveItem('analytics')}
-            // className={`${
-            //   activeItem === 'analytics' ? 'bg-green-700 text-white' : ''
-            // }`}
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <Card
+        className={`h-full flex flex-col transition-all duration-300 ${
+          isCollapsed ? "w-[4rem]" : "w-[16rem]"
+        } bg-white shadow-lg fixed`}
+      >
+        {/* Header with Toggle Button */}
+        <div className="flex items-center justify-between p-4">
+          {!isCollapsed && (
+            <img src="/img/sklogo.png" alt="Logo" className="w-44 h-auto" />
+          )}
+          <Button
+            onClick={toggleSidebar}
+            variant="text"
+            className="p-1 rounded-full"
           >
+            {isCollapsed ? (
+              <ChevronRightIcon className="w-6 h-6" />
+            ) : (
+              <ChevronLeftIcon className="w-6 h-6" />
+            )}
+          </Button>
+        </div>
+
+        {/* Menu List */}
+        <List className="flex-grow">
+          <ListItem>
             <ListItemPrefix>
               <PresentationChartBarIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/analytics">Analytics</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/analytics">Analytics</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('profiles')}
-            // className={`${
-            //   activeItem === 'profiles' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <UserCircleIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/user-tables">Youth Profiles</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/user-tables">Youth Profiles</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('events')}
-            // className={`${
-            //   activeItem === 'events' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <MegaphoneIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/announcement">Announcement</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/announcement">Announcement</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('events')}
-            // className={`${
-            //   activeItem === 'events' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <CalendarIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/calendars">Calendar</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/calendars">Calendar</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('rewards')}
-            // className={`${
-            //   activeItem === 'rewards' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <GiftIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/avail-rewards">Rewards</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/avail-rewards">Rewards</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('tasks')}
-            // className={`${
-            //   activeItem === 'tasks' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <ClipboardDocumentCheckIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/task">Task Management</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/task">Task Management</Link>}
           </ListItem>
 
           <hr className="my-2 border-blue-gray-50" />
 
-          <ListItem
-            // onClick={() => handleActiveItem('inbox')}
-            // className={`${
-            //   activeItem === 'inbox' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <InboxIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/inbox">Ticket Inbox</Link>
-            <ListItemSuffix>
-              <Chip
-                value={ticket?.length}
-                size="sm"
-                variant="ghost"
-                color="red"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
+            {!isCollapsed && <Link to="/admin/dashboard/inbox">Ticket Inbox</Link>}
+            <Chip
+              value={ticket?.length}
+              size="sm"
+              variant="ghost"
+              color="red"
+              className="ml-auto rounded-full"
+            />
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('archived')}
-            // className={`${
-            //   activeItem === 'archived' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <ArchiveBoxIcon className="w-6 h-6" />
             </ListItemPrefix>
-            <Link to="/admin/dashboard/archived">Archived Youth</Link>
+            {!isCollapsed && <Link to="/admin/dashboard/archived">Archived Youth</Link>}
           </ListItem>
-
-          <ListItem
-            // onClick={() => handleActiveItem('settings')}
-            // className={`${
-            //   activeItem === 'settings' ? 'bg-green-800 text-white' : ''
-            // }`}
-          >
+          <ListItem>
             <ListItemPrefix>
               <Cog6ToothIcon className="w-6 h-6" />
             </ListItemPrefix>
-            Settings
+            {!isCollapsed && <Link to="/admin/dashboard/settings">Settings</Link>}
           </ListItem>
         </List>
+
+        {/* Footer */}
+        <div className="p-4">
+          {!isCollapsed && (
+            <Button variant="gradient" className="w-full">
+              Logout
+            </Button>
+          )}
+        </div>
       </Card>
-    </>
+
+      {/* Main Content Area */}
+      <div
+        className={`flex-grow transition-all duration-300 ${
+          isCollapsed ? "ml-[4rem]" : "ml-[16rem]"
+        }`}
+      >
+        {/* Content goes here */}
+      </div>
+    </div>
   );
 };
 

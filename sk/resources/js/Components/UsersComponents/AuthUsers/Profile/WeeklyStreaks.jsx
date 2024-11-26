@@ -8,10 +8,11 @@ const WeeklyStreaks = ({ userStreak, user_id }) => {
     const [activeStep, setActiveStep] = React.useState(userStreak); // Initialize with user's streak
 
     React.useEffect(() => {
-        setActiveStep(userStreak); // Update activeStep whenever userStreak changes
+        setActiveStep(Math.min(userStreak, 6)); // Limit activeStep to 6 (last step)
     }, [userStreak]);
 
-    const isLastStep = activeStep === 6; // Streak is 7 at the 7th step (index 6)
+
+    const isLastStep = activeStep >= 6; // Streak is 7 at the 7th step (index 6)
 
     const claimReward = async () => {
         try {
