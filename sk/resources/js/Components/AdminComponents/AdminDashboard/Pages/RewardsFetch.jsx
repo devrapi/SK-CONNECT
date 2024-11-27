@@ -26,8 +26,8 @@ const RewardsFetch = () => {
                 <div className="flex justify-end">
                     <Link to="/admin/dashboard/rewards/">
                         <div className="flex items-center space-x-2">
-                            <GiftIcon className="w-10 h-10 text-purple-500" />
-                            <PlusIcon className="w-6 h-6 text-purple-500" />
+                            <GiftIcon className="w-8 h-8 text-purple-500" />
+                            <PlusIcon className="w-5 h-5 text-purple-500" />
                         </div>
                     </Link>
                 </div>
@@ -61,10 +61,10 @@ const RewardsFetch = () => {
                                 </MenuList>
                             </Menu>
 
-                            {/* Image Section */}
+                            {/* Image Section with placeholder */}
                             <div className="w-full overflow-hidden rounded-md h-60">
                                 <img
-                                    src={`/storage/${reward.image_path}`}
+                                    src={`/storage/${reward.image_path}` || '/path/to/placeholder.jpg'}
                                     alt={reward.name}
                                     className="object-cover w-full h-full"
                                 />

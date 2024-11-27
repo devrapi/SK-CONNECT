@@ -66,7 +66,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/archived' element={<Archive/>}/>
             <Route path='/admin/dashboard/profilling/update/:id' element={<UsersUpdate/>}/>
             <Route path='/admin/dashboard/event' element={<Event/>}/>
-            <Route path='/admin/dashboard/calanders/update/:id' element={<EventUpdate/>}/>
+            <Route path='/admin/dashboard/calendars/update/:id' element={<EventUpdate/>}/>
             <Route path='/admin/dashboard/gamification' element={<Gamification/>}/>
             <Route path='/admin/dashboard/task' element={<Task/>}/>
             <Route path='/admin/dashboard/calendars/QrCode/:id' element={<QrCode/>}/>

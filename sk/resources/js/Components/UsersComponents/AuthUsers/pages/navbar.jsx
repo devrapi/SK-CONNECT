@@ -124,69 +124,64 @@ const navListItems = [
     );
   }
 
-  function MobileNav() {
-    return (
-      <ul className="flex flex-row justify-between gap-0">
-        {navListItems.map(({ label, icon, color, path }, key) => (
-          <Typography
+ function MobileNav() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 w-full lg:hidden bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 shadow-md rounded-t-3xl">
+      <ul className="flex justify-between items-center py-4 px-6">
+        {navListItems.map(({ label, icon, color, path }) => (
+          <Link
             key={label}
-            as="div"
-            variant="small"
-            color="gray"
-            className="font-medium text-blue-gray-500"
+            to={path}
+            className="flex flex-col items-center justify-center text-gray-700 transition-transform transform hover:scale-110"
           >
-            <Link to={path} className="flex flex-col items-center justify-center">
-              <MenuItem className="flex flex-col items-center gap-0">
-                {React.createElement(icon, {
-                  className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125`,
-                })}
-                {/* <span className="text-xs text-gray-500">{label}</span> */}
-              </MenuItem>
-            </Link>
-          </Typography>
+            {React.createElement(icon, {
+              className: `h-8 w-8 ${color}`, // Adjust color intensity to match light background
+            })}
+            {/* <span className="text-xs">{label}</span> */}
+          </Link>
         ))}
       </ul>
-    );
-  }
+    </div>
+  );
+}
+
+
 
   const Navbar = () => {
-    const{user}= useContext(AppContext);
+    const { user } = useContext(AppContext);
     return (
       <>
-        {/* Top Navbar with NavList on large screens */}
-        <div className="max-w-screen-xl p-2 mx-auto shadow-md lg:rounded-full lg:pl-6">
-  <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
-    <Typography
-      as="a"
-      href="#"
-      className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
-      color="green"
-    >
-      <div className="flex items-center">
-        <StarIcon className="w-8 h-8 mr-2 text-yellow-400" /> {/* Icon */}
-        {user.points}
-      </div>
-    </Typography>
+        {/* Top Navbar for large screens */}
+        <div className="max-w-screen-xl p-2 mx-auto shadow-md bg-white lg:rounded-full lg:pl-6  rounded-b-xl ">
+          <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
+            <Typography
+              as="a"
+              href="#"
+              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
+              color="green"
+            >
+              <div className="flex items-center">
+                <StarIcon className="w-8 h-8 mr-2 text-yellow-400" />
+                {user.points}
+              </div>
+            </Typography>
 
-    <div className="hidden lg:block">
-      <NavList />
-    </div>
-    <div className="flex items-center">
-    <Inbox/>
-    <ProfileMenu />
-    </div>
-
-  </div>
-</div>
-
-
-        {/* Sticky bottom navbar, hidden on large screens */}
-        <div className="fixed bottom-0 left-0 right-0 w-full py-2 lg:hidden bg-sky-100">
-          <MobileNav />
+            <div className="hidden lg:block">
+              <NavList />
+            </div>
+            <div className="flex items-center ">
+              <Inbox />
+              <ProfileMenu />
+            </div>
+          </div>
         </div>
+
+        {/* Sticky Bottom Navbar for mobile view */}
+        <MobileNav />
       </>
     );
   };
+
 
   export default Navbar;
 

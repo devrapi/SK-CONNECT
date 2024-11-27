@@ -1,119 +1,103 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../../../Context/AppContext';
-import VerifyTicket from './VerifyTicket';
+import React, { useContext, useState } from "react";
+import { AppContext } from "../../../Context/AppContext";
+import VerifyTicket from "./VerifyTicket";
 import { Card, Typography, Button } from "@material-tailwind/react";
-import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/outline";
 
 const TicketInbox = () => {
-    const { ticket, history } = useContext(AppContext);
-    const [filter, setFilter] = useState('All'); // State to track the selected filter
+  const { ticket, history } = useContext(AppContext);
+  const [filter, setFilter] = useState("All");
 
-    const pendingTickets = ticket.filter(ticketItem => ticketItem.status === 'Pending');
-    const claimedTickets = history.filter(ticketItem => ticketItem.status === 'Claimed');
+  const pendingTickets = ticket.filter((ticketItem) => ticketItem.status === "Pending");
+  const claimedTickets = history.filter((ticketItem) => ticketItem.status === "Claimed");
 
-    let filteredTickets = [];
-    if (filter === 'Pending') {
-        filteredTickets = pendingTickets;
-    } else if (filter === 'Claimed') {
-        filteredTickets = claimedTickets;
-    } else {
-        // For 'all', combine both pending and claimed tickets
-        filteredTickets = [...pendingTickets, ...claimedTickets];
-    }
+  const filteredTickets =
+    filter === "Pending" ? pendingTickets
+    : filter === "Claimed" ? claimedTickets
+    : [...pendingTickets, ...claimedTickets];
 
-    const TABLE_HEAD = ["Name", "Reward", "Ticket Number", "Status", "Action"];
+  const TABLE_HEAD = ["Name", "Reward", "Ticket Number", "Status", "Action"];
 
-    const TABLE_ROWS = filteredTickets.map(ticks => ({
-        id: `${ticks.id}`,
-        name: `${ticks.user.name}`,
-        reward: `${ticks.reward.name}`,
-        ticket_number: `${ticks.ticket_number}`,
-        status: `${ticks.status}`,
-    }));
+  return (
+    <div className="space-y-6 p-6 bg-slate-100 min-h-screen">
+      <Typography variant="h4" className="text-gray-800 font-bold">
+        Ticket Inbox
+      </Typography>
 
-    return (
-        <div className="space-y-5">
-            <Typography variant="h4" className="font-semibold">
-                TICKET INBOX
-            </Typography>
+      <div className="flex justify-end gap-3">
+        <Button variant="gradient" onClick={() => setFilter("All")} className="bg-gray-700 hover:bg-gray-800">
+          All
+        </Button>
+        <Button variant="gradient" onClick={() => setFilter("Pending")} className="bg-red-500 hover:bg-red-600">
+          Pending
+        </Button>
+        <Button variant="gradient" onClick={() => setFilter("Claimed")} className="bg-blue-500 hover:bg-blue-600">
+          Claimed
+        </Button>
+      </div>
 
-            <div className='flex justify-end space-x-2'>
-                {/* Filter Buttons */}
-                {/* <Button color="green"  onClick={() => setFilter('All')}>All</Button> */}
-                <Button color="red" onClick={() => setFilter('Pending')}>Pending</Button>
-                <Button color="blue" onClick={() => setFilter('Claimed')}>Claimed</Button>
+      <Card className="rounded-lg shadow-xl bg-white">
+        <div className="overflow-x-auto">
+          {filteredTickets.length === 0 ? (
+            <div className="p-6 text-center">
+              <Typography variant="small" color="gray" className="font-medium">
+                No tickets available.
+              </Typography>
             </div>
-
-            <Card className="w-full h-full rounded-lg shadow-lg">
-                <div className="overflow-x-auto">
-                    {filteredTickets.length === 0 ? (
-                        <div className="p-4 text-center">
-                            <Typography variant="small" color="gray" className="font-normal">
-                                No tickets available
-                            </Typography>
+          ) : (
+            <table className="w-full table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th key={head} className="p-4 text-gray-700 bg-gray-100 border-b">
+                      <Typography variant="small" className="font-semibold">
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filteredTickets.map((ticket, index) => (
+                  <tr key={ticket.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
+                    <td className="p-4">{ticket.user.name}</td>
+                    <td className="p-4">{ticket.reward.name}</td>
+                    <td className="p-4">{ticket.ticket_number}</td>
+                    <td className="p-4">
+                      {ticket.status === "Claimed" ? (
+                        <div className="flex items-center gap-2">
+                          <CheckCircleIcon className="w-5 h-5 text-green-500" />
+                          <Typography variant="small" color="green">
+                            Claimed
+                          </Typography>
                         </div>
-                    ) : (
-                        <table className="w-full text-left table-auto">
-                            <thead>
-                                <tr>
-                                    {TABLE_HEAD.map((head) => (
-                                        <th key={head} className="p-4 text-green-600 bg-green-100 border-b border-green-200">
-                                            <Typography variant="small" className="font-semibold">
-                                                {head}
-                                            </Typography>
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {TABLE_ROWS.map(({ id, name, reward, ticket_number, status }, index) => {
-                                    const isLast = index === TABLE_ROWS.length - 1;
-                                    const classes = isLast ? "p-4" : "p-4 border-b border-green-100";
-
-                                    return (
-                                        <tr key={id}>
-                                            <td className={classes}>
-                                                <Typography variant="small" color="blue-gray" className="font-normal">
-                                                    {name}
-                                                </Typography>
-                                            </td>
-                                            <td className={classes}>
-                                                <Typography variant="small" color="blue-gray" className="font-normal">
-                                                    {reward}
-                                                </Typography>
-                                            </td>
-                                            <td className={classes}>
-                                                <Typography variant="small" color="blue-gray" className="font-normal">
-                                                    {ticket_number}
-                                                </Typography>
-                                            </td>
-                                            <td className={classes}>
-                                                <Typography variant="small" color="blue-gray" className="font-semibold">
-                                                    {status}
-                                                </Typography>
-                                            </td>
-                                            <td className={classes}>
-                                                {status === 'Claimed' ? (
-                                                    <div className='flex'>
-                                                        <CheckCircleIcon className="w-6 h-6 mr-1 text-blue-600" />
-                                                        <Typography variant="small" color="blue" className="font-semibold">
-                                                            Verified
-                                                        </Typography>
-                                                    </div>
-                                                ) : (
-                                                    <VerifyTicket id={id} />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    )}
-                </div>
-            </Card>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <ClockIcon className="w-5 h-5 text-red-500" />
+                          <Typography variant="small" color="red">
+                            Pending
+                          </Typography>
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-4">
+                      {ticket.status === "Claimed" ? (
+                        <Typography variant="small" className="text-gray-500">
+                          No action required
+                        </Typography>
+                      ) : (
+                        <VerifyTicket id={ticket.id} />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
-    );
+      </Card>
+    </div>
+  );
 };
 
 export default TicketInbox;

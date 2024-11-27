@@ -18,8 +18,8 @@ const FetchTask = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {task.map((item, index) => (
-                <Card key={index} className="mt-6 w-full relative">
+            {task.map((item) => (
+                <Card key={item.id} className="mt-6 w-full relative transition-transform duration-300 hover:scale-105">
 
                     {/* Top-right menu */}
                     <Menu>
@@ -44,10 +44,10 @@ const FetchTask = () => {
                     </Menu>
 
                     <CardBody>
-                        <Typography variant="h5" color="blue-gray" className="mb-2">
+                        <Typography variant="h5" color="blue-gray" className="mb-2 truncate">
                             {item.task_name}
                         </Typography>
-                        <Typography>
+                        <Typography className="text-sm text-gray-600 truncate">
                             {item.description}
                         </Typography>
                         <Typography>

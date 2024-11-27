@@ -18,8 +18,8 @@ const Task = () => {
                 <div className='flex justify-end'>
                     <Link to="/admin/dashboard/gamification">
                         <div className='flex items-center ml-4'>
-                            <ClipboardDocumentCheckIcon className='w-12 h-10 text-red-500' />
-                            <PlusIcon className='w-6 h-6 text-red-500' />
+                            <ClipboardDocumentCheckIcon className='w-8 h-18 text-red-500' />
+                            <PlusIcon className='w-5 h-5 text-red-500' />
                         </div>
                     </Link>
                 </div>

@@ -1,111 +1,73 @@
-import React, { useState , useEffect} from 'react'
-import ApiService from '../../../Services/ApiService';
-import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
-import Restore from './Restore';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import ApiService from "../../../Services/ApiService";
+import { Card, Typography, Tooltip } from "@material-tailwind/react";
+import Restore from "./Restore";
+
 const Archive = () => {
+  const [archive, setArchive] = useState([]);
 
-    const[archive , setArchive] = useState([]);
+  useEffect(() => {
+    const getArchive = async () => {
+      const res = await ApiService.get("/profiles/archived/fetch");
+      setArchive(res.data);
+    };
+    getArchive();
+  }, []);
 
-    async function getArchive(){
-        const res = await ApiService.get("/profiles/archived/fetch");
-
-        const data = await res.data;
-
-        setArchive(data);
-    }
-
-    useEffect(() => {
-        getArchive();
-
-    },[]);
-
-
-    const TABLE_HEAD = ["Name", "Gender", "Phone Number", "Age", "Education", "Address", "Action" ];
-    const TABLE_ROWS = archive.map(profile => ({
-        id: `${profile.id}`,
-        name: `${profile.full_name}`,
-        gender: `${profile.gender}`,
-        phone_number: `${profile.phone_number}`,
-        age: `${profile.age}`,
-        education: `${profile.education}`,
-        address: `${profile.address}`
-    }));
-
+  const TABLE_HEAD = ["Name", "Gender", "Phone", "Age", "Education", "Address", "Action"];
 
   return (
+    <div className="space-y-6 p-6 bg-slate-100 min-h-screen">
+      <Typography variant="h4" className="text-gray-800 font-bold">
+        Youth Archived
+      </Typography>
 
-
-    <div className="space-y-5">
-    <Typography variant="h4" color="red" className="font-semibold">
-        YOUTH ARCHIVED
-    </Typography>
-
-    <Card className="w-full h-full rounded-lg shadow-lg">
+      <Card className="rounded-lg shadow-xl bg-white">
         <div className="overflow-x-auto">
-            <table className="w-full text-left table-auto">
-                <thead>
-                    <tr>
-                        {TABLE_HEAD.map((head) => (
-                            <th key={head} className="p-4 text-red-600 bg-red-100 border-b border-red-200">
-                                <Typography variant="small" color="red" className="font-semibold">
-                                    {head}
-                                </Typography>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {TABLE_ROWS.map(({ id, name, gender, phone_number, age, education, address }, index) => {
-                        const isLast = index === TABLE_ROWS.length - 1;
-                        const classes = isLast ? "p-4" : "p-4 border-b border-red-100";
-
-                        return (
-                            <tr key={id} className="">
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {name}
-                                    </Typography>
-                                </td>
-                                <td className={`${classes} `}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {gender}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {phone_number}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {age}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {education}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                        {address}
-                                    </Typography>
-                                </td>
-                                <td className={`${classes}`}>
-                                    <Restore id={id} />
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+          <table className="w-full table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th key={head} className="p-4 text-gray-700 bg-gray-100 border-b">
+                    <Typography variant="small" className="font-semibold">
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {archive.length === 0 ? (
+                <tr>
+                  <td colSpan={TABLE_HEAD.length} className="p-6 text-center">
+                    <Typography variant="small" color="gray" className="font-medium">
+                      No archived profiles found.
+                    </Typography>
+                  </td>
+                </tr>
+              ) : (
+                archive.map((profile, index) => (
+                  <tr key={profile.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
+                    <td className="p-4">{profile.full_name}</td>
+                    <td className="p-4">{profile.gender}</td>
+                    <td className="p-4">{profile.phone_number}</td>
+                    <td className="p-4">{profile.age}</td>
+                    <td className="p-4">{profile.education}</td>
+                    <td className="p-4">{profile.address}</td>
+                    <td className="p-4">
+                      <Tooltip content="Restore Profile" placement="top">
+                        <Restore id={profile.id} />
+                      </Tooltip>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-        </Card>
-            </div>
+      </Card>
+    </div>
+  );
+};
 
-
-  )
-}
-
-export default Archive
+export default Archive;
