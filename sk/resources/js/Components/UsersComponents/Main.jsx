@@ -65,21 +65,21 @@ const Main = () => {
 
           <ul className="items-center hidden gap-6 text-black lg:flex">
             <NavItem>
-              {/* <RectangleStackIcon className="w-5 h-5" /> */}
+              <RectangleStackIcon className="w-5 h-5" />
               <Link to="/">
               Home
               </Link>
             </NavItem>
             <NavItem>
-              {/* <UserCircleIcon className="w-5 h-5" /> */}
+              <UserCircleIcon className="w-5 h-5" />
               Teams
             </NavItem>
             <NavItem>
-              {/* <Squares2X2Icon className="w-5 h-5" /> */}
+              <Squares2X2Icon className="w-5 h-5" />
               Feautures
             </NavItem>
             <NavItem>
-              {/* <CommandLineIcon className="w-5 h-5" /> */}
+              <CommandLineIcon className="w-5 h-5" />
               FAQs
             </NavItem>
           </ul>

@@ -1,104 +1,172 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
-import ApiService from '../../Services/ApiService';
-import { AppContext } from '../../Context/AppContext';
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Input, Checkbox, Button, Typography, Card, CardBody } from "@material-tailwind/react";
+import ApiService from "../../Services/ApiService";
+import { AppContext } from "../../Context/AppContext";
 
-const register = () => {
+const Register = () => {
+  const { setToken } = useContext(AppContext);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-    const {token, setToken} = useContext(AppContext);
-    const[form , setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      });
-      const [errors, setErrors] = useState({});
-      const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+      const response = await ApiService.post("/admin/register", form);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      setToken(token);
+      navigate("/admin/dashboard");
+    } catch (error) {
+      console.log("Error during registration:", error.response?.data || error.message);
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await ApiService.post('/admin/register', form);
-
-            const token = response.data.token;
-              localStorage.setItem("token" ,token);
-              setToken(token);
-              navigate('/admin/dashboard');
-
-        } catch (error) {
-            console.log('Error during registration:', error.response?.data || error.message);
-
-            if (error.response?.status === 422) {
-                setForm({ name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''});
-                setErrors(error.response.data.errors);
-
-            } else {
-                setErrors({ global: 'An unexpected error occurred during registration.' });
-            }
-
-
-        }
+      if (error.response?.status === 422) {
+        setForm({
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+        });
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ global: "An unexpected error occurred during registration." });
+      }
     }
-
+  };
 
   return (
-    <>
-        <section className="bg-gray-50 dark:bg-gray-900">
-  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      {/* <a href="#" className="flex items-center mb-10 text-4xl font-semibold text-green-500 dark:text-green">
+    <section className="flex items-center justify-center min-h-screen bg-green-100">
+      <Card className="w-full max-w-md p-6 shadow-lg">
+        <CardBody className="flex flex-col gap-6">
+          <Typography variant="h4" className="text-center" color="blue-gray">
+            Admin Registration
+          </Typography>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <Typography className="mb-2" variant="small" color="blue-gray">
+                Name
+              </Typography>
+              <Input
+                type="text"
+                label="Name"
+                size="lg"
+                color="green"
+                value={form.name}
+                onChange={(event) => setForm({ ...form, name: event.target.value })}
+                error={!!errors.name}
+              />
+              {errors.name && (
+                <Typography variant="small" color="red" className="mt-1">
+                  {errors.name}
+                </Typography>
+              )}
+            </div>
+            <div>
+              <Typography className="mb-2" variant="small" color="blue-gray">
+                Email
+              </Typography>
+              <Input
+                type="email"
+                label="Email"
+                size="lg"
+                color="green"
+                value={form.email}
+                onChange={(event) => setForm({ ...form, email: event.target.value })}
+                error={!!errors.email}
+              />
+              {errors.email && (
+                <Typography variant="small" color="red" className="mt-1">
+                  {errors.email}
+                </Typography>
+              )}
+            </div>
+            <div>
+              <Typography className="mb-2" variant="small" color="blue-gray">
+                Password
+              </Typography>
+              <Input
+                type="password"
+                label="Password"
+                size="lg"
+                color="green"
+                value={form.password}
+                onChange={(event) => setForm({ ...form, password: event.target.value })}
+                error={!!errors.password}
+              />
+              {errors.password && (
+                <Typography variant="small" color="red" className="mt-1">
+                  {errors.password}
+                </Typography>
+              )}
+            </div>
+            <div>
+              <Typography className="mb-2" variant="small" color="blue-gray">
+                Confirm Password
+              </Typography>
+              <Input
+                type="password"
+                label="Confirm Password"
+                size="lg"
+                color="green"
+                value={form.password_confirmation}
+                onChange={(event) =>
+                  setForm({ ...form, password_confirmation: event.target.value })
+                }
+                error={!!errors.password_confirmation}
+              />
+            </div>
+            {errors.global && (
+              <Typography variant="small" color="red" className="mt-2 text-center">
+                {errors.global}
+              </Typography>
+            )}
+            <Checkbox
+              id="terms"
+              label={
+                <Typography variant="small" color="blue-gray">
+                  I accept the{" "}
+                  <a
+                    href="#"
+                    className="font-medium text-green-500 hover:underline"
+                  >
+                    Terms and Conditions
+                  </a>
+                </Typography>
+              }
+            />
+            <Button
+              type="submit"
+              color="green"
+              size="lg"
+              fullWidth
+              className="mt-4"
+            >
+              Create an Account
+            </Button>
+          </form>
+          <Typography
+            variant="small"
+            className="mt-4 text-center text-gray-500 dark:text-gray-400"
+          >
+            Already have an account?{" "}
+            <Link
+              to="/admin/login"
+              className="font-medium text-green-500 hover:underline"
+            >
+              Login here
+            </Link>
+          </Typography>
+        </CardBody>
+      </Card>
+    </section>
+  );
+};
 
-          SK CONNECT ADMIN
-      </a> */}
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Admin Create an account
-              </h1>
-              <form className="space-y-4 md:space-y-6" >
-                  <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email@gmail.com" required="" value={form.email} onChange={(event) => {setForm({...form, email: event.target.value})}}/>
-                      {errors.email && <span  className='text-xs text-red-600'>{errors.email}</span>}
-                  </div>
-                  <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                      <input type="email" name="email"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name" required="" value={form.name} onChange={(event) => {setForm({...form, name: event.target.value})}}/>
-                      {errors.name && <span  className='text-xs text-red-600'>{errors.name}</span>}
-                  </div>
-                  <div>
-                      <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password"  placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" value={form.password} onChange={(event) => {setForm({...form, password: event.target.value})}}/>
-                      {errors.password && <span  className='text-xs text-red-600'>{errors.password}</span>}
-                  </div>
-                  <div>
-                      <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                      <input type="confirm-password" name="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" value={form.password_confirmation} onChange={(event) => {setForm({...form, password_confirmation: event.target.value})}}/>
-                  </div>
-                  <div className="flex items-start">
-                      <div className="flex items-center h-5">
-                        <input  aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required=""/>
-                      </div>
-                      <div className="ml-3 text-sm">
-                        <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                      </div>
-                  </div>
-                  <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleSubmit}>Create an account</button>
-                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Already have an account? <Link to="/admin/login" className="font-medium text-blue-500 hover:underline dark:text-primary-500">Login here</Link>
-                  </p>
-              </form>
-          </div>
-      </div>
-  </div>
-</section>
-    </>
-  )
-}
-
-export default register
+export default Register;

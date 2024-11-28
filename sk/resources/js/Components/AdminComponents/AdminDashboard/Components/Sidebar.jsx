@@ -40,7 +40,7 @@ const Sidebar = () => {
         {/* Header with Toggle Button */}
         <div className="flex items-center justify-between p-4">
           {!isCollapsed && (
-            <img src="/img/sklogo.png" alt="Logo" className="w-44 h-auto" />
+            <img src="/img/sklogo.png" alt="Logo" className="h-auto w-44" />
           )}
           <Button
             onClick={toggleSidebar}
@@ -124,13 +124,13 @@ const Sidebar = () => {
         </List>
 
         {/* Footer */}
-        <div className="p-4">
+        {/* <div className="p-4">
           {!isCollapsed && (
             <Button variant="gradient" className="w-full">
               Logout
             </Button>
           )}
-        </div>
+        </div> */}
       </Card>
 
       {/* Main Content Area */}
