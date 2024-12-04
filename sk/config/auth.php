@@ -42,6 +42,13 @@ return [
         ],
     ],
 
+    'guards' => [
+    'sanctum' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+    ],
+],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers

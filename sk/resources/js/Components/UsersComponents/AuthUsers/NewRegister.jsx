@@ -21,7 +21,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 const NewRegister = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const { setToken } = useContext(AppContext);
+    const { setToken, setRole } = useContext(AppContext);
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -46,7 +46,7 @@ const NewRegister = () => {
         setShowPassword(!showPassword);
       };
 
-    const HandleSubmit = async (e) => {
+      const HandleSubmit = async (e) => {
         e.preventDefault();
 
         if (isChecked) {
@@ -56,17 +56,16 @@ const NewRegister = () => {
                     const token = response.data.token;
                     localStorage.setItem("token", token);
                     setToken(token);
-
                     setOpenRegister(false);
 
                     await Swal.fire({
-                        title: 'Register Succesful',
-                        text: 'please login!',
+                        title: 'Registration Successful',
+                        text: response.data.message, // Message from the backend
                         icon: 'success',
                         confirmButtonText: 'Okay',
-                      });
+                    });
 
-                      window.location.reload();
+                    navigate('/verify-email');
                 }
             } catch (error) {
                 console.log('Error during registration:', error.response?.data || error.message);

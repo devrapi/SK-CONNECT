@@ -16,10 +16,31 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EventAttendanceController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    })->middleware('auth:sanctum');
+
+    // Route::get('/email/verify/{id}/{hash}', [AuthUserController::class, 'VerifyEmail'])
+    // ->middleware('signed')
+    // ->name('verification.verify');
+
+
+});
+
+Route::get('/verify-email/{id}/{token}', [AuthUserController::class, 'verifyEmail']);
+Route::post('/email/verification-notification/{user}', [AuthUserController::class, 'sendVerificationEmail']);
+
+// Route::get('/email/verify' , [AuthUserController::class , 'VerifyNotice'])->middleware('auth:sanctum')->name('verification.notice');
+
 
 //USER API
 Route::post('/register' , [AuthUserController::class , 'register']);

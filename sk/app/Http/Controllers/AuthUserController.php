@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\DailyLogin;
-use App\Models\Notification;
 use Illuminate\Support\Str;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
+use App\Models\EmailVerificationToken;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Validation\Rules\Password;
+use App\Notifications\EmailVerificationNotification;
 
 class AuthUserController extends Controller
 {
@@ -46,16 +52,19 @@ class AuthUserController extends Controller
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
             'profile_id' => $profiling->id,
-            'referal_code' => $referalCode
+            'referal_code' => $referalCode,
+
 
         ]);
 
-        $token = $User->createToken($request->name);
 
+        $token = $User->createToken($request->name);
+        $role = $User->role;
         return response()->json([
             'User' => $User,
             'token' => $token->plainTextToken,
-            'role' => $User->role,
+            'role' => $role,
+            'message' => 'Registration successful. Please verify your email to activate your account.',
         ], 200);
 
     }
@@ -75,6 +84,10 @@ class AuthUserController extends Controller
                 'message' => 'Invalid credentials'
             ], 401); // Return 401 Unauthorized status
         }
+
+        $verify_status = !is_null($User->email_verified_at);
+
+
 
         // Generate an API token
         $token = $User->createToken($User->name);
@@ -147,6 +160,7 @@ class AuthUserController extends Controller
             'User' => $User,
             'token' => $token->plainTextToken,
             'role' => $User->role,
+            'is_verified' => $verify_status
         ], 200);
     }
 
@@ -219,6 +233,54 @@ class AuthUserController extends Controller
             'points' => $points,
         ]);
     }
+
+    public function VerifyNotice()
+    {
+        return response()->json(['message' => 'Please verify your email address.']);
+    }
+
+    public function sendVerificationEmail(User $user)
+    {
+        $token = Str::random(64);
+
+        // Store the token
+        EmailVerificationToken::create([
+            'user_id' => $user->id,
+            'signature' => $token,
+        ]);
+
+        // Generate the verification link
+        $url = url("/verify-email/{$user->id}/{$token}");
+
+        // Send the notification
+        $user->notify(new EmailVerificationNotification($url));
+
+        return response()->json(['message' => 'Verification email sent.']);
+    }
+
+
+
+    public function verifyEmail($userId, $token)
+    {
+        $verificationToken = EmailVerificationToken::where('user_id', $userId)
+            ->where('signature', $token)
+            ->first();
+
+        if (!$verificationToken) {
+            return response()->json(['message' => 'Invalid or expired token.'], 400);
+        }
+
+        // Mark email as verified
+        $user = $verificationToken->user;
+        $user->email_verified_at = now();
+        $user->save();
+
+        // Delete the token after verification
+        $verificationToken->delete();
+
+        return redirect('/email-verified'); // Redirect to a success page or return JSON
+    }
+
 
 
 

@@ -38,6 +38,8 @@ import AnnouncementCreate from '../AdminComponents/AdminDashboard/Pages/Announce
 import AnnouncementUpdate from '../AdminComponents/AdminDashboard/Pages/AnnouncementUpdate';
 import QrCode from '../AdminComponents/AdminDashboard/Pages/QrCode';
 import QrCodeScanner from '../UsersComponents/AuthUsers/pages/QrCodeScanner';
+import VerifyEmail from '../UsersComponents/AuthUsers/VerifyEmail';
+import VerifiedEmail from '../UsersComponents/AuthUsers/VerifiedEmail';
 
 const RoutesComponents = () => {
   return (
@@ -53,6 +55,8 @@ const RoutesComponents = () => {
 
         <Route path='/admin/register' element={<AdminRegister/>}/>
         <Route path='/admin/login' element={<AdminLogin/>}/>
+
+
 
         <Route element={<ProtectedRoutes requiredRole="admin" />}>
         <Route path="/admin/dashboard" element={<Dashboard />} >
@@ -85,6 +89,11 @@ const RoutesComponents = () => {
 
         </Route> */}
 
+
+        <Route element={<ProtectedRoutes/>}>
+        <Route path='/verify-email' element={<VerifyEmail/>}/>
+        <Route path='/verify-email/:id/:token' element={<VerifiedEmail/>}/>
+        </Route>
 
         <Route element={<ProtectedRoutes requiredRole="user" />}>
         <Route path="/index" element={<Index />} >
