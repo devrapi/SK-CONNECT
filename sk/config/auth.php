@@ -42,12 +42,12 @@ return [
         ],
     ],
 
-    'guards' => [
-    'sanctum' => [
-        'driver' => 'sanctum',
-        'provider' => 'users',
-    ],
-],
+//     'guards' => [
+//     'sanctum' => [
+//         'driver' => 'sanctum',
+//         'provider' => 'users',
+//     ],
+// ],
 
     /*
     |--------------------------------------------------------------------------

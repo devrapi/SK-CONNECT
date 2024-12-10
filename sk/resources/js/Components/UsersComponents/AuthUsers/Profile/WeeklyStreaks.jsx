@@ -12,7 +12,7 @@ const WeeklyStreaks = ({ userStreak, user_id }) => {
     }, [userStreak]);
 
 
-    const isLastStep = activeStep >= 6; // Streak is 7 at the 7th step (index 6)
+    const isLastStep = activeStep === 6;  // Streak is 7 at the 7th step (index 6)
 
     const claimReward = async () => {
         try {

@@ -14,7 +14,19 @@ const Archive = () => {
     getArchive();
   }, []);
 
-  const TABLE_HEAD = ["Name", "Gender", "Phone", "Age", "Education", "Address", "Action"];
+
+  const calculateAge = (birthdate) => {
+    const today = new Date();
+    const birthDateObj = new Date(birthdate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+    }
+    return age;
+};
+
+  const TABLE_HEAD = ["Name", "Age", "Gender", "Phone Number", "Education", "Address", "Action"];
 
   return (
     <div className="space-y-6 p-6 bg-slate-100 min-h-screen">
@@ -49,9 +61,9 @@ const Archive = () => {
                 archive.map((profile, index) => (
                   <tr key={profile.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
                     <td className="p-4">{profile.full_name}</td>
+                    <td className="p-4">{calculateAge(profile.birthdate)}</td>
                     <td className="p-4">{profile.gender}</td>
                     <td className="p-4">{profile.phone_number}</td>
-                    <td className="p-4">{profile.age}</td>
                     <td className="p-4">{profile.education}</td>
                     <td className="p-4">{profile.address}</td>
                     <td className="p-4">

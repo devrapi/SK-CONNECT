@@ -23,9 +23,9 @@ export function KpiCard({ title, percentage, count, color, icon, trendIcon }) {
           </div>
           <div className="flex items-center">
             <Typography color={color} className="font-medium text-xs mr-1">
-              {percentage}
+              {/* {percentage} */}
             </Typography>
-            {trendIcon}
+            {/* {trendIcon} */}
           </div>
         </div>
         <Typography color="blue-gray" className="text-2xl font-bold mt-2">
@@ -45,32 +45,32 @@ const Cards = () => {
       percentage: "5%",
       count: event?.length || 0,
       color: "green",
-      icon: <CalendarIcon className="w-8 h-8 text-black" />,
-      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
+      icon: <CalendarIcon className="w-8 h-8 text-green-600" />,
+    //   trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
     {
       title: "Total Youth ",
       percentage: "8%",
       count: profiles?.length || 0,
       color: "green",
-      icon: <UserIcon className="w-8 h-8 text-black" />,
-      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
+      icon: <UserIcon className="w-8 h-8 text-green-600" />,
+    //   trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
     {
       title: "Total Ticket",
       percentage: "12%",
       count: ticket?.length || 0,
       color: "red",
-      icon: <TicketIcon className="w-8 h-8 text-black" />,
-      trendIcon: <ChevronDownIcon className="w-4 h-4 text-red-500" />,
+      icon: <TicketIcon className="w-8 h-8 text-green-600" />,
+    //   trendIcon: <ChevronDownIcon className="w-4 h-4 text-red-500" />,
     },
     {
       title: "Total Rewards",
       percentage: "6%",
       count: rewards?.length || 0,
       color: "green",
-      icon: <GiftIcon className="w-8 h-8 text-black" />,
-      trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
+      icon: <GiftIcon className="w-8 h-8 text-green-600" />,
+    //   trendIcon: <ChevronUpIcon className="w-4 h-4 text-green-500" />,
     },
   ];
 

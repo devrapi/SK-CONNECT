@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Announcement;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnnouncementController extends Controller
 {
@@ -25,13 +26,22 @@ class AnnouncementController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'nullable|string',
+            'content' => 'required|string',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max size 2MB
         ]);
+
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('annnouncement_images', 'public');
+        } else {
+            $imagePath = null;
+        }
+
 
         // Create the announcement
         $announcement = Announcement::create([
             'title' => $request->title,
             'content' => $request->content,
+            'image_path' => $imagePath,
         ]);
 
         // Send notification to all users
@@ -60,14 +70,31 @@ class AnnouncementController extends Controller
        $fields = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max size 2MB
 
         ]);
 
-        $announcement->update($fields);
+        $announcement->title = $fields['title'];
+        $announcement->content = $fields['content'];
 
-        return ['message' => 'update success' , $announcement];
+        if ($request->hasFile('image_path')) {
+            // If the user has an existing image, delete the old image
+            if (!is_null($announcement->image_path) && Storage::disk('public')->exists($announcement->image_path)) {
+                Storage::disk('public')->delete($announcement->image_path);
+            }
+             // Store the new image in 'event_images' folder and update the image path
+        $imagePath = $request->file('image_path')->store('announcement_images', 'public');
+        $announcement->image_path = $imagePath;
 
     }
+
+    $announcement->save();
+
+    return response()->json([
+        'message' => 'Update successful',
+        'reward' => $announcement  // Return the updated reward object
+    ], 200);
+}
         public function comment(Request $request, Announcement $announcement, $userId)
     {
         $request->validate([

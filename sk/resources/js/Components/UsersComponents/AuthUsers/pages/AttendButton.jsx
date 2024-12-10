@@ -6,16 +6,26 @@ import Swal from 'sweetalert2';
 
 const AttendButton = ({ eventId }) => {
     const { user } = useContext(AppContext);
-    const [isPending, setIsPending] = useState(false);
+    const [status, setStatus] = useState(null); // null, 'pending', or 'verified'
 
     useEffect(() => {
-        const fetchPendingEvents = async () => {
+        const fetchEventStatus = async () => {
             try {
                 const response = await ApiService.get(`events/${user.id}/status`);
-                const pendingEventIds = response.data.pending_events.map(event => event.event.id);
-                setIsPending(pendingEventIds.includes(eventId));
+                const { pending_events, verified_events } = response.data;
+
+                const isPending = pending_events.some(event => event.event.id === eventId);
+                const isVerified = verified_events.some(event => event.event.id === eventId);
+
+                if (isVerified) {
+                    setStatus('verified');
+                } else if (isPending) {
+                    setStatus('pending');
+                } else {
+                    setStatus(null);
+                }
             } catch (error) {
-                console.error('Error fetching pending events:', error);
+                console.error('Error fetching event status:', error);
                 Swal.fire({
                     title: 'Error!',
                     text: 'Failed to check your event status. Please try again later.',
@@ -25,7 +35,7 @@ const AttendButton = ({ eventId }) => {
             }
         };
 
-        fetchPendingEvents();
+        fetchEventStatus();
     }, [eventId, user.id]);
 
     const handleAttend = async () => {
@@ -37,7 +47,7 @@ const AttendButton = ({ eventId }) => {
                 icon: 'success',
                 confirmButtonText: 'Okay',
             });
-            setIsPending(true);
+            setStatus('verified');
         } catch (error) {
             let errorMessage = 'An unexpected error occurred. Please try again.';
             if (error.response && error.response.data && error.response.data.message) {
@@ -70,13 +80,17 @@ const AttendButton = ({ eventId }) => {
 
     return (
         <Button
-            color={isPending ? 'gray' : 'blue'}
+            color={status === 'pending' || status === 'verified' ? 'gray' : 'blue'}
             size="sm"
-            className={`rounded-full ${isPending && 'cursor-not-allowed'}`}
-            onClick={isPending ? null : confirmAttend}
-            disabled={isPending}
+            className={`rounded-full ${status && 'cursor-not-allowed'}`}
+            onClick={status ? null : confirmAttend}
+            disabled={status !== null}
         >
-            {isPending ? 'Already Registered' : 'Attend Event'}
+            {status === 'verified'
+                ? 'Already Attended'
+                : status === 'pending'
+                ? 'Already Registered'
+                : 'Attend Event'}
         </Button>
     );
 };

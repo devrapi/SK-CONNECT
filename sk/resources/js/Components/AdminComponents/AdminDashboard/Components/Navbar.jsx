@@ -18,7 +18,7 @@ import Logout from '../../AuthAdmin/logout';
 
 const NavBar = () => {
   return (
-    <nav className="p-4 bg-white ">
+    <nav className="p-4 bg-gray-100 ">
       <div className="flex items-center justify-between">
         {/* Logo/Title */}
         <Typography variant="h6" className="font-bold text-green-700">

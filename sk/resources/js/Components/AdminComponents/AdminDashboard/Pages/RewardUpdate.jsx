@@ -73,9 +73,9 @@ const RewardUpdate = () => {
             console.log('No image file to append.');
         }
 
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
+            // for (let [key, value] of formData.entries()) {
+            //     console.log(`${key}: ${value}`);
+            // }
 
             const response = await ApiService.post(`rewards/update/${id}`, formData, {
                 headers: {

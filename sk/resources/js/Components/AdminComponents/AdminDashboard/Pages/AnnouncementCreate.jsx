@@ -5,11 +5,24 @@ import Swal from 'sweetalert2';
 import ApiService from '../../../Services/ApiService';
 const AnnouncementCreate = () => {
 
+
+    const [image, setImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
         title: '',
         content: '',
       });
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(URL.createObjectURL(file)); // Create a preview URL
+            setImageFile(file); // Store the actual file for submission
+        }
+    };
+
+
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,9 +34,15 @@ const AnnouncementCreate = () => {
             formData.append('title', form.title);
             formData.append('content', form.content);
 
-
+            if (imageFile) {
+                formData.append('image_path', imageFile); // Append the actual file
+            }
             // Make the API request with FormData
-            const response = await ApiService.post('announcement', formData);
+            const response = await ApiService.post('announcement', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             if (response) {
                 // Show success alert
                 await Swal.fire({
@@ -42,6 +61,8 @@ const AnnouncementCreate = () => {
                 content: '',
               });
 
+              setImage(null);
+              setImageFile(null);
 
         } catch (error) {
             console.log('Error during event creation:', error.response?.data || error.message);
@@ -105,6 +126,22 @@ const AnnouncementCreate = () => {
                 </span>
               )}
             </div>
+            <div className="col-span-2 mt-2 mb-4">
+            <Input
+              type="file"
+              label="Upload Image"
+              accept="image/*"
+              onChange={handleImageChange}
+              size="lg"
+              className="w-full mt-2 mb-4 shadow-inner"
+            />
+            {image && (
+              <div className="mt-4">
+                <Typography className="mb-2">Preview:</Typography>
+                <img src={image} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
+              </div>
+            )}
+          </div>
           </div>
 
           {/* Submit Button */}

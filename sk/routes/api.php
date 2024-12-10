@@ -16,6 +16,7 @@ use App\Http\Controllers\AuthAdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EventAttendanceController;
+use App\Http\Controllers\OfficialController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -107,7 +108,7 @@ Route::get('announcement' ,[AnnouncementController::class , 'index'] );
 Route::get('announcement/{announcement}' ,[AnnouncementController::class , 'show'] );
 Route::post('announcement' ,[AnnouncementController::class , 'store'] );
 Route::delete('announcement/{announcement}' ,[AnnouncementController::class , 'destroy'] );
-Route::put('announcement/{announcement}' ,[AnnouncementController::class , 'update'] );
+Route::post('announcement/update/{announcement}' ,[AnnouncementController::class , 'update'] );
 
 //Comment
 Route::post('announcement/comment/{announcement}/{userId}' ,[AnnouncementController::class , 'comment'] );
@@ -124,3 +125,7 @@ Route::post('events/{eventId}/{user_id}/attend', [EventAttendanceController::cla
 Route::get('qr-code/{eventId}', [EventAttendanceController::class, 'generateQrCode']);
 Route::post('verify-qr-code', [EventAttendanceController::class, 'VerifiyQrCode']);
 Route::get('events/{user_id}/status', [EventAttendanceController::class, 'status']);
+
+//Sk-Officials
+Route::apiResource('officials', OfficialController::class);
+Route::post('officials/update/{official}', [OfficialController::class, 'update']);

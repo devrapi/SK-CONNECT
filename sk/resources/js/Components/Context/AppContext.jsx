@@ -21,6 +21,7 @@ export default function AppProvider({children}){
     // const[like , setLike] = useState({});
     const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
+    const[officials,setOfficials] = useState([]);
 
 
 
@@ -129,6 +130,14 @@ export default function AppProvider({children}){
         setRewards(data);
     }
 
+     // get Officials
+     async function getOfficials(){
+        const res = await ApiService.get("/officials");
+        const data = await res.data;
+
+        setOfficials(data);
+    }
+
 
 //get admin data
     async function getAdmin(){
@@ -146,6 +155,11 @@ export default function AppProvider({children}){
     useEffect(() => {
         getTask();
     },[]);
+
+    useEffect(() => {
+        getOfficials();
+    },[]);
+
 
     useEffect(() => {
         getComment();
@@ -207,7 +221,7 @@ export default function AppProvider({children}){
         rewards , ticket,
         history ,task,
         dailyLogin , leaderBoards,
-        announcement, comment
+        announcement, comment,officials
 
          }}>
             {children}

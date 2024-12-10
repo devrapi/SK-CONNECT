@@ -56,11 +56,13 @@ class EventAttendanceController extends Controller
 
 
      }
-     public function VerifiyQrCode(Request $request)
-     {
-            // Validate the request input
 
-       $validatedData = $request->validate([
+
+
+     public function VerifiyQrCode(Request $request)
+{
+    // Validate the request input
+    $validatedData = $request->validate([
         'event_id' => 'required|integer',
         'points_awarded' => 'required|integer',
         'user_id' => 'required|integer',
@@ -69,6 +71,25 @@ class EventAttendanceController extends Controller
     $points = $validatedData['points_awarded'];
 
     try {
+        // Retrieve the event
+        $event = Event::find($request->event_id);
+
+        if (!$event) {
+            return response()->json([
+                'message' => 'Event not found.',
+                'status' => 'error',
+            ], 404);
+        }
+
+        // Check if the event is today
+        $currentDate = now()->toDateString();
+        if ($event->date !== $currentDate) {
+            return response()->json([
+                'message' => 'QR code can only be scanned on the day of the event.',
+                'status' => 'error',
+            ], 400);
+        }
+
         // Retrieve the attendance record
         $attendance = EventAttendance::where('event_id', $request->event_id)
             ->where('user_id', $request->user_id)
@@ -120,24 +141,33 @@ class EventAttendanceController extends Controller
             'status' => 'error',
         ], 500);
     }
-     }
-
-     public function status($user_id){
-
-        $user = User::find($user_id);
-
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-
-        // Get all pending events for the user
-        $pendingEvents = EventAttendance::where('user_id', $user->id)
-            ->where('status', 'pending')
-            ->with('event') // Ensure you load the event details
-            ->get();
+}
 
 
 
-        return response()->json(['pending_events' => $pendingEvents], 200);
+
+     public function status($user_id)
+     {
+         $user = User::find($user_id);
+
+         if (!$user) {
+             return response()->json(['error' => 'User not found'], 404);
+         }
+
+         // Get all pending and verified events for the user
+         $pendingEvents = EventAttendance::where('user_id', $user->id)
+             ->where('status', 'pending')
+             ->with('event')
+             ->get();
+
+         $verifiedEvents = EventAttendance::where('user_id', $user->id)
+             ->where('status', 'verified')
+             ->with('event')
+             ->get();
+
+         return response()->json([
+             'pending_events' => $pendingEvents,
+             'verified_events' => $verifiedEvents,
+         ], 200);
      }
 }

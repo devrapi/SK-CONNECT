@@ -40,6 +40,9 @@ import QrCode from '../AdminComponents/AdminDashboard/Pages/QrCode';
 import QrCodeScanner from '../UsersComponents/AuthUsers/pages/QrCodeScanner';
 import VerifyEmail from '../UsersComponents/AuthUsers/VerifyEmail';
 import VerifiedEmail from '../UsersComponents/AuthUsers/VerifiedEmail';
+import SkOfficials from '../AdminComponents/AdminDashboard/Pages/SkOfficials';
+import SkOfficialsFetch from '../AdminComponents/AdminDashboard/Pages/SkOfficialsFetch';
+import OfficialsUpdate from '../AdminComponents/AdminDashboard/Pages/OfficialsUpdate';
 
 const RoutesComponents = () => {
   return (
@@ -81,6 +84,9 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/announcement' element={<Announcement/>}/>
             <Route path='/admin/dashboard/announcement-create' element={<AnnouncementCreate/>}/>
             <Route path='/admin/dashboard/announcement/update/:id' element={<AnnouncementUpdate/>}/>
+            <Route path='/admin/dashboard/sk-officials/Create' element={<SkOfficials/>}/>
+            <Route path='/admin/dashboard/sk-officials' element={<SkOfficialsFetch/>}/>
+            <Route path='/admin/dashboard/sk-officials/update/:id' element={<OfficialsUpdate/>}/>
         </Route>
       </Route>
 

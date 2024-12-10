@@ -17,7 +17,7 @@ const PieChart = () => {
     else if (level === "HighSchool") acc.highSchool += 1;
     else if (level === "Senior Highschool") acc.seniorHighSchool += 1;
     else if (level === "College") acc.college += 1;
-    else if (level === "Not School Youth") acc.notSchoolYouth += 1;
+    else if (level === "Out of School") acc.notSchoolYouth += 1;
     return acc;
   }, {
     elementary: 0,
@@ -26,6 +26,8 @@ const PieChart = () => {
     college: 0,
     notSchoolYouth: 0,
   });
+
+  const total = educationCounts?.elementary + educationCounts?.highSchool + educationCounts?.seniorHighSchool + educationCounts?.college + educationCounts?.notSchoolYouth;
 
   const chartConfig = {
     type: "pie",
@@ -64,9 +66,13 @@ const PieChart = () => {
           },
         },
       ],
-      labels: ["Elementary", "High School", "Senior High School", "College", "Not School Youth"],
+      labels: ["Elementary", "High School", "Senior High School", "College", "Out of School"],
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: (val, opts) => {
+          const percentage = ((val / total) * 10).toFixed(1);
+          return `${percentage}%`;
+        },
       },
       colors: ["#1e88e5", "#ff8f00", "#00897b", "#d81b60", "#ff5252"],
       legend: {

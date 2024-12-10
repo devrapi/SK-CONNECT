@@ -48,6 +48,16 @@ const Home = () => {
                         <Typography color="gray" className="mb-4">
                             {item.content}
                         </Typography>
+                                                {item.image_path && (
+                            <CardBody className="p-0">
+                                <img
+                                    src={`/storage/${item.image_path}`}
+                                    alt={item.title}
+                                    className="object-cover w-full h-64 rounded-t-lg md:h-72 lg:h-80" // Adjusted height for responsive views
+                                />
+                            </CardBody>
+                        )}
+
                         <hr />
                         <CommentLike AnnounceId ={item.id}/>
 

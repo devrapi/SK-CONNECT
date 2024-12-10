@@ -1,23 +1,24 @@
 import React from 'react'
 import { TrashIcon } from '@heroicons/react/24/outline';
-import Swal from 'sweetalert2';
 import ApiService from '../../../Services/ApiService';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
+const SkOfficialsDelete = ({id}) => {
 
-const AnnouncementDelete = ({id}) => {
 
     const handleDelete = async () => {
         try {
-          await ApiService.delete(`announcement/${id}`);
+          await ApiService.delete(`officials/${id}`);
           window.location.reload(); // Reload the page or update the UI as needed
         } catch (error) {
           console.log('Error during reward deletion:', error.response?.data || error.message);
         }
       };
-
       const confirmDelete = async () => {
-        const result = await Swal.fire({
+        const result = await MySwal.fire({
           title: 'Are you sure?',
-          text: 'This Post will be permanently deleted!',
+          text: 'This Sk Official will be permanently deleted!',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
@@ -33,9 +34,9 @@ const AnnouncementDelete = ({id}) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-     Delete Announcement
+    <TrashIcon className="w-4 h-4 mr-2" /> Delete Sk Officials
     </div>
   )
 }
 
-export default AnnouncementDelete
+export default SkOfficialsDelete

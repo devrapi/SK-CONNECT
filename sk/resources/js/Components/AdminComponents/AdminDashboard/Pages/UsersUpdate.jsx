@@ -18,7 +18,8 @@ import Calendar from "react-calendar";
 import { useParams } from 'react-router-dom';
 import ApiService from "../../../Services/ApiService";
 import Swal from 'sweetalert2';
-
+import { Link } from "react-router-dom";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 const UsersUpdate = () => {
 
 
@@ -63,14 +64,31 @@ const UsersUpdate = () => {
           }, [id]);
 
 
-
+          const currentYear = new Date().getFullYear();
+          const minDate = new Date(currentYear - 30, 0, 1);
+          const maxDate = new Date(currentYear - 10, 11, 31);
           const handleDateChange = (selectedDate) => {
-            const formattedDate = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '';
-            setDate(selectedDate);
-            setForm(prevForm => ({
-              ...prevForm,
-              birthdate: formattedDate,
-            }));
+            const formattedDate = selectedDate ? format(selectedDate, "yyyy-MM-dd") : "";
+            const selectedAge = currentYear - selectedDate.getFullYear();
+
+            if (selectedAge > 30) {
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                birthdate: "Age must be 30 years or below.",
+              }));
+              setDate(""); // Reset date if invalid
+            } else {
+              setDate(selectedDate);
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                birthdate: "",
+              }));
+              setForm((prevForm) => ({
+                ...prevForm,
+                birthdate: formattedDate,
+                age: selectedAge,
+              }));
+            }
           };
 
           const HandleSubmt = async () => {
@@ -110,6 +128,11 @@ const UsersUpdate = () => {
   <Typography variant="h4" color="blue-gray" className="font-semibold">
         UPDATE YOUTH PROFILE
     </Typography>
+    <div className='flex justify-end'>
+    <Link to="/admin/dashboard/user-tables">
+            <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
+        </Link>
+    </div>
   </div>
     <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
     <Typography variant="h5" color="blue-gray">
@@ -133,7 +156,7 @@ const UsersUpdate = () => {
           </Typography>
           <Input
             variant="static"
-            placeholder="Emma"
+           placeholder="e.g., Juan"
             value={form.first_name}
             onChange={(event) => {setForm({...form , first_name: event.target.value})}}
 
@@ -152,7 +175,7 @@ const UsersUpdate = () => {
           </Typography>
           <Input
             variant="static"
-            placeholder="Roberts"
+           placeholder="e.g., Dela Cruz"
             value={form.last_name}
             onChange={(event) => {setForm({...form , last_name: event.target.value})}}
 
@@ -168,7 +191,7 @@ const UsersUpdate = () => {
             color="blue-gray"
             className="mb-2 font-medium"
           >
-            I&apos;m
+           Gender
           </Typography>
           <Select
           value={form.gender}
@@ -186,38 +209,43 @@ const UsersUpdate = () => {
           {errors.gender && <span className="text-xs text-red-600">{errors.gender}</span>}
         </div>
         <div className="w-full">
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="mb-2 font-medium"
-          >
-            Birth Date
-          </Typography>
-                <Popover placement="bottom">
-        <PopoverHandler>
-        <Input
-            variant="static"
-            onChange={() => null} // No need to change this
-            placeholder="Select a Date"
-            value={form.birthdate}
-            labelProps={{
-            className: "hidden",
-            }}
-            className="border-y-gray-500"
-        />
-        </PopoverHandler>
-        <PopoverContent>
-        <Calendar
-            selected={birthdate}
-            onChange={handleDateChange} // Use the handleDateChange function
-            showOutsideDays
-            className="border-0"
-            // ... your other classNames and components
-            />
-        </PopoverContent>
-        </Popover>
-        {errors.birthdate && <span className="text-xs text-red-600">{errors.birthdate}</span>}
-        </div>
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="mb-2 font-medium"
+              >
+                Birth Date
+              </Typography>
+              <Popover placement="bottom">
+                <PopoverHandler>
+                  <Input
+                    variant="static"
+                    onChange={() => null} // No need to change this
+                    placeholder="Select a Date"
+                    value={birthdate ? format(birthdate, "yyyy-MM-dd") : ""}
+                    labelProps={{
+                      className: "hidden",
+                    }}
+                    className="border-y-gray-500"
+                  />
+                </PopoverHandler>
+                <PopoverContent>
+                  <Calendar
+                    selected={birthdate}
+                    onChange={handleDateChange}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    showOutsideDays
+                    className="border-0"
+                  />
+                </PopoverContent>
+              </Popover>
+              {errors.birthdate && (
+                <span className="text-xs text-red-600">
+                  {errors.birthdate}
+                </span>
+              )}
+            </div>
         <div className="w-full">
           <Typography
             variant="small"
@@ -227,15 +255,15 @@ const UsersUpdate = () => {
             Age
           </Typography>
           <Input
-          value={form.age}
-          onChange={(event) => {setForm({...form , age: event.target.value})}}
-            variant="static"
-            placeholder="15 to 30 years old only"
-            labelProps={{
-              className: "hidden",
-            }}
-           className="border-y-gray-500"
-          />
+                value={form.age}
+                readOnly // Make age field read-only
+                variant="static"
+                placeholder="Calculated automatically"
+                labelProps={{
+                  className: "hidden",
+                }}
+                className="border-y-gray-500"
+              />
           {errors.age && <span className="text-xs text-red-600">{errors.age}</span>}
         </div>
         <div className="w-full">
@@ -259,7 +287,7 @@ const UsersUpdate = () => {
             <Option value="High School">High School</Option>
             <Option value="Senior Highschool">Senior Highschool</Option>
             <Option value="College">College</Option>
-            <Option value="Not School Youth">Not School Youth</Option>
+            <Option value="Out of School">Out of School </Option>
 
           </Select>
           {errors.education && <span className="text-xs text-red-600">{errors.education}</span>}
@@ -279,7 +307,7 @@ const UsersUpdate = () => {
           value={form.address}
           onChange={(event) => {setForm({...form , address: event.target.value})}}
             variant="static"
-            placeholder="Florida, USA"
+            placeholder="e.g., Block 0 Lot 0"
 
             className="border-y-gray-500"
           />
@@ -295,9 +323,25 @@ const UsersUpdate = () => {
           </Typography>
           <Input
           value={form.phone_number}
-          onChange={(event) => {setForm({...form , phone_number: event.target.value})}}
+          onChange={(event) => {
+            const phoneNumber = event.target.value;
+
+            // Ensure only digits are allowed and limit to 11 characters
+            if (/^\d*$/.test(phoneNumber) && phoneNumber.length <= 11) {
+              setForm({ ...form, phone_number: phoneNumber });
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                phone_number: "",
+              }));
+            } else if (phoneNumber.length > 11) {
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                phone_number: "Phone number must be exactly 11 digits.",
+              }));
+            }
+          }}
             variant="static"
-            placeholder="+123 0123 456 789"
+              placeholder="e.g., 09123456789"
 
            className="border-y-gray-500"
           />

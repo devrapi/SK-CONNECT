@@ -3,7 +3,7 @@ import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
 import ApiService from '../../../Services/ApiService';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
+
 
 const MySwal = withReactContent(Swal);
 
@@ -42,22 +42,6 @@ const ArchivedProfiles = ({ id }) => {
   return (
     <>
       <ArchiveBoxIcon className="w-6 h-6 text-red-500 cursor-pointer" onClick={confirmArchive} />
-
-      {/* Remove the Dialog since we're using SweetAlert2 */}
-      {/* <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Confirm Archive</DialogHeader>
-        <DialogBody>
-          Are you sure you want to archive this profile?
-        </DialogBody>
-        <DialogFooter>
-          <Button onClick={handleOpen} className="mr-2" color='blue'>
-            Cancel
-          </Button>
-          <Button color="red" onClick={handleArchived}>
-            Confirm
-          </Button>
-        </DialogFooter>
-      </Dialog> */}
     </>
   );
 };

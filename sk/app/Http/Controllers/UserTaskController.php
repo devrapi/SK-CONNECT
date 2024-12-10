@@ -118,42 +118,43 @@ class UserTaskController extends Controller
 
 
     public function ClaimStreak($user_id)
-{
-    $user = User::find($user_id);
+    {
+        $user = User::find($user_id);
 
-    if (!$user) {
-        return response()->json(['message' => 'User not found'], 404);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $dailyLogin = DailyLogin::where('user_id', $user->id)->first();
+
+        if (!$dailyLogin || $dailyLogin->streak < 6) { // Allow streak of 6 or greater
+            return response()->json(['message' => 'Not enough streaks to claim reward'], 400);
+        }
+
+        // Reward logic: Add points to user (e.g., 100 points)
+        $points = 100; // Adjust the points as per your logic
+        $user->points += $points;
+
+        // Reset streak to 0
+        $dailyLogin->streak = 0;
+
+        // Save changes
+        $user->save();
+        $dailyLogin->save();
+
+        // Create notification for claimed streak reward
+        Notification::create([
+            'user_id' => $user->id,
+            'message' => "You earned {$points} points for claiming your streak reward!",
+            'read_at' => null, // Unread notification
+        ]);
+
+        return response()->json([
+            'message' => 'Reward claimed successfully',
+            'points' => $user->points,
+        ]);
     }
 
-    $dailyLogin = DailyLogin::where('user_id', $user->id)->first();
-
-    if (!$dailyLogin || $dailyLogin->streak <= 6) {
-        return response()->json(['message' => 'Not enough streaks to claim reward'], 400);
-    }
-
-    // Reward logic: Add points to user (e.g., 100 points)
-    $points = 100; // Adjust the points as per your logic
-    $user->points += $points;
-
-    // Reset streak to 0
-    $dailyLogin->streak = 0;
-
-    // Save changes
-    $user->save();
-    $dailyLogin->save();
-
-    // Create notification for claimed streak reward
-    Notification::create([
-        'user_id' => $user->id,
-        'message' => "You earned {$points} points for claiming your streak reward!",
-        'read_at' => null, // Unread notification
-    ]);
-
-    return response()->json([
-        'message' => 'Reward claimed successfully',
-        'points' => $user->points,
-    ]);
-}
 
 
 

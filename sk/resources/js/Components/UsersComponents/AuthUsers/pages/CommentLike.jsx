@@ -16,6 +16,7 @@ const CommentLike = ({ AnnounceId }) => {
   const [likeCount , setLikeCount] = useState(0);
   const [errors, setErrors] = useState({});
 
+  const [loading, setLoading] = useState(false);
   const id = user.id;
 
   // Fetch all comments when the component mounts
@@ -76,6 +77,9 @@ const CommentLike = ({ AnnounceId }) => {
   };
 
   const handleLikeToggle = async () => {
+    if (loading) return; // Prevent multiple requests
+    setLoading(true); // Start request
+
     try {
       if (liked) {
         // Unlike if already liked
@@ -90,6 +94,8 @@ const CommentLike = ({ AnnounceId }) => {
       }
     } catch (error) {
       console.error('Failed to toggle like:', error);
+    } finally {
+      setLoading(false); // Request complete
     }
   };
 
@@ -98,16 +104,20 @@ const CommentLike = ({ AnnounceId }) => {
   return (
     <>
       <div className="flex items-center gap-4 mb-4">
-      <Button variant="text" className="flex items-center gap-2" onClick={handleLikeToggle}>
-          {/* Toggle between filled and outlined heart icon */}
-          {liked ? (
+                <Button
+            variant="text"
+            className="flex items-center gap-2"
+            onClick={handleLikeToggle}
+            disabled={loading} // Disable button during request
+            >
+            {liked ? (
                 <HeartIconFilled className="w-5 h-5 text-red-500" />
-            // Filled heart icon for liked state
-          ) : (
-            <HeartIcon className="w-5 h-5 text-red-500" /> // Outline heart icon for unliked state
-          )}
-          <Typography color="gray">{likeCount}</Typography> {/* Display the like count */}
-        </Button>
+            ) : (
+                <HeartIcon className="w-5 h-5 text-red-500" />
+            )}
+            <Typography color="gray">{likeCount}</Typography>
+            </Button>
+
         <Button variant="text" className="flex items-center gap-2"  onClick={() => setShowAllComments(true)}>
           <ChatBubbleLeftIcon className="w-5 h-5 text-blue-500" />
           <Typography color="gray">{comments.length}</Typography> {/* Show number of comments */}

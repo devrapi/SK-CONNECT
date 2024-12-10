@@ -11,11 +11,14 @@ const AnnouncementUpdate = () => {
 
     const navigate = useNavigate();
     const {id} = useParams();
+    const [image, setImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
         title: '',
         content: '',
       });
+
 
       const getAnnouncement = async () => {
         try {
@@ -26,9 +29,7 @@ const AnnouncementUpdate = () => {
             title: data.title,
             content: data.content,
           });
-
-
-
+          setImage(data.image_path);
 
         } catch (error) {
           setErrors({ ...errors, fetchError: 'Failed to fetch event data.' });
@@ -38,6 +39,19 @@ const AnnouncementUpdate = () => {
       useEffect(() => {
         getAnnouncement();
       }, [id]);
+
+
+
+
+      const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(URL.createObjectURL(file)); // Create a preview URL
+            setImageFile(file); // Store the actual file for submission
+        }
+    };
+
+
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,9 +63,17 @@ const AnnouncementUpdate = () => {
             formData.append('title', form.title);
             formData.append('content', form.content);
 
+            if (imageFile) {
+                formData.append('image_path', imageFile); // Append the actual file
+            }
 
             // Make the API request with FormData
-            const response = await ApiService.put(`announcement/${id}`, formData);
+            const response = await ApiService.post(`announcement/update/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+
+                },
+            })
             if (response) {
                 // Show success alert
                 await Swal.fire({
@@ -74,7 +96,7 @@ const AnnouncementUpdate = () => {
 
 
         } catch (error) {
-            console.log('Error during event creation:', error.response?.data || error.message);
+            console.log('Error during announcement creation:', error.response?.data || error.message);
 
             if (error.response?.status === 422) {
                 setForm({
@@ -135,6 +157,26 @@ const AnnouncementUpdate = () => {
                   </span>
                 )}
               </div>
+              <div className="col-span-2 mt-2 mb-4">
+            <Input
+              type="file"
+              label="Upload Image"
+              accept="image/*"
+              onChange={handleImageChange}
+              size="lg"
+              className="w-full mt-2 mb-4 shadow-inner"
+            />
+          {image && (
+            <div className="mt-4">
+                <Typography className="mb-2">Preview:</Typography>
+                <img
+                src={image.startsWith('blob') ? image : `/storage/${image}`}
+                alt="Event Preview"
+                className="w-full h-auto rounded-md shadow-inner"
+                />
+            </div>
+                )}
+          </div>
             </div>
 
             {/* Submit Button */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardBody,
@@ -6,91 +6,60 @@ import {
   IconButton,
   Typography,
 } from "@material-tailwind/react";
+import { AppContext } from "../Context/AppContext";
+import { GlobeAltIcon ,AcademicCapIcon  } from "@heroicons/react/24/outline";
 
 function TeamCard({ img, name, title }) {
   return (
     <Card className="rounded-lg bg-[#FAFAFA] shadow-md hover:shadow-lg transition-shadow duration-300">
-      <CardBody className="text-center">
-        <Avatar
-          src={img}
-          alt={name}
-          variant="circular"
-          size="xxl"
-          className="mx-auto mb-6"
-        />
-        <Typography
-          variant="h5"
-          color="blue-gray"
-          className="font-medium text-lg"
-        >
-          {name}
-        </Typography>
-        <Typography
-          color="blue-gray"
-          className="mb-4 text-base font-semibold text-gray-600"
-        >
-          {title}
-        </Typography>
-        <div className="flex items-center justify-center gap-2">
-          <IconButton variant="text" color="blue-gray">
-            <i className="fa-brands fa-twitter text-lg" />
-          </IconButton>
-          <IconButton variant="text" color="blue-gray">
-            <i className="fa-brands fa-linkedin text-lg" />
-          </IconButton>
-          <IconButton variant="text" color="blue-gray">
-            <i className="fa-brands fa-dribbble text-lg" />
-          </IconButton>
-        </div>
-      </CardBody>
-    </Card>
+  <CardBody className="text-center">
+    <Avatar
+      src={img || "default-avatar.png"} // Fallback image if `img` is null
+      alt={name}
+      variant="circular"
+      size="xxl"
+      className="mx-auto mb-6"
+    />
+    <Typography
+      variant="h5"
+      color="blue-gray"
+      className="font-medium text-lg"
+    >
+      {name}
+    </Typography>
+    <Typography
+      color="blue-gray"
+      className="mb-4 text-base font-semibold text-gray-600"
+    >
+      {title}
+    </Typography>
+    {/* Social Media Icons */}
+    <div className="flex items-center justify-center gap-2">
+      {/* Instagram */}
+      <IconButton variant="text" color="blue-gray">
+        <GlobeAltIcon className="w-6 h-6" />
+      </IconButton>
+      {/* Facebook */}
+      <IconButton variant="text" color="blue-gray">
+        <AcademicCapIcon className="w-6 h-6" />
+      </IconButton>
+    </div>
+  </CardBody>
+</Card>
   );
 }
 
-const members = [
-  {
-    img: `https://www.material-tailwind.com/img/avatar1.jpg`,
-    name: "Ryan Samuel",
-    title: "Co-Founder",
-  },
-  {
-    img: `https://www.material-tailwind.com/img/avatar2.jpg`,
-    name: "Samantha Jones",
-    title: "CTO",
-  },
-  {
-    img: `https://www.material-tailwind.com/img/avatar5.jpg`,
-    name: "Nora Hazel",
-    title: "UI/UX Designer",
-  },
-  {
-    img: `https://www.material-tailwind.com/img/avatar4.jpg`,
-    name: "Otto Gonzalez",
-    title: "Marketing Specialist",
-  },
-  {
-    img: `https://www.material-tailwind.com/img/avatar6.jpg`,
-    name: "Emma Roberts",
-    title: "UI Designer",
-  },
-  {
-    img: `https://www.material-tailwind.com/img/avatar3.jpg`,
-    name: "William Pearce",
-    title: "Web Developer",
-  },
-  {
-    img: "https://www.material-tailwind.com/image/avatar7.svg",
-    name: "Bruce Mars",
-    title: "UI/UX Designer",
-  },
-  {
-    img: "https://www.material-tailwind.com/image/avatar8.svg",
-    name: "Annie Sprrat",
-    title: "Marketing Specialist",
-  },
-];
-
 const Officials = () => {
+  const { officials } = useContext(AppContext); // Fetch the officials array from context
+
+  if (!officials || officials.length === 0) {
+    return (
+      <div className="text-center text-gray-500">
+        No officials to display.
+      </div>
+    );
+  }
+
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-5">
       <div className="container mx-auto">
@@ -122,8 +91,13 @@ const Officials = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {members.map((props, key) => (
-            <TeamCard key={key} {...props} />
+          {officials.map((official, index) => (
+            <TeamCard
+              key={index}
+              img={`/storage/${official.image_path}`}
+              name={official.name}
+              title={official.title}
+            />
           ))}
         </div>
       </div>
