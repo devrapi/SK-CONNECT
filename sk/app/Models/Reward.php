@@ -13,7 +13,8 @@ class Reward extends Model
         'description',
         'points',
         'image_path',
-         'stocks'
+         'stocks',
+         'category'
     ];
 
 }

@@ -123,27 +123,33 @@ class AuthUserController extends Controller
 
         } else {
             // If the user already has a login record, check if it's a new day
-            if ($dailyLogin->login_date !== $today) {
-                // Update the login_date and reset status
-                $dailyLogin->update([
-                    'login_date' => $today,
-                    'status' => 'completed',
-                ]);
+            $yesterday = now()->subDay()->toDateString(); // Get yesterday's date
 
-                // Reward points for logging in on the new day
-                $points = 10;
-                $User->points += $points;
-                $dailyLogin->streak += 1;
-                $dailyLogin->save();
-
-                // Assign the updated daily login id to the user
-                $User->daily_login_id = $dailyLogin->id;
-
-                $User->save();
-
-                // Notification message for daily login
-                $notificationMessage = "You earned 10 points for logging in today!";
+        if ($dailyLogin->login_date !== $today) {
+            // Check if the login date was not yesterday, and reset the streak
+            if ($dailyLogin->login_date !== $yesterday) {
+                $dailyLogin->streak = 0; // Reset streak
             }
+
+            // Update the login_date and reset status
+            $dailyLogin->update([
+                'login_date' => $today,
+                'status' => 'completed',
+            ]);
+
+            // Reward points for logging in on the new day
+            $points = 10;
+            $User->points += $points;
+            $dailyLogin->streak += 1; // Increase streak by 1
+            $dailyLogin->save();
+
+            // Assign the updated daily login id to the user
+            $User->daily_login_id = $dailyLogin->id;
+            $User->save();
+
+            // Notification message for daily login
+            $notificationMessage = "You earned 10 points for logging in today!";
+        }
         }
 
         // Create the notification if points were earned

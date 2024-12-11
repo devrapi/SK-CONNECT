@@ -16,6 +16,7 @@ class RewardController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
             'description' => 'nullable|string',
             'points' => 'required|integer',
             'stocks' => 'required|integer',
@@ -30,6 +31,7 @@ class RewardController extends Controller
 
         Reward::create([
             'name' => $request->name,
+            'category' => $request->category,
             'description' => $request->description,
             'points' => $request->points,
             'stocks' => $request->stocks,

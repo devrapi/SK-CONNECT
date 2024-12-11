@@ -14,6 +14,7 @@ const Rewards = () => {
     const [imageFile, setImageFile] = useState(null);
     const [errors, setErrors] = useState({});
     const[form , setForm] = useState({
+        category:'' ,
         name: '',
         description: '',
         points: '',
@@ -37,6 +38,7 @@ const Rewards = () => {
             const formData = new FormData();
 
             // Append form fields
+            formData.append('category', form.category);
             formData.append('name', form.name);
             formData.append('description', form.description);
             formData.append('points', form.points);
@@ -66,6 +68,7 @@ const Rewards = () => {
               }
 
             setForm({
+                category: '',
                 name: '',
                 description: '',
                 points: '',
@@ -80,10 +83,11 @@ const Rewards = () => {
 
             if (error.response?.status === 422) {
                 setForm({
+                    category: '',
                     name: '',
                     description: '',
                     points: '',
-                    stocks: ''
+                     stocks: ''
                   });
                 setErrors(error.response.data.errors);
 
@@ -110,92 +114,123 @@ const Rewards = () => {
         Create Rewards
       </Typography>
       <form>
-        <div className="grid grid-cols-1 ">
-          {/* Title Field */}
-          <div className="flex flex-col mb-4">
-            <div className='mb-4'>
-            <Input
-              type="text"
-              label="Reward Name"
-              size="lg"
-              className="w-full shadow-inner"
-              value={form.name}
-              onChange={(event) => {
-                setForm({ ...form, name: event.target.value });
-              }}
-            />
-            {errors.name && <span className="text-xs text-red-600">{errors.name}</span>}
-            </div>
+  <div className="grid grid-cols-1">
+    {/* Title Field */}
+    <div className="flex flex-col mb-4">
 
-            <div className="mt-5 mb-4">
-            <Textarea
-              label="Reward Description"
-              size="lg"
-              className="w-full shadow-inner"
-              value={form.description}
-              onChange={(event) => {
-                setForm({ ...form, description: event.target.value });
-              }}
-            />
-            {errors.description && <span className="text-xs text-red-600">{errors.description}</span>}
-          </div>
-
-          <div className="mt-2 mb-4">
-            <Input
-              type="number"
-              label="Points"
-              size="lg"
-              className="w-full shadow-inner"
-              value={form.points}
-              onChange={(event) => {
-                setForm({ ...form, points: event.target.value });
-              }}
-            />
-            {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
-          </div>
-          <div className="mt-2 mb-4">
-            <Input
-              type="number"
-              label="Stocks"
-              size="lg"
-              className="w-full shadow-inner"
-              value={form.stocks}
-              onChange={(event) => {
-                setForm({ ...form, stocks: event.target.value });
-              }}
-            />
-            {errors.stocks && <span className="text-xs text-red-600">{errors.stocks}</span>}
-          </div>
-          </div>
+         {/* Category Dropdown */}
+         <div className="mt-2 mb-4">
+        <label className="block text-sm font-medium text-gray-700">Category</label>
+        <select
+          className="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-inner focus:ring-green-500 focus:border-green-500 sm:text-sm"
+          value={form.category || ''}
+          onChange={(event) => {
+            setForm({ ...form, category: event.target.value });
+          }}
+        >
+          <option value="" disabled>
+            Select a category
+          </option>
+          <option value="Basic">Basic Rewards</option>
+          <option value="Classic">Classic Rewards</option>
+          <option value="Premium">Premium Rewards</option>
+        </select>
+        {errors.category && <span className="text-xs text-red-600">{errors.category}</span>}
+      </div>
 
 
-          {/* Image Upload Field */}
-          <div className="col-span-2 mt-2 mb-4">
-            <Input
-              type="file"
-              label="Upload Image"
-              accept="image/*"
-              onChange={handleImageChange}
-              size="lg"
-              className="w-full mt-2 mb-4 shadow-inner"
-            />
-            {image && (
-              <div className="mt-4">
-                <Typography className="mb-2">Preview:</Typography>
-                <img src={image} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
-              </div>
-            )}
-          </div>
+      <div className="mb-4">
+        <Input
+          type="text"
+          label="Reward Name"
+          size="lg"
+          className="w-full shadow-inner"
+          value={form.name}
+          onChange={(event) => {
+            setForm({ ...form, name: event.target.value });
+          }}
+        />
+        {errors.name && <span className="text-xs text-red-600">{errors.name}</span>}
+      </div>
+
+      <div className="mt-5 mb-4">
+        <Textarea
+          label="Reward Description"
+          size="lg"
+          className="w-full shadow-inner"
+          value={form.description}
+          onChange={(event) => {
+            setForm({ ...form, description: event.target.value });
+          }}
+        />
+        {errors.description && <span className="text-xs text-red-600">{errors.description}</span>}
+      </div>
+
+      <div className="mt-2 mb-4">
+        <Input
+          type="number"
+          label="Points"
+          size="lg"
+          className="w-full shadow-inner"
+          value={form.points}
+          onChange={(event) => {
+            setForm({ ...form, points: event.target.value });
+          }}
+        />
+        {errors.points && <span className="text-xs text-red-600">{errors.points}</span>}
+      </div>
+
+      <div className="mt-2 mb-4">
+        <Input
+          type="number"
+          label="Stocks"
+          size="lg"
+          className="w-full shadow-inner"
+          value={form.stocks}
+          onChange={(event) => {
+            setForm({ ...form, stocks: event.target.value });
+          }}
+        />
+        {errors.stocks && <span className="text-xs text-red-600">{errors.stocks}</span>}
+      </div>
+
+
+    </div>
+
+    {/* Image Upload Field */}
+    <div className="col-span-2 mt-2 mb-4">
+      <Input
+        type="file"
+        label="Upload Image"
+        accept="image/*"
+        onChange={handleImageChange}
+        size="lg"
+        className="w-full mt-2 mb-4 shadow-inner"
+      />
+      {image && (
+        <div className="mt-4">
+          <Typography className="mb-2">Preview:</Typography>
+          <img src={image} alt="Event Preview" className="w-full h-auto rounded-md shadow-inner" />
         </div>
+      )}
+    </div>
+  </div>
 
-        {/* Submit Button */}
-        <div className='mt-10'>
-        <Button type="submit" color="green" className="w-full" onClick={handleSubmit}>
-          Create Reward
-        </Button>
-        </div>
+  {/* Submit Button */}
+  <div className="mt-10">
+    <Button
+      type="submit"
+      color="green"
+      className="w-full"
+      onClick={
+        handleSubmit
+      }
+    >
+      Create Reward
+    </Button>
+  </div>
+</form>
 
-      </form>
     </CardBody>
   </Card>
     </>

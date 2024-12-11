@@ -25,7 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'points',
         'referal_code',
         'image_path',
-        'referred_by'
+        'referred_by',
+        'reward_claimed_count',
+        'reward_reset_date'
     ];
 
     /**

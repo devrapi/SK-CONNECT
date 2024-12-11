@@ -22,6 +22,8 @@
         }
     </script>
 
+    {{-- <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> --}}
+
 
 </body>
 </html>

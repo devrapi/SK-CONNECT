@@ -11,44 +11,51 @@ const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints }) => {
     const filterpoints  = rewardPoints <= userPoints;
 
     const handleClaim = async () => {
-      try {
-        // Show confirmation dialog
-        const confirmationResult = await MySwal.fire({
-          title: 'Are you sure?',
-          text: 'Do you want to claim this reward?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, claim it!',
-          cancelButtonText: 'No, cancel',
-        });
+        try {
+          // Show confirmation dialog
+          const confirmationResult = await MySwal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to claim this reward?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, claim it!',
+            cancelButtonText: 'No, cancel',
+          });
 
-        if (confirmationResult.isConfirmed) {
-          // Proceed with claiming the reward
-          const response = await ApiService.post(`rewards/claim/${userId}/${rewardId}`);
-          console.log(response.data.message);
+          if (confirmationResult.isConfirmed) {
+            // Proceed with claiming the reward
+            const response = await ApiService.post(`rewards/claim/${userId}/${rewardId}`);
 
-          if (response) {
-            await MySwal.fire({
-              title: 'Success!',
-              text: response.data.message, // Adjust this based on your API response
-              icon: 'success',
-              confirmButtonText: 'Cool',
-            });
+            if (response) {
+              // Show success message
+              await MySwal.fire({
+                title: 'Success!',
+                text: response.data.message, // Message from API
+                icon: 'success',
+                confirmButtonText: 'Cool',
+              });
 
-            // Optionally reload the page or update the state
-            window.location.reload();
+              // Optionally reload the page or update the state
+              window.location.reload();
+            }
           }
+        } catch (error) {
+          // Extract error message from the API response
+          const errorMessage =
+            error.response?.data?.error || // API error message
+            error.message ||               // Default error message
+            'An unexpected error occurred'; // Fallback error message
+
+          // Show error message
+          await MySwal.fire({
+            title: 'Error!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Okay',
+          });
         }
-      } catch (error) {
-        console.error('Error claiming reward:', error);
-        await MySwal.fire({
-          title: 'Error!',
-          text: 'Not enough points',
-          icon: 'error',
-          confirmButtonText: 'Okay',
-        });
-      }
-    };
+      };
+
 
   return (
     <>
