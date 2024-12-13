@@ -51,10 +51,38 @@ const LeaderBoards = () => {
     }
   };
 
+  const renderRank = (index) => {
+    switch (index) {
+      case 0:
+        return (
+          <div className="flex items-center space-x-2">
+            <img src="/img/gold.png" alt="Gold Trophy" className="w-6 h-6" />
+
+          </div>
+        );
+      case 1:
+        return (
+          <div className="flex items-center space-x-2">
+            <img src="/img/silver.png" alt="Silver Trophy" className="w-6 h-6" />
+
+          </div>
+        );
+      case 2:
+        return (
+          <div className="flex items-center space-x-2">
+            <img src="/img/bronze.png" alt="Bronze Trophy" className="w-6 h-6" />
+
+          </div>
+        );
+      default:
+        return <span>{index + 1}</span>;
+    }
+  };
+
   return (
     <div className="container max-w-4xl mx-auto ">
-      <Card className="rounded-lg shadow-lg bg-white">
-        <CardHeader className="p-4 text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
+      <Card className="bg-white rounded-lg shadow-lg">
+        <CardHeader className="p-4 text-center text-white bg-gradient-to-r from-blue-500 to-indigo-500">
           <Typography variant="h4" className="font-bold">
             Leaderboards
           </Typography>
@@ -81,19 +109,19 @@ const LeaderBoards = () => {
                         : "bg-white"
                     } hover:bg-indigo-50`}
                   >
-                    <td className="p-4 font-bold text-indigo-500">{index + 1}</td>
-                    <td className="p-4 flex items-center space-x-3">
+                    <td className="p-4 font-bold text-indigo-500">{renderRank(index)}</td>
+                    <td className="flex items-center p-4 space-x-3">
                       <Avatar
                         src={item.image_path ? `/storage/${item.image_path}` : "/img/default_user.jpg"}
                         alt={item.name}
                         size="sm"
                         className="shadow-md"
                       />
-                      <Typography variant="small" className="text-gray-800 font-medium">
+                      <Typography variant="small" className="font-medium text-gray-800">
                         {item.name}
                       </Typography>
                     </td>
-                    <td className="p-4 text-right font-semibold text-gray-800">
+                    <td className="p-4 font-semibold text-right text-gray-800">
                       {item.points}
                     </td>
                   </tr>
@@ -106,7 +134,7 @@ const LeaderBoards = () => {
               {canClaim ? (
                 <Button
                   color="blue"
-                  className="px-6 py-3 transition hover:scale-105 shadow-md"
+                  className="px-6 py-3 transition shadow-md hover:scale-105"
                   onClick={handleClaimReward}
                 >
                   Claim Points

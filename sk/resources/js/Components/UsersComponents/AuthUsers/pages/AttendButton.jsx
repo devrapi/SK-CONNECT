@@ -7,9 +7,11 @@ import Swal from 'sweetalert2';
 const AttendButton = ({ eventId }) => {
     const { user } = useContext(AppContext);
     const [status, setStatus] = useState(null); // null, 'pending', or 'verified'
+    const [loading, setLoading] = useState(false); // Loading state
 
     useEffect(() => {
         const fetchEventStatus = async () => {
+            setLoading(true);
             try {
                 const response = await ApiService.get(`events/${user.id}/status`);
                 const { pending_events, verified_events } = response.data;
@@ -32,6 +34,8 @@ const AttendButton = ({ eventId }) => {
                     icon: 'error',
                     confirmButtonText: 'Okay',
                 });
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -39,6 +43,7 @@ const AttendButton = ({ eventId }) => {
     }, [eventId, user.id]);
 
     const handleAttend = async () => {
+        setLoading(true);
         try {
             const response = await ApiService.post(`events/${eventId}/${user.id}/attend`);
             await Swal.fire({
@@ -59,6 +64,8 @@ const AttendButton = ({ eventId }) => {
                 icon: 'error',
                 confirmButtonText: 'Close',
             });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -80,13 +87,15 @@ const AttendButton = ({ eventId }) => {
 
     return (
         <Button
-            color={status === 'pending' || status === 'verified' ? 'gray' : 'blue'}
+            color={status === 'pending' || status === 'verified' ? 'gray' : 'green'}
             size="sm"
-            className={`rounded-full ${status && 'cursor-not-allowed'}`}
-            onClick={status ? null : confirmAttend}
-            disabled={status !== null}
+            className={`rounded-full ${status || loading ? 'cursor-not-allowed' : ''}`}
+            onClick={!status && !loading ? confirmAttend : null}
+            disabled={status !== null || loading}
         >
-            {status === 'verified'
+            {loading
+                ? 'Loading...'
+                : status === 'verified'
                 ? 'Already Attended'
                 : status === 'pending'
                 ? 'Already Registered'

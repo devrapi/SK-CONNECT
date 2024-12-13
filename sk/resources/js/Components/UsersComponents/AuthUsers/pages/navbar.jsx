@@ -7,7 +7,7 @@ import {
   MenuItem,
   Avatar,
 } from "@material-tailwind/react";
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from "react-router-dom";
 import {
   UserCircleIcon,
   ClipboardDocumentCheckIcon,
@@ -94,29 +94,38 @@ export function ProfileMenu() {
 }
 
 const navListItems = [
-    { label: "Home", icon: HomeIcon, color: "text-green-500", path: "/index" },
-    { label: "Events", icon: CalendarIcon, color: "text-blue-500", path: "/index/events" },
-    { label: "Earn", icon: ClipboardDocumentCheckIcon, color: "text-purple-500", path: "/index/tasks" },
-    { label: "Rewards", icon: GiftIcon, color: "text-red-500", path: "/index/rewards" },
-    { label: "Leaderboards", icon: ChartBarIcon, color: "text-yellow-400", path: "/index/leaderboards" },
+    { label: "Home", icon: HomeIcon, path: "/index" },
+    { label: "Events", icon: CalendarIcon, path: "/index/events" },
+    { label: "Earn", icon: ClipboardDocumentCheckIcon, path: "/index/tasks" },
+    { label: "Rewards", icon: GiftIcon, path: "/index/rewards" },
+    { label: "Leaderboards", icon: ChartBarIcon, path: "/index/leaderboards" },
   ];
 
   function NavList() {
+    const location = useLocation();
+
     return (
       <ul className="flex gap-12 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-        {navListItems.map(({ label, icon, color, path }, key) => (
+        {navListItems.map(({ label, icon, path }) => (
           <Typography
             key={label}
             as="div"
             variant="small"
-            color="gray"
-            className="font-medium text-blue-gray-500"
+            className="font-medium"
           >
             <Link to={path} className="flex flex-col items-center gap-0 lg:rounded-full">
               {React.createElement(icon, {
-                className: `h-[28px] w-[28px] ${color} transition-transform transform hover:scale-125`,
+                className: `h-[28px] w-[28px] ${
+                  location.pathname === path ? "text-green-500" : "text-gray-500"
+                } transition-transform transform hover:scale-125`,
               })}
-              <span className="text-xs text-gray-900">{label}</span>
+              <span
+                className={`text-xs ${
+                  location.pathname === path ? "text-green-500" : "text-gray-900"
+                }`}
+              >
+                {label}
+              </span>
             </Link>
           </Typography>
         ))}
@@ -124,35 +133,37 @@ const navListItems = [
     );
   }
 
- function MobileNav() {
-  return (
-    <div className="fixed bottom-0 left-0 right-0 w-full lg:hidden bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 shadow-md rounded-t-3xl">
-      <ul className="flex justify-between items-center py-4 px-6">
-        {navListItems.map(({ label, icon, color, path }) => (
-          <Link
-            key={label}
-            to={path}
-            className="flex flex-col items-center justify-center text-gray-700 transition-transform transform hover:scale-110"
-          >
-            {React.createElement(icon, {
-              className: `h-8 w-8 ${color}`, // Adjust color intensity to match light background
-            })}
-            {/* <span className="text-xs">{label}</span> */}
-          </Link>
-        ))}
-      </ul>
-    </div>
-  );
-}
+  function MobileNav() {
+    const location = useLocation();
 
-
+    return (
+      <div className="fixed bottom-0 left-0 right-0 w-full shadow-md lg:hidden bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 rounded-t-3xl">
+        <ul className="flex items-center justify-between px-6 py-4">
+          {navListItems.map(({ label, icon, path }) => (
+            <Link
+              key={label}
+              to={path}
+              className="flex flex-col items-center justify-center transition-transform transform hover:scale-110"
+            >
+              {React.createElement(icon, {
+                className: `h-8 w-8 ${
+                  location.pathname === path ? "text-green-500" : "text-gray-500"
+                }`,
+              })}
+            </Link>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   const Navbar = () => {
     const { user } = useContext(AppContext);
+
     return (
       <>
         {/* Top Navbar for large screens */}
-        <div className="max-w-screen-xl p-2 mx-auto shadow-md bg-white lg:rounded-full lg:pl-6  rounded-b-xl ">
+        <div className="max-w-screen-xl p-2 mx-auto shadow-sm lg:pl-6 rounded-b-xl">
           <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
             <Typography
               as="a"
@@ -169,7 +180,7 @@ const navListItems = [
             <div className="hidden lg:block">
               <NavList />
             </div>
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <Inbox />
               <ProfileMenu />
             </div>

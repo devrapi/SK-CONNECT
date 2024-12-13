@@ -38,6 +38,12 @@ const RewardUser = () => {
                     </Typography>
                 </div>
 
+                {/* Monthly Claimed Rewards Indicator */}
+                <div className="my-4 text-center">
+                    <Typography variant="h6" color="blue-gray" className="font-medium">
+                        Rewards Claimed This Month: {user.reward_claimed_count} / 3                    </Typography>
+                </div>
+
                 {/* Category Filter Buttons */}
                 <div className="flex justify-center space-x-4">
                     {['All', 'Basic', 'Classic', 'Premium'].map(category => (
