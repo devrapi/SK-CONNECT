@@ -72,14 +72,14 @@ export function ProfileMenu() {
     </Link>
   </MenuItem>
 
-  <MenuItem className="flex items-center gap-2">
+  {/* <MenuItem className="flex items-center gap-2">
     <Link to="/index/referral" className="flex items-center gap-2">
       <MegaphoneIcon className="w-5 h-5 text-gray-500" />
       <Typography variant="small" className="font-medium">
         Refer a Friend
       </Typography>
     </Link>
-  </MenuItem>
+  </MenuItem> */}
 
   <hr className="my-2 border-blue-gray-50" />
 

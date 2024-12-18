@@ -21,8 +21,8 @@ use App\Notifications\EmailVerificationNotification;
 
 class AuthUserController extends Controller
 {
-    public function register(Request $request){
-
+    public function register(Request $request)
+    {
         $fields = $request->validate([
             'name' => 'required|max:225',
             'email' => 'required|email|unique:users',
@@ -33,40 +33,47 @@ class AuthUserController extends Controller
                     ->mixedCase() // Must include both uppercase and lowercase characters
             ]
         ]);
-        $profiling = Profile::where('full_name', $request->input('name'))->first();
 
+        // Find the profile by full name
+        $profiling = Profile::withTrashed()->where('full_name', $request->input('name'))->first();
+
+        // Check if profile exists
         if (!$profiling) {
             return response()->json(['message' => 'Name not found in profiling database. Please register for profiling first.'], 400);
         }
 
+        // Check if profile is soft-deleted
+        if ($profiling->trashed()) {
+            return response()->json(['message' => 'The profile has been deactivated. Please contact support for assistance.'], 403);
+        }
+
+        // Check if profile is already associated with another user
         if (User::where('profile_id', $profiling->id)->exists()) {
             return response()->json(['message' => 'Profile is already associated with another user.'], 400);
         }
 
+        // Generate referral code
         $referalCode = strtoupper(Str::random(6));
 
-
+        // Create the user
         $User = User::create([
-
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
             'profile_id' => $profiling->id,
             'referal_code' => $referalCode,
-
-
         ]);
 
-
+        // Create an API token
         $token = $User->createToken($request->name);
-        $role = $User->role;
+
+        // Return a successful response
         return response()->json([
             'User' => $User,
             'token' => $token->plainTextToken,
-            'role' => $role,
+            'role' => $User->role,
             'message' => 'Registration successful. Please verify your email to activate your account.',
         ], 200);
-
     }
 
 
@@ -77,14 +84,21 @@ class AuthUserController extends Controller
             'password' => 'required'
         ]);
 
-        $User = User::where('email', $request->email)->first();
+         // Fetch the user and their associated profile (including trashed profiles)
+        $User = User::where('email', $request->email)
+        ->with(['profile' => function ($query) {
+            $query->withTrashed();
+        }])
+        ->first();
 
         if (!$User || !Hash::check($request->password, $User->password)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401); // Return 401 Unauthorized status
         }
-
+        if ($User->profile && $User->profile->trashed()) {
+            return response()->json(['message' => 'This account is deactivated.'], 403);
+        }
         $verify_status = !is_null($User->email_verified_at);
 
 

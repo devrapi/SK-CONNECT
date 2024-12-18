@@ -33,15 +33,16 @@ const RewardUser = () => {
             <div className="container pb-6 mx-auto space-y-6">
                 {/* Header */}
                 <div className="text-center">
-                    <Typography variant="h4" color="blue-gray" className="font-semibold uppercase">
+                    <Typography variant="h4" color="blue-gray" className="font-semibold uppercase font-custom text-gray-800">
                         Rewards
                     </Typography>
                 </div>
 
                 {/* Monthly Claimed Rewards Indicator */}
                 <div className="my-4 text-center">
-                    <Typography variant="h6" color="blue-gray" className="font-medium">
-                        Rewards Claimed This Month: {user.reward_claimed_count} / 3                    </Typography>
+                    <Typography variant="h6" color="blue-gray" className="font-medium font-custom">
+                        Rewards Claimed This Month: {user.reward_claimed_count} / 3
+                    </Typography>
                 </div>
 
                 {/* Category Filter Buttons */}
@@ -64,7 +65,7 @@ const RewardUser = () => {
                         <Card key={reward.id} className="max-w-md p-4 mx-auto rounded-lg shadow-lg">
                             {/* Reward Name */}
                             <div className="mb-4 text-center">
-                                <Typography variant="h3" color="blue-gray" className="text-lg font-bold">
+                                <Typography variant="h3" color="blue-gray" className="text-lg font-bold font-custom">
                                     {reward.name}
                                 </Typography>
                             </div>
@@ -89,23 +90,23 @@ const RewardUser = () => {
 
                             {/* Reward Details */}
                             <CardBody className="px-4 py-2 text-left">
-                                <Typography color="gray" className="mb-3 text-sm truncate">
+                                <Typography color="gray" className="mb-3 text-sm truncate font-custom">
                                     {reward.description}
                                 </Typography>
 
                                 {/* Points and Stock Information */}
-                                <div className="flex flex-col space-y-1 text-sm">
-                                    <Typography className="font-medium">
+                                <div className="flex flex-col space-y-1 text-sm font-custom">
+                                    <Typography className="font-medium font-custom">
                                         <span className="font-semibold">Points:</span> {reward.points}
                                     </Typography>
-                                    <Typography className="font-medium">
+                                    <Typography className="font-medium font-custom">
                                         <span className="font-semibold">Available Stocks:</span> {reward.stocks}
                                     </Typography>
                                 </div>
                             </CardBody>
 
                             {/* Card Footer for Claim Button */}
-                            <CardFooter className="flex justify-end p-3 border-t">
+                            <CardFooter className="flex justify-end p-3 border-t font-custom">
                                 {hasReachedClaimLimit ? (
                                     <Button
                                         color="gray"

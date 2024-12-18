@@ -58,20 +58,22 @@ const NewLogin = () => {
         }
       }
     } catch (error) {
-      console.error('Error during login:', error.response?.data || error.message);
+        console.error('Error during login:', error.response?.data || error.message);
 
-      if (error.response?.status === 422) {
-        setForm({
-          email: '',
-          password: '',
-        });
-        setErrors(error.response.data.errors);
-      } else if (error.response?.status === 401) {
-        setErrors({ global: 'Incorrect email or password. Please try again.' });
-      } else {
-        setErrors({ global: 'An unexpected error occurred during login.' });
+        if (error.response?.status === 422) {
+          setForm({
+            email: '',
+            password: '',
+          });
+          setErrors(error.response.data.errors);
+        } else if (error.response?.status === 401) {
+          setErrors({ global: 'Incorrect email or password. Please try again.' });
+        } else if (error.response?.status === 403) {
+          setErrors({ global: 'Your account is deactivated. Please contact support for assistance.' });
+        } else {
+          setErrors({ global: 'An unexpected error occurred during login.' });
+        }
       }
-    }
   };
 
   return (

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\AssignTask;
 use Illuminate\Support\Facades\Route;
@@ -10,13 +11,14 @@ use Illuminate\Container\Attributes\Auth;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\UserTaskController;
 use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EventAttendanceController;
-use App\Http\Controllers\OfficialController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -125,7 +127,12 @@ Route::post('events/{eventId}/{user_id}/attend', [EventAttendanceController::cla
 Route::get('qr-code/{eventId}', [EventAttendanceController::class, 'generateQrCode']);
 Route::post('verify-qr-code', [EventAttendanceController::class, 'VerifiyQrCode']);
 Route::get('events/{user_id}/status', [EventAttendanceController::class, 'status']);
+Route::get('events/reject/{attendanceId}', [EventAttendanceController::class, 'rejectAttendance']);
 
 //Sk-Officials
 Route::apiResource('officials', OfficialController::class);
 Route::post('officials/update/{official}', [OfficialController::class, 'update']);
+
+//addmin invites
+Route::post('admin/invites', [InviteController::class, 'store']);
+Route::get('admin/users', [InviteController::class, 'getAllUsers']);

@@ -170,4 +170,7 @@ class EventAttendanceController extends Controller
              'verified_events' => $verifiedEvents,
          ], 200);
      }
+
+
+
 }

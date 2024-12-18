@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Typography } from "@material-tailwind/react";
+import '../../../css/app.css';
 
 const Homepage = () => {
   return (
@@ -15,16 +16,16 @@ const Homepage = () => {
             <Typography
               variant="h1"
               color="gray"
-              className="mt-6 text-3xl font-bold leading-snug md:text-4xl lg:text-5xl"
+              className="mt-6 text-3xl font-bold leading-snug md:text-4xl lg:text-5xl font-custom"
             >
               Connect, Participate, Reward{" "}
-              <span className="text-green-700">
+              <span className="text-green-700 font-custom ">
                 Your Youth Journey Starts Here
               </span>
             </Typography>
             <Typography
               variant="lead"
-              className="mt-4 text-gray-500 md:text-lg"
+              className="mt-4 text-gray-500 md:text-lg font-custom"
             >
               Join a vibrant community where your contributions lead to real rewards.
             </Typography>

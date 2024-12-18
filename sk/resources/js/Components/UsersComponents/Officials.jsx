@@ -11,7 +11,7 @@ import { GlobeAltIcon ,AcademicCapIcon  } from "@heroicons/react/24/outline";
 
 function TeamCard({ img, name, title }) {
   return (
-    <Card className="rounded-lg bg-[#FAFAFA] shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className="rounded-lg bg-[#FAFAFA] shadow-md hover:shadow-lg transition-shadow duration-300 font-custom">
   <CardBody className="text-center">
     <Avatar
       src={img || "default-avatar.png"} // Fallback image if `img` is null
@@ -23,13 +23,13 @@ function TeamCard({ img, name, title }) {
     <Typography
       variant="h5"
       color="blue-gray"
-      className="font-medium text-lg"
+      className="font-medium text-lg font-custom"
     >
       {name}
     </Typography>
     <Typography
       color="blue-gray"
-      className="mb-4 text-base font-semibold text-gray-600"
+      className="mb-4 text-base font-semibold text-gray-600 font-custom"
     >
       {title}
     </Typography>
@@ -54,7 +54,7 @@ const Officials = () => {
 
   if (!officials || officials.length === 0) {
     return (
-      <div className="text-center text-gray-500">
+      <div className="text-center text-gray-500 font-custom">
         No officials to display.
       </div>
     );
@@ -68,20 +68,20 @@ const Officials = () => {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="text-lg tracking-wide"
+            className="text-lg tracking-wide font-custom text-gray-800"
           >
             Meet the Team
           </Typography>
           <Typography
             variant="h2"
             color="blue-gray"
-            className="my-4 text-2xl lg:text-4xl font-bold"
+            className="my-4 text-2xl lg:text-4xl font-bold font-custom text-gray-800"
           >
             Behind the Success: Our Dedicated Team
           </Typography>
           <Typography
             variant="lead"
-            className="mx-auto max-w-4xl text-gray-500 text-sm lg:text-base"
+            className="mx-auto max-w-4xl text-gray-500 text-sm lg:text-base font-custom"
           >
             From visionary leadership to creative talent and technical wizards,
             each team member plays a pivotal role in delivering exceptional

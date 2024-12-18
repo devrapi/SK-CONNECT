@@ -7,14 +7,13 @@ const Features = () => {
       {/* Section Header */}
       <div className="container mx-auto text-center mb-10 lg:mb-20">
         <Typography
-          color="blue-gray"
-          className="mb-4 text-2xl lg:text-4xl font-bold"
+          className="mb-4 text-2xl lg:text-4xl font-bold font-custom text-gray-800"
         >
           How it Works
         </Typography>
         <Typography
           variant="lead"
-          className="mx-auto max-w-lg text-gray-500 text-sm md:text-base"
+          className="mx-auto max-w-lg text-gray-500 text-sm md:text-base font-custom"
         >
           Explore, participate, and earn rewards! Here's how SK Connect empowers you on your journey.
         </Typography>
@@ -28,11 +27,11 @@ const Features = () => {
             <Typography
               variant="h4"
               color="blue-gray"
-              className="mb-4 text-xl lg:text-2xl font-medium"
+              className="mb-4 text-xl lg:text-2xl font-medium font-custom"
             >
               Join Events
             </Typography>
-            <Typography className="max-w-xs mx-auto text-gray-500 text-sm md:text-base mb-4">
+            <Typography className="max-w-xs mx-auto text-gray-500 text-sm md:text-base mb-4 font-custom">
               Participate in community events and gain points as you contribute to meaningful activities.
             </Typography>
             <img
@@ -49,11 +48,11 @@ const Features = () => {
             <Typography
               variant="h4"
               color="blue-gray"
-              className="mb-4 text-xl lg:text-2xl font-medium"
+              className="mb-4 text-xl lg:text-2xl font-medium font-custom"
             >
               Complete Tasks
             </Typography>
-            <Typography className="max-w-xs mx-auto text-gray-500 text-sm md:text-base mb-4">
+            <Typography className="max-w-xs mx-auto text-gray-500 text-sm md:text-base mb-4 font-custom">
               Take on fun tasks like daily check-ins and referrals to earn extra points and level up in your journey.
             </Typography>
             <img
@@ -70,11 +69,11 @@ const Features = () => {
             <Typography
               variant="h4"
               color="blue-gray"
-              className="mb-4 text-xl lg:text-2xl font-medium"
+              className="mb-4 text-xl lg:text-2xl font-medium font-custom"
             >
               Redeem Rewards
             </Typography>
-            <Typography className="max-w-sm mx-auto text-gray-500 text-sm md:text-base mb-4">
+            <Typography className="max-w-sm mx-auto text-gray-500 text-sm md:text-base mb-4 font-custom">
               Exchange your points for real rewards, from vouchers to exclusive event access and more.
             </Typography>
             <img

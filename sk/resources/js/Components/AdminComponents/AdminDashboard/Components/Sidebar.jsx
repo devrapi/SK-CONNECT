@@ -119,6 +119,12 @@ const Sidebar = () => {
             <ListItemPrefix>
               <Cog6ToothIcon className="w-6 h-6" />
             </ListItemPrefix>
+            {!isCollapsed && <Link to="/admin/dashboard/Invitee">Invitee Participants</Link>}
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <Cog6ToothIcon className="w-6 h-6" />
+            </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/sk-officials">SK Officials</Link>}
           </ListItem>
         </List>

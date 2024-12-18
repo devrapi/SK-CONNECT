@@ -19,12 +19,12 @@ const FAQs = () => {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="mb-4 text-4xl !leading-snug lg:text-[40px]"
+            className="mb-4 text-4xl !leading-snug lg:text-[40px] font-custom text-gray-800"
           >
             Frequently asked questions
           </Typography>
           <Typography
-            className="mx-auto font-normal text-[18px] !text-gray-500 lg:max-w-3xl"
+            className="mx-auto font-normal text-[18px] text-gray-800 lg:max-w-3xl font-custom"
           >
             A lot of people don&apos;t appreciate the moment until it&apos;s
             passed. I&apos;m not trying my hardest, and I&apos;m not trying to
@@ -34,11 +34,11 @@ const FAQs = () => {
         <div className="grid max-w-3xl gap-10 mx-auto">
           {faqs.map(({ title, desc }) => (
             <div key={title}>
-            <Typography color="blue-gray" className="pb-6 text-[20px] font-bold">
+            <Typography color="blue-gray" className="pb-6 text-[20px] font-bold font-custom text-gray-800">
             {title}
           </Typography>
               <div className="pt-4 border-t border-gray-200">
-                <Typography className="font-normal !text-gray-500">
+                <Typography className="font-normal  font-custom text-gray-800">
                   {desc}
                 </Typography>
               </div>

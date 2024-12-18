@@ -43,6 +43,7 @@ import VerifiedEmail from '../UsersComponents/AuthUsers/VerifiedEmail';
 import SkOfficials from '../AdminComponents/AdminDashboard/Pages/SkOfficials';
 import SkOfficialsFetch from '../AdminComponents/AdminDashboard/Pages/SkOfficialsFetch';
 import OfficialsUpdate from '../AdminComponents/AdminDashboard/Pages/OfficialsUpdate';
+import InviteeParticipants from '../AdminComponents/AdminDashboard/Pages/InviteeParticipants';
 
 const RoutesComponents = () => {
   return (
@@ -86,6 +87,7 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/announcement/update/:id' element={<AnnouncementUpdate/>}/>
             <Route path='/admin/dashboard/sk-officials/Create' element={<SkOfficials/>}/>
             <Route path='/admin/dashboard/sk-officials' element={<SkOfficialsFetch/>}/>
+            <Route path='/admin/dashboard/Invitee' element={<InviteeParticipants/>}/>
             <Route path='/admin/dashboard/sk-officials/update/:id' element={<OfficialsUpdate/>}/>
         </Route>
       </Route>

@@ -1,0 +1,237 @@
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import {
+  Input,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+import ApiService from "../../../Services/ApiService";
+
+const InviteeParticipants = () => {
+  const [errors, setErrors] = useState({});
+  const [form, setForm] = useState({
+    inviter_name: "",
+    invitee_name: "",
+    invitee_address: "",
+    invitee_phone: "",
+  });
+
+  const [users, setUsers] = useState([]); // To store inviter names
+  const [filteredUsers, setFilteredUsers] = useState([]); // To store search results
+  const [showSuggestions, setShowSuggestions] = useState(false); // Toggle suggestion dropdown
+
+  // Fetch existing users
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await ApiService.get("admin/users");
+        setUsers(response.data); // Assuming `response.data` contains user data
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  // Handle form submission
+  const HandleSubmit = async () => {
+    try {
+      const response = await ApiService.post("admin/invites", form);
+      if (response) {
+        await Swal.fire({
+          title: "Success!",
+          text: "Profile added successfully!",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(
+        "Error during invite creation:",
+        error.response?.data || error.message
+      );
+      if (error.response?.status === 422) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ global: "An unexpected error occurred." });
+      }
+    }
+  };
+
+  // Handle search input changes
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setForm({ ...form, inviter_name: query });
+
+    if (query.trim() === "") {
+      setFilteredUsers([]);
+      setShowSuggestions(false);
+    } else {
+      const matches = users.filter((user) =>
+        user.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredUsers(matches);
+      setShowSuggestions(true);
+    }
+  };
+
+  // Handle selection from suggestions
+  const handleSelectSuggestion = (name) => {
+    setForm({ ...form, inviter_name: name });
+    setShowSuggestions(false); // Close suggestion list
+  };
+
+  return (
+    <>
+      <div className="mb-6">
+        <Typography variant="h4" color="blue-gray" className="font-semibold">
+          Add Invitee Information
+        </Typography>
+      </div>
+      <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
+        <Typography variant="h5" color="blue-gray">
+          Basic Information
+        </Typography>
+        <Typography variant="small" className="mt-1 font-normal text-gray-600">
+          Add the youth invitee information below.
+        </Typography>
+        <div className="flex flex-col mt-8">
+          {/* Searchable Inviter Name */}
+          <div className="flex flex-col items-start gap-4 p-4 mb-6">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 font-medium"
+            >
+              Inviter Name
+            </Typography>
+            <div className="relative w-full">
+              <Input
+                variant="static"
+                placeholder="Search for inviter name..."
+                value={form.inviter_name}
+                onChange={handleSearchChange}
+                className="border-gray-500"
+              />
+              {showSuggestions && (
+                <ul className="absolute z-10 w-full overflow-y-auto bg-white border border-gray-300 rounded shadow-md max-h-48">
+                  {filteredUsers.length > 0 ? (
+                    filteredUsers.map((user) => (
+                      <li
+                        key={user.id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleSelectSuggestion(user.name)}
+                      >
+                        {user.name}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="px-4 py-2 text-gray-500">No matches found</li>
+                  )}
+                </ul>
+              )}
+              {errors.inviter_name && (
+                <span className="text-xs text-red-600">
+                  {errors.inviter_name}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Invitee Name */}
+          <div className="flex flex-col items-end gap-4 p-6 mb-6 md:flex-row">
+            <div className="w-full">
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="mb-2 font-medium"
+              >
+                Invitee Name
+              </Typography>
+              <Input
+                variant="static"
+                placeholder="e.g., Jane Doe"
+                value={form.invitee_name}
+                onChange={(event) =>
+                  setForm({ ...form, invitee_name: event.target.value })
+                }
+                className="border-gray-500"
+              />
+              {errors.invitee_name && (
+                <span className="text-xs text-red-600">
+                  {errors.invitee_name}
+                </span>
+              )}
+            </div>
+            {/* Address */}
+            <div className="w-full">
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="mb-2 font-medium"
+              >
+                Address
+              </Typography>
+              <Input
+                variant="static"
+                placeholder="e.g., Block 0 Lot 0"
+                value={form.invitee_address}
+                onChange={(event) =>
+                  setForm({ ...form, invitee_address: event.target.value })
+                }
+                className="border-gray-500"
+              />
+              {errors.invitee_address && (
+                <span className="text-xs text-red-600">
+                  {errors.invitee_address}
+                </span>
+              )}
+            </div>
+            {/* Phone Number */}
+            <div className="w-full">
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="mb-2 font-medium"
+              >
+                Phone Number
+              </Typography>
+              <Input
+                variant="static"
+                placeholder="e.g., 09123456789"
+                value={form.invitee_phone}
+                onChange={(event) => {
+                  const phoneNumber = event.target.value;
+                  if (/^\d*$/.test(phoneNumber) && phoneNumber.length <= 11) {
+                    setForm({ ...form, invitee_phone: phoneNumber });
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      phone_number: "",
+                    }));
+                  } else if (phoneNumber.length > 11) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      phone_number: "Phone number must be exactly 11 digits.",
+                    }));
+                  }
+                }}
+                className="border-gray-500"
+              />
+              {errors.invitee_phone && (
+                <span className="text-xs text-red-600">
+                  {errors.invitee_phone}
+                </span>
+              )}
+            </div>
+          </div>
+          <Button className="bg-green-500" onClick={HandleSubmit}>
+            Submit
+          </Button>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default InviteeParticipants;

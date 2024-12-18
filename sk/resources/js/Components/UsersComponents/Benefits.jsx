@@ -55,28 +55,27 @@ const contents = [
 
 export function Benefits() {
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-28">
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-28 font-custom">
       {/* Section Header */}
       <div className="mb-10 lg:mb-16">
         <Typography
           variant="h2"
-          color="blue-gray"
-          className="!text-2xl !leading-snug sm:!text-3xl lg:!text-4xl font-bold"
+          className="!text-2xl !leading-snug sm:!text-3xl lg:!text-4xl font-bold font-custom text-gray-800"
         >
           Connect, Participate, Reward
         </Typography>
         <Typography
           variant="lead"
-          className="mt-2 max-w-2xl !font-normal !text-gray-500 text-sm md:text-base"
+          className="mt-2 max-w-2xl !font-normal !text-gray-500 text-sm md:text-base font-custom"
         >
           Explore opportunities to connect, participate in meaningful events, and earn rewards tailored for you.
         </Typography>
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 font-custom">
         {contents.map(({ img, title, desc }) => (
-          <ContentCard key={title} img={img} title={title} desc={desc} />
+          <ContentCard key={title} img={img} title={title} desc={desc} className="font-custom" />
         ))}
       </div>
     </section>

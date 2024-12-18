@@ -9,24 +9,24 @@ export function Map() {
         <Typography
           variant="h5"
           color="blue-gray"
-          className="mb-2 text-lg lg:text-2xl font-semibold"
+          className="mb-2 text-lg lg:text-2xl font-semibold font-custom text-gray-800"
         >
           We're Here for You
         </Typography>
         <Typography
           variant="h1"
           color="blue-gray"
-          className="mb-4 text-2xl lg:text-4xl font-bold"
+          className="mb-4 text-2xl lg:text-4xl font-bold font-custom text-gray-800"
         >
           Need Assistance?
         </Typography>
-        <Typography className="mb-10 lg:mb-16 mx-auto max-w-3xl text-gray-500">
+        <Typography className="mb-10 lg:mb-16 mx-auto max-w-3xl text-gray-500 font-custom">
           Have questions about our services, need help with your account, or
           want to provide feedback? Our team is here to assist you!
         </Typography>
 
         {/* Content Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-12 items-center font-custom">
           {/* Image Section */}
           <img
             src="/img/maps.png" // Replace with a relevant image for SK Connect support
@@ -41,7 +41,7 @@ export function Map() {
           >
             <Typography
               variant="small"
-              className="text-left text-gray-600 font-semibold"
+              className="text-left text-gray-600 font-semibold font-custom"
             >
               Choose Your Inquiry Type
             </Typography>
@@ -59,7 +59,7 @@ export function Map() {
               <div>
                 <Typography
                   variant="small"
-                  className="mb-1 text-left font-medium text-gray-900"
+                  className="mb-1 text-left font-medium text-gray-800 font-custom"
                 >
                   First Name
                 </Typography>
@@ -74,7 +74,7 @@ export function Map() {
               <div>
                 <Typography
                   variant="small"
-                  className="mb-1 text-left font-medium text-gray-900"
+                  className="mb-1 text-left font-medium text-gray-800 font-custom"
                 >
                   Last Name
                 </Typography>
@@ -92,7 +92,7 @@ export function Map() {
             <div>
               <Typography
                 variant="small"
-                className="mb-1 text-left font-medium text-gray-900"
+                className="mb-1 text-left font-medium text-gray-800 font-custom"
               >
                 Your Email
               </Typography>
@@ -109,7 +109,7 @@ export function Map() {
             <div>
               <Typography
                 variant="small"
-                className="mb-1 text-left font-medium text-gray-900"
+                className="mb-1 text-left font-medium text-gray-800 font-custom"
               >
                 Your Message
               </Typography>

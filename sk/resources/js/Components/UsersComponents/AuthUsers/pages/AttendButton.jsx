@@ -52,7 +52,7 @@ const AttendButton = ({ eventId }) => {
                 icon: 'success',
                 confirmButtonText: 'Okay',
             });
-            setStatus('verified');
+            setStatus('pending');
         } catch (error) {
             let errorMessage = 'An unexpected error occurred. Please try again.';
             if (error.response && error.response.data && error.response.data.message) {

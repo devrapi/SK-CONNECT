@@ -63,6 +63,7 @@ const Profiling = () => {
         }));
       }
     };
+
   const HandleSubmt = async () => {
     try {
       const response = await ApiService.post("profiles", form);
