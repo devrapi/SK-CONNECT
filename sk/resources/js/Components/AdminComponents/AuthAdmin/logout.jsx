@@ -28,7 +28,7 @@ const logout = () => {
             setToken(null);
             localStorage.removeItem("token");
             localStorage.removeItem("role");
-            navigate('/admin/login');
+            navigate('/');
           }
 
         } catch (error) {

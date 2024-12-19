@@ -96,6 +96,7 @@ Route::post('/referral/{user_id}' , [UserTaskController::class , 'ClaimReferral'
 
 //LeaderBoards
 Route::get('leaderboards' , [LeaderBoards::class , 'LeaderBoards']);
+Route::get('all/leaderboards' , [LeaderBoards::class , 'AllLeaderBoards']);
 Route::post('leaderboards/{user_id}' , [LeaderBoards::class , 'RewardsLB']);
 
 //Notification

@@ -1,95 +1,87 @@
-import React from 'react'
-import { Link, Outlet , NavLink } from 'react-router-dom'
-import Homepage from './Homepage';
-import Footer from './Footer.jsx';
-import Officials from './Officials.jsx';
-import Features from './Features.jsx';
-import FAQs from './FAQs.jsx';
-import NewLogin from './AuthUsers/NewLogin.jsx';
-import NewRegister from './AuthUsers/NewRegister.jsx';
-import Map from './Map.jsx';
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
 import {
-    Navbar,
-    Collapse,
-    Button,
-    IconButton,
-    Typography,
-    Input,
-  } from "@material-tailwind/react";
-  import {
-    RectangleStackIcon,
-    UserCircleIcon,
-    CommandLineIcon,
-    Squares2X2Icon,
-  } from "@heroicons/react/24/solid";
-  import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Benefits from './Benefits.jsx';
+  Collapse,
+  IconButton,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+import {
+  RectangleStackIcon,
+  UserCircleIcon,
+  CommandLineIcon,
+  Squares2X2Icon,
+} from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import Footer from "./Footer.jsx";
+import Officials from "./Officials.jsx";
+import Features from "./Features.jsx";
+import FAQs from "./FAQs.jsx";
+import NewLogin from "./AuthUsers/NewLogin.jsx";
+import NewRegister from "./AuthUsers/NewRegister.jsx";
+import Map from "./Map.jsx";
+import Benefits from "./Benefits.jsx";
 
-  function NavItem({ children }) {
-    return (
-      <li>
-        <Typography
+function NavItem({ children }) {
+  return (
+    <li>
+      <Typography
+        variant="paragraph"
+        color="blue-gray"
+        className="flex items-center gap-2 font-medium text-blue-gray-700 font-custom"
+      >
+        {children}
+      </Typography>
+    </li>
+  );
+}
 
-          href="#"
-          variant="paragraph"
-          color="blue-gray"
-          className="flex items-center gap-2 font-medium text-blue-gray-700"
-        >
-          {children}
-        </Typography>
-      </li>
-    );
-  }
 const Main = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen((cur) => !cur);
-
-
-    React.useEffect(() => {
-      window.addEventListener(
-        "resize",
-        () => window.innerWidth >= 960 && setOpen(false),
-      );
-    }, []);
-
-
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpen(false)
+    );
+  }, []);
 
   return (
-   <>
-
-<div shadow={false} fullWidth className="py-2 border-0">
+    <>
+      {/* Navbar */}
+      <div className="py-2 border-0 fixed w-full z-50 bg-transparent">
         <div className="container flex items-center justify-between mx-auto">
-        <img src="/img/sklogo.png" alt="Logo" className='w-auto h-14'/>
+          <img src="/img/sklogo.png" alt="Logo" className="w-auto h-14" />
 
-          <ul className="items-center hidden gap-6 text-black lg:flex">
+          <ul className="items-center hidden gap-6 text-white lg:flex">
             <NavItem>
-              <RectangleStackIcon className="w-5 h-5" />
-              <Link to="/">
-              Home
-              </Link>
+              {/* <RectangleStackIcon className="w-5 h-5" /> */}
+              <Link to="/">Home</Link>
             </NavItem>
             <NavItem>
-              <UserCircleIcon className="w-5 h-5" />
+              {/* <UserCircleIcon className="w-5 h-5" /> */}
               Teams
             </NavItem>
             <NavItem>
-              <Squares2X2Icon className="w-5 h-5" />
-              Feautures
+              {/* <Squares2X2Icon className="w-5 h-5" /> */}
+              Features
             </NavItem>
             <NavItem>
-              <CommandLineIcon className="w-5 h-5" />
+              {/* <CommandLineIcon className="w-5 h-5" /> */}
               FAQs
             </NavItem>
           </ul>
+
           <div className="items-center hidden gap-4 lg:flex">
-         <NewLogin />
-        <NewRegister/>
+            <NewLogin />
+            <NewRegister />
           </div>
+
           <IconButton
             variant="text"
-            color="gray"
+            color="white"
             onClick={handleOpen}
             className="inline-block ml-auto lg:hidden"
           >
@@ -100,9 +92,10 @@ const Main = () => {
             )}
           </IconButton>
         </div>
+
         <Collapse open={open}>
-          <div className="container px-2 pt-4 mx-auto mt-3 border-t border-blue-gray-50">
-            <ul className="flex flex-col gap-4 text-black">
+          <div className="container px-2 pt-4 mx-auto mt-3 border-t border-gray-100">
+            <ul className="flex flex-col gap-4 text-white">
               <NavItem>
                 <RectangleStackIcon className="w-5 h-5" />
                 Pages
@@ -121,44 +114,76 @@ const Main = () => {
               </NavItem>
             </ul>
             <div className="flex items-center gap-4 mt-6 mb-4">
-
-
-
-            <NewLogin />
-            <NewRegister/>
-
+              <NewLogin />
+              <NewRegister />
             </div>
           </div>
         </Collapse>
-
       </div>
 
+      {/* Hero Section */}
+      <div
+        className="relative bg-cover bg-center min-h-screen flex items-center justify-center"
+        style={{ backgroundImage: "url('/img/bgSN1.jpg')" }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-    <div>
-        <Outlet/>
-    </div>
+        {/* Content */}
+        <div className="relative z-10 text-center px-6 py-12 font-custom">
+          <div className="max-w-3xl mx-auto">
+            {/* Welcome Badge */}
+            {/* <Typography className="inline-flex text-sm rounded-full border border-blue-500 bg-blue-50 py-1 px-4 font-medium text-blue-700">
+              Welcome to SK Connect
+            </Typography> */}
 
-        <Homepage/>
+            {/* Main Heading */}
+            <Typography
+              variant="h1"
+              color="blue-gray"
+              className="mt-6 text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl text-gray-100 font-custom"
+            >
+              Connect, Participate, Reward{" "}
+              <span className="text-green-400 font-custom">
+                Your Youth Journey Starts Here
+              </span>
+            </Typography>
 
-        <Benefits/>
+            {/* Subheading */}
+            <Typography
+              variant="paragraph"
+              className="mt-4 text-gray-100 md:text-lg lg:text-xl"
+            >
+              Join a vibrant community where your contributions lead to real
+              rewards and unforgettable experiences.
+            </Typography>
 
-        <Features/>
+            {/* CTA Buttons */}
+            <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row">
+              <Button className="w-full max-w-xs px-6 py-3 text-lg font-semibold tracking-wide text-white bg-green-600 rounded-full shadow-lg hover:bg-green-700 md:w-auto">
+                <Link to="/register">Get Started</Link>
+              </Button>
+              <Button className="w-full max-w-xs px-6 py-3 text-lg font-semibold tracking-wide text-white bg-gray-800 rounded-full shadow-lg hover:bg-gray-900 md:w-auto">
+                <Link to="/learn-more">Learn More</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {/* Other Components */}
+      <div>
+        <Outlet />
+      </div>
 
+      <Benefits />
+      <Features />
+      <Officials />
+      <FAQs />
+      <Map />
+      <Footer />
+    </>
+  );
+};
 
-        <Officials/>
-
-
-
-        <FAQs/>
-
-        <Map/>
-
-        <Footer/>
-
-
-   </>
-  )
-}
-
-export default Main
+export default Main;

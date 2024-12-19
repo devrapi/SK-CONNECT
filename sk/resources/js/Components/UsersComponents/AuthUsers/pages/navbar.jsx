@@ -29,6 +29,7 @@ export function ProfileMenu() {
 
     const{user}= useContext(AppContext);
 
+
   return (
     <Menu>
     <MenuHandler>
@@ -137,8 +138,8 @@ const navListItems = [
     const location = useLocation();
 
     return (
-      <div className="fixed bottom-0 left-0 right-0 w-full shadow-md lg:hidden bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 rounded-t-3xl">
-        <ul className="flex items-center justify-between px-6 py-4">
+        <div className="fixed bottom-0 left-0 right-0 w-full shadow-md lg:hidden bg-white rounded-t-3xl border-t border-gray-200">
+        <ul className="flex items-center justify-between px-6 py-4 ">
           {navListItems.map(({ label, icon, path }) => (
             <Link
               key={label}
@@ -161,22 +162,40 @@ const navListItems = [
     const { user } = useContext(AppContext);
 
     return (
-      <>
+        <>
         {/* Top Navbar for large screens */}
         <div className="max-w-screen-xl p-2 mx-auto shadow-sm lg:pl-6 rounded-b-xl">
           <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
+            {/* Star Icon with Points */}
+            <div className='flex'>
+
+
             <Typography
               as="a"
               href="#"
-              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium uppercase"
+              className="flex items-center mr-6 ml-2 cursor-pointer py-1.5 font-medium uppercase"
               color="green"
             >
               <div className="flex items-center">
-                <StarIcon className="w-8 h-8 mr-2 text-yellow-400" />
-                {user.points}
+                <img src="/img/star.png" alt="Star Icon" className="w-7 h-7" />
+                <span className="ml-2">{user.points}</span>
               </div>
             </Typography>
 
+            {/* Gift Icon with Claimed Rewards */}
+            <Typography
+              as="a"
+              href="#"
+              className="flex items-center mr-6 ml-4 cursor-pointer py-1.5 font-medium uppercase"
+              color="green"
+            >
+              <div className="flex items-center">
+                <img src="/img/gifticon.png" alt="Gift Icon" className="w-6 h-6" />
+                <span className="ml-2">{user.reward_claimed_count} / 3</span>
+              </div>
+            </Typography>
+            </div>
+            {/* Navigation and Profile */}
             <div className="hidden lg:block">
               <NavList />
             </div>
@@ -188,8 +207,12 @@ const navListItems = [
         </div>
 
         {/* Sticky Bottom Navbar for mobile view */}
+        <div className='mt-4'>
         <MobileNav />
+        </div>
+
       </>
+
     );
   };
 

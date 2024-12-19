@@ -14,7 +14,7 @@ const PieChart = () => {
   const educationCounts = profiles?.reduce((acc, profile) => {
     const level = profile.education;
     if (level === "Elementary") acc.elementary += 1;
-    else if (level === "HighSchool") acc.highSchool += 1;
+    else if (level === "High School") acc.highSchool += 1;
     else if (level === "Senior Highschool") acc.seniorHighSchool += 1;
     else if (level === "College") acc.college += 1;
     else if (level === "Out of School") acc.notSchoolYouth += 1;

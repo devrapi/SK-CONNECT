@@ -14,6 +14,10 @@ class LeaderBoards extends Controller
         $users = User::orderBy('points', 'desc')->limit(5)->get(); // Get top 5 users
         return response()->json($users);
     }
+    public function AllLeaderBoards(){
+        $users = User::orderBy('points', 'desc')->get();
+        return response()->json($users);
+    }
 
 
 

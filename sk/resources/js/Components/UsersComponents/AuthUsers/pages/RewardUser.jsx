@@ -39,11 +39,11 @@ const RewardUser = () => {
                 </div>
 
                 {/* Monthly Claimed Rewards Indicator */}
-                <div className="my-4 text-center">
+                {/* <div className="my-4 text-center">
                     <Typography variant="h6" color="blue-gray" className="font-medium font-custom">
                         Rewards Claimed This Month: {user.reward_claimed_count} / 3
                     </Typography>
-                </div>
+                </div> */}
 
                 {/* Category Filter Buttons */}
                 <div className="flex justify-center space-x-4">

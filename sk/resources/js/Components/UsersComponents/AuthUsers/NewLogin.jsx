@@ -78,7 +78,7 @@ const NewLogin = () => {
 
   return (
     <>
-      <Button variant="text" onClick={handleOpenLogin}>
+      <Button variant="text" onClick={handleOpenLogin} className='text-white'>
         Sign In
       </Button>
       <Dialog

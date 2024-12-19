@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../../../Context/AppContext';
-import { Typography, Card, CardBody } from "@material-tailwind/react";
-import { CheckCircleIcon, UserGroupIcon, CalendarIcon } from '@heroicons/react/24/solid';
-import ReferralBonus from '../Profile/ReferralBonus';
+import { Typography, Card, CardBody, Button, Dialog, DialogHeader, DialogBody, IconButton } from "@material-tailwind/react";
+import { CheckCircleIcon, UserGroupIcon, CalendarIcon, GiftIcon,ExclamationCircleIcon  ,StarIcon } from '@heroicons/react/24/solid';
 
 const TaskUser = () => {
     const { task } = useContext(AppContext);
     const { user } = useContext(AppContext);
+
+    const [isOpen, setIsOpen] = useState(false);
+
     const TABLE_HEAD = ["Task Name", "Description", "Points"];
     const TABLE_ROWS = task.map(task => ({
         id: `${task.id}`,
@@ -15,17 +17,79 @@ const TaskUser = () => {
         points: task.points,
     }));
 
+    const rules = [
+        {
+            icon: <StarIcon className="w-6 h-6 text-yellow-500" />,
+            title: "Monthly Points Reset",
+            description: "Points reset at the end of each month. Users on the leaderboard will retain their points."
+        },
+        {
+            icon: <GiftIcon className="w-6 h-6 text-yellow-500" />,
+            title: "Reward Limitations",
+            description: "Claim up to 3 rewards per month to prevent spamming. Plan your claims wisely!"
+        },
+        {
+            icon: <CheckCircleIcon className="w-6 h-6 text-green-500" />,
+            title: "Complete Tasks",
+            description: "Earn points by completing assigned tasks daily."
+        },
+        {
+            icon: <UserGroupIcon className="w-6 h-6 text-blue-500" />,
+            title: "Refer Friends",
+            description: "Invite friends to Participate in an event and earn bonus points when they register."
+        },
+        {
+            icon: <CalendarIcon className="w-6 h-6 text-yellow-500" />,
+            title: "Participate in Events",
+            description: "Attend events and activities to earn additional rewards."
+        },
+    ];
+
     return (
-        <div className="space-y-8 font-custom"> {/* Apply the custom font globally */}
-            {/* Instruction Section */}
-            <Typography variant="h4" className="mb-6 font-semibold text-center text-gray-800 font-custom">
-                How to Earn Points
-            </Typography>
-            {/* <div className="flex justify-end mb-4">
-                <ReferralBonus user_id={user.id} />
-            </div> */}
+        <div className="space-y-8 font-custom">
+    {/* Title and Button Section */}
+    <div className="flex items-center justify-between mb-6">
+        <Typography variant="h4" className="font-semibold text-gray-800 font-custom">
+
+        </Typography>
+        <IconButton
+            className="flex items-center gap-2 p-3 text-white bg-red-500 rounded-full shadow-lg hover:bg-red-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-transform"
+            onClick={() => setIsOpen(true)}
+        >
+            <ExclamationCircleIcon className="w-6 h-6" />
+            <span className="sr-only">View Points Rules</span>
+        </IconButton>
+    </div>
+
+
+
+
+            {/* Rules Modal */}
+            <Dialog
+                open={isOpen}
+                handler={() => setIsOpen(!isOpen)}
+                size="lg"
+            >
+                <DialogHeader>Points Rules System</DialogHeader>
+                <DialogBody divider className="space-y-4">
+                    {rules.map((rule, index) => (
+                        <div key={index} className="flex items-start gap-4">
+                            {rule.icon}
+                            <div>
+                                <Typography variant="h6" className="font-semibold">
+                                    {rule.title}
+                                </Typography>
+                                <Typography variant="small" className="text-gray-600">
+                                    {rule.description}
+                                </Typography>
+                            </div>
+                        </div>
+                    ))}
+                </DialogBody>
+            </Dialog>
+
+            {/* Instruction Cards with Icons */}
             <div className="grid gap-6 sm:grid-cols-3">
-                {/* Instruction Cards with Icons */}
                 <Card className="flex items-center p-4 transition-shadow rounded-lg shadow-lg bg-gray-50 hover:shadow-xl font-custom">
                     <CheckCircleIcon className="w-12 h-12 mr-4 text-green-500" />
                     <CardBody>
@@ -44,7 +108,7 @@ const TaskUser = () => {
                             Refer Friends
                         </Typography>
                         <Typography variant="small" className="mt-2 text-gray-600 font-custom">
-                            Invite friends to join and earn bonus points when they register.
+                            Invite friends to Participate in an event and earn bonus points when they register.
                         </Typography>
                     </CardBody>
                 </Card>

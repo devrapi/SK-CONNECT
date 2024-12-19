@@ -13,6 +13,7 @@ export default function AppProvider({children}){
     const[rewards , setRewards] = useState({});
     const[task , setTask] = useState({});
     const[leaderBoards , setLeaderBoards] = useState({});
+    const[AllleaderBoards , setAllLeaderBoards] = useState({});
     const[ticket , setTicket] = useState([]);
     const[history , setHistory] = useState([]);
     const[profiles , setProfiles] = useState({});
@@ -62,6 +63,13 @@ export default function AppProvider({children}){
         const data = await res.data;
 
         setLeaderBoards(data)
+    }
+
+    async function getAllLeaderBoards(){
+        const res = await ApiService.get("all/leaderboards",);
+        const data = await res.data;
+
+        setAllLeaderBoards(data)
     }
 
        //get Daily Login
@@ -160,6 +168,10 @@ export default function AppProvider({children}){
         getOfficials();
     },[]);
 
+    useEffect(() => {
+        getAllLeaderBoards();
+    },[]);
+
 
     useEffect(() => {
         getComment();
@@ -221,7 +233,7 @@ export default function AppProvider({children}){
         rewards , ticket,
         history ,task,
         dailyLogin , leaderBoards,
-        announcement, comment,officials
+        announcement, comment,officials,AllleaderBoards
 
          }}>
             {children}

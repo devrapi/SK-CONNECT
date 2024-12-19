@@ -14,9 +14,11 @@ import withReactContent from "sweetalert2-react-content";
 import dayjs from "dayjs";
 
 const LeaderBoards = () => {
-  const { leaderBoards, user } = useContext(AppContext);
+  const { leaderBoards, user , AllleaderBoards} = useContext(AppContext);
   const [canClaim, setCanClaim] = useState(false);
 
+  const allUsers = AllleaderBoards; // Assuming leaderBoards includes all users
+  const userRank = allUsers.findIndex((item) => item.name === user?.name) + 1;
   const isUserOnLeaderboard = leaderBoards.some((item) => item.name === user?.name);
   const lastClaimed = user.lb_last_claim;
 
@@ -54,35 +56,20 @@ const LeaderBoards = () => {
   const renderRank = (index) => {
     switch (index) {
       case 0:
-        return (
-          <div className="flex items-center space-x-2">
-            <img src="/img/gold.png" alt="Gold Trophy" className="w-6 h-6" />
-
-          </div>
-        );
+        return <img src="/img/gold.png" alt="Gold Trophy" className="w-8 h-8" />;
       case 1:
-        return (
-          <div className="flex items-center space-x-2">
-            <img src="/img/silver.png" alt="Silver Trophy" className="w-6 h-6" />
-
-          </div>
-        );
+        return <img src="/img/silver.png" alt="Silver Trophy" className="w-8 h-8" />;
       case 2:
-        return (
-          <div className="flex items-center space-x-2">
-            <img src="/img/bronze.png" alt="Bronze Trophy" className="w-6 h-6" />
-
-          </div>
-        );
+        return <img src="/img/bronze.png" alt="Bronze Trophy" className="w-8 h-8" />;
       default:
         return <span>{index + 1}</span>;
     }
   };
 
   return (
-    <div className="container max-w-4xl mx-auto ">
+    <div className="container max-w-4xl mx-auto">
       <Card className="bg-white rounded-lg shadow-lg">
-        <CardHeader className="p-4 text-center text-white bg-gradient-to-r from-blue-500 to-indigo-500">
+        <CardHeader className="p-4 text-center text-white bg-gradient-to-r from-blue-500 to-green-500">
           <Typography variant="h4" className="font-bold">
             Leaderboards
           </Typography>
@@ -129,6 +116,13 @@ const LeaderBoards = () => {
               </tbody>
             </table>
           </div>
+          {!isUserOnLeaderboard && (
+            <div className="mt-6 text-center">
+              <Typography variant="body2" className="font-medium text-gray-800">
+                Your current rank:<span className="text-indigo-500 "> #{userRank}</span>
+              </Typography>
+            </div>
+          )}
           {isUserOnLeaderboard && (
             <div className="mt-6 text-center">
               {canClaim ? (

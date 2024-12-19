@@ -18,7 +18,7 @@ const Index = () => {
                     {/* Main Content Section */}
                     <div className="flex flex-col h-screen overflow-hidden">
                         {/* This ensures the content is scrollable while navbar stays fixed */}
-                        <main className="flex-grow p-4 mt-20 overflow-auto lg:p-10 lg:mt-20 xl:px-64">
+                        <main className="flex-grow p-4 mt-20 overflow-auto lg:p-10 lg:mt-20 xl:px-64 pb-20">
                             <Outlet />
                         </main>
                     </div>
