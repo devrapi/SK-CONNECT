@@ -6,7 +6,8 @@ import {
   Button,
 } from "@material-tailwind/react";
 import ApiService from "../../../Services/ApiService";
-
+import { DocumentTextIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 const InviteeParticipants = () => {
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
@@ -88,6 +89,18 @@ const InviteeParticipants = () => {
         <Typography variant="h4" color="blue-gray" className="font-semibold">
           Add Invitee Information
         </Typography>
+        <div className="flex justify-end mb-6 mr-2 space-x-4">
+    {/* History Button */}
+    <Link
+        to="/admin/dashboard/sk-Invitee/records"
+        className="flex items-center px-4 py-2 space-x-2 text-white transition duration-300 bg-blue-500 rounded-lg shadow-md group hover:bg-blue-600"
+        aria-label="View History"
+    >
+        <DocumentTextIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+        <span className="hidden md:inline-block">Records</span>
+    </Link>
+
+</div>
       </div>
       <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
         <Typography variant="h5" color="blue-gray">

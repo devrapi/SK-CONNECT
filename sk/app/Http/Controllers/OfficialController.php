@@ -24,6 +24,7 @@ class OfficialController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'title' => 'required|string',
+            'batch_year' => 'required|string',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -92,5 +93,19 @@ class OfficialController extends Controller
         $official->delete();
 
         return ['message' => 'sk officials is deleted'];
+    }
+
+    public function fetchArchived()
+    {
+    // Retrieve all profiles that have been soft deleted
+    $archivedProfiles = Official::onlyTrashed()->get();
+
+    // Check if the result set is empty
+    if ($archivedProfiles->isEmpty()) {
+        return response()->json(['message' => 'No archived profiles found'], 404);
+    }
+
+    // Return the archived profiles
+    return $archivedProfiles;
     }
 }

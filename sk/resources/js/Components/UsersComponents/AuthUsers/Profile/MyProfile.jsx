@@ -1,4 +1,4 @@
-import React, { useState, useContext ,useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Card,
   CardHeader,
@@ -6,149 +6,129 @@ import {
   Typography,
   Button,
   Avatar,
-} from "@material-tailwind/react";
+  Badge,
+} from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../../Context/AppContext';
 import { CameraIcon } from '@heroicons/react/24/solid';
 import ApiService from '../../../Services/ApiService';
 import WeeklyStreaks from './WeeklyStreaks';
 import Swal from 'sweetalert2';
+
 const MyProfile = () => {
-
-
-
   const { user } = useContext(AppContext);
 
-
-
-
-  // Fallback default image if user doesn't have an avatar
-  const defaultImage = "/img/default_user.jpg"; // Ensure this path exists in your public folder
+  const defaultImage = '/img/default_user.jpg';
   const [image, setImage] = useState(user.image_path ? `/storage/${user.image_path}` : defaultImage);
   const [imageFile, setImageFile] = useState(null);
   const [dailyLogin, setDailyLogin] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-
-
-  async function getDailyLogin(){
+  async function getDailyLogin() {
     const res = await ApiService.get(`dailyLogin/${user.daily_login_id}`);
     const data = await res.data;
+    setDailyLogin(data.streak);
+  }
 
-    setDailyLogin(data.streak)
-}
-    useEffect(() => {
-        getDailyLogin();
-    },[]);
-
-
+  useEffect(() => {
+    getDailyLogin();
+  }, []);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setImage(URL.createObjectURL(file)); // Create a preview URL
-      setImageFile(file); // Store the actual file for submission
+    if (file && file.type.startsWith('image/')) {
+      setImage(URL.createObjectURL(file));
+      setImageFile(file);
+    } else {
+      Swal.fire('Invalid File', 'Please upload a valid image.', 'error');
     }
   };
 
   const handleSubmit = async () => {
-    try {
-      const formData = new FormData();
+    if (!imageFile) return;
 
-      if (imageFile) {
-        formData.append('image', imageFile);
-      } else {
-        console.log('No image file to upload');
-      }
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append('image', imageFile);
 
       const response = await ApiService.post(`update/user/${user.id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       if (response) {
-        // Show success alert
-        await Swal.fire({
-          title: 'Avatar Updated Successfully!',
-          text: 'success',
-          icon: 'success',
-          confirmButtonText: 'Okay',
+        Swal.fire('Success', 'Avatar Updated Successfully!', 'success').then(() => {
+          window.location.reload();
         });
-
-        // Reload the page after the alert is closed
-        window.location.reload();
       }
-
     } catch (error) {
       console.error('Error during update creation:', error.response?.data || error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
   return (
-
-    <div className="flex justify-center mt-10">
-
+    <div className="flex justify-center ">
       <Card className="w-full max-w-md mt-20 shadow-lg">
-
-        <CardHeader color="blue-gray" className="relative py-4 text-center">
-          {/* Adding Avatar */}
+        <CardHeader color="green" className="relative py-6 text-center bg-gradient-to-r from-green-300 to-green-600">
           <div className="relative flex justify-center mb-4">
-            <Avatar
-              src={image}
-              alt="User avatar"
-              size="xxl"
-              className="p-0.5"
-              variant="circular"
-              withBorder={true}
-              color="blue"
-            />
-
-            {/* Edit Icon for Avatar */}
-            <label htmlFor="avatar-upload" className="absolute bottom-0 p-1 bg-gray-800 rounded-full cursor-pointer right-2 hover:bg-gray-600">
-              <CameraIcon className="w-5 h-5 text-white" />
-              <input
-                type="file"
-                id="avatar-upload"
-                className="hidden"
-                accept="image/*"
-                onChange={handleAvatarChange}
+            <div className="relative group">
+              <Avatar
+                src={image}
+                alt="User avatar"
+                size="xxl"
+                className="p-0.5"
+                variant="circular"
+                withBorder={true}
+                color="green"
               />
-            </label>
+              <label
+                htmlFor="avatar-upload"
+                className="absolute bottom-0 flex items-center justify-center w-8 h-8 text-white bg-gray-800 rounded-full cursor-pointer right-2 group-hover:opacity-75"
+              >
+                <CameraIcon className="w-5 h-5" />
+                <input
+                  type="file"
+                  id="avatar-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                />
+              </label>
+            </div>
           </div>
-
-          {imageFile && (
-            <Button color="blue" onClick={handleSubmit} size="sm">
+          {imageFile && !isUploading && (
+            <Button color="green" onClick={handleSubmit} size="sm">
               Save Avatar
             </Button>
           )}
-          <Typography variant="h5" color="gray">
+          {isUploading && <Typography variant="small" color="green">Uploading...</Typography>}
+          <Typography variant="h5" color="white">
             {user.name}
           </Typography>
-          <Typography variant="small" color="gray">
+          <Typography variant="small" color="white">
             {user.email}
           </Typography>
         </CardHeader>
         <CardBody className="text-center">
-          <div className="px-4 py-2 mb-4 text-blue-700 bg-blue-100 rounded-lg">
+          <div className="px-4 py-2 mb-4 text-green-700 bg-green-100 rounded-lg">
             <Typography variant="h6" className="font-bold">
               Points: {user.points}
             </Typography>
           </div>
-
-          <div className="flex justify-center mt-4 space-x-3">
+          <div className="flex justify-center space-x-3">
             <Link to={`/index/editProfile/${user.profile_id}`}>
-              <Button color="blue" size="sm">
+              <Button color="green" size="sm">
                 Edit Profile
               </Button>
             </Link>
-
           </div>
           <div className="mt-6">
             <WeeklyStreaks userStreak={dailyLogin} user_id={user.id} />
-        </div>
+          </div>
         </CardBody>
       </Card>
-
     </div>
   );
 };

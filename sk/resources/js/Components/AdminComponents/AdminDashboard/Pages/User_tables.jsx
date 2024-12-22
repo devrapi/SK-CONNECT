@@ -71,16 +71,16 @@ const UserTables = () => {
             <Typography variant="h4" color="blue-gray" className="font-bold">
                 Youth Profiles
             </Typography>
-            <div className="flex flex-col md:flex-row justify-between gap-4">
+            <div className="flex flex-col justify-between gap-4 md:flex-row">
                 <Input
                     type="text"
                     label="Search profiles..."
                     icon={<MagnifyingGlassIcon className="w-5 h-5 text-gray-400" />}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-gray-50 border rounded-lg"
+                    className="border rounded-lg bg-gray-50"
                 />
-                <Link to="/admin/dashboard/profilling" className="flex items-center justify-center bg-blue-500 text-white rounded-lg px-4 py-2 shadow hover:bg-blue-600">
+                <Link to="/admin/dashboard/profilling" className="flex items-center justify-center px-4 py-2 text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600">
                     <UserPlusIcon className="w-5 h-5 mr-2" />
                 </Link>
             </div>
@@ -90,7 +90,7 @@ const UserTables = () => {
                         <thead>
                             <tr className="bg-gray-100">
                                 {["Name", "Age", "Gender", "Phone Number", "Education", "Address", "Edit", "Archive"].map((head) => (
-                                    <th key={head} className="p-4 text-gray-600 font-semibold">
+                                    <th key={head} className="p-4 font-semibold text-gray-600">
                                         {head}
                                     </th>
                                 ))}

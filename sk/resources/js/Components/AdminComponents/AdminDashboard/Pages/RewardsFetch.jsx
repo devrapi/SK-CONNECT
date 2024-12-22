@@ -35,16 +35,16 @@ const RewardsFetch = () => {
             </Typography>
 
             {/* Add Rewards Button */}
-            <div className="flex justify-end">
-                <Link to="/admin/dashboard/rewards/">
-                    <Button
-                        variant="outlined"
-                        color="blue"
-                        className="flex items-center space-x-2">
-                        <GiftIcon className="w-6 h-6 text-blue-500" />
-                        <span>Add Reward</span>
-                    </Button>
-                </Link>
+
+            <div className="flex justify-end space-x-4">
+            <Link
+                to="/admin/dashboard/rewards/"
+                className="flex items-center gap-2 px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+                aria-label="Add Reward"
+            >
+                <GiftIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+                <span>Add Reward</span>
+            </Link>
             </div>
 
             {/* Category Filters */}
@@ -110,7 +110,7 @@ const RewardsFetch = () => {
                             </Typography>
 
                             {/* Reward Description */}
-                            <Typography className="truncate mb-2 text-sm text-gray-600">
+                            <Typography className="mb-2 text-sm text-gray-600 truncate">
                                 {reward.description}
                             </Typography>
 

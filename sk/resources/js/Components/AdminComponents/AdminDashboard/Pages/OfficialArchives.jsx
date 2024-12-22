@@ -1,42 +1,46 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../../Services/ApiService";
-import { Card, Typography, Tooltip , Button , IconButton} from "@material-tailwind/react";
-import Restore from "./Restore";
+import { Card, Typography, Select, Option ,Button , IconButton } from "@material-tailwind/react";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 
-const Archive = () => {
+const OfficialArchives = () => {
   const [archive, setArchive] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activePage, setActivePage] = useState(1); // Add loading state
-  const itemsPerPage = 10;
+  const [filteredArchive, setFilteredArchive] = useState([]);
+  const [batchYear, setBatchYear] = useState(""); // State to track selected batch year
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [activePage, setActivePage] = useState(1); // Current page state
+  const itemsPerPage = 10; // Maximum rows per page
+
   useEffect(() => {
     const getArchive = async () => {
       try {
-        const res = await ApiService.get("/profiles/archived/fetch");
+        const res = await ApiService.get("/officials/archived/fetch");
         setArchive(res.data);
+        setFilteredArchive(res.data); // Initially show all data
       } catch (error) {
-        console.error("Failed to fetch archive:", error);
+        console.error("Failed to fetch archive data:", error);
       } finally {
-        setLoading(false); // Set loading to false after API call
+        setIsLoading(false); // Stop loading after data is fetched
       }
     };
     getArchive();
   }, []);
 
-  const calculateAge = (birthdate) => {
-    const today = new Date();
-    const birthDateObj = new Date(birthdate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
-      age--;
+  // Function to handle batch year filtering
+  const handleBatchYearChange = (year) => {
+    setBatchYear(year);
+    setActivePage(1); // Reset to first page after filtering
+    if (year === "") {
+      setFilteredArchive(archive); // Show all if no batch year is selected
+    } else {
+      const filteredData = archive.filter((item) => item.batch_year === year);
+      setFilteredArchive(filteredData);
     }
-    return age;
   };
 
-  const TABLE_HEAD = ["Name", "Age", "Gender", "Phone Number", "Education", "Address", "Action"];
-
-  const totalPages = Math.ceil(archive.length / itemsPerPage);
-  const currentRecords = archive.slice(
+  const totalPages = Math.ceil(filteredArchive.length / itemsPerPage);
+  const currentRecords = filteredArchive.slice(
     (activePage - 1) * itemsPerPage,
     activePage * itemsPerPage
   );
@@ -45,19 +49,51 @@ const Archive = () => {
   const nextPage = () => activePage < totalPages && setActivePage(activePage + 1);
   const prevPage = () => activePage > 1 && setActivePage(activePage - 1);
 
+  // Handle Next and Previous buttons
+
+
+  const TABLE_HEAD = ["Name", "Title", "Batch Year"];
 
   return (
     <div className="min-h-screen p-6 space-y-6 bg-slate-100">
+      {/* Page Title */}
       <Typography variant="h4" className="font-bold text-gray-800">
-        Youth Archived
+        Officials Archived
       </Typography>
 
+      {/* Back Button */}
+      <div className="flex justify-end">
+        <Link to="/admin/dashboard/sk-officials">
+          <ArrowLeftCircleIcon className="w-12 h-12 text-blue-500 hover:text-blue-400" />
+        </Link>
+      </div>
+
+      {/* Batch Year Selector */}
+      <div className="flex justify-end w-1/3 mb-4">
+        <Select
+          label="Filter by Batch Year"
+          value={batchYear}
+          onChange={(e) => handleBatchYearChange(e)}
+          className="w-full "
+        >
+          <Option className="w-full " value="">
+            All Batch Years
+          </Option>
+          {[...new Set(archive.map((item) => item.batch_year))].map((year) => (
+            <Option key={year} value={year}>
+              {year}
+            </Option>
+          ))}
+        </Select>
+      </div>
+
+      {/* Archive Table */}
       <Card className="bg-white rounded-lg shadow-xl">
         <div className="overflow-x-auto">
-          {loading ? ( // Display loading state
-            <div className="flex items-center justify-center py-6">
-              <Typography variant="small" color="gray" className="font-medium">
-                Loading archived profiles...
+          {isLoading ? (
+            <div className="flex items-center justify-center p-6">
+              <Typography variant="h6" color="gray" className="animate-pulse">
+                Loading...
               </Typography>
             </div>
           ) : (
@@ -83,19 +119,11 @@ const Archive = () => {
                     </td>
                   </tr>
                 ) : (
-                    currentRecords.map((profile, index) => (
-                    <tr key={profile.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
-                      <td className="p-4">{profile.full_name}</td>
-                      <td className="p-4">{calculateAge(profile.birthdate)}</td>
-                      <td className="p-4">{profile.gender}</td>
-                      <td className="p-4">{profile.phone_number}</td>
-                      <td className="p-4">{profile.education}</td>
-                      <td className="p-4">{profile.address}</td>
-                      <td className="p-4">
-                        <Tooltip content="Restore Profile" placement="top">
-                          <Restore id={profile.id} />
-                        </Tooltip>
-                      </td>
+                    currentRecords.map((item, index) => (
+                    <tr key={item.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
+                      <td className="p-4">{item.name}</td>
+                      <td className="p-4">{item.title}</td>
+                      <td className="p-4">{item.batch_year}</td>
                     </tr>
                   ))
                 )}
@@ -103,7 +131,8 @@ const Archive = () => {
             </table>
           )}
         </div>
-        {!loading && (
+        {/* Pagination */}
+        {!isLoading && (
           <div className="flex items-center justify-between p-4">
             <Button
               variant="text"
@@ -145,4 +174,4 @@ const Archive = () => {
   );
 };
 
-export default Archive;
+export default OfficialArchives;

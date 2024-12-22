@@ -68,24 +68,40 @@ const Calendars = () => {
   return (
     <div>
       <div className="space-y-5">
-        <Typography variant="h4" color="blue-gray" className="font-semibold text-center md:text-left">
-          UPCOMING EVENTS
-        </Typography>
+  {/* Title */}
+  <Typography
+    variant="h4"
+    color="blue-gray"
+    className="font-semibold text-center md:text-left"
+  >
+    UPCOMING EVENTS
+  </Typography>
 
-        <div className="flex flex-wrap justify-between gap-4">
-          <Button
-            color="green"
-            onClick={() => setIsCalendarView(!isCalendarView)}
-            className="w-full md:w-auto"
-          >
-            {isCalendarView ? "View List" : "View Calendar"}
-          </Button>
-          <Link to="/admin/dashboard/event" className="flex items-center justify-center gap-2">
-            <CalendarIcon className="w-8 h-8 text-green-500" />
-            <PlusIcon className="w-5 h-5 text-green-500" />
-          </Link>
-        </div>
-      </div>
+  {/* Actions */}
+  <div className="flex flex-wrap items-center justify-between gap-4">
+    {/* Toggle View Button */}
+    <Button
+      color="green"
+      onClick={() => setIsCalendarView(!isCalendarView)}
+      className="flex items-center w-full gap-2 px-4 py-2 text-white transition duration-300 bg-green-500 rounded-lg shadow-md md:w-auto hover:bg-green-600"
+      aria-label={`Switch to ${isCalendarView ? 'List' : 'Calendar'} View`}
+    >
+      <span>{isCalendarView ? "View List" : "View Calendar"}</span>
+    </Button>
+
+    {/* Add Event Button */}
+    <Link
+      to="/admin/dashboard/event"
+      className="flex items-center gap-2 px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-lg shadow-md hover:bg-blue-600"
+      aria-label="Add New Event"
+    >
+      <CalendarIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+      <PlusIcon className="w-5 h-5 text-white transition duration-300 group-hover:scale-110" />
+      <span className="hidden md:inline-block">Add Event</span>
+    </Link>
+  </div>
+</div>
+
 
       {isCalendarView ? (
         <div className="p-4 mt-5 bg-white rounded-lg shadow-lg">
@@ -158,7 +174,7 @@ const Calendars = () => {
                   Read More
                 </Button>
                 <Link to={`QrCode/${ev.id}`}>
-                  <QrCodeIcon className="w-10 h-10 text-blue-500 cursor-pointer hover:text-blue-700 hover:scale-110 transition-transform" />
+                  <QrCodeIcon className="w-10 h-10 text-blue-500 transition-transform cursor-pointer hover:text-blue-700 hover:scale-110" />
                 </Link>
               </CardFooter>
             </Card>
@@ -183,7 +199,7 @@ const Calendars = () => {
             <img
               src={`/storage/${selectedEvent.image_path}`}
               alt={selectedEvent.title}
-              className="object-cover w-full mb-4 rounded-lg h-64"
+              className="object-cover w-full h-64 mb-4 rounded-lg"
             />
             <Typography variant="h6" color="blue-gray" className="mb-2">
               {selectedEvent.title}

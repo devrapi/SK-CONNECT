@@ -43,51 +43,63 @@ const Inbox = () => {
     return (
         <Menu>
             <MenuHandler>
-                <div className="relative mr-4">
-                    <div className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-200 ease-in-out">
+                <div className="relative mr-4 cursor-pointer">
+                    <div className="p-2 transition duration-200 ease-in-out bg-gray-200 rounded-full shadow-sm hover:bg-gray-300">
                         <BellAlertIcon className="w-6 h-6 text-black" />
                     </div>
                     {notifications.some(n => !n.read) && (
-                        <span className="absolute top-0 right-0 block h-2.5 w-2.5 bg-red-500 rounded-full animate-pulse" />
+                        <span className="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-xs text-white bg-red-500 rounded-full animate-bounce">
+                            {notifications.filter(n => !n.read).length}
+                        </span>
                     )}
                 </div>
             </MenuHandler>
-            <MenuList className="flex flex-col max-w-sm gap-2 overflow-y-auto max-h-64 bg-white shadow-lg rounded-lg border border-gray-300">
+            <MenuList
+                className="absolute right-0 z-50 flex flex-col max-w-sm gap-2 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-xl top-full max-h-72 md:max-w-md md:max-h-80 lg:max-h-96"
+                style={{ position: 'absolute' }} // Ensures the dropdown does not affect layout flow
+            >
                 {notifications.length === 0 ? (
-                    <Typography variant="small" color="gray" className="text-xs text-center py-4">
-                        No new notifications
-                    </Typography>
+                    <div className="py-4">
+                        <Typography variant="small" color="gray" className="text-xs text-center">
+                            No new notifications
+                        </Typography>
+                    </div>
                 ) : (
                     <>
-                        <div className="flex items-center justify-between px-4 py-2 bg-gray-100 rounded-t-lg">
-                            <Typography variant="small" className="text-gray-600">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 rounded-t-lg bg-gray-50">
+                            <Typography variant="small" className="font-medium text-gray-700">
                                 Notifications
                             </Typography>
                             <Button
                                 variant="text"
                                 size="small"
                                 onClick={markAllAsRead}
-                                className="text-gray-600 hover:bg-gray-200 transition duration-200"
+                                className="text-blue-600 transition duration-200 hover:text-blue-800 hover:bg-blue-50"
                             >
                                 Mark all as read
                             </Button>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 px-2">
                             {notifications.map((notification) => (
                                 <MenuItem
                                     key={notification.id}
-                                    className={`flex items-center gap-4 py-2 pl-4 pr-8 rounded-md hover:bg-gray-100 transition duration-150 ease-in-out ${!notification.read ? 'bg-gray-50' : ''}`}
+                                    className={`flex items-center gap-4 py-2 px-3 rounded-lg hover:bg-gray-100 transition duration-150 ease-in-out ${
+                                        !notification.read ? 'bg-gray-50 shadow-sm' : ''
+                                    }`}
                                 >
                                     <Avatar
                                         variant="circular"
                                         alt="Notification Icon"
                                         src={notification.icon || "/img/uno.png"}
                                         size="sm"
+                                        className="shadow-md"
                                     />
-                                    <div className="flex flex-col gap-1">
+                                  <div className="flex flex-col w-full gap-1">
                                         <Typography
                                             variant="small"
-                                            className={`text-sm ${!notification.read ? 'font-semibold' : ''}`}
+                                            className={`text-sm line-clamp-3 ${
+                                                !notification.read ? 'font-semibold text-gray-800' : 'text-gray-600'
+                                            }`}
                                         >
                                             {notification.message}
                                         </Typography>
@@ -95,6 +107,7 @@ const Inbox = () => {
                                             {moment(notification.created_at).fromNow()}
                                         </Typography>
                                     </div>
+
                                 </MenuItem>
                             ))}
                         </div>

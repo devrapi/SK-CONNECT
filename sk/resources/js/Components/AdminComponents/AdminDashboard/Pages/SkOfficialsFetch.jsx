@@ -8,11 +8,12 @@ import {
   Menu,
   MenuHandler,
   MenuList,
+  Button,
   MenuItem
 } from "@material-tailwind/react";
 import { AppContext } from "../../../Context/AppContext";
 import { Link } from 'react-router-dom';
-import { GlobeAltIcon ,AcademicCapIcon ,EllipsisHorizontalIcon , PencilIcon , UserCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { GlobeAltIcon ,AcademicCapIcon ,EllipsisHorizontalIcon , PencilIcon , UserCircleIcon, PlusIcon ,DocumentTextIcon} from "@heroicons/react/24/outline";
 import SkOfficialsDelete from "./SkOfficialsDelete";
 
 function TeamCard({ img, name, title,OfficialId }) {
@@ -49,7 +50,7 @@ function TeamCard({ img, name, title,OfficialId }) {
       <Typography
         variant="h5"
         color="blue-gray"
-        className="font-medium text-lg"
+        className="text-lg font-medium"
       >
         {name}
       </Typography>
@@ -86,41 +87,57 @@ const SkOfficialsFetch = () => {
     );
   }
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-5">
+    <section className="px-4 py-5 sm:px-6 lg:px-8">
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-16 text-center lg:mb-28">
-          <Typography
+          {/* <Typography
             variant="h6"
             color="blue-gray"
             className="text-lg tracking-wide"
           >
             Meet the Team
-          </Typography>
+          </Typography> */}
           <Typography
             variant="h2"
             color="blue-gray"
-            className="my-4 text-2xl lg:text-4xl font-bold"
+            className="my-4 text-2xl font-bold lg:text-4xl"
           >
             Behind the Success: Our Dedicated Team
           </Typography>
-          <Typography
+          {/* <Typography
             variant="lead"
-            className="mx-auto max-w-4xl text-gray-500 text-sm lg:text-base"
+            className="max-w-4xl mx-auto text-sm text-gray-500 lg:text-base"
           >
             From visionary leadership to creative talent and technical wizards,
             each team member plays a pivotal role in delivering exceptional
             service and innovative solutions.
-          </Typography>
+          </Typography> */}
         </div>
-        <div className="flex justify-end mb-6">
-                    <Link to="/admin/dashboard/sk-officials/Create">
-                        <div className="flex items-center space-x-2">
-                            <UserCircleIcon className="w-8 h-8 text-blue-500" />
-                            <PlusIcon className="w-5 h-5 text-blue-500" />
-                        </div>
-                    </Link>
-                </div>
+        <div className="flex justify-end mb-6 mr-2 space-x-4">
+    {/* History Button */}
+    <Link
+        to="/admin/dashboard/sk-officials/archives"
+        className="flex items-center px-4 py-2 space-x-2 text-white transition duration-300 bg-blue-500 rounded-lg shadow-md group hover:bg-blue-600"
+        aria-label="View History"
+    >
+        <DocumentTextIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+        <span className="hidden md:inline-block">History</span>
+    </Link>
+
+    {/* Create Official Button */}
+    <Link
+        to="/admin/dashboard/sk-officials/Create"
+        className="flex items-center px-4 py-2 space-x-2 text-white transition duration-300 bg-green-500 rounded-lg shadow-md group hover:bg-green-600"
+        aria-label="Create SK Official"
+    >
+        <UserCircleIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+        <PlusIcon className="w-4 h-4 text-white transition duration-300 group-hover:scale-110" />
+        <span className="hidden md:inline-block">Create</span>
+    </Link>
+</div>
+
+
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">

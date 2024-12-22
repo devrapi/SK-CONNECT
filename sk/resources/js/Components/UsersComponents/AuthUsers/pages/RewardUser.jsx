@@ -32,16 +32,9 @@ const RewardUser = () => {
         <>
             <div className="container pb-6 mx-auto space-y-6">
                 {/* Header */}
-                <div className="text-center">
-                    <Typography variant="h4" color="blue-gray" className="font-semibold uppercase font-custom text-gray-800">
+                {/* <div className="text-center">
+                    <Typography variant="h4" className="font-semibold text-green-700 uppercase font-custom">
                         Rewards
-                    </Typography>
-                </div>
-
-                {/* Monthly Claimed Rewards Indicator */}
-                {/* <div className="my-4 text-center">
-                    <Typography variant="h6" color="blue-gray" className="font-medium font-custom">
-                        Rewards Claimed This Month: {user.reward_claimed_count} / 3
                     </Typography>
                 </div> */}
 
@@ -50,9 +43,12 @@ const RewardUser = () => {
                     {['All', 'Basic', 'Classic', 'Premium'].map(category => (
                         <Button
                             key={category}
-                            color={selectedCategory === category ? "blue" : "gray"}
                             onClick={() => filterRewards(category)}
-                            className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
+                            className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 rounded-full ${
+                                selectedCategory === category
+                                    ? 'bg-green-600 text-white'
+                                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                            }`}
                         >
                             {category}
                         </Button>
@@ -65,7 +61,7 @@ const RewardUser = () => {
                         <Card key={reward.id} className="max-w-md p-4 mx-auto rounded-lg shadow-lg">
                             {/* Reward Name */}
                             <div className="mb-4 text-center">
-                                <Typography variant="h3" color="blue-gray" className="text-lg font-bold font-custom">
+                                <Typography variant="h5" className="font-bold text-green-800">
                                     {reward.name}
                                 </Typography>
                             </div>
@@ -77,39 +73,46 @@ const RewardUser = () => {
                                     alt={reward.name}
                                     className="object-cover w-full h-full"
                                 />
-
-                                {/* Category Badge */}
-                                <div className={`absolute top-2 left-2 px-3 py-1 text-xs font-bold text-white rounded-full ${
-                                    reward.category === 'Basic' ? 'bg-green-500' :
-                                    reward.category === 'Classic' ? 'bg-yellow-500' :
-                                    reward.category === 'Premium' ? 'bg-red-500' : 'bg-blue-600'
-                                }`}>
-                                    {reward.category}
-                                </div>
                             </div>
 
                             {/* Reward Details */}
                             <CardBody className="px-4 py-2 text-left">
-                                <Typography color="gray" className="mb-3 text-sm truncate font-custom">
+                                <Typography color="gray" className="mb-3 text-sm truncate">
                                     {reward.description}
                                 </Typography>
 
                                 {/* Points and Stock Information */}
-                                <div className="flex flex-col space-y-1 text-sm font-custom">
-                                    <Typography className="font-medium font-custom">
-                                        <span className="font-semibold">Points:</span> {reward.points}
+                                <div className="flex flex-col space-y-1 text-sm">
+                                    <Typography>
+                                        <span className="font-semibold text-green-700">Points:</span> {reward.points}
                                     </Typography>
-                                    <Typography className="font-medium font-custom">
-                                        <span className="font-semibold">Available Stocks:</span> {reward.stocks}
+                                    <Typography>
+                                        <span className="font-semibold text-green-700">Available Stocks:</span> {reward.stocks}
                                     </Typography>
+                                </div>
+
+                                {/* Category Badge */}
+                                <div className="mt-3 text-center">
+                                    <div
+                                        className={`px-3 py-1 text-xs font-bold text-white rounded-full ${
+                                            reward.category === 'Basic'
+                                                ? 'bg-green-500'
+                                                : reward.category === 'Classic'
+                                                ? 'bg-yellow-500'
+                                                : reward.category === 'Premium'
+                                                ? 'bg-red-500'
+                                                : 'bg-blue-500'
+                                        }`}
+                                    >
+                                        {reward.category}
+                                    </div>
                                 </div>
                             </CardBody>
 
                             {/* Card Footer for Claim Button */}
-                            <CardFooter className="flex justify-end p-3 border-t font-custom">
+                            <CardFooter className="flex justify-end p-3 border-t border-green-200">
                                 {hasReachedClaimLimit ? (
                                     <Button
-                                        color="gray"
                                         disabled
                                         className="text-gray-600 bg-gray-300 cursor-not-allowed"
                                     >

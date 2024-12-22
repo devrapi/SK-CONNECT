@@ -133,7 +133,9 @@ Route::get('events/reject/{attendanceId}', [EventAttendanceController::class, 'r
 //Sk-Officials
 Route::apiResource('officials', OfficialController::class);
 Route::post('officials/update/{official}', [OfficialController::class, 'update']);
+Route::get('officials/archived/fetch', [OfficialController::class, 'fetchArchived']);
 
 //addmin invites
 Route::post('admin/invites', [InviteController::class, 'store']);
+Route::get('admin/records', [InviteController::class, 'index']);
 Route::get('admin/users', [InviteController::class, 'getAllUsers']);

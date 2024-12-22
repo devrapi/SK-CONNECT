@@ -13,6 +13,7 @@ const SkOfficials = () => {
     const[form , setForm] = useState({
         name: '',
         title: '',
+        batch_year: ''
       });
 
       const handleImageChange = (e) => {
@@ -32,6 +33,7 @@ const SkOfficials = () => {
             // Append form fields
             formData.append('name', form.name);
             formData.append('title', form.title);
+            formData.append('batch_year', form.batch_year);
 
             if (imageFile) {
                 formData.append('image_path', imageFile); // Append the actual file
@@ -72,6 +74,7 @@ const SkOfficials = () => {
                 setForm({
                     name: '',
                     title: '',
+                    batch_year: '',
 
                   });
                 setErrors(error.response.data.errors);
@@ -131,6 +134,24 @@ const SkOfficials = () => {
                     <Option value="SK Secretary">SK Secretary</Option>
                 </Select>
                 {errors.title && <span className="text-xs text-red-600">{errors.title}</span>}
+            </div>
+
+            <div className="mt-5 mb-4">
+                <Select
+                    label="batch Year"
+                    size="lg"
+                    className="w-full shadow-inner"
+                    value={form.batch_year}
+                    onChange={(value) => {
+                    setForm({ ...form,batch_year: value });
+                    }}
+                >
+                    <Option value="2023">SK 2023</Option>
+                    <Option value="2026">SK 2026</Option>
+                    <Option value="2029">SK 2029</Option>
+                    <Option value="2032 ">SK 2032</Option>
+                </Select>
+                {errors.batch_year && <span className="text-xs text-red-600">{errors.batch_year}</span>}
             </div>
           </div>
 

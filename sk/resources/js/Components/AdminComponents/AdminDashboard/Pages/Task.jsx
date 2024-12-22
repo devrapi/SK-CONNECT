@@ -14,14 +14,16 @@ const Task = () => {
                 <Typography variant="h4" color="blue-gray" className="font-semibold">
                     Task Management
                 </Typography>
-
-                <div className='flex justify-end'>
-                    <Link to="/admin/dashboard/gamification">
-                        <div className='flex items-center ml-4'>
-                            <ClipboardDocumentCheckIcon className='w-8 h-18 text-red-500' />
-                            <PlusIcon className='w-5 h-5 text-red-500' />
-                        </div>
-                    </Link>
+                <div className="flex justify-end space-x-4">
+                <Link
+                    to="/admin/dashboard/gamification"
+                    className="flex items-center gap-2 px-4 py-2 text-white transition duration-300 bg-red-500 rounded-lg shadow-md hover:bg-red-600"
+                    aria-label="Go to Gamification"
+                >
+                    <ClipboardDocumentCheckIcon className="w-6 h-6 text-white transition duration-300 group-hover:scale-110" />
+                    <PlusIcon className="w-5 h-5 text-white transition duration-300 group-hover:scale-110" />
+                    <span className="hidden md:inline-block">Task</span>
+                </Link>
                 </div>
             </div>
     <FetchTask />

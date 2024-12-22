@@ -44,6 +44,8 @@ import SkOfficials from '../AdminComponents/AdminDashboard/Pages/SkOfficials';
 import SkOfficialsFetch from '../AdminComponents/AdminDashboard/Pages/SkOfficialsFetch';
 import OfficialsUpdate from '../AdminComponents/AdminDashboard/Pages/OfficialsUpdate';
 import InviteeParticipants from '../AdminComponents/AdminDashboard/Pages/InviteeParticipants';
+import OfficialArchives from '../AdminComponents/AdminDashboard/Pages/OfficialArchives';
+import InviteeRecords from '../AdminComponents/AdminDashboard/Pages/InviteeRecords';
 
 const RoutesComponents = () => {
   return (
@@ -89,6 +91,8 @@ const RoutesComponents = () => {
             <Route path='/admin/dashboard/sk-officials' element={<SkOfficialsFetch/>}/>
             <Route path='/admin/dashboard/Invitee' element={<InviteeParticipants/>}/>
             <Route path='/admin/dashboard/sk-officials/update/:id' element={<OfficialsUpdate/>}/>
+            <Route path='/admin/dashboard/sk-officials/archives' element={<OfficialArchives/>}/>
+            <Route path='/admin/dashboard/sk-Invitee/records' element={<InviteeRecords/>}/>
         </Route>
       </Route>
 

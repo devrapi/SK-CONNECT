@@ -69,7 +69,7 @@ const LeaderBoards = () => {
   return (
     <div className="container max-w-4xl mx-auto">
       <Card className="bg-white rounded-lg shadow-lg">
-        <CardHeader className="p-4 text-center text-white bg-gradient-to-r from-blue-500 to-green-500">
+        <CardHeader className="p-4 text-center text-white bg-gradient-to-r from-green-300 to-green-600">
           <Typography variant="h4" className="font-bold">
             Leaderboards
           </Typography>

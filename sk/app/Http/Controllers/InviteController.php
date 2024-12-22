@@ -48,4 +48,8 @@ class InviteController extends Controller
         $users = User::select('id', 'name')->get();
         return response()->json($users);
     }
+    public function index()
+    {
+        return Invite::orderBy('created_at', 'desc')->get();
+    }
 }

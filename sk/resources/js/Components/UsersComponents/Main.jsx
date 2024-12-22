@@ -51,7 +51,7 @@ const Main = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="py-2 border-0 fixed w-full z-50 bg-transparent">
+      <div className="fixed z-50 w-full py-2 bg-transparent border-0">
         <div className="container flex items-center justify-between mx-auto">
           <img src="/img/sklogo.png" alt="Logo" className="w-auto h-14" />
 
@@ -123,17 +123,17 @@ const Main = () => {
 
       {/* Hero Section */}
       <div
-        className="relative bg-cover bg-center min-h-screen flex items-center justify-center"
-        style={{ backgroundImage: "url('/img/bgSN1.jpg')" }}
+        className="relative flex items-center justify-center min-h-screen bg-center bg-cover"
+        style={{ backgroundImage: "url('/img/placeholder.jpg')" }}
       >
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-6 py-12 font-custom">
+        <div className="relative z-10 px-6 py-12 text-center font-custom">
           <div className="max-w-3xl mx-auto">
             {/* Welcome Badge */}
-            {/* <Typography className="inline-flex text-sm rounded-full border border-blue-500 bg-blue-50 py-1 px-4 font-medium text-blue-700">
+            {/* <Typography className="inline-flex px-4 py-1 text-sm font-medium text-blue-700 border border-blue-500 rounded-full bg-blue-50">
               Welcome to SK Connect
             </Typography> */}
 
@@ -141,7 +141,7 @@ const Main = () => {
             <Typography
               variant="h1"
               color="blue-gray"
-              className="mt-6 text-4xl leading-tight tracking-tight md:text-5xl lg:text-6xl text-gray-100 font-custom"
+              className="mt-6 text-4xl leading-tight tracking-tight text-gray-100 md:text-5xl lg:text-6xl font-custom"
             >
               Connect, Participate, Reward{" "}
               <span className="text-green-400 font-custom">
@@ -152,7 +152,7 @@ const Main = () => {
             {/* Subheading */}
             <Typography
               variant="paragraph"
-              className="mt-4 text-gray-100 md:text-lg lg:text-xl"
+              className="mt-4 text-gray-200 md:text-lg lg:text-xl"
             >
               Join a vibrant community where your contributions lead to real
               rewards and unforgettable experiences.

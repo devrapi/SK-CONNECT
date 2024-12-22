@@ -24,3 +24,6 @@ Schedule::command('reset:rewards-claimed')
 // Schedule::command('reset:rewards-claimed')
 //     ->everyMinute()  // Run every minute for testing purposes
 //     ->timezone('Asia/Manila');
+
+
+Schedule::command('points:reset-except-leaderboards')->monthly('23:59')->timezone('Asia/Manila');

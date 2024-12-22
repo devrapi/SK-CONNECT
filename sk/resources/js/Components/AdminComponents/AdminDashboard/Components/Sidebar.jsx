@@ -19,6 +19,7 @@ import {
   MegaphoneIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
@@ -117,7 +118,7 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <ListItemPrefix>
-              <Cog6ToothIcon className="w-6 h-6" />
+              <UserGroupIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/Invitee">Invitee Participants</Link>}
           </ListItem>

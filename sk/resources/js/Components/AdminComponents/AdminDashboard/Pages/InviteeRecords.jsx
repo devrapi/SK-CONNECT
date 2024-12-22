@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../../Services/ApiService";
-import { Card, Typography, Tooltip , Button , IconButton} from "@material-tailwind/react";
-import Restore from "./Restore";
+import { Link } from "react-router-dom";
+import { Card, Typography, Button, IconButton } from "@material-tailwind/react";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 
-const Archive = () => {
-  const [archive, setArchive] = useState([]);
+const InviteeRecords = () => {
+  const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activePage, setActivePage] = useState(1); // Add loading state
+  const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 10;
+
   useEffect(() => {
-    const getArchive = async () => {
+    const getInvitee = async () => {
       try {
-        const res = await ApiService.get("/profiles/archived/fetch");
-        setArchive(res.data);
+        const res = await ApiService.get("admin/records");
+        setRecords(res.data);
       } catch (error) {
-        console.error("Failed to fetch archive:", error);
+        console.error("Failed to fetch records:", error);
       } finally {
-        setLoading(false); // Set loading to false after API call
+        setLoading(false);
       }
     };
-    getArchive();
+    getInvitee();
   }, []);
 
-  const calculateAge = (birthdate) => {
-    const today = new Date();
-    const birthDateObj = new Date(birthdate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDiff = today.getMonth() - birthDateObj.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
-      age--;
-    }
-    return age;
+  const TABLE_HEAD = ["Name", "Address", "Phone Number", "Inviter Name", "Date"];
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
   };
 
-  const TABLE_HEAD = ["Name", "Age", "Gender", "Phone Number", "Education", "Address", "Action"];
-
-  const totalPages = Math.ceil(archive.length / itemsPerPage);
-  const currentRecords = archive.slice(
+  const totalPages = Math.ceil(records.length / itemsPerPage);
+  const currentRecords = records.slice(
     (activePage - 1) * itemsPerPage,
     activePage * itemsPerPage
   );
@@ -45,19 +41,24 @@ const Archive = () => {
   const nextPage = () => activePage < totalPages && setActivePage(activePage + 1);
   const prevPage = () => activePage > 1 && setActivePage(activePage - 1);
 
-
   return (
     <div className="min-h-screen p-6 space-y-6 bg-slate-100">
       <Typography variant="h4" className="font-bold text-gray-800">
         Youth Archived
       </Typography>
 
+      <div className="flex justify-end">
+        <Link to="/admin/dashboard/Invitee">
+          <ArrowLeftCircleIcon className="w-12 text-blue-500 h-14 hover hover:text-blue-400" />
+        </Link>
+      </div>
+
       <Card className="bg-white rounded-lg shadow-xl">
         <div className="overflow-x-auto">
-          {loading ? ( // Display loading state
+          {loading ? (
             <div className="flex items-center justify-center py-6">
               <Typography variant="small" color="gray" className="font-medium">
-                Loading archived profiles...
+                Loading records...
               </Typography>
             </div>
           ) : (
@@ -78,24 +79,18 @@ const Archive = () => {
                   <tr>
                     <td colSpan={TABLE_HEAD.length} className="p-6 text-center">
                       <Typography variant="small" color="gray" className="font-medium">
-                        No archived profiles found.
+                        No Invitee profiles found.
                       </Typography>
                     </td>
                   </tr>
                 ) : (
-                    currentRecords.map((profile, index) => (
-                    <tr key={profile.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
-                      <td className="p-4">{profile.full_name}</td>
-                      <td className="p-4">{calculateAge(profile.birthdate)}</td>
-                      <td className="p-4">{profile.gender}</td>
-                      <td className="p-4">{profile.phone_number}</td>
-                      <td className="p-4">{profile.education}</td>
-                      <td className="p-4">{profile.address}</td>
-                      <td className="p-4">
-                        <Tooltip content="Restore Profile" placement="top">
-                          <Restore id={profile.id} />
-                        </Tooltip>
-                      </td>
+                  currentRecords.map((item, index) => (
+                    <tr key={item.id} className={`${index % 2 === 0 ? "bg-gray-50" : ""}`}>
+                      <td className="p-4">{item.invitee_name}</td>
+                      <td className="p-4">{item.invitee_address}</td>
+                      <td className="p-4">{item.invitee_phone}</td>
+                      <td className="p-4">{item.inviter_name}</td>
+                      <td className="p-4">{formatDate(item.created_at)}</td>
                     </tr>
                   ))
                 )}
@@ -103,6 +98,7 @@ const Archive = () => {
             </table>
           )}
         </div>
+
         {!loading && (
           <div className="flex items-center justify-between p-4">
             <Button
@@ -145,4 +141,4 @@ const Archive = () => {
   );
 };
 
-export default Archive;
+export default InviteeRecords;
