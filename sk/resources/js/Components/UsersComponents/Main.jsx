@@ -144,7 +144,7 @@ const Main = () => {
               className="mt-6 text-4xl leading-tight tracking-tight text-gray-100 md:text-5xl lg:text-6xl font-custom"
             >
               Connect, Participate, Reward{" "}
-              <span className="text-green-400 font-custom">
+              <span className="text-green-600 font-custom">
                 Your Youth Journey Starts Here
               </span>
             </Typography>
@@ -152,7 +152,7 @@ const Main = () => {
             {/* Subheading */}
             <Typography
               variant="paragraph"
-              className="mt-4 text-gray-200 md:text-lg lg:text-xl"
+              className="mt-4 text-lg text-gray-200"
             >
               Join a vibrant community where your contributions lead to real
               rewards and unforgettable experiences.
@@ -160,11 +160,12 @@ const Main = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row">
-              <Button className="w-full max-w-xs px-6 py-3 text-lg font-semibold tracking-wide text-white bg-green-600 rounded-full shadow-lg hover:bg-green-700 md:w-auto">
-                <Link to="/register">Get Started</Link>
-              </Button>
+
               <Button className="w-full max-w-xs px-6 py-3 text-lg font-semibold tracking-wide text-white bg-gray-800 rounded-full shadow-lg hover:bg-gray-900 md:w-auto">
                 <Link to="/learn-more">Learn More</Link>
+              </Button>
+              <Button className="w-full max-w-xs px-6 py-3 text-lg font-semibold tracking-wide text-white bg-green-600 rounded-full shadow-lg hover:bg-green-700 md:w-auto">
+                <Link to="/register">Get Started</Link>
               </Button>
             </div>
           </div>
@@ -178,9 +179,10 @@ const Main = () => {
 
       <Benefits />
       <Features />
-      <Officials />
       <FAQs />
       <Map />
+      <Officials />
+
       <Footer />
     </>
   );

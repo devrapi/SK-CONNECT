@@ -36,7 +36,9 @@
         "react-dom": "^18.3.1",
         "react-qrcode-scanner": "^1.2.4",
         "react-router-dom": "^6.26.0",
+        "react-slick": "^0.30.3",
         "react-toastify": "^10.0.5",
+        "slick-carousel": "^1.8.1",
         "sweetalert2": "^11.14.1",
         "sweetalert2-react-content": "^5.0.7"
     }

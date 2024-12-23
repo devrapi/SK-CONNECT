@@ -1,132 +1,77 @@
 import React from "react";
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import Slider from "react-slick";
+import { Typography } from "@material-tailwind/react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export function Map() {
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const images = [
+    { src: "/img/caraousel3.jpg", alt: "Bayanihan Image 1" },
+    { src: "/img/carousel1.jpg", alt: "Bayanihan Image 2" },
+    { src: "/img/carousel2.jpg", alt: "Bayanihan Image 3" },
+    { src: "/img/carousel5.jpg", alt: "Bayanihan Image 4" },
+    { src: "/img/carousel4.jpg", alt: "Bayanihan Image 5" },
+    { src: "/img/carousel7new.jpg", alt: "Bayanihan Image 6" },
+  ];
+
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-10 lg:py-16 bg-gray-50">
-      <div className="container mx-auto text-center">
-        {/* Header Section */}
-        <Typography
-          variant="h5"
-          color="blue-gray"
-          className="mb-2 text-lg lg:text-2xl font-semibold font-custom text-gray-800"
-        >
-          We're Here for You
-        </Typography>
-        <Typography
-          variant="h1"
-          color="blue-gray"
-          className="mb-4 text-2xl lg:text-4xl font-bold font-custom text-gray-800"
-        >
-          Need Assistance?
-        </Typography>
-        <Typography className="mb-10 lg:mb-16 mx-auto max-w-3xl text-gray-500 font-custom">
-          Have questions about our services, need help with your account, or
-          want to provide feedback? Our team is here to assist you!
-        </Typography>
-
-        {/* Content Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-12 items-center font-custom">
-          {/* Image Section */}
-          <img
-            src="/img/maps.png" // Replace with a relevant image for SK Connect support
-            alt="Support illustration"
-            className="w-full h-auto lg:max-h-[500px] rounded-lg shadow-md"
-          />
-
-          {/* Form Section */}
-          <form
-            action="#"
-            className="flex flex-col gap-6 lg:max-w-lg bg-white p-6 rounded-lg shadow-lg"
+    <section className="px-4 py-14 sm:px-6 lg:px-8 lg:py-16 bg-gray-50">
+      <div className="container flex flex-col mx-auto mb-5 lg:flex-row lg:items-center lg:gap-10">
+        {/* Text Section */}
+        <div className="mt-8 lg:mt-0 lg:w-1/2">
+          <Typography
+            variant="h5"
+            color="blue-gray"
+            className="mb-4 text-lg font-semibold text-green-700 lg:text-2xl font-custom"
           >
-            <Typography
-              variant="small"
-              className="text-left text-gray-600 font-semibold font-custom"
-            >
-              Choose Your Inquiry Type
-            </Typography>
-            <div className="flex gap-4">
-              <Button variant="outlined" className="w-full">
-                General Inquiry
-              </Button>
-              <Button variant="outlined" className="w-full">
-                Account Support
-              </Button>
-            </div>
+            Welcome to San Nicolas 1
+          </Typography>
+          <Typography
+            variant="h1"
+            color="blue-gray"
+            className="mb-6 text-2xl font-bold text-gray-800 lg:text-4xl font-custom"
+          >
+            Discover the Heart of Community
+          </Typography>
+          <Typography className="mb-5 text-gray-600 lg:text-lg font-custom">
+            San Nicolas 1 is a vibrant neighborhood known for its rich history,
+            close-knit community, and picturesque landscapes. Whether you're
+            here to explore or looking for a place to call home, San Nicolas 1
+            offers something special for everyone.
+          </Typography>
+          <Typography className="mb-5 text-gray-600 lg:text-lg font-custom">
+            Engage with a community where tradition meets modernity, fostering
+            a sense of belonging and togetherness for all its residents.
+          </Typography>
+          <Typography className="text-gray-600 lg:text-lg font-custom">
+            Experience the warmth of Bayanihan spirit as we invite you to be a
+            part of our growing and thriving neighborhood.
+          </Typography>
+        </div>
 
-            {/* First & Last Name */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <Typography
-                  variant="small"
-                  className="mb-1 text-left font-medium text-gray-800 font-custom"
-                >
-                  First Name
-                </Typography>
-                <Input
-                  color="gray"
-                  size="lg"
-                  placeholder="First Name"
-                  name="first-name"
-                  containerProps={{ className: "w-full" }}
+        {/* Carousel Section */}
+        <div className="lg:w-1/2">
+          <Slider {...sliderSettings}>
+            {images.map((image, index) => (
+              <div key={index}>
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-auto rounded-lg shadow-md"
                 />
               </div>
-              <div>
-                <Typography
-                  variant="small"
-                  className="mb-1 text-left font-medium text-gray-800 font-custom"
-                >
-                  Last Name
-                </Typography>
-                <Input
-                  color="gray"
-                  size="lg"
-                  placeholder="Last Name"
-                  name="last-name"
-                  containerProps={{ className: "w-full" }}
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div>
-              <Typography
-                variant="small"
-                className="mb-1 text-left font-medium text-gray-800 font-custom"
-              >
-                Your Email
-              </Typography>
-              <Input
-                color="gray"
-                size="lg"
-                placeholder="name@email.com"
-                name="email"
-                containerProps={{ className: "w-full" }}
-              />
-            </div>
-
-            {/* Message */}
-            <div>
-              <Typography
-                variant="small"
-                className="mb-1 text-left font-medium text-gray-800 font-custom"
-              >
-                Your Message
-              </Typography>
-              <Textarea
-                rows={6}
-                color="gray"
-                placeholder="Write your message here..."
-                name="message"
-                containerProps={{ className: "w-full" }}
-              />
-            </div>
-
-            {/* Submit Button */}
-            <Button className="w-full" color="blue">
-              Send Message
-            </Button>
-          </form>
+            ))}
+          </Slider>
         </div>
       </div>
     </section>

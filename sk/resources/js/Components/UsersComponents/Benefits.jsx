@@ -19,14 +19,14 @@ function ContentCard({ img, title, desc }) {
         <Typography
           variant="h4"
           color="white"
-          className="text-lg md:text-xl lg:text-2xl font-semibold"
+          className="text-lg font-semibold md:text-xl lg:text-2xl"
         >
           {title}
         </Typography>
         <Typography
           variant="paragraph"
           color="white"
-          className="mt-2 text-sm md:text-base font-light"
+          className="mt-2 text-sm font-light md:text-base"
         >
           {desc}
         </Typography>
@@ -55,12 +55,12 @@ const contents = [
 
 export function Benefits() {
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-28 font-custom">
+    <section className="container px-4 py-10 mx-auto sm:px-6 lg:px-8 lg:py-20 font-custom">
       {/* Section Header */}
       <div className="mb-10 lg:mb-16">
         <Typography
           variant="h2"
-          className="!text-2xl !leading-snug sm:!text-3xl lg:!text-4xl font-bold font-custom text-gray-800"
+          className="!text-2xl !leading-snug sm:!text-3xl lg:!text-4xl font-bold font-custom text-green-700"
         >
           Connect, Participate, Reward
         </Typography>

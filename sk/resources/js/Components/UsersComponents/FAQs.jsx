@@ -18,15 +18,15 @@ const faqs = [
 
 const FAQs = () => {
   return (
-    <section className="px-8 py-20">
+    <section className="px-8 pt-0 pb-20">
       <div className="container mx-auto">
         <div className="text-center mb-14 ">
           <Typography
             variant="h1"
             color="blue-gray"
-            className="mb-4 text-4xl !leading-snug lg:text-[40px] font-custom text-gray-800"
+            className="mb-4 text-4xl !leading-snug lg:text-[40px] font-custom text-green-700"
           >
-            Frequently asked questions
+           Rules for Earning
           </Typography>
           <Typography
             className="mx-auto font-normal text-[18px] text-gray-800 lg:max-w-3xl font-custom"
