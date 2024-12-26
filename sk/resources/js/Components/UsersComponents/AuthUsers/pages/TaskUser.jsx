@@ -53,7 +53,7 @@ const TaskUser = () => {
 
         </Typography>
         <IconButton
-            className="flex items-center gap-2 p-3 text-white bg-red-500 rounded-full shadow-lg hover:bg-red-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-transform"
+            className="flex items-center gap-2 p-3 text-white transition-transform bg-red-500 rounded-full shadow-lg hover:bg-red-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             onClick={() => setIsOpen(true)}
         >
             <ExclamationCircleIcon className="w-6 h-6" />
