@@ -19,6 +19,7 @@ use App\Http\Controllers\InviteController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EventAttendanceController;
+use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -139,3 +140,7 @@ Route::get('officials/archived/fetch', [OfficialController::class, 'fetchArchive
 Route::post('admin/invites', [InviteController::class, 'store']);
 Route::get('admin/records', [InviteController::class, 'index']);
 Route::get('admin/users', [InviteController::class, 'getAllUsers']);
+
+//forgot password
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink']);
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);

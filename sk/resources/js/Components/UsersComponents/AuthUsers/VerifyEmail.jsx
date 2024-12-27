@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import ApiService from '../../Services/ApiService';
 import { AppContext } from '../../Context/AppContext';
+import { Card, CardBody, Typography, Button, Spinner } from '@material-tailwind/react';
 
 const VerifyEmail = () => {
   const { user } = useContext(AppContext);
   const [loading, setLoading] = useState(false); // Loading state
+  const [isEmailSent, setIsEmailSent] = useState(false); // Track if email is sent
 
   const sendVerification = async () => {
     setLoading(true); // Start loading
@@ -22,6 +24,8 @@ const VerifyEmail = () => {
         confirmButtonText: 'Okay',
         allowOutsideClick: false,
       });
+
+      setIsEmailSent(true); // Set to true after email is sent
     } catch (error) {
       // Show error SweetAlert
       Swal.fire({
@@ -37,20 +41,45 @@ const VerifyEmail = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">Verify Your Email</h1>
-      <button
-        onClick={sendVerification}
-        disabled={loading}
-        className={`px-4 py-2 mt-4 text-white rounded ${
-          loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
-        }`}
-      >
-        {loading ? 'Sending...' : 'Resend Verification Email'}
-      </button>
-      <p className="mt-2 text-gray-600">
-        We have sent you a verification email. Please check your inbox.
-      </p>
+    <div className="flex items-center justify-center min-h-screen bg-green-50">
+      <Card className="w-full max-w-md rounded-lg shadow-lg">
+        <CardBody className="space-y-6">
+          <Typography variant="h4" className="font-bold text-center text-green-600">
+            Verify Your Email
+          </Typography>
+          <Typography className="text-center text-gray-600">
+            {isEmailSent
+              ? 'We have sent a verification email to your address. Please check your inbox.'
+              : 'Click the button below to send a verification email to your inbox.'}
+          </Typography>
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={sendVerification}
+              disabled={loading}
+              color="green"
+              fullWidth
+
+
+              className={`${
+                loading
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500'
+              }`}
+            >
+              {loading ? (
+                "Sending..."
+              ) : (
+                isEmailSent ? 'Resend Verification Email' : 'Send Verification Email'
+              )}
+            </Button>
+          </div>
+          <p className="mt-4 text-center text-gray-600">
+            {isEmailSent
+              ? 'If you haven’t received it, please check your spam folder or try resending.'
+              : 'We will send you a verification email once you click the button.'}
+          </p>
+        </CardBody>
+      </Card>
     </div>
   );
 };

@@ -38,47 +38,49 @@ const NewLogin = () => {
         setRole(role);
         setToken(token);
 
-
-      if (!is_verified) {
-
-        setOpenLogin(false);
-
-        Swal.fire({
-          title: 'Email Not Verified',
-          text: 'Your email is not verified. Please verify your email first.',
-          icon: 'warning',
-          confirmButtonText: 'Go to Verification',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate('/verify-email'); // Redirect to verify email page
-          }
-        });// Redirect to verify email page
+        if (!is_verified) {
+          setOpenLogin(false);
+          Swal.fire({
+            title: 'Email Not Verified',
+            text: 'Your email is not verified. Please verify your email first.',
+            icon: 'warning',
+            confirmButtonText: 'Go to Verification',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate('/verify-email');
+            }
+          });
         } else {
-          navigate('/index'); // Redirect to dashboard
+          navigate('/index');
         }
       }
     } catch (error) {
-        console.error('Error during login:', error.response?.data || error.message);
+      console.error('Error during login:', error.response?.data || error.message);
 
-        if (error.response?.status === 422) {
-          setForm({
-            email: '',
-            password: '',
-          });
-          setErrors(error.response.data.errors);
-        } else if (error.response?.status === 401) {
-          setErrors({ global: 'Incorrect email or password. Please try again.' });
-        } else if (error.response?.status === 403) {
-          setErrors({ global: 'Your account is deactivated. Please contact support for assistance.' });
-        } else {
-          setErrors({ global: 'An unexpected error occurred during login.' });
-        }
+      if (error.response?.status === 422) {
+        setForm({
+          email: '',
+          password: '',
+        });
+        setErrors(error.response.data.errors);
+      } else if (error.response?.status === 401) {
+        setErrors({ global: 'Incorrect email or password. Please try again.' });
+      } else if (error.response?.status === 403) {
+        setErrors({ global: 'Your account is deactivated. Please contact support for assistance.' });
+      } else {
+        setErrors({ global: 'An unexpected error occurred during login.' });
       }
+    }
+  };
+
+  const handleForgotPassword = () => {
+    setOpenLogin(false);
+    navigate('/forgot-password'); // Redirect to the Forgot Password page
   };
 
   return (
     <>
-      <Button variant="text" onClick={handleOpenLogin} className='text-white'>
+      <Button  onClick={handleOpenLogin} className="text-white" color='gray'>
         Sign In
       </Button>
       <Dialog
@@ -134,6 +136,13 @@ const NewLogin = () => {
                 {errors.global}
               </Typography>
             )}
+            <Typography
+              as="a"
+              className="mt-2 text-sm text-blue-600 cursor-pointer hover:underline"
+              onClick={handleForgotPassword}
+            >
+              Forgot Password?
+            </Typography>
           </CardBody>
           <CardFooter className="pt-0">
             <Button variant="gradient" onClick={handleSubmit} fullWidth color="green">

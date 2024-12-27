@@ -46,6 +46,9 @@ import OfficialsUpdate from '../AdminComponents/AdminDashboard/Pages/OfficialsUp
 import InviteeParticipants from '../AdminComponents/AdminDashboard/Pages/InviteeParticipants';
 import OfficialArchives from '../AdminComponents/AdminDashboard/Pages/OfficialArchives';
 import InviteeRecords from '../AdminComponents/AdminDashboard/Pages/InviteeRecords';
+import ForgotPassword from '../UsersComponents/AuthUsers/forgotPassword';
+import ResetPasswordForm from '../UsersComponents/AuthUsers/ResetPasswordForm';
+import TermsAndCondition from '../UsersComponents/AuthUsers/TermsAndCondition';
 
 const RoutesComponents = () => {
   return (
@@ -54,7 +57,11 @@ const RoutesComponents = () => {
 
         <Route path='/' element={<Main/>}>
 
+
         </Route>
+        <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
+        <Route path='/reset-password/:token/' element={<ResetPasswordForm />} />
+        <Route path='/terms-and-conditions' element={<TermsAndCondition/>} />
 
         <Route path="*" element={<NotFound />}/>
         <Route path="/unauthorized" element={<NotAuthorized />}/>
