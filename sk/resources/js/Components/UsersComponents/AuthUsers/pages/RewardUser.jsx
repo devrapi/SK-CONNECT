@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import {
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     Typography,
     Button
 } from "@material-tailwind/react";
 import { AppContext } from '../../../Context/AppContext';
+import { StarIcon } from '@heroicons/react/24/solid';
 import ClaimReward from './ClaimReward';
 
 const RewardUser = () => {
@@ -32,36 +32,37 @@ const RewardUser = () => {
         <>
             <div className="container pb-6 mx-auto space-y-6">
                 {/* Header */}
-                {/* <div className="text-center">
-                    <Typography variant="h4" className="font-semibold text-green-700 uppercase font-custom">
-                        Rewards
+                <div className="text-center">
+                    <Typography variant="h4" className="font-semibold text-gray-700 uppercase font-custom">
+                       Available Rewards
                     </Typography>
-                </div> */}
+                </div>
 
                 {/* Category Filter Buttons */}
-                <div className="flex justify-center space-x-4">
-                    {['All', 'Basic', 'Classic', 'Premium'].map(category => (
-                        <Button
-                            key={category}
-                            onClick={() => filterRewards(category)}
-                            className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 rounded-full ${
-                                selectedCategory === category
-                                    ? 'bg-green-600 text-white'
-                                    : 'bg-green-100 text-green-700 hover:bg-green-200'
-                            }`}
-                        >
-                            {category}
-                        </Button>
-                    ))}
-                </div>
+                <div className="flex justify-end space-x-4">
+    {['All', 'Basic', 'Classic', 'Premium'].map(category => (
+        <Button
+            key={category}
+            onClick={() => filterRewards(category)}
+            className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 rounded-full ${
+                selectedCategory === category
+                    ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white'
+                    : 'bg-blue-50 text-green-700 hover:from-green-200 hover:to-blue-200 hover:bg-gradient-to-r'
+            }`}
+        >
+            {category}
+        </Button>
+    ))}
+</div>
+
 
                 {/* Rewards Grid */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {filteredRewards.map((reward) => (
-                        <Card key={reward.id} className="max-w-md p-4 mx-auto rounded-lg shadow-lg">
+                        <Card key={reward.id} className="max-w-md p-4 mx-auto transition-transform rounded-lg shadow-lg hover:shadow-2xl hover:scale-105">
                             {/* Reward Name */}
                             <div className="mb-4 text-center">
-                                <Typography variant="h5" className="font-bold text-green-800">
+                                <Typography variant="h5" className="font-bold text-gray-800">
                                     {reward.name}
                                 </Typography>
                             </div>
@@ -82,12 +83,13 @@ const RewardUser = () => {
                                 </Typography>
 
                                 {/* Points and Stock Information */}
-                                <div className="flex flex-col space-y-1 text-sm">
+                                <div className="flex items-center justify-between text-sm">
+                                    <div className="flex items-center">
+                                        <StarIcon className="w-5 h-5 mr-1 text-yellow-500" />
+                                        <span className="font-semibold text-green-700">{reward.points} Points</span>
+                                    </div>
                                     <Typography>
-                                        <span className="font-semibold text-green-700">Points:</span> {reward.points}
-                                    </Typography>
-                                    <Typography>
-                                        <span className="font-semibold text-green-700">Available Stocks:</span> {reward.stocks}
+                                        <span className="font-semibold text-green-700">Stocks:</span> {reward.stocks}
                                     </Typography>
                                 </div>
 
@@ -116,7 +118,7 @@ const RewardUser = () => {
                                         disabled
                                         className="text-gray-600 bg-gray-300 cursor-not-allowed"
                                     >
-                                        You have reached your reward limit
+                                        Claim Limit Reached
                                     </Button>
                                 ) : (
                                     <ClaimReward
@@ -124,6 +126,7 @@ const RewardUser = () => {
                                         userId={user.id}
                                         rewardPoints={reward.points}
                                         userPoints={user.points}
+                                        rewardStocks={reward.stocks}
                                     />
                                 )}
                             </CardFooter>

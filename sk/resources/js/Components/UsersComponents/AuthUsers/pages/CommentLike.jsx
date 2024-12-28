@@ -196,9 +196,9 @@ const CommentLike = ({ AnnounceId }) => {
             </div>
         )}
         <Button
-            color="green"
+
             size="sm"
-            className="mt-2" // Add some space above the button
+            className="mt-2 bg-green-700" // Add some space above the button
             onClick={handleComment}
         >
             Comment

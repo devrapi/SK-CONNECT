@@ -6,8 +6,8 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints }) => {
-    const canClaimReward = rewardPoints <= userPoints;
+const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints, rewardStocks }) => {
+    const canClaimReward = rewardPoints <= userPoints && rewardStocks > 0;
 
     const handleClaim = async () => {
         try {
@@ -46,10 +46,17 @@ const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints }) => {
 
     return (
         <div className="flex justify-center mt-4">
-            {canClaimReward ? (
+            {rewardStocks === 0 ? (
+                <Button
+                    disabled
+                    className="px-6 py-3 font-semibold text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed"
+                >
+                    Out of Stock
+                </Button>
+            ) : canClaimReward ? (
                 <Button
                     onClick={handleClaim}
-                    className="px-6 py-3 font-semibold text-white transition-transform duration-300 rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-green-500 hover:scale-105 hover:shadow-xl"
+                    className="px-6 py-3 font-semibold text-white transition-transform duration-300 rounded-lg shadow-lg bg-gradient-to-r from-blue-300 to-green-500 hover:scale-105 hover:shadow-xl"
                 >
                     Claim Now
                 </Button>

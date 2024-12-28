@@ -37,8 +37,8 @@ export function ProfileMenu() {
     variant="circular"
     size="md"
     withBorder={true}
-    color="blue"
-    className="p-0.5 cursor-pointer"
+    color="green"
+    className="p-0.5 cursor-pointer border-2 border-green-700 "
     alt="User Profile"
     // Use default image if user.image_path is undefined or empty
     src={user.image_path ? `/storage/${user.image_path}` : '/img/default_user.jpg'}
@@ -117,12 +117,12 @@ const navListItems = [
             <Link to={path} className="flex flex-col items-center gap-0 lg:rounded-full">
               {React.createElement(icon, {
                 className: `h-[28px] w-[28px] ${
-                  location.pathname === path ? "text-green-500" : "text-gray-500"
+                  location.pathname === path ? "text-green-700" : "text-gray-500"
                 } transition-transform transform hover:scale-125`,
               })}
               <span
                 className={`text-xs ${
-                  location.pathname === path ? "text-green-500" : "text-gray-900"
+                  location.pathname === path ? "text-green-700" : "text-gray-900"
                 }`}
               >
                 {label}
@@ -138,7 +138,7 @@ const navListItems = [
     const location = useLocation();
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 w-full shadow-md lg:hidden bg-white rounded-t-3xl border-t border-gray-200">
+        <div className="fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 shadow-md lg:hidden rounded-t-3xl">
         <ul className="flex items-center justify-between px-6 py-4 ">
           {navListItems.map(({ label, icon, path }) => (
             <Link
@@ -148,7 +148,7 @@ const navListItems = [
             >
               {React.createElement(icon, {
                 className: `h-8 w-8 ${
-                  location.pathname === path ? "text-green-500" : "text-gray-500"
+                  location.pathname === path ? "text-green-700" : "text-gray-500"
                 }`,
               })}
             </Link>
@@ -178,7 +178,7 @@ const navListItems = [
             >
               <div className="flex items-center">
                 <img src="/img/star.png" alt="Star Icon" className="w-7 h-7" />
-                <span className="ml-2">{user.points}</span>
+                <span className="ml-2 text-green-700">{user.points}</span>
               </div>
             </Typography>
 
@@ -191,7 +191,7 @@ const navListItems = [
             >
               <div className="flex items-center">
                 <img src="/img/gifticon.png" alt="Gift Icon" className="w-6 h-6" />
-                <span className="ml-2">{user.reward_claimed_count} / 3</span>
+                <span className="ml-2 text-green-700">{user.reward_claimed_count} / 3</span>
               </div>
             </Typography>
             </div>

@@ -10,10 +10,8 @@ import {
 import { AppContext } from '../../../Context/AppContext';
 import CommentLike from './CommentLike';
 import moment from 'moment';
-import { GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid'; // Assuming you're using Heroicons
-import { PhoneIcon, FireIcon, BuildingOfficeIcon, VideoCameraIcon, BoltIcon ,StarIcon ,GiftIcon  , CheckCircleIcon ,UserGroupIcon ,CalendarIcon} from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
-
+import { GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid';
+import { PhoneIcon, FireIcon, BuildingOfficeIcon, VideoCameraIcon, BoltIcon, StarIcon, GiftIcon, CheckCircleIcon, UserGroupIcon, CalendarIcon } from '@heroicons/react/24/solid';
 
 const rules = [
     {
@@ -43,41 +41,34 @@ const rules = [
     },
 ];
 
-
-
 const Home = () => {
     const { announcement } = useContext(AppContext);
 
     return (
-        <div className="flex gap-6">
+        <div className="flex flex-col gap-6 lg:flex-row">
             {/* Left Section */}
-
-                        <aside className="hidden w-1/4 p-4 bg-gray-100 border rounded-lg shadow-md lg:block h-fit">
-                        <Typography variant="h6" color="blue-gray" className="mb-4">
-                            Rules for Point System
-                        </Typography>
-                        <div className="space-y-4">
-                            {rules.map((rule, index) => (
-                                <div key={index} className="flex flex-col items-start p-4 space-x-4 bg-white rounded-lg shadow-md">
-
-
-                                    <div>
-                                        <Typography variant="subtitle2" color="blue-gray" className="font-semibold">
-                                            {rule.title}
-                                        </Typography>
-                                        <Typography variant="body2" color="gray">
-                                            {rule.description}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            ))}
+            <aside className="order-2 p-4 bg-gray-100 border rounded-lg shadow-md lg:w-1/4 h-fit lg:order-1">
+                <Typography variant="h6" color="blue-gray" className="mb-4">
+                    Rules for Point System
+                </Typography>
+                <div className="space-y-4">
+                    {rules.map((rule, index) => (
+                        <div key={index} className="flex flex-col items-start p-4 space-x-4 bg-white rounded-lg shadow-md">
+                            <div>
+                                <Typography variant="subtitle2" color="blue-gray" className="font-semibold">
+                                    {rule.title}
+                                </Typography>
+                                <Typography variant="body2" color="gray">
+                                    {rule.description}
+                                </Typography>
+                            </div>
                         </div>
-                    </aside>
-
-
+                    ))}
+                </div>
+            </aside>
 
             {/* Announcements Section (Middle) */}
-            <div className="flex-1 space-y-6">
+            <div className="flex-1 order-1 space-y-6 lg:order-2">
                 {announcement.map((item) => (
                     <Card key={item.id} className="max-w-lg mx-auto">
                         <div className="flex items-center mb-4">
@@ -91,7 +82,6 @@ const Home = () => {
                                 <Typography variant="h6" color="blue-gray">
                                     KABATAAN NG UNO
                                 </Typography>
-
                                 <Typography variant="small" className="text-xs text-gray-500">
                                     <div className="flex">
                                         {moment(item.created_at).fromNow()}
@@ -130,7 +120,7 @@ const Home = () => {
             </div>
 
             {/* Right Section */}
-            <aside className="hidden w-1/4 p-4 bg-gray-100 border rounded-lg shadow-md lg:block h-fit">
+            <aside className="order-3 p-4 bg-gray-100 border rounded-lg shadow-md lg:w-1/4 h-fit">
     <Typography variant="h6" color="red" className="mb-4">
         Emergency Hotlines
     </Typography>
@@ -214,7 +204,6 @@ const Home = () => {
         </div>
     </div>
 </aside>
-
         </div>
     );
 };

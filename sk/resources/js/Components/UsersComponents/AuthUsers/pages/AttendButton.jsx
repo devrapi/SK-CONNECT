@@ -87,20 +87,24 @@ const AttendButton = ({ eventId }) => {
 
     return (
         <Button
-            color={status === 'pending' || status === 'verified' ? 'gray' : 'green'}
-            size="sm"
-            className={`rounded-full ${status || loading ? 'cursor-not-allowed' : ''}`}
-            onClick={!status && !loading ? confirmAttend : null}
-            disabled={status !== null || loading}
-        >
-            {loading
-                ? 'Loading...'
-                : status === 'verified'
-                ? 'Already Attended'
-                : status === 'pending'
-                ? 'Already Registered'
-                : 'Attend Event'}
-        </Button>
+        className={`rounded-full text-white ${
+            status === 'pending' || status === 'verified'
+                ? 'bg-gray-500 cursor-not-allowed'
+                : 'bg-green-700 hover:bg-green-800'
+        } ${loading ? 'cursor-not-allowed' : ''}`}
+        size="sm"
+        onClick={!status && !loading ? confirmAttend : null}
+        disabled={status !== null || loading}
+    >
+        {loading
+            ? 'Loading...'
+            : status === 'verified'
+            ? 'Already Attended'
+            : status === 'pending'
+            ? 'Already Registered'
+            : 'Attend Event'}
+    </Button>
+
     );
 };
 
