@@ -56,7 +56,7 @@ const ClaimReward = ({ rewardId, userId, rewardPoints, userPoints, rewardStocks 
             ) : canClaimReward ? (
                 <Button
                     onClick={handleClaim}
-                    className="px-6 py-3 font-semibold text-white transition-transform duration-300 rounded-lg shadow-lg bg-gradient-to-r from-blue-300 to-green-500 hover:scale-105 hover:shadow-xl"
+                    className="px-6 py-3 font-semibold text-white transition-transform duration-300 rounded-lg shadow-lg bg-green-700"
                 >
                     Claim Now
                 </Button>

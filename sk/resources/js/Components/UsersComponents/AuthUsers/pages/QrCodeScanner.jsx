@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { Button, Card, Typography, CardFooter } from "@material-tailwind/react";
+import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 import ApiService from "../../../Services/ApiService";
 import { AppContext } from "../../../Context/AppContext";
 import Swal from "sweetalert2";
@@ -69,9 +70,8 @@ const QrCodeScanner = () => {
           text: response.data.message,
           confirmButtonColor: "#4CAF50",
         }).then(() => {
-            // Reload the page after SweetAlert closes
-            window.location.reload();
-          });
+          window.location.reload();
+        });
       } else {
         Swal.fire({
           icon: "error",
@@ -103,14 +103,19 @@ const QrCodeScanner = () => {
         <Typography variant="h5" color="blue-gray" className="mb-4 text-center">
           Event QR Scanner
         </Typography>
-        <div id="reader" className="mb-4 border-2 border-gray-300 rounded-lg"></div>
+        <div
+          id="reader"
+          className="mb-4 border-4 border-dashed border-teal-500 rounded-lg p-4 transition-all hover:shadow-lg"
+        ></div>
         {loading && (
-          <Typography className="text-center text-blue-500">
+          <Typography className="text-center text-blue-500 animate-pulse">
             Verifying attendance, please wait...
           </Typography>
         )}
         {message && (
-          <Typography className="text-center text-green-500">{message}</Typography>
+          <Typography className="text-center text-green-500">
+            {message}
+          </Typography>
         )}
         {error && (
           <Typography className="text-center text-red-500">{error}</Typography>
@@ -119,10 +124,17 @@ const QrCodeScanner = () => {
           <Button
             color="teal"
             onClick={verifyAttendance}
-            className="w-full px-6 sm:w-auto"
+            className="w-full px-6 sm:w-auto flex items-center gap-2"
             disabled={!qrCode || loading}
           >
-            {loading ? "Verifying..." : "Verify Attendance"}
+            {loading ? (
+              "Verifying..."
+            ) : (
+              <>
+                <CheckIcon className="w-5 h-5" />
+                Verify Attendance
+              </>
+            )}
           </Button>
           <Button
             color="red"
@@ -131,8 +143,9 @@ const QrCodeScanner = () => {
               setError(null);
               setQrCode(null);
             }}
-            className="w-full px-6 sm:w-auto"
+            className="w-full px-6 sm:w-auto flex items-center gap-2"
           >
+            <TrashIcon className="w-5 h-5" />
             Clear
           </Button>
         </CardFooter>

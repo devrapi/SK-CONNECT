@@ -4,40 +4,50 @@ import {
     CardBody,
     CardFooter,
     Typography,
-    Avatar
+    Avatar,
 } from "@material-tailwind/react";
-
 import { AppContext } from '../../../Context/AppContext';
 import CommentLike from './CommentLike';
 import moment from 'moment';
-import { GlobeAsiaAustraliaIcon } from '@heroicons/react/24/solid';
-import { PhoneIcon, FireIcon, BuildingOfficeIcon, VideoCameraIcon, BoltIcon, StarIcon, GiftIcon, CheckCircleIcon, UserGroupIcon, CalendarIcon } from '@heroicons/react/24/solid';
+import {
+    GlobeAsiaAustraliaIcon,
+    PhoneIcon,
+    FireIcon,
+    BuildingOfficeIcon,
+    VideoCameraIcon,
+    BoltIcon,
+    StarIcon,
+    GiftIcon,
+    CheckCircleIcon,
+    UserGroupIcon,
+    CalendarIcon
+} from '@heroicons/react/24/solid';
 
 const rules = [
     {
         icon: <StarIcon className="w-6 h-6 text-yellow-500" />,
         title: "Monthly Points Reset",
-        description: "Points reset at the end of each month. Users on the leaderboard will retain their points."
+        description: "Points reset at the end of each month. Users on the leaderboard will retain their points.",
     },
     {
         icon: <GiftIcon className="w-6 h-6 text-yellow-500" />,
         title: "Reward Limitations",
-        description: "Claim up to 3 rewards per month to prevent spamming. Plan your claims wisely!"
+        description: "Claim up to 3 rewards per month to prevent spamming. Plan your claims wisely!",
     },
     {
         icon: <CheckCircleIcon className="w-6 h-6 text-green-500" />,
         title: "Complete Tasks",
-        description: "Earn points by completing assigned tasks daily."
+        description: "Earn points by completing assigned tasks daily.",
     },
     {
         icon: <UserGroupIcon className="w-6 h-6 text-blue-500" />,
         title: "Refer Friends",
-        description: "Invite friends to Participate in an event and earn bonus points when they register."
+        description: "Invite friends to participate in an event and earn bonus points when they register.",
     },
     {
         icon: <CalendarIcon className="w-6 h-6 text-yellow-500" />,
         title: "Participate in Events",
-        description: "Attend events and activities to earn additional rewards."
+        description: "Attend events and activities to earn additional rewards.",
     },
 ];
 
@@ -48,17 +58,17 @@ const Home = () => {
         <div className="flex flex-col gap-6 lg:flex-row">
             {/* Left Section */}
             <aside className="order-2 p-4 bg-gray-100 border rounded-lg shadow-md lg:w-1/4 h-fit lg:order-1">
-                <Typography variant="h6" color="blue-gray" className="mb-4">
+                <Typography variant="h6" className="mb-4 font-custom">
                     Rules for Point System
                 </Typography>
                 <div className="space-y-4">
                     {rules.map((rule, index) => (
                         <div key={index} className="flex flex-col items-start p-4 space-x-4 bg-white rounded-lg shadow-md">
                             <div>
-                                <Typography variant="subtitle2" color="blue-gray" className="font-semibold">
+                                <Typography variant="subtitle2" className="font-semibold font-custom">
                                     {rule.title}
                                 </Typography>
-                                <Typography variant="body2" color="gray">
+                                <Typography variant="body2" className="font-custom">
                                     {rule.description}
                                 </Typography>
                             </div>
@@ -79,10 +89,10 @@ const Home = () => {
                                 className="m-3"
                             />
                             <div className="flex flex-col">
-                                <Typography variant="h6" color="blue-gray">
+                                <Typography variant="h6" className="font-custom">
                                     KABATAAN NG UNO
                                 </Typography>
-                                <Typography variant="small" className="text-xs text-gray-500">
+                                <Typography variant="small" className="text-xs text-gray-500 font-custom">
                                     <div className="flex">
                                         {moment(item.created_at).fromNow()}
                                         <GlobeAsiaAustraliaIcon className="w-4 h-4 ml-1" />
@@ -91,10 +101,10 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="px-6 text-left">
-                            <Typography variant="h5" color="blue-gray" className="mb-2">
+                            <Typography variant="h5" className="mb-2 font-custom">
                                 {item.title}
                             </Typography>
-                            <Typography color="gray" className="mb-4">
+                            <Typography className="mb-4 font-custom">
                                 {item.content}
                             </Typography>
                             {item.image_path && (
@@ -111,7 +121,7 @@ const Home = () => {
                             <CommentLike AnnounceId={item.id} />
                         </div>
                         <CardFooter>
-                            <Typography variant="small" className="text-gray-500">
+                            <Typography variant="small" className="text-gray-500 font-custom">
                                 Posted by Admin
                             </Typography>
                         </CardFooter>
@@ -121,89 +131,57 @@ const Home = () => {
 
             {/* Right Section */}
             <aside className="order-3 p-4 bg-gray-100 border rounded-lg shadow-md lg:w-1/4 h-fit">
-    <Typography variant="h6" color="red" className="mb-4">
-        Emergency Hotlines
-    </Typography>
-    <div className="space-y-4">
-        {/* City Disaster Risk Reduction and Management Council */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <BuildingOfficeIcon className="w-6 h-6 text-blue-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    City Disaster Risk Reduction
+                <Typography variant="h6" className="mb-4 font-custom">
+                    Emergency Hotlines
                 </Typography>
-                <Typography variant="body2" color="gray">
-                    0917-721-8825 / 0998-843-5477
-                </Typography>
-            </div>
-        </div>
-
-        {/* Dasma PNP */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <PhoneIcon className="w-6 h-6 text-blue-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    Dasma PNP
-                </Typography>
-                <Typography variant="body2" color="gray">
-                    416-29-24 • 0956-800-3329 / 0998-598-5598
-                </Typography>
-            </div>
-        </div>
-
-        {/* Pagamutan ng Dasma */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <BuildingOfficeIcon className="w-6 h-6 text-blue-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    Pagamutan ng Dasma
-                </Typography>
-                <Typography variant="body2" color="gray">
-                    481-44-00 • 435-01-80
-                </Typography>
-            </div>
-        </div>
-
-        {/* Dasma Fire Department */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <FireIcon className="w-6 h-6 text-red-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    Dasma Fire Department
-                </Typography>
-                <Typography variant="body2" color="gray">
-                    416-08-75 • 0995-336-9534
-                </Typography>
-            </div>
-        </div>
-
-        {/* Dasma CCTV Rescue Center */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <VideoCameraIcon className="w-6 h-6 text-green-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    Dasma CCTV Rescue Center
-                </Typography>
-                <Typography variant="body2" color="gray">
-                    (046) 435-0183 • (046) 481-0555
-                </Typography>
-            </div>
-        </div>
-
-        {/* Meralco Hotline */}
-        <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
-            <BoltIcon className="w-6 h-6 text-yellow-600" />
-            <div>
-                <Typography variant="h6" color="blue-gray" className="mb-1">
-                    Meralco Hotline
-                </Typography>
-                <Typography variant="body2" color="gray">
-                    16211 • 416-17-03
-                </Typography>
-            </div>
-        </div>
-    </div>
-</aside>
+                <div className="space-y-4">
+                    {/* Each Hotline */}
+                    {[
+                        {
+                            icon: <BuildingOfficeIcon className="w-6 h-6 text-blue-600" />,
+                            title: "City Disaster Risk Reduction",
+                            numbers: "0917-721-8825 / 0998-843-5477",
+                        },
+                        {
+                            icon: <PhoneIcon className="w-6 h-6 text-blue-600" />,
+                            title: "Dasma PNP",
+                            numbers: "416-29-24 • 0956-800-3329 / 0998-598-5598",
+                        },
+                        {
+                            icon: <BuildingOfficeIcon className="w-6 h-6 text-blue-600" />,
+                            title: "Pagamutan ng Dasma",
+                            numbers: "481-44-00 • 435-01-80",
+                        },
+                        {
+                            icon: <FireIcon className="w-6 h-6 text-red-600" />,
+                            title: "Dasma Fire Department",
+                            numbers: "416-08-75 • 0995-336-9534",
+                        },
+                        {
+                            icon: <VideoCameraIcon className="w-6 h-6 text-green-600" />,
+                            title: "Dasma CCTV Rescue Center",
+                            numbers: "(046) 435-0183 • (046) 481-0555",
+                        },
+                        {
+                            icon: <BoltIcon className="w-6 h-6 text-yellow-600" />,
+                            title: "Meralco Hotline",
+                            numbers: "16211 • 416-17-03",
+                        },
+                    ].map((hotline, index) => (
+                        <div key={index} className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-md">
+                            {hotline.icon}
+                            <div>
+                                <Typography variant="h6" className="mb-1 font-custom">
+                                    {hotline.title}
+                                </Typography>
+                                <Typography variant="body2" className="font-custom">
+                                    {hotline.numbers}
+                                </Typography>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </aside>
         </div>
     );
 };

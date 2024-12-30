@@ -38,7 +38,7 @@ const WeeklyStreaks = ({ userStreak, user_id }) => {
 
     return (
         <div className="w-full p-6 bg-white rounded-lg shadow-md">
-            <Typography variant="h5" className="mb-6 text-center text-blue-600">
+            <Typography variant="h5" className="mb-6 text-center text-gray-700">
                 Weekly Login Streak: <span className="font-bold">{activeStep + 1}/7</span>
             </Typography>
 

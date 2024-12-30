@@ -38,7 +38,7 @@ export function ProfileMenu() {
     size="md"
     withBorder={true}
     color="green"
-    className="p-0.5 cursor-pointer border-2 border-green-700 "
+    className="p-0.5 cursor-pointer border-2 border-blue-700 "
     alt="User Profile"
     // Use default image if user.image_path is undefined or empty
     src={user.image_path ? `/storage/${user.image_path}` : '/img/default_user.jpg'}

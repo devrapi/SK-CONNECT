@@ -1,132 +1,189 @@
-import React from 'react'
+import React, { Suspense, lazy } from "react";
+
+// @material-tailwind/react
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
-  } from "@material-tailwind/react";
-  import Chart from "react-apexcharts";
-  import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
+  Card,
+  CardBody,
+  Typography,
+  Button,
+  CardFooter,
+} from "@material-tailwind/react";
 
+// Dynamically import the chart component using React.lazy
+const Chart = lazy(() => import("react-apexcharts"));
 
-  const chartConfig = {
-    type: "bar",
-    height: 240,
-    series: [
-      {
-        name: "Sales",
-        data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-      },
-    ],
-    options: {
-      chart: {
-        toolbar: {
-          show: false,
-        },
-      },
-      title: {
-        show: "",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["#020617"],
-      plotOptions: {
-        bar: {
-          columnWidth: "40%",
-          borderRadius: 2,
-        },
-      },
-      xaxis: {
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
+// Deepmerge
+import merge from "deepmerge";
+
+function AreaChart({ height = 350, series, colors, options }) {
+  const chartOptions = React.useMemo(
+    () => ({
+      colors,
+      ...merge(
+        {
+          chart: {
+            height: height,
+            type: "area",
+            zoom: {
+              enabled: false,
+            },
+            toolbar: {
+              show: false,
+            },
           },
-        },
-        categories: [
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
+          title: {
+            show: "",
           },
-        },
-      },
-      grid: {
-        show: true,
-        borderColor: "#dddddd",
-        strokeDashArray: 5,
-        xaxis: {
-          lines: {
+          dataLabels: {
+            enabled: false,
+          },
+          legend: {
+            show: false,
+          },
+          markers: {
+            size: 0,
+            strokeWidth: 0,
+            strokeColors: "transparent",
+          },
+          stroke: {
+            curve: "smooth",
+            width: 2,
+          },
+          grid: {
             show: true,
+            borderColor: "#EEEEEE",
+            strokeDashArray: 5,
+            xaxis: {
+              lines: {
+                show: true,
+              },
+            },
+            padding: {
+              top: 5,
+              right: 20,
+            },
+          },
+          tooltip: {
+            theme: "light",
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: "#757575",
+                fontSize: "12px",
+                fontFamily: "inherit",
+                fontWeight: 300,
+              },
+            },
+          },
+          xaxis: {
+            axisTicks: {
+              show: false,
+            },
+            axisBorder: {
+              show: false,
+            },
+            labels: {
+              style: {
+                colors: "#757575",
+                fontSize: "12px",
+                fontFamily: "inherit",
+                fontWeight: 300,
+              },
+            },
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0,
+              opacityTo: 0,
+              stops: [0, 100],
+            },
           },
         },
-        padding: {
-          top: 5,
-          right: 20,
-        },
-      },
-      fill: {
-        opacity: 0.8,
-      },
-      tooltip: {
-        theme: "dark",
-      },
-    },
-  };
-const LineChart = () => {
+        options ? options : {}
+      ),
+    }),
+    [height, colors, options]
+  );
+
   return (
-    <Card>
-      <CardHeader
-        floated={false}
-        shadow={false}
-        color="transparent"
-        className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
-      >
-        <div className="p-5 text-white bg-gray-900 rounded-lg w-max">
-          <Square3Stack3DIcon className="w-6 h-6" />
-        </div>
-        <div>
-          <Typography variant="h6" color="blue-gray">
-            Bar Chart
-          </Typography>
-          <Typography
-            variant="small"
-            color="gray"
-            className="max-w-sm font-normal"
-          >
-            Visualize your data in a simple way using the
-            @material-tailwind/react chart plugin.
-          </Typography>
-        </div>
-      </CardHeader>
-      <CardBody className="px-2 pb-0">
-        <Chart {...chartConfig} />
-      </CardBody>
-    </Card>
-  )
+    <Suspense fallback={<div>Loading...</div>}>
+      <Chart type="area" height={height} series={series} options={chartOptions} />
+    </Suspense>
+  );
 }
 
-export default LineChart
+export function LineChart() {
+  return (
+    <section className="m-10">
+      <Card>
+        <CardBody className="!p-2">
+          <div className="flex gap-2 flex-wrap justify-between px-4 !mt-4 ">
+            <Typography variant="h3" color="blue-gray">
+              SK Connect Participation in 2024
+            </Typography>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-1">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <Typography
+                  variant="small"
+                  className="font-normal text-gray-600"
+                >
+                  SK Members Participating
+                </Typography>
+              </div>
+            </div>
+          </div>
+          {/* chart */}
+          <AreaChart
+            colors={["#4CAF50", "#2196F3"]}
+            options={{
+              xaxis: {
+                categories: [
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ],
+              },
+            }}
+            series={[
+              {
+                name: "2024 Participation",
+                data: [
+                  50, 120, 200, 300, 400, 500, 600, 650, 700, 750, 800, 850,
+                ], // Replace these values with actual data for participation
+              },
+            ]}
+          />
+        </CardBody>
+        <CardFooter className="flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <Typography variant="h6" color="blue-gray">
+              SK Connect 2024 Participation
+            </Typography>
+            <Typography
+              variant="small"
+              className="mt-1 font-normal text-gray-600"
+            >
+              Total participation in SK Connect events this year
+            </Typography>
+          </div>
+          <Button variant="outlined">View full report</Button>
+        </CardFooter>
+      </Card>
+    </section>
+  );
+}
+
+export default LineChart;

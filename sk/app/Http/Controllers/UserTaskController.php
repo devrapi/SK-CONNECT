@@ -132,7 +132,7 @@ class UserTaskController extends Controller
         }
 
         // Reward logic: Add points to user (e.g., 100 points)
-        $points = 100; // Adjust the points as per your logic
+        $points = 50; // Adjust the points as per your logic
         $user->points += $points;
 
         // Reset streak to 0

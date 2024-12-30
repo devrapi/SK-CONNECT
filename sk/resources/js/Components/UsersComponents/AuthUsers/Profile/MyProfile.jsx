@@ -71,7 +71,7 @@ const MyProfile = () => {
   return (
     <div className="flex justify-center ">
       <Card className="w-full max-w-md mt-20 shadow-lg">
-        <CardHeader color="green" className="relative py-6 text-center bg-gradient-to-r from-green-300 to-green-600">
+        <CardHeader color="green" className="relative py-6 text-center bg-gradient-to-r from-green-600 to-green-600">
           <div className="relative flex justify-center mb-4">
             <div className="relative group">
               <Avatar
@@ -81,7 +81,7 @@ const MyProfile = () => {
                 className="p-0.5"
                 variant="circular"
                 withBorder={true}
-                color="green"
+                color="blue"
               />
               <label
                 htmlFor="avatar-upload"
@@ -119,7 +119,7 @@ const MyProfile = () => {
           </div>
           <div className="flex justify-center space-x-3">
             <Link to={`/index/editProfile/${user.profile_id}`}>
-              <Button color="green" size="sm">
+              <Button className='bg-green-700' size="sm">
                 Edit Profile
               </Button>
             </Link>

@@ -14,7 +14,7 @@ import withReactContent from "sweetalert2-react-content";
 import dayjs from "dayjs";
 
 const LeaderBoards = () => {
-  const { leaderBoards, user , AllleaderBoards} = useContext(AppContext);
+  const { leaderBoards, user, AllleaderBoards } = useContext(AppContext);
   const [canClaim, setCanClaim] = useState(false);
 
   const allUsers = AllleaderBoards; // Assuming leaderBoards includes all users
@@ -54,41 +54,41 @@ const LeaderBoards = () => {
   };
 
   const renderRank = (index) => {
-    switch (index) {
-      case 0:
-        return <img src="/img/gold.png" alt="Gold Trophy" className="w-8 h-8" />;
-      case 1:
-        return <img src="/img/silver.png" alt="Silver Trophy" className="w-8 h-8" />;
-      case 2:
-        return <img src="/img/bronze.png" alt="Bronze Trophy" className="w-8 h-8" />;
-      default:
-        return <span>{index + 1}</span>;
-    }
+    const rankIcons = ["/img/gold.png", "/img/silver.png", "/img/bronze.png"];
+    return index < 3 ? (
+      <img
+        src={rankIcons[index]}
+        alt={`${["Gold", "Silver", "Bronze"][index]} Trophy`}
+        className="w-8 h-8"
+      />
+    ) : (
+      <span className="font-custom">{index + 1}</span>
+    );
   };
 
   return (
-    <div className="container max-w-4xl mx-auto">
-      <Card className="bg-white rounded-lg shadow-lg">
-        <CardHeader className="p-4 text-center text-gray-700 bg-gradient-to-r from-blue-100 to-green-300">
-          <Typography variant="h4" className="font-bold">
+    <div className="container max-w-4xl mx-auto font-custom">
+      <Card className="bg-white rounded-lg shadow-lg font-custom">
+        <CardHeader className="p-4 text-center text-gray-700 bg-gradient-to-r from-blue-100 to-green-300 font-custom">
+          <Typography variant="h4" className="font-bold font-custom">
             Leaderboards
           </Typography>
         </CardHeader>
-        <CardBody>
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto">
+        <CardBody className="font-custom">
+          <div className="overflow-x-auto font-custom">
+            <table className="w-full table-auto font-custom">
               <thead>
-                <tr className="bg-gray-100">
-                  <th className="p-4 text-left text-gray-600">Rank</th>
-                  <th className="p-4 text-left text-gray-600">User</th>
-                  <th className="p-4 text-right text-gray-600">Points</th>
+                <tr className="bg-gray-100 font-custom">
+                  <th className="p-4 text-left text-gray-600 font-custom">Rank</th>
+                  <th className="p-4 text-left text-gray-600 font-custom">User</th>
+                  <th className="p-4 text-right text-gray-600 font-custom">Points</th>
                 </tr>
               </thead>
               <tbody>
                 {leaderBoards.map((item, index) => (
                   <tr
                     key={item.id}
-                    className={`transition-all ${
+                    className={`transition-all font-custom ${
                       user.name === item.name
                         ? "bg-indigo-100"
                         : index % 2 === 0
@@ -96,19 +96,24 @@ const LeaderBoards = () => {
                         : "bg-white"
                     } hover:bg-indigo-50`}
                   >
-                    <td className="p-4 font-bold text-indigo-500">{renderRank(index)}</td>
-                    <td className="flex items-center p-4 space-x-3">
+                    <td className="p-4 font-bold text-indigo-500 font-custom">
+                      {renderRank(index)}
+                    </td>
+                    <td className="flex items-center p-4 space-x-3 font-custom">
                       <Avatar
                         src={item.image_path ? `/storage/${item.image_path}` : "/img/default_user.jpg"}
                         alt={item.name}
                         size="sm"
-                        className="shadow-md"
+                        className="shadow-md font-custom"
                       />
-                      <Typography variant="small" className="font-medium text-gray-800">
+                      <Typography
+                        variant="small"
+                        className="font-medium text-gray-800 font-custom"
+                      >
                         {item.name}
                       </Typography>
                     </td>
-                    <td className="p-4 font-semibold text-right text-gray-800">
+                    <td className="p-4 font-semibold text-right text-gray-800 font-custom">
                       {item.points}
                     </td>
                   </tr>
@@ -117,24 +122,30 @@ const LeaderBoards = () => {
             </table>
           </div>
           {!isUserOnLeaderboard && (
-            <div className="mt-6 text-center">
-              <Typography variant="body2" className="font-medium text-gray-800">
-                Your current rank:<span className="text-indigo-500 "> #{userRank}</span>
+            <div className="mt-6 text-center font-custom">
+              <Typography
+                variant="body2"
+                className="font-medium text-gray-800 font-custom"
+              >
+                Your current rank: <span className="text-indigo-500">#{userRank}</span>
               </Typography>
             </div>
           )}
           {isUserOnLeaderboard && (
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center font-custom">
               {canClaim ? (
                 <Button
                   color="blue"
-                  className="px-6 py-3 transition shadow-md hover:scale-105"
+                  className="px-6 py-3 transition shadow-md hover:scale-105 font-custom"
                   onClick={handleClaimReward}
                 >
                   Claim Points
                 </Button>
               ) : (
-                <Typography variant="body2" className="text-gray-600">
+                <Typography
+                  variant="body2"
+                  className="text-gray-600 font-custom"
+                >
                   Check back next week to claim your points!
                 </Typography>
               )}
