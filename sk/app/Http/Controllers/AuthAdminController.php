@@ -41,12 +41,14 @@ class AuthAdminController extends Controller
                 ], 401); // Return 401 Unauthorized status
             }
 
+
             $token = $Admin->createToken($Admin->name);
 
             return response()->json([
                 'Admin' => $Admin,
                 'token' => $token->plainTextToken,
-                'role' =>$Admin->role
+                'role' =>$Admin->role,
+
             ], 200); // Return 200 OK status
 }
 

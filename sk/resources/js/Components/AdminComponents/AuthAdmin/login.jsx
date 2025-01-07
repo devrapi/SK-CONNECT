@@ -24,7 +24,7 @@ const Login = () => {
         localStorage.setItem("role", role);
         setToken(token);
         setRole(role);
-        navigate("/admin/dashboard");
+        navigate("/admin/verify-2fa");
       }
     } catch (error) {
       console.log("Error during login:", error.response?.data || error.message);

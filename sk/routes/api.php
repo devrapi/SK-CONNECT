@@ -8,6 +8,7 @@ use App\Http\Controllers\LeaderBoards;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
 use Illuminate\Container\Attributes\Auth;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\ArchivedController;
 use App\Http\Controllers\AuthUserController;
@@ -15,11 +16,11 @@ use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\UserTaskController;
 use App\Http\Controllers\AuthAdminController;
-use App\Http\Controllers\InviteController;
+use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\EventAttendanceController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\EventAttendanceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -56,6 +57,8 @@ Route::post('/logout' , [AuthUserController::class , 'logout'])->middleware('aut
 Route::post('/admin/register' , [AuthAdminController::class , 'register']);
 Route::post('/admin/login' , [AuthAdminController::class , 'login']);
 Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middleware('auth:sanctum');
+Route::post('/verify-2fa' , [TwoFactorController::class, 'verifyTwoFactor'])->middleware('auth:sanctum');
+Route::post('/setup-2fa' , [TwoFactorController::class, 'setupTwoFactor'])->middleware('auth:sanctum');
 
 
 //events API

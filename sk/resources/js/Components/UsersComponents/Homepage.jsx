@@ -6,15 +6,15 @@ import '../../../css/app.css';
 const Homepage = () => {
   return (
     <header
-      className="bg-cover bg-center bg-no-repeat py-12"
-      style={{ backgroundImage: "url('/img/bgSN1.jpg')" }}
+      className="py-12 bg-center bg-no-repeat bg-cover"
+      style={{ backgroundImage: "url('/img/bg1.jpg')" }}
     >
-      <div className=" py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-12 ">
+        <div className="container px-4 mx-auto sm:px-6 lg:px-8">
           <div className="grid items-center grid-cols-1 gap-y-12 md:grid-cols-2">
             {/* Left Side: Title Text */}
             <div>
-              <Typography className="inline-flex text-xs rounded-lg border border-blue-gray-50 bg-white py-1 px-3 font-medium text-blue-500">
+              <Typography className="inline-flex px-3 py-1 text-xs font-medium text-blue-500 bg-white border rounded-lg border-blue-gray-50">
                 Welcome to SK Connect
               </Typography>
               <Typography
@@ -34,7 +34,7 @@ const Homepage = () => {
                 Join a vibrant community where your contributions lead to real rewards.
               </Typography>
               <div className="flex flex-col items-center gap-4 mt-8 md:flex-row">
-                <Button className="w-full px-4 py-2 md:w-auto bg-green-700 hover:bg-green-800">
+                <Button className="w-full px-4 py-2 bg-green-700 md:w-auto hover:bg-green-800">
                   <Link to="/register" className="text-white">
                     Get Started
                   </Link>

@@ -6,6 +6,7 @@ export const AppContext = createContext()
 export default function AppProvider({children}){
 
     const[token , setToken] = useState(localStorage.getItem('token'));
+    const[is_2fa_is_verified , Set_is_2fa_is_verified] = useState(localStorage.getItem('is_2fa_is_verified'));
     const[user , setUser] = useState(null);
     const[admin , setAdmin] = useState(null);
     const[event , setEvent] = useState({});
@@ -227,7 +228,7 @@ export default function AppProvider({children}){
         <AppContext.Provider value={{token , setToken ,
         user  , setUser ,
         setAdmin ,admin ,
-        role , setRole ,
+        role , setRole ,Set_is_2fa_is_verified, is_2fa_is_verified,
         success , setSuccess,
         event ,profiles ,
         rewards , ticket,

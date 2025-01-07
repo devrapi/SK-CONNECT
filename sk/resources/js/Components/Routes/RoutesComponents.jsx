@@ -49,6 +49,9 @@ import InviteeRecords from '../AdminComponents/AdminDashboard/Pages/InviteeRecor
 import ForgotPassword from '../UsersComponents/AuthUsers/forgotPassword';
 import ResetPasswordForm from '../UsersComponents/AuthUsers/ResetPasswordForm';
 import TermsAndCondition from '../UsersComponents/AuthUsers/TermsAndCondition';
+import Generate2FA from '../AdminComponents/AuthAdmin/Generate2FA';
+import Verify2fA from '../AdminComponents/AuthAdmin/Verify2fA';
+import Need2faVerification from './Need2faVerification';
 
 const RoutesComponents = () => {
   return (
@@ -65,13 +68,15 @@ const RoutesComponents = () => {
 
         <Route path="*" element={<NotFound />}/>
         <Route path="/unauthorized" element={<NotAuthorized />}/>
+        <Route path="/required-two-factor" element={<Need2faVerification/>}/>
 
         <Route path='/admin/register' element={<AdminRegister/>}/>
         <Route path='/admin/login' element={<AdminLogin/>}/>
-
-
+        <Route path="/admin/two-factor" element={<Generate2FA/>} ></Route>
 
         <Route element={<ProtectedRoutes requiredRole="admin" />}>
+
+        <Route path="/admin/verify-2fa" element={<Verify2fA/>} ></Route>
         <Route path="/admin/dashboard" element={<Dashboard />} >
         <Route path='/admin/dashboard' element={<Analytics/>}/>
             <Route path='/admin/dashboard/analytics' element={<Analytics/>}/>

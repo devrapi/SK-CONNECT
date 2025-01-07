@@ -23,7 +23,7 @@ const Register = () => {
       const { token } = response.data;
       localStorage.setItem("token", token);
       setToken(token);
-      navigate("/admin/dashboard");
+      navigate("/admin/two-factor");
     } catch (error) {
       console.log("Error during registration:", error.response?.data || error.message);
 

@@ -148,9 +148,9 @@ const Main = () => {
       {/* Hero Section */}
       <div
         className="relative flex items-center justify-center min-h-screen bg-center bg-cover"
-        style={{ backgroundImage: "url('/img/placeholder.jpg')" }}
+        style={{ backgroundImage: "url('/img/bg4.jpg')" }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 px-6 py-12 text-center font-custom">
           <div className="max-w-3xl mx-auto">
             <Typography
