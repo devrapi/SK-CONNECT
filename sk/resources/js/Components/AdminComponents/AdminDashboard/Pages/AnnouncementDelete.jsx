@@ -33,7 +33,7 @@ const AnnouncementDelete = ({id}) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-     Delete Announcement
+     Delete
     </div>
   )
 }

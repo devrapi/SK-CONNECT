@@ -61,4 +61,8 @@ class AuthAdminController extends Controller
         ];
 
     }
+    public function adminCount()
+{
+    return response()->json(['count' => \App\Models\Admin::count()]);
+}
 }

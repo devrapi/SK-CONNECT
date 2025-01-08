@@ -121,7 +121,7 @@ export function LineChart() {
       <Card>
         <CardBody className="!p-2">
           <div className="flex gap-2 flex-wrap justify-between px-4 !mt-4 ">
-            <Typography variant="h3" color="blue-gray">
+            <Typography variant="h3" color="blue-gray" className="font-custom">
               SK Connect Participation in 2024
             </Typography>
             <div className="flex items-center gap-6">
@@ -129,9 +129,9 @@ export function LineChart() {
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 <Typography
                   variant="small"
-                  className="font-normal text-gray-600"
+                  className="font-normal text-gray-600 font-custom"
                 >
-                  SK Members Participating
+                  SK Members Participating in events
                 </Typography>
               </div>
             </div>
@@ -169,17 +169,17 @@ export function LineChart() {
         </CardBody>
         <CardFooter className="flex flex-wrap items-center justify-between gap-6">
           <div>
-            <Typography variant="h6" color="blue-gray">
+            <Typography variant="h6" color="blue-gray" className="font-custom">
               SK Connect 2024 Participation
             </Typography>
             <Typography
               variant="small"
-              className="mt-1 font-normal text-gray-600"
+              className="mt-1 font-normal text-gray-600 font-custom"
             >
               Total participation in SK Connect events this year
             </Typography>
           </div>
-          <Button variant="outlined">View full report</Button>
+
         </CardFooter>
       </Card>
     </section>

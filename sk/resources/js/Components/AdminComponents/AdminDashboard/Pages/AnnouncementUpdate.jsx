@@ -113,15 +113,15 @@ const AnnouncementUpdate = () => {
     };
   return (
     <>
-    <div className="space-y-6 mt-5">
+    <div className="space-y-6 mt-5 font-custom">
       <Card className="max-w-lg mx-auto shadow-lg">
         <div className="flex justify-center items-center pt-4">
-          <Typography variant="h4" className="font-semibold">
+          <Typography variant="h4" className="font-semibold font-custom">
             Update Announcement
           </Typography>
         </div>
         <CardBody>
-          <form>
+          <form className='font-custom'>
             {/* Title Field */}
             <div className="flex flex-col mb-4">
               <div className="mb-4">

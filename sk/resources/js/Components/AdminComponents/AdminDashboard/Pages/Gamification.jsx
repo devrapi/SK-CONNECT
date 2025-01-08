@@ -2,7 +2,9 @@ import React from 'react'
 import { Input, Textarea, Button, Card, CardBody, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import ApiService from '../../../Services/ApiService';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/solid';
 const Gamification = () => {
 
     const [errors, setErrors] = useState({});
@@ -63,13 +65,23 @@ const Gamification = () => {
     };
   return (
     <>
+      <div className="space-y-5">
+                <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom uppercase">
+                    Task Management
+                </Typography>
+
+                <div className='flex justify-end'>
+    <Link to="/admin/dashboard/task">
+            <ArrowLeftCircleIcon className='w-12 text-blue-500 h-14 hover hover:text-blue-400'/>
+        </Link>
+    </div>
 
         <Card className="w-full shadow-lg">
-        <Typography variant="h4" className="mt-5 mb-5 font-semibold text-center">
+        <Typography variant="h4" className="mt-5 mb-5 font-semibold text-center font-custom">
             Add Task
           </Typography>
         <CardBody>
-          <form>
+          <form className='font-custom'>
             <div className="grid grid-cols-1 ">
               {/* Title Field */}
               <div className="flex flex-col mb-4">
@@ -126,6 +138,7 @@ const Gamification = () => {
           </form>
         </CardBody>
       </Card>
+      </div>
       </>
   )
 }

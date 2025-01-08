@@ -112,7 +112,7 @@ const RewardUpdate = () => {
 
   return (
     <>
-        <Typography variant="h4" color="blue-gray" className="font-semibold">
+        <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom">
         Rewards Update
     </Typography>
 
@@ -124,11 +124,11 @@ const RewardUpdate = () => {
 
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
-      <Typography variant="h4" color="blue-gray" className="mb-6">
+      <Typography variant="h4" color="blue-gray" className="mb-6 font-custom">
         Update Rewards
       </Typography>
 
-      <form>
+      <form className='font-custom'>
         <div className="grid grid-cols-1 ">
 
           <div className="flex flex-col mb-4">

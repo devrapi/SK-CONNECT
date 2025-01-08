@@ -59,7 +59,7 @@ Route::post('/admin/login' , [AuthAdminController::class , 'login']);
 Route::post('/admin/logout' , [AuthAdminController::class , 'logout'])->middleware('auth:sanctum');
 Route::post('/verify-2fa' , [TwoFactorController::class, 'verifyTwoFactor'])->middleware('auth:sanctum');
 Route::post('/setup-2fa' , [TwoFactorController::class, 'setupTwoFactor'])->middleware('auth:sanctum');
-
+Route::get('/admin/count' , [AuthAdminController::class , 'adminCount']);
 
 //events API
 Route::apiResource('events', EventController::class);

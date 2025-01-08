@@ -57,7 +57,7 @@ const OfficialArchives = () => {
   return (
     <div className="min-h-screen p-6 space-y-6 bg-slate-100">
       {/* Page Title */}
-      <Typography variant="h4" className="font-bold text-gray-800">
+      <Typography variant="h4" className="font-semibold font-custom uppercase text-green-700">
         Officials Archived
       </Typography>
 
@@ -69,7 +69,7 @@ const OfficialArchives = () => {
       </div>
 
       {/* Batch Year Selector */}
-      <div className="flex justify-end w-1/3 mb-4">
+      <div className="flex justify-end w-1/3 mb-4 font-custom">
         <Select
           label="Filter by Batch Year"
           value={batchYear}
@@ -88,7 +88,7 @@ const OfficialArchives = () => {
       </div>
 
       {/* Archive Table */}
-      <Card className="bg-white rounded-lg shadow-xl">
+      <Card className="bg-white rounded-lg shadow-xl font-custom">
         <div className="overflow-x-auto">
           {isLoading ? (
             <div className="flex items-center justify-center p-6">
@@ -97,7 +97,7 @@ const OfficialArchives = () => {
               </Typography>
             </div>
           ) : (
-            <table className="w-full text-left table-auto">
+            <table className="w-full text-left table-auto font-custom">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (

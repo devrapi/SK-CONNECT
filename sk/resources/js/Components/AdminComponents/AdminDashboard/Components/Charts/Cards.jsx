@@ -17,18 +17,18 @@ export function KpiCard({ title, percentage, count, color, icon, trendIcon }) {
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <div className="mb-2">{icon}</div>
-            <Typography className="font-medium text-xs text-gray-400 mt-2">
+            <Typography className="font-medium text-xs text-gray-400 mt-2 font-custom">
               {title}
             </Typography>
           </div>
           <div className="flex items-center">
-            <Typography color={color} className="font-medium text-xs mr-1">
+            <Typography color={color} className="font-medium text-xs mr-1 font-custom">
               {/* {percentage} */}
             </Typography>
             {/* {trendIcon} */}
           </div>
         </div>
-        <Typography color="blue-gray" className="text-2xl font-bold mt-2">
+        <Typography color="blue-gray" className="text-2xl font-bold mt-2 font-custom">
           {count}
         </Typography>
       </CardBody>

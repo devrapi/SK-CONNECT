@@ -18,7 +18,7 @@ import SkOfficialsDelete from "./SkOfficialsDelete";
 
 function TeamCard({ img, name, title,OfficialId }) {
     return (
-      <Card className="rounded-lg bg-[#FAFAFA] shadow-md hover:shadow-lg transition-shadow duration-300">
+      <Card className="rounded-lg bg-[#FAFAFA] shadow-md hover:shadow-lg transition-shadow duration-300 font-custom">
    <Menu>
     <MenuHandler>
         <div className="absolute p-2 cursor-pointer top-2 right-2">
@@ -50,13 +50,13 @@ function TeamCard({ img, name, title,OfficialId }) {
       <Typography
         variant="h5"
         color="blue-gray"
-        className="text-lg font-medium"
+        className="text-lg font-medium font-custom"
       >
         {name}
       </Typography>
       <Typography
         color="blue-gray"
-        className="mb-4 text-base font-semibold text-gray-600"
+        className="mb-4 text-base font-semibold text-gray-600 font-custom"
       >
         {title}
       </Typography>
@@ -81,13 +81,13 @@ const SkOfficialsFetch = () => {
 
   if (!officials || officials.length === 0) {
     return (
-      <div className="text-center text-gray-500">
+      <div className="text-center text-gray-500 ">
         No officials to display.
       </div>
     );
   }
   return (
-    <section className="px-4 py-5 sm:px-6 lg:px-8">
+    <section className="px-4 py-5 sm:px-6 lg:px-8 font-custom">
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-16 text-center lg:mb-28">
@@ -101,7 +101,7 @@ const SkOfficialsFetch = () => {
           <Typography
             variant="h2"
             color="blue-gray"
-            className="my-4 text-2xl font-bold lg:text-4xl"
+            className="my-4 text-2xl font-bold lg:text-4xl font-custom text-green-700"
           >
             Behind the Success: Our Dedicated Team
           </Typography>

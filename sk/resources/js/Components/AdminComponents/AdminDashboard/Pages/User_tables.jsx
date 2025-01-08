@@ -68,8 +68,8 @@ const UserTables = () => {
 
     return (
         <div className="space-y-6">
-            <Typography variant="h4" color="blue-gray" className="font-bold">
-                Youth Profiles
+            <Typography variant="h4" size="lg" className="font-semibold font-custom text-green-700 uppercase">
+                youth Profiles
             </Typography>
             <div className="flex flex-col justify-between gap-4 md:flex-row">
                 <Input
@@ -78,7 +78,7 @@ const UserTables = () => {
                     icon={<MagnifyingGlassIcon className="w-5 h-5 text-gray-400" />}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border rounded-lg bg-gray-50"
+                    className="border rounded-lg bg-gray-50 font-custom"
                 />
                 <Link to="/admin/dashboard/profilling" className="flex items-center justify-center px-4 py-2 text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600">
                     <UserPlusIcon className="w-5 h-5 mr-2" />
@@ -87,8 +87,8 @@ const UserTables = () => {
             <Card className="rounded-lg shadow-lg">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-gray-100">
+                        <thead className='font-custom'>
+                            <tr className="bg-gray-100 font-custom">
                                 {["Name", "Age", "Gender", "Phone Number", "Education", "Address", "Edit", "Archive"].map((head) => (
                                     <th key={head} className="p-4 font-semibold text-gray-600">
                                         {head}
@@ -99,13 +99,13 @@ const UserTables = () => {
                         <tbody>
                             {currentProfiles.map((profile) => (
                                 <tr key={profile.id} className="hover:bg-gray-50">
-                                    <td className="p-4">{profile.full_name}</td>
-                                    <td className="p-4">{calculateAge(profile.birthdate)}</td>
-                                    <td className="p-4">{profile.gender}</td>
-                                    <td className="p-4">{profile.phone_number}</td>
-                                    <td className="p-4">{profile.education}</td>
-                                    <td className="p-4">{profile.address}</td>
-                                    <td className="p-4 text-center">
+                                    <td className="p-4 font-custom">{profile.full_name}</td>
+                                    <td className="p-4 font-custom">{calculateAge(profile.birthdate)}</td>
+                                    <td className="p-4 font-custom">{profile.gender}</td>
+                                    <td className="p-4 font-custom">{profile.phone_number}</td>
+                                    <td className="p-4 font-custom">{profile.education}</td>
+                                    <td className="p-4 font-custom">{profile.address}</td>
+                                    <td className="p-4 text-center font-custom">
                                         <Link to={`/admin/dashboard/profilling/update/${profile.id}`}>
                                             <DocumentTextIcon className="w-6 h-6 text-green-500 hover:text-green-700" />
                                         </Link>

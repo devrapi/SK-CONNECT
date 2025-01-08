@@ -19,8 +19,6 @@ class LeaderBoards extends Controller
         return response()->json($users);
     }
 
-
-
     public function RewardsLB($user_id){
 
         $user = User::find($user_id);
@@ -50,4 +48,5 @@ class LeaderBoards extends Controller
             'points' => $user->points,
         ]);
     }
+
 }

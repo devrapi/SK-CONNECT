@@ -87,7 +87,7 @@ const SkOfficials = () => {
 
   return (
     <>
-    <Typography variant="h4" color="blue-gray" className="font-semibold">
+    <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom uppercase">
         Sk Officials Management
     </Typography>
     <div className='flex justify-end'>
@@ -97,10 +97,10 @@ const SkOfficials = () => {
     </div>
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
-      <Typography variant="h4" color="blue-gray" className="mb-6">
+      <Typography variant="h4" color="blue-gray" className="mb-6 font-custom">
         Create Officials
       </Typography>
-      <form>
+      <form className='font-custom'>
         <div className="grid grid-cols-1 ">
           {/* Title Field */}
           <div className="flex flex-col mb-4">

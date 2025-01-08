@@ -97,7 +97,7 @@ const Profiling = () => {
 <>
 
     <div className="mb-6">
-  <Typography variant="h4" color="blue-gray" className="font-semibold">
+  <Typography variant="h4" className="font-semibol font-custom text-green-700">
         ADD YOUTH PROFILE
     </Typography>
 
@@ -108,12 +108,12 @@ const Profiling = () => {
     </div>
   </div>
     <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
-      <Typography variant="h5" color="blue-gray">
+      <Typography variant="h5" color="blue-gray" className="font-custom">
         Basic Information
       </Typography>
       <Typography
         variant="small"
-        className="mt-1 font-normal text-gray-600"
+        className="mt-1 font-normal text-gray-600 font-custom"
       >
         Add the youth profile information below.
       </Typography>
@@ -123,7 +123,7 @@ const Profiling = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               First Name
             </Typography>
@@ -132,7 +132,7 @@ const Profiling = () => {
              placeholder="e.g., Juan"
              value={form.first_name}
              onChange={(event) => {setForm({...form , first_name: event.target.value})}}
-             className="border-y-gray-500 "
+             className="border-y-gray-500 font-custom "
 />
             {errors.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
           </div>
@@ -141,7 +141,7 @@ const Profiling = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Last Name
             </Typography>
@@ -150,7 +150,7 @@ const Profiling = () => {
               placeholder="e.g., Dela Cruz"
               value={form.last_name}
               onChange={(event) => {setForm({...form , last_name: event.target.value})}}
-                className="border-y-gray-500 "
+                className="border-y-gray-500 font-custom "
             />
                 {errors.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
           </div>
@@ -160,7 +160,7 @@ const Profiling = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Gender
             </Typography>
@@ -171,7 +171,7 @@ const Profiling = () => {
               labelProps={{
                 className: "hidden",
               }}
-              className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+              className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black font-custom"
             >
               <Option value="male">Male</Option>
               <Option value="female">Female</Option>
@@ -183,7 +183,7 @@ const Profiling = () => {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom"
               >
                 Birth Date
               </Typography>
@@ -197,7 +197,7 @@ const Profiling = () => {
                     labelProps={{
                       className: "hidden",
                     }}
-                    className="border-y-gray-500"
+                    className="border-y-gray-500 font-custom"
                   />
                 </PopoverHandler>
                 <PopoverContent>
@@ -221,7 +221,7 @@ const Profiling = () => {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom"
               >
                 Age
               </Typography>
@@ -233,17 +233,17 @@ const Profiling = () => {
                 labelProps={{
                   className: "hidden",
                 }}
-                className="border-y-gray-500"
+                className="border-y-gray-500 font-custom"
               />
               {errors.age && (
-                <span className="text-xs text-red-600">{errors.age}</span>
+                <span className="text-xs text-red-600 font-custom">{errors.age}</span>
               )}
               </div>
           <div className="w-full">
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Education
             </Typography>
@@ -254,7 +254,7 @@ const Profiling = () => {
               labelProps={{
                 className: "hidden",
               }}
-            className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+            className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black font-custom"
             >
               <Option value="Elementary">Elementary</Option>
               <Option value="High School">High School</Option>
@@ -272,7 +272,7 @@ const Profiling = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Address
             </Typography>
@@ -282,7 +282,7 @@ const Profiling = () => {
               variant="static"
               placeholder="e.g., Block 0 Lot 0"
 
-              className="border-y-gray-500"
+              className="border-y-gray-500 font-custom"
             />
             {errors.address && <span className="text-xs text-red-600">{errors.address}</span>}
           </div>
@@ -290,7 +290,7 @@ const Profiling = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Phone Number
             </Typography>
@@ -316,7 +316,7 @@ const Profiling = () => {
               variant="static"
               placeholder="e.g., 09123456789"
 
-             className="border-y-gray-500"
+             className="border-y-gray-500 font-custom"
             />
             {errors.phone_number && <span className="text-xs text-red-600">{errors.phone_number}</span>}
           </div>

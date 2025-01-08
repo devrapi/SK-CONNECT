@@ -9,8 +9,8 @@ const Analytics = () => {
   return (
     <div className="min-h-screen px-6 py-8 bg-gray-100">
       {/* Header */}
-      <div className="mb-8 text-center">
-        <Typography variant="h4" color="blue-gray" className="font-semibold">
+      <div className="mb-8  font-custom">
+        <Typography variant="h4" color="blue-gray" className="font-semibold font-custom text-green-700">
           ANALYTICS DASHBOARD
         </Typography>
       </div>

@@ -43,7 +43,7 @@ const InviteeRecords = () => {
 
   return (
     <div className="min-h-screen p-6 space-y-6 bg-slate-100">
-      <Typography variant="h4" className="font-bold text-gray-800">
+      <Typography variant="h4" className="font-semibol font-custom uppercase text-green-700">
         Youth Archived
       </Typography>
 
@@ -53,7 +53,7 @@ const InviteeRecords = () => {
         </Link>
       </div>
 
-      <Card className="bg-white rounded-lg shadow-xl">
+      <Card className="bg-white rounded-lg shadow-xl font-custom">
         <div className="overflow-x-auto">
           {loading ? (
             <div className="flex items-center justify-center py-6">
@@ -62,7 +62,7 @@ const InviteeRecords = () => {
               </Typography>
             </div>
           ) : (
-            <table className="w-full text-left table-auto">
+            <table className="w-full text-left table-auto font-custom">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (

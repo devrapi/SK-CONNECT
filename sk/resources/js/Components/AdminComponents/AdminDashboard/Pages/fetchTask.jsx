@@ -17,9 +17,9 @@ const FetchTask = () => {
     const { task } = useContext(AppContext);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 font-custom">
             {task.map((item) => (
-                <Card key={item.id} className="mt-6 w-full relative transition-transform duration-300 hover:scale-105">
+                <Card key={item.id} className="mt-6 w-full relative transition-transform duration-300 hover:scale-105 font-custom">
 
                     {/* Top-right menu */}
                     <Menu>
@@ -44,14 +44,14 @@ const FetchTask = () => {
                     </Menu>
 
                     <CardBody>
-                        <Typography variant="h5" color="blue-gray" className="mb-2 truncate">
+                        <Typography variant="h5" color="blue-gray" className="mb-2 truncate font-custom">
                             {item.task_name}
                         </Typography>
-                        <Typography className="text-sm text-gray-600 truncate">
+                        <Typography className="text-sm text-gray-600 truncate font-custom">
                             {item.description}
                         </Typography>
                         <Typography>
-                            <span className="font-semibold">Points:</span> {item.points}
+                            <span className="font-semibold font-custom">Points:</span> {item.points}
                         </Typography>
                     </CardBody>
                 </Card>

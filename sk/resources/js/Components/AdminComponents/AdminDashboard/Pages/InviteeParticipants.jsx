@@ -86,8 +86,8 @@ const InviteeParticipants = () => {
   return (
     <>
       <div className="mb-6">
-        <Typography variant="h4" color="blue-gray" className="font-semibold">
-          Add Invitee Information
+        <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom uppercase">
+        Invitee Information
         </Typography>
         <div className="flex justify-end mb-6 mr-2 space-x-4">
     {/* History Button */}
@@ -102,11 +102,11 @@ const InviteeParticipants = () => {
 
 </div>
       </div>
-      <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
-        <Typography variant="h5" color="blue-gray">
+      <section className="container px-8 py-16 mx-auto bg-white rounded-xl font-custom">
+        <Typography variant="h5" color="blue-gray ont-custom">
           Basic Information
         </Typography>
-        <Typography variant="small" className="mt-1 font-normal text-gray-600">
+        <Typography variant="small" className="mt-1 font-normal text-gray-600 font-custom">
           Add the youth invitee information below.
         </Typography>
         <div className="flex flex-col mt-8">
@@ -115,7 +115,7 @@ const InviteeParticipants = () => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 font-medium"
+              className="mb-2 font-medium font-custom"
             >
               Inviter Name
             </Typography>
@@ -125,22 +125,22 @@ const InviteeParticipants = () => {
                 placeholder="Search for inviter name..."
                 value={form.inviter_name}
                 onChange={handleSearchChange}
-                className="border-gray-500"
+                className="border-gray-500 font-custom"
               />
               {showSuggestions && (
-                <ul className="absolute z-10 w-full overflow-y-auto bg-white border border-gray-300 rounded shadow-md max-h-48">
+                <ul className="absolute z-10 w-full overflow-y-auto bg-white border border-gray-300 rounded shadow-md max-h-48 font-custom">
                   {filteredUsers.length > 0 ? (
                     filteredUsers.map((user) => (
                       <li
                         key={user.id}
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200 font-custom"
                         onClick={() => handleSelectSuggestion(user.name)}
                       >
                         {user.name}
                       </li>
                     ))
                   ) : (
-                    <li className="px-4 py-2 text-gray-500">No matches found</li>
+                    <li className="px-4 py-2 text-gray-500 font-custom">No matches found</li>
                   )}
                 </ul>
               )}
@@ -153,12 +153,12 @@ const InviteeParticipants = () => {
           </div>
 
           {/* Invitee Name */}
-          <div className="flex flex-col items-end gap-4 p-6 mb-6 md:flex-row">
+          <div className="flex flex-col items-end gap-4 p-6 mb-6 md:flex-row font-custom ">
             <div className="w-full">
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom"
               >
                 Invitee Name
               </Typography>
@@ -169,7 +169,7 @@ const InviteeParticipants = () => {
                 onChange={(event) =>
                   setForm({ ...form, invitee_name: event.target.value })
                 }
-                className="border-gray-500"
+                className="border-gray-500 font-custom"
               />
               {errors.invitee_name && (
                 <span className="text-xs text-red-600">
@@ -182,7 +182,7 @@ const InviteeParticipants = () => {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom"
               >
                 Address
               </Typography>
@@ -193,10 +193,10 @@ const InviteeParticipants = () => {
                 onChange={(event) =>
                   setForm({ ...form, invitee_address: event.target.value })
                 }
-                className="border-gray-500"
+                className="border-gray-500 font-custom"
               />
               {errors.invitee_address && (
-                <span className="text-xs text-red-600">
+                <span className="text-xs text-red-600 font-custom">
                   {errors.invitee_address}
                 </span>
               )}
@@ -206,7 +206,7 @@ const InviteeParticipants = () => {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom"
               >
                 Phone Number
               </Typography>
@@ -225,11 +225,11 @@ const InviteeParticipants = () => {
                   } else if (phoneNumber.length > 11) {
                     setErrors((prevErrors) => ({
                       ...prevErrors,
-                      phone_number: "Phone number must be exactly 11 digits.",
+                      phone_number: "Phone number must be exactly 11 digits. ",
                     }));
                   }
                 }}
-                className="border-gray-500"
+                className="border-gray-500 font-custom"
               />
               {errors.invitee_phone && (
                 <span className="text-xs text-red-600">

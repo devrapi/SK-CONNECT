@@ -30,20 +30,20 @@ const Announcement = () => {
     return (
         <>
             <div className="container mx-auto p-4">
-                <Typography variant="h4" color="blue-gray" className="font-semibold mb-6">
-                    Announcement Dashboard
+                <Typography variant="h4" color="blue-gray" className="font-semibold mb-6 uppercase text-green-700 font-custom">
+                    Announcement
                 </Typography>
 
                 <div className=" mb-6">
                     <AnnouncementCreate />
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-6 font-custom">
                     {announcement.map((item) => (
-                        <Card key={item.id} className="max-w-lg mx-auto">
-                            <Menu>
+                        <Card key={item.id} className="max-w-lg mx-auto font-custom">
+                            <Menu className="font-custom">
                                 <MenuHandler>
-                                    <div className="absolute top-4 right-4 cursor-pointer">
+                                    <div className="absolute top-4 right-4 cursor-pointer font-custom">
                                         <EllipsisHorizontalIcon className="w-6 h-6 text-gray-500 hover:text-gray-800" />
                                     </div>
                                 </MenuHandler>
@@ -65,15 +65,15 @@ const Announcement = () => {
                                 </MenuList>
                             </Menu>
 
-                            <div className="flex items-center mb-4">
+                            <div className="flex items-center mb-4 font-custom">
                                     <Avatar
                                         src="/img/uno.png" // Add your avatar path here
                                         alt="Sangguniang Kabataan ng Uno"
                                         size="sm"
                                         className="m-3"
                                     />
-                                    <div className='flex flex-col'>
-                                        <Typography variant="h6" color="blue-gray">
+                                    <div className='flex flex-col font-custom'>
+                                        <Typography variant="h6" color="blue-gray font-custom">
                                             KABATAAN NG UNO
                                         </Typography>
 
@@ -87,10 +87,10 @@ const Announcement = () => {
                                 </div>
 
                                 <div className="px-4 text-left">
-                            <Typography variant="h5" color="blue-gray" className="mb-2">
+                            <Typography variant="h5" color="blue-gray" className="mb-2 font-custom">
                             {item.title}
                         </Typography>
-                        <Typography color="gray" className="mb-4">
+                        <Typography color="gray" className="mb-4 font-custom">
                             {item.content}
                         </Typography>
                                                 {item.image_path && (
@@ -107,7 +107,7 @@ const Announcement = () => {
                             </div>
 
                             <CardFooter className="pt-4">
-                                <Typography variant="small" color="gray" className="text-xs">
+                                <Typography variant="small" color="gray" className="text-xs font-custom">
                                     Posted by Admin
                                 </Typography>
                             </CardFooter>

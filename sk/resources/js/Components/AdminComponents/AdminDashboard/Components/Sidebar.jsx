@@ -41,7 +41,8 @@ const Sidebar = () => {
         {/* Header with Toggle Button */}
         <div className="flex items-center justify-between p-4">
           {!isCollapsed && (
-            <img src="/img/sklogo.png" alt="Logo" className="h-auto w-44" />
+            <img src="/img/uno.png" alt="Logo" className="h-auto w-16" />
+
           )}
           <Button
             onClick={toggleSidebar}
@@ -58,37 +59,37 @@ const Sidebar = () => {
 
         {/* Menu List */}
         <List className="flex-grow">
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <PresentationChartBarIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/analytics">Analytics</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <UserCircleIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/user-tables">Youth Profiles</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <MegaphoneIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/announcement">Announcement</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <CalendarIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/calendars">Calendar</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <GiftIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/avail-rewards">Rewards</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <ClipboardDocumentCheckIcon className="w-6 h-6" />
             </ListItemPrefix>
@@ -97,7 +98,7 @@ const Sidebar = () => {
 
           <hr className="my-2 border-blue-gray-50" />
 
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <InboxIcon className="w-6 h-6" />
             </ListItemPrefix>
@@ -110,19 +111,19 @@ const Sidebar = () => {
               className="ml-auto rounded-full"
             />
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <ArchiveBoxIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/archived">Archived Youth</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <UserGroupIcon className="w-6 h-6" />
             </ListItemPrefix>
             {!isCollapsed && <Link to="/admin/dashboard/Invitee">Invitee Participants</Link>}
           </ListItem>
-          <ListItem>
+          <ListItem className="font-custom">
             <ListItemPrefix>
               <Cog6ToothIcon className="w-6 h-6" />
             </ListItemPrefix>

@@ -91,13 +91,13 @@ const PieChart = () => {
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       >
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="blue-gray" className='font-custom'>
             Education Levels Pie Chart
           </Typography>
           <Typography
             variant="small"
             color="gray"
-            className="max-w-sm font-normal"
+            className="max-w-sm font-normal font-custom"
           >
             Visualize the education distribution among profiles.
           </Typography>

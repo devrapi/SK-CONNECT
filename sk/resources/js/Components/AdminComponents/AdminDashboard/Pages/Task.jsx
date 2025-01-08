@@ -11,7 +11,7 @@ const Task = () => {
     <>
   <div>
   <div className="space-y-5">
-                <Typography variant="h4" color="blue-gray" className="font-semibold">
+                <Typography variant="h4" color="blue-gray" className="font-semibold font-custom uppercase text-green-700">
                     Task Management
                 </Typography>
                 <div className="flex justify-end space-x-4">

@@ -30,7 +30,7 @@ const RewardsFetch = () => {
 
     return (
         <div className="space-y-5">
-            <Typography variant="h4" color="blue-gray" className="font-semibold text-center">
+            <Typography variant="h4" color="blue-gray" className="font-semibold  text-green-700 font-custom uppercase">
                 Available Rewards
             </Typography>
 
@@ -53,7 +53,7 @@ const RewardsFetch = () => {
                     <Button
                         key={category}
                         variant={selectedCategory === category ? "filled" : "outlined"}
-                        color={selectedCategory === category ? "blue" : "gray"}
+                        color={selectedCategory === category ? "green" : "gray"}
                         className={`transition-transform ${
                             selectedCategory === category ? "scale-110" : "hover:scale-105"
                         }`}
@@ -103,30 +103,30 @@ const RewardsFetch = () => {
                         </div>
 
                         {/* Card Body */}
-                        <CardBody>
+                        <CardBody className='font-custom'>
                             {/* Reward Title */}
-                            <Typography variant="h5" color="blue-gray" className="mb-2 truncate">
+                            <Typography variant="h5" color="blue-gray" className="mb-2 truncate font-custom">
                                 {reward.name}
                             </Typography>
 
                             {/* Reward Description */}
-                            <Typography className="mb-2 text-sm text-gray-600 truncate">
+                            <Typography className="mb-2 text-sm text-gray-600 truncate font-custom">
                                 {reward.description}
                             </Typography>
 
                             {/* Reward Points */}
                             <Typography>
-                                <span className="font-semibold">Points:</span> {reward.points}
+                                <span className="font-semibold font-custom">Points:</span> {reward.points}
                             </Typography>
 
                             {/* Reward Stocks */}
-                            <Typography>
-                                <span className="font-semibold">Stocks:</span> {reward.stocks}
+                            <Typography className='font-custom'>
+                                <span className="font-semibold font-custom">Stocks:</span> {reward.stocks}
                             </Typography>
 
                             {/* Category Badge */}
                             <div className="mt-4">
-                                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                                <span className="px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full">
                                     {reward.category || "No Category"}
                                 </span>
                             </div>

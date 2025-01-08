@@ -100,7 +100,7 @@ const Rewards = () => {
   return (
     <>
 
-<Typography variant="h4" color="blue-gray" className="font-semibold">
+<Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom">
         Rewards Management
     </Typography>
     <div className='flex justify-end'>
@@ -110,10 +110,10 @@ const Rewards = () => {
     </div>
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
-      <Typography variant="h4" color="blue-gray" className="mb-6">
+      <Typography variant="h4" color="blue-gray" className="mb-6 font-custom font-semibold">
         Create Rewards
       </Typography>
-      <form>
+      <form className='font-custom'>
   <div className="grid grid-cols-1">
     {/* Title Field */}
     <div className="flex flex-col mb-4">

@@ -124,8 +124,8 @@ const UsersUpdate = () => {
 
   return (
 <>
-    <div className="mb-6">
-  <Typography variant="h4" color="blue-gray" className="font-semibold">
+<div className="font-custom">
+  <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700">
         UPDATE YOUTH PROFILE
     </Typography>
     <div className='flex justify-end'>
@@ -134,13 +134,13 @@ const UsersUpdate = () => {
         </Link>
     </div>
   </div>
-    <section className="container px-8 py-16 mx-auto bg-white rounded-xl">
-    <Typography variant="h5" color="blue-gray">
+    <section className="container px-8 py-16 mx-auto bg-white rounded-xl font-custom    ">
+    <Typography variant="h5" color="blue-gray" className="font-custom    ">
       Update information
     </Typography>
     <Typography
       variant="small"
-      className="mt-1 font-normal text-gray-600"
+      className="mt-1 font-normal text-gray-600 font-custom    "
     >
       Update the profile information below.
     </Typography>
@@ -150,7 +150,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             First Name
           </Typography>
@@ -160,7 +160,7 @@ const UsersUpdate = () => {
             value={form.first_name}
             onChange={(event) => {setForm({...form , first_name: event.target.value})}}
 
-            className="border-y-gray-500"
+            className="border-y-gray-500 font-custom    "
             />
             {errors.first_name && <span className="text-xs text-red-600">{errors.first_name}</span>}
         </div>
@@ -169,7 +169,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             Last Name
           </Typography>
@@ -179,7 +179,7 @@ const UsersUpdate = () => {
             value={form.last_name}
             onChange={(event) => {setForm({...form , last_name: event.target.value})}}
 
-         className="border-y-gray-500"
+         className="border-y-gray-500 font-custom    "
           />
             {errors.last_name && <span className="text-xs text-red-600">{errors.last_name}</span>}
         </div>
@@ -189,7 +189,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
            Gender
           </Typography>
@@ -200,7 +200,7 @@ const UsersUpdate = () => {
             labelProps={{
               className: "hidden",
             }}
-            className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+            className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black font-custom    "
           >
             <Option value="male">Male</Option>
             <Option value="female">Female</Option>
@@ -212,7 +212,7 @@ const UsersUpdate = () => {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="mb-2 font-medium"
+                className="mb-2 font-medium font-custom    "
               >
                 Birth Date
               </Typography>
@@ -226,7 +226,7 @@ const UsersUpdate = () => {
                     labelProps={{
                       className: "hidden",
                     }}
-                    className="border-y-gray-500"
+                    className="border-y-gray-500 font-custom    "
                   />
                 </PopoverHandler>
                 <PopoverContent>
@@ -236,7 +236,7 @@ const UsersUpdate = () => {
                     minDate={minDate}
                     maxDate={maxDate}
                     showOutsideDays
-                    className="border-0"
+                    className="border-0 font-custom    "
                   />
                 </PopoverContent>
               </Popover>
@@ -250,7 +250,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             Age
           </Typography>
@@ -270,7 +270,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             Education
           </Typography>
@@ -281,7 +281,7 @@ const UsersUpdate = () => {
             labelProps={{
               className: "hidden",
             }}
-          className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black"
+          className="w-full border border-gray-500 placeholder:opacity-100 focus:border-gray-800 border-t-gray-500 focus:border-t-black font-custom    "
           >
             <Option value="Elementary">Elementary</Option>
             <Option value="High School">High School</Option>
@@ -299,7 +299,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             Address
           </Typography>
@@ -309,7 +309,7 @@ const UsersUpdate = () => {
             variant="static"
             placeholder="e.g., Block 0 Lot 0"
 
-            className="border-y-gray-500"
+            className="border-y-gray-500 font-custom    "
           />
            {errors.address && <span className="text-xs text-red-600">{errors.address}</span>}
         </div>
@@ -317,7 +317,7 @@ const UsersUpdate = () => {
           <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className="mb-2 font-medium font-custom    "
           >
             Phone Number
           </Typography>
@@ -343,7 +343,7 @@ const UsersUpdate = () => {
             variant="static"
               placeholder="e.g., 09123456789"
 
-           className="border-y-gray-500"
+           className="border-y-gray-500 font-custom    "
           />
           {errors.phone_number && <span className="text-xs text-red-600">{errors.phone_number}</span>}
         </div>

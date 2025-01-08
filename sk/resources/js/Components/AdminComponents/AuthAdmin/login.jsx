@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Input, Checkbox, Button, Typography, Card, CardBody } from "@material-tailwind/react";
+import { Input, Checkbox, Button, Typography, Card, CardBody, Spinner } from "@material-tailwind/react";
 import ApiService from "../../Services/ApiService";
 import { AppContext } from "../../Context/AppContext";
 
@@ -11,10 +11,12 @@ const Login = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await ApiService.post("/admin/login", form);
 
@@ -37,31 +39,35 @@ const Login = () => {
       } else {
         setErrors({ global: "An unexpected error occurred during login." });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-green-100">
-      <Card className="w-full max-w-md p-6 shadow-lg">
+    <section className="flex items-center justify-center min-h-screen bg-gray-900">
+      <Card className="w-full max-w-md p-6 shadow-lg rounded-lg bg-gray-800">
         <CardBody className="flex flex-col gap-6">
-          <Typography variant="h4" className="text-center" color="blue-gray">
+          <Typography variant="h4" className="text-center text-blue-gray-700 dark:text-gray-100">
             Admin Login
           </Typography>
           <form className="space-y-4" onSubmit={HandleSubmit}>
             <div>
-              <Typography className="mb-2" variant="small" color="blue-gray">
+              <Typography className="mb-2 text-gray-100" variant="small" >
                 Your Email
               </Typography>
               <Input
+                className="text-black bg-white"
                 type="email"
                 label="Email"
                 size="lg"
-                color="green"
+                color="blue-gray"
                 value={form.email}
                 onChange={(event) =>
                   setForm({ ...form, email: event.target.value })
                 }
                 error={!!errors.email}
+                aria-label="Email Address"
               />
               {errors.email && (
                 <Typography variant="small" color="red" className="mt-1">
@@ -70,19 +76,21 @@ const Login = () => {
               )}
             </div>
             <div>
-              <Typography className="mb-2" variant="small" color="blue-gray">
+              <Typography className="mb-2 text-gray-100" variant="small" >
                 Password
               </Typography>
               <Input
+              className="text-black bg-white"
                 type="password"
                 label="Password"
                 size="lg"
-                color="green"
+               color="black"
                 value={form.password}
                 onChange={(event) =>
                   setForm({ ...form, password: event.target.value })
                 }
                 error={!!errors.password}
+                aria-label="Password"
               />
               {errors.password && (
                 <Typography variant="small" color="red" className="mt-1">
@@ -95,28 +103,16 @@ const Login = () => {
                 {errors.global}
               </Typography>
             )}
-            <Checkbox
-              id="terms"
-              label={
-                <Typography variant="small" color="blue-gray">
-                  I accept the{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-green-500 hover:underline"
-                  >
-                    Terms and Conditions
-                  </a>
-                </Typography>
-              }
-            />
+
             <Button
               type="submit"
               color="green"
               size="lg"
               fullWidth
-              className="mt-4"
+              className="mt-4 flex items-center justify-center"
+              disabled={loading}
             >
-              Login
+              {loading ? <Spinner className="h-5 w-5" /> : "Login"}
             </Button>
           </form>
           <Typography

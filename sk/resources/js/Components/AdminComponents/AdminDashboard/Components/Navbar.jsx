@@ -22,7 +22,7 @@ const NavBar = () => {
       <div className="flex items-center justify-between">
         {/* Logo/Title */}
         <Typography variant="h6" className="font-bold text-green-700">
-          SANGGUNIANG KABATAAN NG UNO
+        <img src="/img/sklogo.png" alt="Logo" className="h-auto w-44" />
         </Typography>
 
         {/* Right-side icons */}

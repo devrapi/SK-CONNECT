@@ -72,7 +72,7 @@ const Calendars = () => {
   <Typography
     variant="h4"
     color="blue-gray"
-    className="font-semibold text-center md:text-left"
+    className="font-semibold text-center md:text-left font-custom text-green-700"
   >
     UPCOMING EVENTS
   </Typography>
@@ -151,11 +151,11 @@ const Calendars = () => {
                   className="object-cover w-full h-full rounded-t-lg"
                 />
               </CardHeader>
-              <CardBody>
-                <Typography variant="h6" color="blue-gray" className="mb-2 truncate">
+              <CardBody className='font-custom'>
+                <Typography variant="h6" color="blue-gray" className="mb-2 truncate font-custom">
                   {ev.title}
                 </Typography>
-                <Typography color="gray" className="truncate">
+                <Typography color="gray" className="truncate font-custom">
                   {ev.description}
                 </Typography>
                 <Typography className="mt-2">
@@ -165,7 +165,7 @@ const Calendars = () => {
                   <span className="font-semibold">Points:</span> {ev.points}
                 </Typography>
               </CardBody>
-              <CardFooter className="flex items-center justify-between pt-4">
+              <CardFooter className="flex items-center justify-between pt-4 font-custom">
                 <Button
                   onClick={() => openModal(ev)}
                   color="green"

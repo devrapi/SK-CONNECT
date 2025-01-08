@@ -48,7 +48,7 @@ const Archive = () => {
 
   return (
     <div className="min-h-screen p-6 space-y-6 bg-slate-100">
-      <Typography variant="h4" className="font-bold text-gray-800">
+      <Typography variant="h4" className="font-semibold text-green-700 font-custom uppercase">
         Youth Archived
       </Typography>
 
@@ -61,7 +61,7 @@ const Archive = () => {
               </Typography>
             </div>
           ) : (
-            <table className="w-full text-left table-auto">
+            <table className="w-full text-left table-auto font-custom">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
