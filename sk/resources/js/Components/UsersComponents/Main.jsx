@@ -121,20 +121,21 @@ const Main = () => {
               }`}
             >
               <NavItem>
-                <RectangleStackIcon className="w-5 h-5" />
-                Pages
+                <RectangleStackIcon className="w-5 h-5 text-green-700" />
+                Features
               </NavItem>
               <NavItem>
-                <UserCircleIcon className="w-5 h-5" />
-                Account
+              <CommandLineIcon className="w-5 h-5 text-green-700" />
+
+                How it Works
               </NavItem>
               <NavItem>
-                <Squares2X2Icon className="w-5 h-5" />
-                Blocks
+                <Squares2X2Icon className="w-5 h-5 text-green-700" />
+                Rules
               </NavItem>
               <NavItem>
-                <CommandLineIcon className="w-5 h-5" />
-                Docs
+              <UserCircleIcon className="w-5 h-5 text-green-700" />
+                Teams
               </NavItem>
             </ul>
             <div className="flex items-center gap-4 mt-6 mb-4">
@@ -147,32 +148,47 @@ const Main = () => {
 
       {/* Hero Section */}
       <div
-        className="relative flex items-center justify-center min-h-screen bg-center bg-cover"
-        style={{ backgroundImage: "url('/img/bg4.jpg')" }}
+  className="relative flex items-center justify-center min-h-screen bg-center bg-cover"
+  style={{ backgroundImage: "url('/img/bg1.jpg')" }}
+>
+  {/* Background Overlay */}
+  <div className="absolute inset-0 bg-black bg-opacity-80"></div>
+
+  {/* Content Section */}
+  <div className="relative z-10 px-6 py-12 text-center font-custom">
+    <div className="max-w-3xl mx-auto space-y-6">
+      {/* Main Heading */}
+      <Typography
+        variant="h1"
+        className="text-4xl font-semibold text-white md:text-5xl lg:text-6xl font-custom "
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 px-6 py-12 text-center font-custom">
-          <div className="max-w-3xl mx-auto">
-            <Typography
-              variant="h1"
-              color="blue-gray"
-              className="mt-6 text-4xl leading-tight tracking-tight text-gray-100 md:text-5xl lg:text-6xl font-custom"
-            >
-              Connect, Participate, Reward{" "}
-              <span className="text-green-600 font-custom">
-                Your Youth Journey Starts Here
-              </span>
-            </Typography>
-            <Typography
-              variant="paragraph"
-              className="mt-4 text-lg text-gray-200"
-            >
-              Join a vibrant community where your contributions lead to real
-              rewards and unforgettable experiences.
-            </Typography>
-          </div>
-        </div>
+        Empowering Youth And Building Communities
+      </Typography>
+
+      {/* Subheading */}
+
+
+      {/* Supporting Text */}
+      <Typography
+        variant="lead"
+        className="text-lg text-gray-400 md:text-xl font-custom"
+      >
+       Join SK Connect and discover exciting opportunities to make a difference. Participate in events and earn rewards while creating lasting impact in your community.
+      </Typography>
+
+      {/* Call to Action */}
+      <div className="mt-14">
+        <Button
+          size="lg"
+          color="green"
+          className="px-8 py-4 font-semibold text-white transition-transform transform bg-green-700 rounded-full shadow-lg hover:bg-green-600 hover:scale-105"
+        >
+          Get Involved Today
+        </Button>
       </div>
+    </div>
+  </div>
+</div>
 
       {/* Other Components */}
       <div>

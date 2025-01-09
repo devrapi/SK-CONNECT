@@ -25,7 +25,7 @@ export function Map() {
   ];
 
   return (
-    <section className="px-4 py-14 sm:px-6 lg:px-8 lg:py-16 bg-gray-50">
+    <section className="px-4 bg-gray-100 py-14 sm:px-6 lg:px-8 lg:py-16">
       <div className="container flex flex-col mx-auto mb-5 lg:flex-row lg:items-center lg:gap-10">
         {/* Text Section */}
         <div className="mt-8 lg:mt-0 lg:w-1/2">
@@ -63,12 +63,19 @@ export function Map() {
         <div className="lg:w-1/2">
           <Slider {...sliderSettings}>
             {images.map((image, index) => (
-              <div key={index}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-auto rounded-lg shadow-md"
-                />
+              <div key={index} className="p-4">
+                <div className="relative bg-white border-4 border-gray-200 rounded-lg shadow-lg">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-auto rounded-lg"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white rounded-b-lg bg-gradient-to-t from-black/70 to-transparent">
+                    <Typography className="text-sm font-semibold">
+                      {image.alt}
+                    </Typography>
+                  </div>
+                </div>
               </div>
             ))}
           </Slider>

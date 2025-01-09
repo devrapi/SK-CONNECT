@@ -61,7 +61,7 @@ const Officials = () => {
   }
 
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="px-4 py-20 sm:px-6 lg:px-8 ">
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-16 text-center lg:mb-28">

@@ -87,16 +87,16 @@ const Footer = () => {
               Contact Us
             </Typography>
             <Typography className="text-gray-400">
-              1234 SK Connect Avenue,
+              Brgy. San Nicolas 1 ,
               <br />
-              Cityname, Country
+              City of Dasmariñas Cavite, Philippines
             </Typography>
             <Typography
               as="a"
               href="mailto:support@skconnect.com"
               className="block mt-2 text-gray-400 transition hover:text-gray-100"
             >
-              support@skconnect.com
+              kabataangUno@gmail.com
             </Typography>
             <Typography
               as="a"
@@ -106,7 +106,7 @@ const Footer = () => {
               +1 (234) 567-890
             </Typography>
             <Typography className="mt-4 text-gray-400">
-              Operating Hours: Mon-Fri, 9:00 AM - 6:00 PM
+              Operating Hours: Mon-Fri, 8:00 AM - 5:00 PM
             </Typography>
           </div>
         </div>

@@ -24,7 +24,7 @@ const EventUpdate = () => {
       });
 
       const today = new Date();
-      const minDate = new Date(today.setDate(today.getDate() + 1));
+      const minDate = new Date(today.setDate(today.getDate()));
 
       const getEvents = async () => {
         try {
@@ -124,8 +124,8 @@ const EventUpdate = () => {
 
   return (
     <>
-      <Typography variant="h4" color="blue-gray" className="font-semibold">
-        Rewards Update
+      <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 uppercase font-custom">
+        Event Update
     </Typography>
 
     <div className='flex justify-end'>

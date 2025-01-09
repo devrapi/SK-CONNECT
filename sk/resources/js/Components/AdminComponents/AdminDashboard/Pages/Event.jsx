@@ -23,7 +23,7 @@ const Event = () => {
       });
 
       const today = new Date();
-      const minDate = new Date(today.setDate(today.getDate() + 1));
+      const minDate = new Date(today.setDate(today.getDate()));
 
     // Handle the image change and create a preview URL
     const handleImageChange = (e) => {
@@ -116,7 +116,7 @@ const Event = () => {
     </div>
     <Card className="max-w-5xl mx-auto mt-10 shadow-lg">
     <CardBody>
-      <Typography variant="h4" color="blue-gray" className="mb-6 font-custom font-semibold">
+      <Typography variant="h4" color="blue-gray" className="mb-6 font-semibold font-custom">
         Create Event
       </Typography>
       <form className='font-custom'>
