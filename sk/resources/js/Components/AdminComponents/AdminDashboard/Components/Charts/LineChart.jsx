@@ -117,7 +117,7 @@ function AreaChart({ height = 350, series, colors, options }) {
 
 export function LineChart() {
   return (
-    <section className="m-10">
+    <section className="">
       <Card>
         <CardBody className="!p-2">
           <div className="flex gap-2 flex-wrap justify-between px-4 !mt-4 ">
@@ -168,7 +168,7 @@ export function LineChart() {
           />
         </CardBody>
         <CardFooter className="flex flex-wrap items-center justify-between gap-6">
-          <div>
+          {/* <div>
             <Typography variant="h6" color="blue-gray" className="font-custom">
               SK Connect 2024 Participation
             </Typography>
@@ -178,7 +178,7 @@ export function LineChart() {
             >
               Total participation in SK Connect events this year
             </Typography>
-          </div>
+          </div> */}
 
         </CardFooter>
       </Card>

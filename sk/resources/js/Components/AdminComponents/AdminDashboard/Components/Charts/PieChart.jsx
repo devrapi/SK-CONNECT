@@ -43,16 +43,17 @@ const PieChart = () => {
         toolbar: {
           show: false,
         },
-        width: '100%',
-        height: '100%',
       },
       responsive: [
         {
           breakpoint: 768,
           options: {
             chart: {
-              width: 300,
-              height: 300,
+              width: "100%",
+              height: 250,
+            },
+            legend: {
+              position: 'bottom',
             },
           },
         },
@@ -60,8 +61,11 @@ const PieChart = () => {
           breakpoint: 1024,
           options: {
             chart: {
-              width: 400,
-              height: 400,
+              width: "100%",
+              height: 300,
+            },
+            legend: {
+              position: 'right',
             },
           },
         },
@@ -70,7 +74,7 @@ const PieChart = () => {
       dataLabels: {
         enabled: true,
         formatter: (val, opts) => {
-          const percentage = ((val / total) * 10).toFixed(1);
+          const percentage = ((val / total) * 100).toFixed(1);
           return `${percentage}%`;
         },
       },
@@ -91,7 +95,7 @@ const PieChart = () => {
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
       >
         <div>
-          <Typography variant="h6" color="blue-gray" className='font-custom'>
+          <Typography variant="h6" color="blue-gray" className="font-custom">
             Education Levels Pie Chart
           </Typography>
           <Typography
@@ -104,6 +108,7 @@ const PieChart = () => {
         </div>
       </CardHeader>
       <CardBody className="grid w-full px-2 mt-4 place-items-center">
+        {/* Responsive Chart Container */}
         <div className="w-full max-w-sm md:max-w-md lg:max-w-lg">
           <Chart {...chartConfig} />
         </div>

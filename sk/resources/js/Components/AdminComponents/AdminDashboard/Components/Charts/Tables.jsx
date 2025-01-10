@@ -31,15 +31,15 @@ const Tables = () => {
   };
 
   return (
-    <div className="container p-4 mx-auto">
+    <div className="container mx-auto">
       <Card className="shadow-lg">
         <CardBody>
-          <Typography variant="h5" className="text-center mb-4 font-bold font-custom">
+          <Typography variant="h5" className="mb-4 font-bold text-center font-custom">
             Leaderboard
           </Typography>
-          <table className="min-w-full text-left table-auto border-collapse font-custom">
+          <table className="min-w-full text-left border-collapse table-auto font-custom">
             <thead>
-              <tr className="border-b bg-gray-100">
+              <tr className="bg-gray-100 border-b">
                 <th className="px-4 py-2 font-medium font-custom">Rank</th>
                 <th className="px-4 py-2 font-medium font-custom">User</th>
                 <th className="px-4 py-2 font-medium font-custom">Points</th>
@@ -49,7 +49,7 @@ const Tables = () => {
               {paginatedData.map((item, index) => (
                 <tr
                   key={item.id}
-                  className="hover:bg-green-50 transition-all duration-200"
+                  className="transition-all duration-200 hover:bg-green-50"
                 >
                   <td className="px-4 py-2 font-custom">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td className="flex items-center px-4 py-2 space-x-4 font-custom">

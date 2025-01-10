@@ -9,8 +9,8 @@ const Analytics = () => {
   return (
     <div className="min-h-screen px-6 py-8 bg-gray-100">
       {/* Header */}
-      <div className="mb-8  font-custom">
-        <Typography variant="h4" color="blue-gray" className="font-semibold font-custom text-green-700">
+      <div className="mb-8 font-custom">
+        <Typography variant="h4" color="blue-gray" className="font-semibold text-green-700 font-custom">
           ANALYTICS DASHBOARD
         </Typography>
       </div>
@@ -21,25 +21,20 @@ const Analytics = () => {
       </div>
 
       {/* Charts and Table Section */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Pie Chart */}
-        <div className="col-span-1 lg:col-span-3 p-4 bg-white rounded-lg shadow-md">
+
+        <div className="col-span-4 bg-white rounded-lg lg:col-span-2 xl:grid-cols-2">
+        <LineChart/>
+        </div>
+        <div className="col-span-4 bg-white rounded-lg lg:col-span-2 xl:grid-cols-2">
+
           <PieChart />
 
         </div>
-        <div className="col-span-1 lg:col-span-3 p-4 bg-white rounded-lg shadow-md">
-        <LineChart/>
-        </div>
 
         {/* Table (Spanning Full Width) */}
-        <div className="col-span-1 lg:col-span-3 p-4 bg-white rounded-lg shadow-md">
-          <Typography
-            variant="h6"
-            color="blue-gray"
-            className="mb-4 font-semibold"
-          >
-            User Rankings
-          </Typography>
+        <div className="col-span-4 lg:col-span-4">
           <Tables />
         </div>
       </div>
