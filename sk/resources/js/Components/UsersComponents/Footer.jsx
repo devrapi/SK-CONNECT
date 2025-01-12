@@ -9,9 +9,9 @@ const links = [
 ];
 
 const socialMedia = [
-  { icon: "/img/facebook.png", href: "https://facebook.com" },
-  { icon: "/img/instagram.png", href: "https://twitter.com" },
-  { icon: "/img/gmail.png", href: "https://linkedin.com" },
+  { icon: "/img/facebook.png", href: "https://www.facebook.com/profile.php?id=61553566077140" },
+  { icon: "/img/instagram.png", href: "https://www.facebook.com/profile.php?id=61553566077140" },
+  { icon: "/img/gmail.png", href: "https://www.facebook.com/profile.php?id=61553566077140" },
 ];
 
 const currentYear = new Date().getFullYear();

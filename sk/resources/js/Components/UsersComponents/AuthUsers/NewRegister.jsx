@@ -18,6 +18,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 const NewRegister = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showPassword1, setShowPassword1] = useState(false);
     const { setToken } = useContext(AppContext);
     const [form, setForm] = useState({
         first_name: '',
@@ -42,6 +43,7 @@ const NewRegister = () => {
     };
 
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const togglePasswordVisibility1 = () => setShowPassword1(!showPassword1);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -203,10 +205,19 @@ const NewRegister = () => {
                 label="Confirm Password"
                 size="lg"
                 color="green"
-                type="password"
+                type={showPassword1 ? "text" : "password"}
                 name="password_confirmation"
                 value={form.password_confirmation}
                 onChange={handleInputChange}
+                icon={
+                    showPassword1 ? (
+                        <EyeSlashIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility1} />
+                    ) : (
+                        <EyeIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility1} />
+                    )
+                }
+
+
             />
             {errors.password_confirmation && (
                 <Typography variant="small" color="red" className="mt-1">

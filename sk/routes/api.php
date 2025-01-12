@@ -120,6 +120,7 @@ Route::post('announcement/update/{announcement}' ,[AnnouncementController::class
 //Comment
 Route::post('announcement/comment/{announcement}/{userId}' ,[AnnouncementController::class , 'comment'] );
 Route::get('announcement/comment/{announcementId}' ,[AnnouncementController::class , 'getComments'] );
+Route::delete('announcement/comment/{id}' ,[AnnouncementController::class , 'destroyComment'] );
 
 //Likes
 Route::post('announcement/like/{announcement}/{user_id}' , [AnnouncementController::class , 'like'] );

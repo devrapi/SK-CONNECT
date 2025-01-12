@@ -21,12 +21,12 @@ const DeleteRewards = ({ id }) => {
   const confirmDelete = async () => {
     const result = await MySwal.fire({
       title: 'Are you sure?',
-      text: 'This reward will be permanently deleted!',
+      text: 'This reward will be archive',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Yes, archive it!',
       cancelButtonText: 'Cancel',
     });
 
@@ -37,7 +37,7 @@ const DeleteRewards = ({ id }) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-    <TrashIcon className="w-4 h-4 mr-2" /> Delete Post
+    <TrashIcon className="w-4 h-4 mr-2" /> Archive
     </div>
   );
 };

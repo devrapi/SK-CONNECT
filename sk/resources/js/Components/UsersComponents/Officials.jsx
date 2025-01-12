@@ -92,15 +92,16 @@ const Officials = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {officials.map((official, index) => (
-            <TeamCard
-              key={index}
-              img={`/storage/${official.image_path}`}
-              name={official.name}
-              title={official.title}
-            />
-          ))}
-        </div>
+    {Array.isArray(officials) &&
+      officials.map((official, index) => (
+        <TeamCard
+          key={index}
+          img={`/storage/${official.image_path}`}
+          name={official.name}
+          title={official.title}
+        />
+      ))}
+  </div>
       </div>
     </section>
   );

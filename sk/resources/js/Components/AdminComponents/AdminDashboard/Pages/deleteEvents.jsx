@@ -30,7 +30,7 @@ const DeleteEvents = ({ event_id  }) => {
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Yes, archive it',
       cancelButtonText: 'Cancel',
     });
 
@@ -41,7 +41,7 @@ const DeleteEvents = ({ event_id  }) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-    <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
+    <TrashIcon className="w-4 h-4 mr-2" /> Archive
     </div>
   );
 };

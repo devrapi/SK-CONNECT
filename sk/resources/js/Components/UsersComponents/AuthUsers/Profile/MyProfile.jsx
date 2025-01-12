@@ -17,12 +17,16 @@ import Swal from 'sweetalert2';
 
 const MyProfile = () => {
   const { user } = useContext(AppContext);
+  const { profiles } = useContext(AppContext);
 
   const defaultImage = '/img/default_user.jpg';
   const [image, setImage] = useState(user.image_path ? `/storage/${user.image_path}` : defaultImage);
   const [imageFile, setImageFile] = useState(null);
   const [dailyLogin, setDailyLogin] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const profile = profiles.find((p) => p.id === user.profile_id);
+
 
   async function getDailyLogin() {
     const res = await ApiService.get(`dailyLogin/${user.daily_login_id}`);
@@ -99,13 +103,13 @@ const MyProfile = () => {
             </div>
           </div>
           {imageFile && !isUploading && (
-            <Button color="green" onClick={handleSubmit} size="sm">
+            <Button color="blue" onClick={handleSubmit} size="sm">
               Save Avatar
             </Button>
           )}
           {isUploading && <Typography variant="small" color="green">Uploading...</Typography>}
           <Typography variant="h5" color="white">
-            {user.name}
+            {profile?.full_name || user.name} {/* Display profile.full_name if available */}
           </Typography>
           <Typography variant="small" color="white">
             {user.email}

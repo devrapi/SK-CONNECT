@@ -118,7 +118,7 @@ function AreaChart({ height = 350, series, colors, options }) {
 export function LineChart() {
   return (
     <section className="">
-      <Card>
+      <div>
         <CardBody className="!p-2">
           <div className="flex gap-2 flex-wrap justify-between px-4 !mt-4 ">
             <Typography variant="h3" color="blue-gray" className="font-custom">
@@ -181,7 +181,7 @@ export function LineChart() {
           </div> */}
 
         </CardFooter>
-      </Card>
+      </div>
     </section>
   );
 }

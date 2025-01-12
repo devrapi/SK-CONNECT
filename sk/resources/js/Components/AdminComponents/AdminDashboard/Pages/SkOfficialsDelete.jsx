@@ -18,12 +18,12 @@ const SkOfficialsDelete = ({id}) => {
       const confirmDelete = async () => {
         const result = await MySwal.fire({
           title: 'Are you sure?',
-          text: 'This Sk Official will be permanently deleted!',
+          text: 'This Sk Official will be Archived!',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
           cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Yes, delete it!',
+          confirmButtonText: 'Yes, Archive it!',
           cancelButtonText: 'Cancel',
         });
 
@@ -34,7 +34,7 @@ const SkOfficialsDelete = ({id}) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-    <TrashIcon className="w-4 h-4 mr-2" /> Delete Sk Officials
+    <TrashIcon className="w-4 h-4 mr-2" /> Archive
     </div>
   )
 }

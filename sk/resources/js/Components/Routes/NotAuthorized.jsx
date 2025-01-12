@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NotAuthorized = () => {
   return (
@@ -12,13 +13,17 @@ const NotAuthorized = () => {
             Something's missing.
           </p>
           <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-            Sorry, we can't find that page. You'll find lots to explore on the home page.
+            Sorry, you don't have access to this page. Click the button below to navigate back to the home page.
           </p>
-
+          <Link to="/">
+            <button className="px-6 py-2 mt-4 text-lg font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">
+              Go to Home
+            </button>
+          </Link>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default NotAuthorized
+export default NotAuthorized;

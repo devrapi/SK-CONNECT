@@ -74,9 +74,10 @@ const PieChart = () => {
       dataLabels: {
         enabled: true,
         formatter: (val, opts) => {
-          const percentage = ((val / total) * 100).toFixed(1);
-          return `${percentage}%`;
-        },
+            const total = opts.w.globals.series.reduce((acc, num) => acc + num, 0); // Sum of all data points
+            const percentage = ((val / total) * 10).toFixed(1); // Calculate percentage
+            return `${percentage}%`; // Return the percentage
+          },
       },
       colors: ["#1e88e5", "#ff8f00", "#00897b", "#d81b60", "#ff5252"],
       legend: {
@@ -87,7 +88,7 @@ const PieChart = () => {
   };
 
   return (
-    <Card>
+    <div>
       <CardHeader
         floated={false}
         shadow={false}
@@ -113,7 +114,7 @@ const PieChart = () => {
           <Chart {...chartConfig} />
         </div>
       </CardBody>
-    </Card>
+    </div>
   );
 };
 

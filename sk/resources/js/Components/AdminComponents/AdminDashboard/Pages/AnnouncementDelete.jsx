@@ -17,12 +17,12 @@ const AnnouncementDelete = ({id}) => {
       const confirmDelete = async () => {
         const result = await Swal.fire({
           title: 'Are you sure?',
-          text: 'This Post will be permanently deleted!',
+          text: 'This Post will be archive!',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
           cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Yes, delete it!',
+          confirmButtonText: 'Yes, archive it',
           cancelButtonText: 'Cancel',
         });
 
@@ -33,7 +33,7 @@ const AnnouncementDelete = ({id}) => {
 
   return (
     <div className='flex' onClick={confirmDelete}>
-     Delete
+     Archive
     </div>
   )
 }

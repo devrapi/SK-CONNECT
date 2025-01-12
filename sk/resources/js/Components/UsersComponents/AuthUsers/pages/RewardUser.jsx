@@ -26,7 +26,7 @@ const RewardUser = () => {
     const hasReachedClaimLimit = user.reward_claimed_count >= 3;
 
     return (
-        <div className="container pb-6 mx-auto space-y-8">
+        <div className="pb-6 mx-auto max-w-screen-xl space-y-8">
             {/* Header */}
             <div className="text-center">
                 <Typography variant="h4" className="font-bold text-gray-800 uppercase font-custom">
@@ -40,17 +40,17 @@ const RewardUser = () => {
             {/* Filter Buttons */}
             <div className="flex justify-center space-x-4">
                 {['All', 'Basic', 'Classic', 'Premium'].map((category) => (
-                    <Button
-                        key={category}
-                        onClick={() => filterRewards(category)}
-                        className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 rounded-full font-custom ${
-                            selectedCategory === category
-                                ? 'bg-green-700 text-white'
-                                : 'bg-green-100 text-green-700 hover:bg-green-200'
-                        }`}
-                    >
-                        {category}
-                    </Button>
+                   <Button
+                   key={category}
+                   onClick={() => filterRewards(category)}
+                   className={`px-4 py-2 text-sm font-medium capitalize transition duration-300 rounded-full font-custom ${
+                       selectedCategory === category
+                           ? 'bg-green-700 text-white'
+                           : 'bg-green-100 text-green-700 hover:bg-green-200'
+                   }`}
+               >
+                   {category}
+               </Button>
                 ))}
             </div>
 
@@ -59,30 +59,36 @@ const RewardUser = () => {
                 {filteredRewards.map((reward) => (
                     <Card
                         key={reward.id}
-                        className="max-w-md p-4 mx-auto transition-transform transform rounded-lg shadow-md hover:shadow-xl hover:scale-105 bg-white"
+                        className="relative w-full mx-auto mt-4 transition-transform duration-300 hover:scale-105"
                     >
                         {/* Reward Name */}
-                        <div className="mb-4 text-center">
-                            <Typography variant="h5" className="font-bold text-gray-700 font-custom">
-                                {reward.name}
-                            </Typography>
+                        <div className="w-full overflow-hidden rounded-md h-60">
+                            <img
+                                src={`/storage/${reward.image_path}` || '/path/to/placeholder.jpg'}
+                                alt={reward.name}
+                                className="object-cover w-full h-full"
+                            />
                         </div>
 
                         {/* Reward Image */}
-                        <div className="relative w-full overflow-hidden rounded-lg h-60">
+                        {/* <div className="relative w-full h-60 overflow-hidden rounded-lg">
                             <img
                                 src={`/storage/${reward.image_path}`}
                                 alt={reward.name}
                                 className="object-cover w-full h-full"
                                 loading="lazy"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Reward Details */}
-                        <CardBody className="px-4 py-4">
-                            <Typography color="gray" className="mb-3 text-sm truncate font-custom">
+                        <CardBody className='font-custom'>
+                        <Typography variant="h5" color="blue-gray" className="mb-2 truncate font-custom">
+                                {reward.name}
+                            </Typography>
+                            <Typography className="mb-2 text-sm text-gray-600 truncate font-custom">
                                 {reward.description}
                             </Typography>
+
 
                             <div className="flex items-center justify-between text-sm font-custom">
                                 <div className="flex items-center">

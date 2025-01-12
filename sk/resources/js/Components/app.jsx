@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import RoutesComponents from './Routes/RoutesComponents'
-const app = () => {
+const App = () => {
   return (
     <BrowserRouter>
         <RoutesComponents/>
@@ -9,4 +9,4 @@ const app = () => {
   )
 }
 
-export default app
+export default App

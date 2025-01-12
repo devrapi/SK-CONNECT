@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ApiService from '../../Services/ApiService';
 import { AppContext } from '../../Context/AppContext';
 import Swal from 'sweetalert2';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 import {
   Button,
@@ -15,6 +16,7 @@ import {
 } from '@material-tailwind/react';
 
 const NewLogin = () => {
+    const [showPassword, setShowPassword] = useState(false);
   const { setToken, setRole } = useContext(AppContext);
   const [form, setForm] = useState({
     email: '',
@@ -25,6 +27,8 @@ const NewLogin = () => {
 
   const [openLogin, setOpenLogin] = useState(false);
   const handleOpenLogin = () => setOpenLogin((cur) => !cur);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,8 +126,16 @@ const NewLogin = () => {
               label="Password"
               size="lg"
               color="green"
-              type="password"
+              type={showPassword ? "text" : "password"}
+              name="password"
               value={form.password}
+              icon={
+                showPassword ? (
+                    <EyeSlashIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility} />
+                ) : (
+                    <EyeIcon className="w-5 h-5 cursor-pointer" onClick={togglePasswordVisibility} />
+                )
+            }
               onChange={(event) => setForm({ ...form, password: event.target.value })}
             />
             {errors.password && (

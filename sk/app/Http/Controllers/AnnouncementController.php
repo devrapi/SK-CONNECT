@@ -138,4 +138,32 @@ class AnnouncementController extends Controller
             $like = Like::where('announcement_id', $announcementId)->with('user')->get();
             return response()->json($like);
         }
+
+        public function destroyComment($id)
+    {
+        try {
+            // Find the comment by ID
+            $comment = Comment::findOrFail($id);
+
+            // Check if the logged-in user is the owner of the comment
+            // if ($comment->user_id !== Auth::id()) {
+            //     return response()->json([
+            //         'message' => 'Unauthorized: You can only delete your own comments.'
+            //     ], 403);
+            // }
+
+            // Delete the comment
+            $comment->delete();
+
+            return response()->json([
+                'message' => 'Comment deleted successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to delete the comment.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
 }

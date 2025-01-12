@@ -23,7 +23,7 @@ export default function AppProvider({children}){
     // const[like , setLike] = useState({});
     const[success , setSuccess] = useState(false);
     const [role , setRole] = useState(localStorage.getItem('role'));
-    const[officials,setOfficials] = useState([]);
+    const[officials,setOfficials] = useState({});
 
 
 

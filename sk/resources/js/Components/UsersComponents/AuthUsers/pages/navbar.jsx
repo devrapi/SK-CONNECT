@@ -138,7 +138,7 @@ const navListItems = [
     const location = useLocation();
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 w-full bg-white border-t border-gray-200 shadow-md lg:hidden rounded-t-3xl">
+        <div className="fixed bottom-0 left-0 right-0 w-full bg-green-50 border-t border-gray-300 shadow-xl rounded-b-xl lg:hidden rounded-t-3xl">
         <ul className="flex items-center justify-between px-6 py-4 ">
           {navListItems.map(({ label, icon, path }) => (
             <Link
@@ -164,7 +164,7 @@ const navListItems = [
     return (
         <>
         {/* Top Navbar for large screens */}
-        <div className="max-w-screen-xl p-2 mx-auto shadow-sm lg:pl-6 rounded-b-xl">
+        <div className="max-w-screen-xl p-2 mx-auto shadow-sm lg:pl-6   border-b border-gray-300">
           <div className="relative flex items-center justify-between mx-auto text-blue-gray-900">
             {/* Star Icon with Points */}
             <div className='flex'>

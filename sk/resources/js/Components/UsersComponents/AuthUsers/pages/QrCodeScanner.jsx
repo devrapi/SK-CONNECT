@@ -139,9 +139,12 @@ const QrCodeScanner = () => {
           <Button
             color="red"
             onClick={() => {
-              setMessage(null);
-              setError(null);
-              setQrCode(null);
+                setMessage(null);
+                setError(null);
+                setQrCode(null);
+
+                // Reload the current page
+                window.location.reload();
             }}
             className="w-full px-6 sm:w-auto flex items-center gap-2"
           >

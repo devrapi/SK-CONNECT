@@ -64,7 +64,7 @@ const Rewards = () => {
                 });
 
                 // Reload the page after the alert is closed
-                window.location.reload();
+                navigate("/admin/dashboard/avail-rewards")
               }
 
             setForm({

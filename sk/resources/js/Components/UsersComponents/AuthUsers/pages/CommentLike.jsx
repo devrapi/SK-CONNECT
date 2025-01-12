@@ -5,6 +5,8 @@ import { Typography, Button, Textarea, Avatar } from "@material-tailwind/react";
 import ApiService from '../../../Services/ApiService';
 import { AppContext } from '../../../Context/AppContext';
 import moment from 'moment';
+import {TrashIcon} from '@heroicons/react/24/solid';
+import Swal from 'sweetalert2';
 
 
 const CommentLike = ({ AnnounceId }) => {
@@ -99,6 +101,37 @@ const CommentLike = ({ AnnounceId }) => {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      // Show confirmation dialog
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
+
+      if (result.isConfirmed) {
+        // Proceed with deletion if confirmed
+        await ApiService.delete(`/announcement/comment/${commentId}`);
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentId)
+        );
+
+        // Show success message
+        Swal.fire('Deleted!', 'Your comment has been deleted.', 'success');
+      }
+    } catch (error) {
+      console.error('Failed to delete comment:', error);
+
+      // Show error message
+      Swal.fire('Error!', 'Failed to delete the comment. Please try again.', 'error');
+    }
+  };
+
 
 
   return (
@@ -140,33 +173,59 @@ const CommentLike = ({ AnnounceId }) => {
         )}
 
         {/* Display comments only when showAllComments is true */}
-        {showAllComments && comments.map((comment) => (
-          <div key={comment.id} className="flex items-start gap-4 p-2 mb-1">
-            {/* Display user avatar */}
-            <div className='items-center '>
-              <Avatar
-                src={comment.user.image_path ? `/storage/${comment.user.image_path}` : '/img/default_user.jpg'}
-                alt={comment.user.name}
-                className="w-10 h-10 rounded-full"
-              />
-            </div>
-            <div className='flex flex-col'>
+        {showAllComments &&
+  comments.map((comment) => (
+    <div key={comment.id} className="flex items-start gap-4 p-2 mb-1">
+      {/* Display user avatar */}
+      <div className="items-center">
+        <Avatar
+          src={
+            comment.user.image_path
+              ? `/storage/${comment.user.image_path}`
+              : '/img/default_user.jpg'
+          }
+          alt={comment.user.name}
+          className="w-10 h-10 rounded-full"
+        />
+      </div>
+      <div className="flex flex-col flex-1">
+        <div className="px-4 py-2 bg-gray-100 rounded-3xl flex justify-between">
+        <div>
+        <Typography variant="small" component="span" className="font-semibold">
+            {comment.user.name}
+          </Typography>
+          <Typography variant="small" component="span" className="text-gray-700">
+            {comment.comment}
+          </Typography>
 
-            <div className='px-4 py-2 bg-gray-100 rounded-3xl'>
-                <Typography variant="small" component="span" className="font-semibold">{comment.user.name}</Typography>
-                <Typography variant="small" component="span" className="text-gray-700">{comment.comment}</Typography>
-            </div>
-            <div>
-                <Typography variant="small" component="span" className="ml-4 text-xs text-gray-500">
-                {moment(comment.created_at).fromNow()}
-                </Typography>
-            </div>
-            </div>
+        </div>
 
 
-            </div>
+          <div className='flex justify-end items-center '>
+          {comment.user.id === user.id && (
 
-        ))}
+            <TrashIcon  onClick={() => handleDeleteComment(comment.id)}
+            className="text-gray-600 hover:text-red-500 w-6 h-6"/>
+
+            )}
+          </div>
+
+        </div>
+
+        <div className="flex items-center justify-between mt-1">
+          <Typography
+            variant="small"
+            component="span"
+            className="ml-4 text-xs text-gray-500"
+          >
+            {moment(comment.created_at).fromNow()}
+          </Typography>
+
+
+        </div>
+      </div>
+    </div>
+  ))}
 
         {/* Optionally hide comments again */}
         {showAllComments && comments.length > 0 && (

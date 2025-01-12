@@ -120,23 +120,10 @@ const Main = () => {
                 isScrolled ? "text-black" : "text-white"
               }`}
             >
-              <NavItem>
-                <RectangleStackIcon className="w-5 h-5 text-green-700" />
-                Features
-              </NavItem>
-              <NavItem>
-              <CommandLineIcon className="w-5 h-5 text-green-700" />
-
-                How it Works
-              </NavItem>
-              <NavItem>
-                <Squares2X2Icon className="w-5 h-5 text-green-700" />
-                Rules
-              </NavItem>
-              <NavItem>
-              <UserCircleIcon className="w-5 h-5 text-green-700" />
-                Teams
-              </NavItem>
+              <NavItem onClick={() => scrollToSection(features)}>Features</NavItem>
+            <NavItem onClick={() => scrollToSection(how)} >How it Works</NavItem>
+            <NavItem onClick={() => scrollToSection(faqsRef)}>Rules</NavItem>
+            <NavItem onClick={() => scrollToSection(teams)}>Teams</NavItem>
             </ul>
             <div className="flex items-center gap-4 mt-6 mb-4">
               <NewLogin />
@@ -182,6 +169,7 @@ const Main = () => {
           size="lg"
           color="green"
           className="px-8 py-4 font-semibold text-white transition-transform transform bg-green-700 rounded-full shadow-lg hover:bg-green-600 hover:scale-105"
+          onClick={() => scrollToSection(features)}
         >
           Get Involved Today
         </Button>
